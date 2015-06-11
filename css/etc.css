@@ -1,0 +1,31 @@
+@charset "utf-8";
+/* CSS Document */
+
+#videoSpan {width: 600px; height:350px; }
+
+#layer_popup_test_cmc
+				  { top: 50px; 
+					right:50px; 
+					width:300px; 
+					height:500px; 
+					position: absolute;
+					z-index: 100;
+					border-color: pink; 
+					background-color: white; }
+
+#layer_popup_test_bag
+				  { top: 250px; 
+					right:50px; 
+					width:300px; 
+					height:500px;
+					position: absolute;
+					z-index: 99; 
+					border-color: pink; 
+					background-color: white; }
+
+.popup_fv {
+				top: 0px;
+				left: 0px;
+				position: absolute;
+				z-index: 2000;
+		  }

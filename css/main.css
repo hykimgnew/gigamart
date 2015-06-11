@@ -1,0 +1,180 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	margin:0;
+	padding:0;
+	font-family:'YGO 540','Yoon 윤고딕 540_TT','Malgun Gothic', 'Verdana', 'sans-serif';
+	overflow:hidden; 
+	overflow-y:hidden; 
+	overflow-x:hidden;
+	text-shadow: 1px 1px #000;
+	word-spacing: -1px !important;
+	background-color:#000;
+}
+
+#content { margin: 0 auto; width:1100px; padding-top:100px; }
+
+img	{border: 0;}
+ul		{list-style:none; margin:0; padding:0;}
+.fl		{float:left;}
+.fr     {float:right;}
+
+#Main_bg	{
+	width:1280px;
+	height:720px;
+	background-image:url(../img/bg.png);
+	background-repeat:no-repeat;
+	z-index: 2;
+}
+
+.video {                                                                                                                                                                                   
+	position: absolute;                                                                                                                                                                    
+	width:1280px;                                                                                                                                                                            
+  	height: 720px;                                                                                                                                                                          
+}
+
+#player_bg {
+	width:1280px;
+	height:720px;
+	background-color:#2e2e2e;}
+
+.cleft {float:left; width:500px; }
+.cright {float:right;width:500px;}
+
+.movie {border:1px solid #ccc; width:196px ; height: 196px; background-image: url(../img/sample.png)}
+
+.cleft > ul > li {width:200px ; height: 260px; float:left; padding: 0 50px 30px 0 ; }
+.cright > ul > li {width:200px ; height: 260px; float:left; padding: 0 0 30px 50px; }
+
+.info {width:200px; }
+.text {width:200px; height:18px; color:#ccc; margin:10px 0 0 0; font-size:18px; white-space:nowrap; text-overflow: ellipsis; overflow: hidden;}
+.time {padding-top:10px; color:#ddd;}
+
+.select {
+	background-image:url(../img/bg_select.png);
+	background-repeat:no-repeat;
+	position:absolute;
+	width:229px;
+	height:295px;
+	z-index:100000;
+}
+
+.grayscale {
+	 filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+}
+
+.cleft .movieInfoPanel:nth-child(1) .select {
+	left:77px;
+	top:88px;
+}
+.cleft .movieInfoPanel:nth-child(2) .select {
+	left:327px;
+	top:88px;
+}
+
+.cleft .movieInfoPanel:nth-child(3) .select {
+	left:77px;
+	top:378px;
+}
+.cleft .movieInfoPanel:nth-child(4) .select {
+	left:327px;
+	top:378px;
+}
+
+.cright .movieInfoPanel:nth-child(1) .select {
+	left:727px;
+	top:88px;
+}
+.cright .movieInfoPanel:nth-child(2) .select {
+	left:977px;
+	top:88px;
+}
+
+.cright .movieInfoPanel:nth-child(3) .select {
+	left:727px;
+	top:378px;
+}
+.cright .movieInfoPanel:nth-child(4) .select {
+	left:977px;
+	top:378px;
+}
+.movie_b {width:1280px; height:720px;}
+
+#speed 
+ {
+	position:absolute;
+	left:1085px;
+	top:21px;
+	width:175px;
+	height:60px;
+	z-index:1;
+	font-size:50px;
+	color:#fff;
+}
+#controller {
+	width:622px;
+	height:122px;
+	background-image:url(../img/player_bg.png);
+	background-repeat:no-repeat;
+	position:absolute;
+	left:329px;
+	top:557px;
+	z-index:2;
+}
+
+.info2 { padding:20px 20px 20px 25px}
+.title {font-size:18px ; color:#fff}
+
+.Box_bar	{
+	padding:10px 0 0 0;
+	font-size:15px !important;
+	text-shadow: 1px 1px #000 !important;
+}
+.ch_L				{float:left; color:#ccc !important; }
+.ch_R				{float:left; color:#ccc !important; }
+
+.rBox	{
+	background:#222;
+	padding:1px;
+	margin:4px 9px 0;
+	width:450px;
+	height:6px;
+	font:3px !important;
+}
+
+.rBar	{
+	background:#ff4200;
+	padding:0;
+	margin:0;
+	height:6px;
+	font:3px !important;
+}
+.btn { margin:auto; width:340px;}
+.btn li {float:left; padding: 10px 15px;}
+
+
+
+#circle {
+	position:absolute;
+	width:20px;
+	height:23px;
+	z-index:5;
+}
+
+#parameter {
+	position:absolute;
+	color:#FFFFFF;
+	width:622px;
+	height:122px;
+	background-image:url(../img/player_bg.png);
+	background-repeat:no-repeat;
+	left:20px;
+	top:20px;
+	padding-left: 10px;
+	z-index:2;
+	font-size:24px !important;
+	line-height: 40px;
+}

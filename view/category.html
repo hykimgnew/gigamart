@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="../css/global.css" rel="stylesheet" type="text/css" />
+    <title>GiGA마트</title>
+</head>
+
+<body>
+	<div id="wrap" class="bg_fruits">
+		<div id="brand">
+			<h1><img src="../images/logo_gigamart.png" /></h1>
+			<h2>쇼퍼가 하나로마트에서 직접 골라드립니다</h2>
+			<h3>
+				<span><img src="../images/s_bg_left.png" /></span><span class="sbg">당일배송 <img src="../images/s_icon_car.png" /></span><span><img src="../images/s_bg_right.png" /></span>
+			</h3>
+		</div>
+
+		<div id="content">
+			<div class="content_left">
+				<div class="top_icon">
+					<ul>
+						<li name="category_menu"><a href="#"><img src="../images/m_mymart.png" /></a></li>
+						<li name="category_menu"><a href="#"><img src="../images/m_voice.png" /></a></li>
+						<li name="category_menu"><a href="#"><img src="../images/m_orderhistory.png" /></a></li>
+					</ul>
+				</div>
+				<div class="category">
+					<ul>
+						<li name="category_menu"><a href="#"><img src="../images/cate_bag.png" /> <span>쇼퍼's bag</span></a></li>
+						<li name="category_menu"><a href="#"><img src="../images/cate_fruit.png" /> <span>과일</span></a></li>
+						<li name="category_menu"><a href="#"><img src="../images/cate_vegetable.png" /> <span>채소</span></a></li>
+						<li name="category_menu"><a href="#"><img src="../images/cate_milk.png" /> <span>유제품/두부/계란</span></a></li>
+						<li name="category_menu"><a href="#"><img src="../images/cate_meat.png" /> <span>정육</span></a></li>
+						<li name="category_menu"><a href="#"><img src="../images/cate_fish.png" /> <span>수산물/건어물</span></a></li>
+						<li name="category_menu"><a href="#"><img src="../images/cate_rice.png" /> <span>쌀/잡곡/견과</span></a></li>									
+						<li name="category_menu"><a href="#"><img src="../images/cate_health.png" /> <span>건강/친환경/유기농</span></a></li>									
+						<li name="category_menu"><a href="#"><img src="../images/cate_processing.png" /> <span>가공식품</span></a></li>									
+					</ul>
+				</div>
+
+			</div>
+			<!-- content_left END -->
+
+			<!-- content_right START -->
+			<div class="content_right">
+				<div id="sub_content" class="sub_content" style="display:block;">
+					<div id="content_category" class="content_category">
+						<a id="arrow_top" href="#" class="arrow_top"></a>
+						<ul id="cc_list" class="cc_list">	
+							<!-- 쇼퍼's bag, 혹은 서브 메뉴 -->
+						</ul>
+						<a id="arrow_bottom" href="#" class="arrow_bottom"></a>
+					</div>
+
+					<div class="content_vod">
+						<p class="cv_title">당일 판매현장 오전 10시 42분</p>
+						<div class="cv_vod" id="videoDiv">
+							<a href="#" class="btn_play"><img src="../images/btn_play.png" /></a>
+							<img src="../images/sample_01.jpg" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--- content_right END -->
+		
+		</div>
+		<!-- content END -->
+
+
+		<div id="common">
+			<ul>
+				<li class="cm_cart">
+					<img src="../images/bottom_cart.png" />
+					<img src="../images/bottom_cart_icon.png" />
+					<span class="cmc">										
+						<b>
+							<span><img src="../images/bottom_cart_bg_left.png" /></span>
+							<span id="cmc_num" class="cmc_num">0</span><span><img src="../images/bottom_cart_bg_right.png" /></span>
+							<span class="cmc_price">74,800원</span>
+						</b>
+					</span>									
+				</li>
+				<li class="pd_r20"><img src="../images/bottom_home.png" /></li>
+				<li><img src="../images/bottom_menu.png" /></li>
+			</ul>
+		</div>
+
+		<div id="layer_popup_test_cmc" style="display: none;">
+			<span class="cmc">
+				<strong>
+					간편 장바구니..
+				</strong>
+			</span>
+		</div>
+
+		<div id="layer_popup_test_bag" style="display: none;">
+			<span class="cmc">
+				<strong>
+					쇼퍼's bag..
+				</strong>
+			</span>
+		</div>
+
+		<!-- Common Function -->
+		<script type="text/javascript" src="../js/app.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" src="../js/commons/EventBus.js"></script>
+		<script type="text/javascript" src="../js/commons/Timer.js"></script>
+		<script type="text/javascript" src="../js/commons/Utils.js"></script>
+
+		<!-- Define Enumeration Classes-->
+		<script type="text/javascript" src="../js/commons/enums/ViewMode.js"></script>
+		<script type="text/javascript" src="../js/commons/enums/VideoType.js"></script>
+
+		<!-- UI Component Classes -->
+
+		<!-- Category Classes-->
+		<script type="text/javascript" src="../js/app/category/Category.js"></script>
+		<script type="text/javascript" src="../js/app/category/STBService.js"></script>
+		<script type="text/javascript" src="../js/app/category/KeyEventActorProvider.js"></script>
+
+		<!-- extends Library -->
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	</div>
+</body>
+
+</html>

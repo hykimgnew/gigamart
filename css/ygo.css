@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+
+
+
+
+@font-face {
+    font-family: ygo; 
+    src: url('ygo.eot');
+    src: local(※), url('ygo.woff') format('woff') 
+    }
+
+
