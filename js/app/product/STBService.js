@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- *  Category Js : STBService (셋탑박스 서비스 공통)
+ *  Product Js : STBService (셋탑박스 서비스 공통)
  **/
 App.defineClass('Gigamart.app.product.STBService', { 
 

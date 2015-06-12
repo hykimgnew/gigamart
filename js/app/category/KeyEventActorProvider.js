@@ -149,8 +149,8 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 // 상세 카테고리 일때
                 else if(currentFocusList == 1) {
                     if(videoPlayer.playState != 'undefined') {
-                    if(videoPlayer.playState != 0 ) this.videoStop(); // 영상 재생 중지
-                }
+                        if(videoPlayer.playState != 0 ) this.videoStop(); // 영상 재생 중지
+                    }
                     location.href ="/view/category_dtl.html";
                 }
 
