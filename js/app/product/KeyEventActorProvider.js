@@ -3,9 +3,9 @@
 var videoPlayer = window.oipfObjectFactory.createVideoMpegObject();
 
 /**
- *  Category Js : KeyEventActorProvider (키 이벤트 처리)
+ *  Product Js : KeyEventActorProvider (키 이벤트 처리)
  **/
-App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
+App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
     _construct: function() {
     	var me = this;
 
@@ -115,7 +115,12 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             if(keyCode == VK_RED) {
                 location.href ="/view/exhb.html"; // 기획전 이동
             }
-
+            // **************************************************
+            // * ◀|| KEY (카테고리 Go home)
+            // 
+            if(keyCode == VK_PLAY) {
+                location.href ="/view/category.html"; // 기획전 이동
+            }    
             // **************************************************
             // * 확인 KEY
             // **************************************************
@@ -139,10 +144,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
 
                 // 상세 카테고리 일때
                 else if(currentFocusList == 1) {
-                    if(videoPlayer.playState != 'undefined') {
-                    if(videoPlayer.playState != 0 ) this.videoStop(); // 영상 재생 중지
-                }
-                    location.href ="/view/category_dtl.html";
+                    //location.href ="/view/exhb.html";
                 }
             } 
 
@@ -154,129 +156,278 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 // * 위 KEY
                 // **************************************************
                 if(keyCode === global.VK_UP) {
-                    // 전체 카테고리 일때
+
+                    // 상세카테고리 1열
                     if(currentFocusList == 0) {
-                        // 쇼퍼주문이력이나 가공식품 사이일 때
-                        if(currentFocusMenu > 2 && currentFocusMenu <= 11) {
-                            $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("focus");
-                            currentFocusMenu = currentFocusMenu - 1; // 현재 메뉴 Focus 위치 감소
-                            $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
-
-                            this.menuRefresh();
-                            this.videoPlay("test", currentFocusMenu);
+                        if(currentFocusDtl1 == 0) { //1열 1번째
+                            if(prevPageYN == true) {
+                                // 전 페이지 조회
+                                console.log("상세카테고리 : 전 페이지 조회");
+                            }
+                            else if(prevPageYN == false) {
+                                // 전 페이지 없음
+                                console.log("상세카테고리  : 전 페이지 없음");
+                            }
+                        }
+                        else if(currentFocusDtl1 >= 1) {
+                            $('li[name="li_discount1"]').eq(currentFocusDtl1).removeClass('focus');
+                            $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dm_bdr').empty();
+                            
+                            currentFocusDtl1 = currentFocusDtl1 - 1;
+                            $('li[name="li_discount1"]').eq(currentFocusDtl1).addClass('focus');
+                            $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dm_bdr').append(btnokfill);
                         }
                     }
 
-                        // 쇼퍼's bag 표시
-                        /*if(currentFocusMenu == 3) {
-                            $('#sub_content').hide();
-                            $('#sub_content_bag').show("slow");    
-                        }  
-                        if(currentFocusMenu > 3) {
-                            $('#sub_content_bag').hide();
-                            $('#sub_content').show("slow");    
-                        }*/
 
-                    // 상세 카테고리 일때
+
+                    //상세카테고리 2열
                     else if(currentFocusList == 1) {
-                        // 이전 페이지가 존재 할 때
-                        if(prevPageYN == true && currentFocusDtl == 0) {
-                            currentFocusDtlPage = currentFocusDtlPage - 1; // 페이지 값 감소
-
-                            this.menuRefresh(); // 메뉴 갱신
-
-                            currentFocusDtl = $('li[name="appendMenu"]').size() - 1;
-                            $('li[name="appendMenu"]').eq(currentFocusDtl).addClass("focus");
+                        if(currentFocusDtl2 == 0) {
+                            if(prevPageYN == true) {
+                                // 전 페이지 조회
+                                console.log("상세카테고리 : 전 페이지 조회");
+                            }
+                            else if(prevPageYN == false) {
+                                // 전 페이지 없음
+                                console.log("상세카테고리 : 전 페이지 없음");
+                            }
+                            
                         }
-
-                        else if(currentFocusDtl > 0) {
-                            $('li[name="appendMenu"]').eq(currentFocusDtl).removeClass("focus");
-                            currentFocusDtl = currentFocusDtl - 1;  // 현재 상세 카테고리 Focus 위치 감소
-                            $('li[name="appendMenu"]').eq(currentFocusDtl).addClass("focus");
-                        } 
-
-                        
+                        else if(currentFocusDtl2 >= 1) {
+                            $('li[name="li_discount2"]').eq(currentFocusDtl2).removeClass('focus');
+                            $('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').empty();
+                            currentFocusDtl2 = currentFocusDtl2 - 1;
+                            $('li[name="li_discount2"]').eq(currentFocusDtl2).addClass('focus');
+                            $('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').append(btnokfill);
+                        }
                     }
+
+                    // 상세카테고리 3열
+                    else if(currentFocusList == 2) {
+                        if(currentFocusDtl3 == 0) {
+                            if(prevPageYN == true) {
+                                // 전 페이지 조회
+                                console.log("상세카테고리 : 전 페이지 조회");
+                            }
+                            else if(prevPageYN == false) {
+                                // 전 페이지 없음
+                                console.log("상세카테고리 : 전 페이지 없음");
+                            }
+                            
+                        }
+                        if(currentFocusDtl3 >= 1) {
+                            $('li[name="li_discount3"]').eq(currentFocusDtl3).removeClass('focus');
+                            $('li[name="li_discount3"]:eq('+ currentFocusDtl3 + ') > .dm_bdr').empty();
+                            currentFocusDtl3 = currentFocusDtl3 - 1;
+                            $('li[name="li_discount3"]').eq(currentFocusDtl3).addClass('focus');
+                            $('li[name="li_discount3"]:eq('+ currentFocusDtl3 + ') > .dm_bdr').append(btnokfill);
+                        }
+                    }  
+                    //상세카테고리 화살표 버튼
+                    else if(currentFocusList == 3) {
+                        //아래쪽버튼 focus일때
+                        if(currentFocusBtn == 0) {
+                            $('li[name="mg_backward"]').removeClass('focus');  
+                            $('li[name="mg_forward"]').addClass('focus');  
+                            currentFocusBtn = 1;      
+                        }
+                    }    
+
+
+
+
                 }
 
                 // **************************************************
                 // * 아래 KEY
                 // **************************************************
                 if(keyCode === global.VK_DOWN) {
-                    // 전체 카테고리 일때
-                    if(currentFocusList == 0) {
-                        // 전체 카테고리 포커스 위치가 쇼퍼주문이력이나 가공식품 사이일 때
-                        if(currentFocusMenu >= 2 && currentFocusMenu < 11) {
-                            $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("focus");
-                            currentFocusMenu = currentFocusMenu + 1; // 현재 카테고리 Focus 위치 증가
-                            $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
+                   
+                   // 상세카테고리 1열
+                   if(currentFocusList == 0) {
+                        if(currentFocusDtl1 == 0 || currentFocusDtl1 == 1) {
+                            $('li[name="li_discount1"]').eq(currentFocusDtl1).removeClass('focus');
+                            $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dm_bdr').empty();
+                            currentFocusDtl1 = currentFocusDtl1 + 1;
+                            $('li[name="li_discount1"]').eq(currentFocusDtl1).addClass('focus');
+                            $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dm_bdr').append(btnokfill);
+                        }
+                        else if(currentFocusDtl1 == 2) {
+                            if(nextPageYN == true) {
+                                // 다음 페이지 조회
+                                console.log("내가 늘 사는 상품 지금 얼마? : 다음 페이지 조회");
+                            }
+                            else if(nextPageYN == false) {
+                                // 다음 페이지 없음
+                                console.log("내가 늘 사는 상품 지금 얼마? : 다음 페이지 없음");
+                            }
+                        }
+                   }
 
-                            this.menuRefresh();
-                            this.videoPlay("test", currentFocusMenu);
+                   // 상세카테고리 2열
+                   else if(currentFocusList == 1) {
+                        if(currentFocusDtl2 == 0 || currentFocusDtl2 == 1) {
+                            $('li[name="li_discount2"]').eq(currentFocusDtl2).removeClass('focus');
+                            $('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').empty();
+                            currentFocusDtl2 = currentFocusDtl2 + 1;
+                            $('li[name="li_discount2"]').eq(currentFocusDtl2).addClass('focus');
+                            $('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').append(btnokfill);
+                        }
+                        else if(currentFocusDtl2 == 2) {
+                            if(nextPageYN == true) {
+                                // 다음 페이지 조회
+                                console.log("내가 늘 사는 상품 지금 얼마? : 다음 페이지 조회");
+                            }
+                            else if(nextPageYN == false) {
+                                // 다음 페이지 없음
+                                console.log("내가 늘 사는 상품 지금 얼마? : 다음 페이지 없음");
+                            }
+                        }
+                   }
+
+                   // 상세카테고리 3열
+                   else if(currentFocusList == 2) {
+                        if(currentFocusDtl3 == 0 || currentFocusDtl3 == 1) {
+                            $('li[name="li_discount3"]').eq(currentFocusDtl3).removeClass('focus');
+                            $('li[name="li_discount3"]:eq('+ currentFocusDtl3 + ') > .dm_bdr').empty();
+                            currentFocusDtl3 = currentFocusDtl3 + 1;
+                            $('li[name="li_discount3"]').eq(currentFocusDtl3).addClass('focus');
+                            $('li[name="li_discount3"]:eq('+ currentFocusDtl3 + ') > .dm_bdr').append(btnokfill);
+                        }
+                        else if(currentFocusDtl3 == 2) {
+                            if(nextPageYN == true) {
+                                // 다음 페이지 조회
+                                console.log("내가 늘 사는 상품 지금 얼마? : 다음 페이지 조회");
+                            }
+                            else if(nextPageYN == false) {
+                                // 다음 페이지 없음
+                                console.log("내가 늘 사는 상품 지금 얼마? : 다음 페이지 없음");
+                            }
                         }
                     }
-                    // 상세 카테고리 일때
-                    else if(currentFocusList == 1) {
-                        if(nextPageYN == true && (currentFocusDtl == $('li[name="appendMenu"]').size() -1)) {
-                            currentFocusDtlPage = currentFocusDtlPage + 1; // 페이지 값 증가
-                            this.menuRefresh(); // 메뉴 갱신
-                            currentFocusDtl = 0;
-                            $('li[name="appendMenu"]').eq(currentFocusDtl).addClass("focus");
-                        }
 
-                        else if(currentFocusDtl < $('li[name="appendMenu"]').size() - 1) {
-                            $('li[name="appendMenu"]').eq(currentFocusDtl).removeClass("focus");
-                            currentFocusDtl = currentFocusDtl + 1;  // 현재 상세 카테고리 Focus 위치 증가
-                            $('li[name="appendMenu"]').eq(currentFocusDtl).addClass("focus");
+                     //상세카테고리 화살표 버튼
+                    else if(currentFocusList == 3) {
+                        //아래쪽버튼 focus일때
+                        if(currentFocusBtn == 1) {
+                            $('li[name="mg_forward"]').removeClass('focus');  
+                            $('li[name="mg_backward"]').addClass('focus');  
+                            currentFocusBtn = 0;      
                         }
-                    }
+                    }    
+
+
                 }
                 // **************************************************
                 // * 좌 KEY
                 // **************************************************
                 if(keyCode === global.VK_LEFT) {
-                    // 전체 카테고리 일때
+
+                    // 저렴한 상품 추천 -> 지금 이상품 이가격 or 지금 이상품 이가격(하단 오른쪽)
                     if(currentFocusList == 0) {
-                        // MyMart나 쇼퍼 주문이력 사이일 때
-                        if(currentFocusMenu > 0 && currentFocusMenu <= 2) {
-                            $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("focus");
-                            currentFocusMenu = currentFocusMenu - 1; // 현재 카테고리 Focus 위치 감소
-                            $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
-                        }
+                        // 저렴한 상품 (0,1) -> 지금 이상품 이가격
+                        /*if(currentFocusDtl1 == 0 || currentFocusDtl1 == 1) {
+                            $('li[name="li_discount1"]').eq(currentFocusDtl1).removeClass('focus');
+                            currentFocusList = 1;
+                            $('#s_scale').removeClass('focus');
+                        }*/
+
+                        // 저렴한 상품 (2) -> 지금 이상품 이가격(하단 오른쪽)
+                        /*if(currentFocusDtl1 == 0 || currentFocusDtl1 == 1 ||currentFocusDtl1 == 2) {
+                            $('li[name="li_discount1"]').eq(currentFocusDtl1).removeClass('focus');
+                            $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dm_bdr').empty();
+                            currentFocusList = 2;
+                            $('li[name="sl_menu"]').eq(3).addClass('focus');
+                        }*/
                     }
-                    // 상세 카테고리 일때
-                    else if(currentFocusList == 1) {
-                        $('li[name="appendMenu"]').eq(currentFocusDtl).removeClass("focus");
-                        currentFocusList = 0; // 전체 카테고리로 이동함
-                        currentFocusDtlPage = 0; // 페이지 값 초기화
-                        $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
+
+                    // 상세카테고리 열2 -> 상세카테고리 열1
+                    if(currentFocusList == 1) {
+                        $('li[name="li_discount2"]').eq(currentFocusDtl2).removeClass('focus');
+                        $('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').empty();
+                        currentFocusList = 0;
+                        currentFocusDtl1 = currentFocusDtl2; // 열2 선택 순서가 그대로 열1으로 이동
+                        $('li[name="li_discount1"]').eq(currentFocusDtl1).addClass('focus');
+                        $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dm_bdr').append(btnokfill);
                     }
+
+                    // 상세카테고리 열3 -> 상세카테고리 열2
+                    if(currentFocusList == 2) {
+                        $('li[name="li_discount3"]').eq(currentFocusDtl3).removeClass('focus');
+                        $('li[name="li_discount3"]:eq('+ currentFocusDtl3 + ') > .dm_bdr').empty();
+                        currentFocusList = 1;
+                        currentFocusDtl2 = currentFocusDtl3; // 열3 선택 순서가 그대로 열2로 이동
+                        $('li[name="li_discount2"]').eq(currentFocusDtl2).addClass('focus');
+                        $('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').append(btnokfill);
+                    }
+                    //back버튼/forward버튼 -> 카테고리 열3 
+
+                    if(currentFocusList == 3) {
+                            if(currentFocusBtn == 1) {
+                                $('li[name="mg_forward"]').removeClass('focus');  
+                                currentFocusBtn = 0;      
+                            }else{
+                                $('li[name="mg_backward"]').removeClass('focus'); 
+                            }
+                            currentFocusList = 2;
+                            //currentFocusDtl3 = currentFocusDtl2; 
+                            $('li[name="li_discount3"]').eq(currentFocusDtl3).addClass('focus');
+                            $('li[name="li_discount3"]:eq('+ currentFocusDtl3 + ') > .dm_bdr').append(btnokfill);
+                            
+                        }    
                 }
 
                 // **************************************************
                 // * 우 KEY
                 // **************************************************
                 if(keyCode === global.VK_RIGHT) {
-                    // 전체 카테고리 일때
+
+                    // 지금 이상품 이가격(하단) -> 지금 이상품 이가격(하단) or 저렴한 상품 추천
+                    /*if(currentFocusList == 2) {
+                        // 지금 이상품 이가격(하단) -> 지금 이상품 이가격(하단)
+                        if(currentFocusMenu < 3) {
+                            $('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
+                            currentFocusMenu = currentFocusMenu + 1;
+                            $('li[name="sl_menu"]').eq(currentFocusMenu).addClass('focus');
+                        }
+
+                        // 지금 이상품 이가격(하단 오른쪽)
+                        else if(currentFocusMenu == 3) {
+                            $('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
+                            currentFocusList = 3;
+                            $('li[name="li_discount1"]').eq(currentFocusDtl1).addClass('focus');
+                            $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dm_bdr').append(btnokfill);
+                        }
+
+                    }*/
+
+                    // 상세카테고리 열1 -> 상세카테고리 열2
                     if(currentFocusList == 0) {
-                        // MyMart나 음성검색일 때
-                        if(currentFocusMenu == 0 || currentFocusMenu == 1) {
-                            $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("focus");
-                            currentFocusMenu = currentFocusMenu + 1; // 현재 메뉴 Focus 위치 증가
-                            $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
-                        }
+                        $('li[name="li_discount1"]').eq(currentFocusDtl1).removeClass('focus');
+                        $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dm_bdr').empty();
+                        currentFocusList = 1;
+                        currentFocusDtl2 = currentFocusDtl1;
+                        $('li[name="li_discount2"]').eq(currentFocusDtl2).addClass('focus');
+                        $('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').append(btnokfill);
+                    }
 
-                        // 쇼퍼's Bag 일때
-                        if(currentFocusMenu == 3) {
-
-                        }
-                        // 과일에서 가공식품 사이일 때
-                        if(currentFocusMenu >= 4 && currentFocusMenu <= 11) {
-                            $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("focus");
-                            currentFocusList = 1; // 상세 카테고리로 이동함
-                            currentFocusDtl = 0; // 상세 카테고리의 첫번째로
-                            $('li[name="appendMenu"]').eq(currentFocusDtl).addClass("focus");
-                        }
+                    // 상세카테고리 열2 -> 상세카테고리 열3
+                    else if(currentFocusList == 1) {
+                        $('li[name="li_discount2"]').eq(currentFocusDtl2).removeClass('focus');
+                        $('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').empty();
+                        currentFocusList = 2;
+                        currentFocusDtl3 = currentFocusDtl2;
+                        $('li[name="li_discount3"]').eq(currentFocusDtl3).addClass('focus');
+                        $('li[name="li_discount3"]:eq('+ currentFocusDtl3 + ') > .dm_bdr').append(btnokfill);
+                    }
+                    //카테고리 열3 -> back버튼
+                    else if(currentFocusList == 2) {
+                        $('li[name="li_discount3"]').eq(currentFocusDtl3).removeClass('focus');
+                        $('li[name="li_discount3"]:eq('+ currentFocusDtl3 + ') > .dm_bdr').empty();
+                        currentFocusList = 3;
+                        currentFocusDtl3 = currentFocusDtl3;
+                        $('li[name="mg_backward"]').addClass('focus');   
                     }
                 }
 
