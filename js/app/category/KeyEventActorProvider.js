@@ -27,7 +27,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             // **************************************************
             // * 三 KEY (플로팅 장바구니)
             // **************************************************
-            if(keyCode == VK_GREEN) {
+            if(keyCode === global.VK_GREEN) {
                 isCart = false;
                 $('#wrap').html(cartHtml); // 백업한 html 을 다시 복구
 
@@ -39,6 +39,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                     if(videoPlayer.playState == 0 ) videoPlayer.play(1); // 영상 다시 재생
                 }*/
             }
+
             // **************************************************
             // * 확인 KEY
             // **************************************************
@@ -94,7 +95,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             // **************************************************
             // * 三 KEY (간편 장바구니)
             // **************************************************
-            if(keyCode == VK_GREEN) {
+            if(keyCode === global.VK_GREEN) {
 
                 if(currentFocusMenu >= 4) {
                     this.videoStop(); // 영상 재생 중지
@@ -102,7 +103,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 /*if(videoPlayer.playState != 'undefined') {
                     if(videoPlayer.playState != 0 ) this.videoStop(); // 영상 재생 중지
                 }
-*/
+                */
                 isCart = true;
                 cartHtml = $('#wrap').html(); // 간편 장바구니에 들어갈 부분의 html 백업 (간편 장바구니 해제 후에 다시 돌려두어야함)
                 $('#wrap').load("easy_cart.html");
@@ -110,9 +111,17 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             }
 
             // **************************************************
+            // * PLAY KEY (메뉴/카테고리)
+            // **************************************************
+            if(keyCode === global.VK_PLAY) {
+                /** 전체 카테고리로 이동 */
+                location.href = "/view/category.html";
+            }
+
+            // **************************************************
             // * ◀ KEY (플로팅 Go home)
             // **************************************************
-            if(keyCode == VK_RED) {
+            if(keyCode === global.VK_RED) {
                 location.href ="/view/exhb.html"; // 기획전 이동
             }
 
@@ -144,6 +153,12 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 }
                     location.href ="/view/category_dtl.html";
                 }
+
+                // 쇼퍼's Bag 일때
+                else if(currentFocusList == 2) {
+                    // 쇼퍼's Bag으로 이동
+                    location.href = "/view/shopper_bag.html";
+                }
             } 
 
             // **************************************************
@@ -162,20 +177,19 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             currentFocusMenu = currentFocusMenu - 1; // 현재 메뉴 Focus 위치 감소
                             $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
 
-                            this.menuRefresh();
-                            this.videoPlay("test", currentFocusMenu);
+                            // 쇼퍼's Bag
+                            if(currentFocusMenu == 3) {
+                                $('#sub_content').hide();
+                                $('#shopper_bag').show();
+                            }
+
+                            // 과일~가공식품
+                            if(currentFocusMenu >= 4) {
+                                this.menuRefresh();
+                                this.videoPlay("test", currentFocusMenu);
+                            }
                         }
                     }
-
-                        // 쇼퍼's bag 표시
-                        /*if(currentFocusMenu == 3) {
-                            $('#sub_content').hide();
-                            $('#sub_content_bag').show("slow");    
-                        }  
-                        if(currentFocusMenu > 3) {
-                            $('#sub_content_bag').hide();
-                            $('#sub_content').show("slow");    
-                        }*/
 
                     // 상세 카테고리 일때
                     else if(currentFocusList == 1) {
@@ -211,8 +225,22 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             currentFocusMenu = currentFocusMenu + 1; // 현재 카테고리 Focus 위치 증가
                             $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
 
-                            this.menuRefresh();
-                            this.videoPlay("test", currentFocusMenu);
+                            // 쇼퍼's Bag
+                            if(currentFocusMenu == 3) {
+                                $('#sub_content').hide();
+                                $('#shopper_bag').show();
+                            }
+
+                            // 과일~가공식품
+                            if(currentFocusMenu >= 4) {
+                                // 쇼퍼's Bag -> 과일
+                                if(currentFocusMenu == 4) {
+                                    $('#shopper_bag').hide();
+                                    $('#sub_content').show();
+                                } 
+                                this.menuRefresh();
+                                this.videoPlay("test", currentFocusMenu);    
+                            }
                         }
                     }
                     // 상세 카테고리 일때
@@ -251,6 +279,12 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                         currentFocusDtlPage = 0; // 페이지 값 초기화
                         $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
                     }
+                    // 쇼퍼's Bag 일때
+                    else if(currentFocusList == 2) {
+                        $('#sb_menu').removeClass("sb_menu_sel").addClass("sb_menu");
+                        currentFocusList = 0; // 전체 카테고리로 이동함
+                        $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
+                    }
                 }
 
                 // **************************************************
@@ -268,6 +302,9 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
 
                         // 쇼퍼's Bag 일때
                         if(currentFocusMenu == 3) {
+                            $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("focus");
+                            currentFocusList = 2; // 쇼퍼's Bag
+                            $('#sb_menu').removeClass("sb_menu").addClass("sb_menu_sel");
 
                         }
                         // 과일에서 가공식품 사이일 때
