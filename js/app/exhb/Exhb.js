@@ -24,6 +24,7 @@ var global = window;
  *  3 : 닫기
  **/
 var fvFocus = 1;
+var fvCode = ""; 
 
 //*************************************************
 // *  간편 장바구니 팝업
@@ -84,6 +85,12 @@ var currentFocusDtl3 = 0;
  **/
  var prevPageYN2 = false;
  var nextPageYN2 = false;
+
+
+ /**
+  * 내가 늘 사는 상품 지금 얼마? : 확인/상세/담기 
+  **/
+  var btnokfill = '<img src="../images/btn_ok_fill.png"/>';
 
 
 
