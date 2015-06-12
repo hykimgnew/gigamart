@@ -15,20 +15,29 @@ App.defineClass('Gigamart.app.full_video.KeyEventActorProvider', {
     getKeyEventActor: function (keyCode) {
     	var me = this;
 
-        console.log("############ keyCode " + keyCode);
+        console.log("############ 전체 영상보기 keyCode " + keyCode);
         
         // **************************************************
         // * 三 KEY (플로팅 장바구니)
         // **************************************************
-        if(keyCode == VK_GREEN) {
+        if(keyCode === global.VK_GREEN) {
 
         }
 
         // **************************************************
         // * ◀ KEY (플로팅 Go home)
         // **************************************************
-        if(keyCode == VK_RED) {
+        if(keyCode === global.VK_RED) {
+            /** 기획전으로 이동 */
+            location.href = "/view/exhb.html";
+        }
 
+        // **************************************************
+        // * PLAY KEY (메뉴/카테고리)
+        // **************************************************
+        if(keyCode === global.VK_PLAY) {
+            /** 전체 카테고리로 이동 */
+            location.href = "/view/category.html";
         }
 
         // **************************************************
