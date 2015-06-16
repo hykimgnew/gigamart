@@ -675,10 +675,27 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             success     : function(result) {
                 console.log("######## 주문 이력 결과 : " + JSON.stringify(result));
 
+                var generalYN   = false;
+                var productList = "";
+
                 $.each(result['orders'], function(index, entry) {
                     
                     console.log("###### JSON read 1 : " + entry['order_id']);
                     console.log("###### JSON read 1 : " + entry['receiver_name']);
+
+                    if(generalYN == false && entry['type'] == 'general') {
+                        generalYN = true;
+
+                        $('#order_date').html(entry['order_date']);
+                        $('#total_cost').html(entry['total_cost']);
+
+                        $.each(entry['ordered_product'], function(pindex, pentry) {
+                            productList += Number(pindex)+1 + "." + pentry['name']  + " " + pentry['cost'] + "원 " +  pentry['cnt'] + " " +  pentry['standard'] + "<br />";
+                        });
+
+                        $('#ordered_product').append(productList);
+                    }
+
                 });
             }
         });
