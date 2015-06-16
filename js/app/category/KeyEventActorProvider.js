@@ -10,7 +10,15 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
     	var me = this;
 
     	me.actors = [];
+        
+        // 영상 재생
+        this.videoPlay("test", currentFocusMenu);
 
+        // 메뉴 갱신
+        this.menuRefresh();
+        
+        // 당일 판매현장 시각
+        $('#cv_title').html("당일 판매현장 " + this.getCurrentDate());
     },
 
     // 화면 별 키 이벤트 관련 처리
@@ -131,12 +139,24 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             if (keyCode === global.VK_ENTER) {
                 // 전체 카테고리 일때
                 if(currentFocusList == 0) {
+                    // 쇼퍼 주문 이력
+                    if(currentFocusMenu == 2) {
+
+                        this.selectShopperHistory(); // 쇼퍼 주문 이력 조회
+
+                        $('#sub_content').hide();
+                        $('#shopper_bag').hide();
+                        $('#shopper_history').show();
+
+
+                    }
 
                     /*// 쇼퍼's bag
                     if(currentFocusMenu == 3) {
                         $('#sub_content').hide();
                         $('#sub_content_bag').show("slow");
                     }*/
+
                     // 과일에서 가공식품 사이일 때
                     if(currentFocusMenu >= 4 && currentFocusMenu <= 11) {
                         $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("focus");
@@ -165,6 +185,9 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             // * 좌 우 위 아래 KEY
             // **************************************************
             else if (keyCode >= global.VK_LEFT && keyCode <= global.VK_DOWN) {
+
+                $('#cv_title').html("당일 판매현장 " + this.getCurrentDate());
+
                 // **************************************************
                 // * 위 KEY
                 // **************************************************
@@ -177,9 +200,15 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             currentFocusMenu = currentFocusMenu - 1; // 현재 메뉴 Focus 위치 감소
                             $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
 
+                            // 쇼퍼 주문 이력
+                            if(currentFocusMenu == 2) {
+                                $('#sub_content').hide();
+                                $('#shopper_bag').hide();
+                            }
                             // 쇼퍼's Bag
                             if(currentFocusMenu == 3) {
                                 $('#sub_content').hide();
+                                $('#shopper_history').hide();
                                 $('#shopper_bag').show();
                             }
 
@@ -208,8 +237,16 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             currentFocusDtl = currentFocusDtl - 1;  // 현재 상세 카테고리 Focus 위치 감소
                             $('li[name="appendMenu"]').eq(currentFocusDtl).addClass("focus");
                         } 
+                    }
 
-                        
+                    // 쇼퍼 주문 이력 일때
+                    else if(currentFocusList == 3) {
+                        //  쇼퍼 리얼 타임 영상 연결
+                        if(histFocus == 3) {
+                            $('#shlr_close').removeClass("focus");
+                            histFocus = 2;
+                            $('#shlr_on').addClass("focus");
+                        }
                     }
                 }
 
@@ -225,9 +262,16 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             currentFocusMenu = currentFocusMenu + 1; // 현재 카테고리 Focus 위치 증가
                             $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
 
+                            // 쇼퍼 주문 이력
+                            if(currentFocusMenu == 2) {
+                                $('#sub_content').hide();
+                                $('#shopper_bag').hide();
+                            }
+
                             // 쇼퍼's Bag
                             if(currentFocusMenu == 3) {
                                 $('#sub_content').hide();
+                                $('#shopper_history').hide();
                                 $('#shopper_bag').show();
                             }
 
@@ -236,6 +280,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                                 // 쇼퍼's Bag -> 과일
                                 if(currentFocusMenu == 4) {
                                     $('#shopper_bag').hide();
+                                    $('#shopper_history').hide();
                                     $('#sub_content').show();
                                 } 
                                 this.menuRefresh();
@@ -258,6 +303,21 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             $('li[name="appendMenu"]').eq(currentFocusDtl).addClass("focus");
                         }
                     }
+
+                    // 쇼퍼 주문 이력 일때
+                    else if(currentFocusList == 3) {
+                        // 구매 상품 리스트
+                        if(histFocus == 1) {
+                            // TODO : 페이지 있으면 페이지 이동요..
+                        }
+
+                        //  쇼퍼 리얼 타임 영상 연결
+                        else if(histFocus == 2) {
+                            $('#shlr_on').removeClass("focus");
+                            histFocus = 3;
+                            $('#shlr_close').addClass("focus");
+                        }
+                    }
                 }
                 // **************************************************
                 // * 좌 KEY
@@ -270,6 +330,10 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("focus");
                             currentFocusMenu = currentFocusMenu - 1; // 현재 카테고리 Focus 위치 감소
                             $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
+
+                            // 쇼퍼 주문 이력 감춤
+                            histFocus = 0;
+                            $('#shopper_history').hide();
                         }
                     }
                     // 상세 카테고리 일때
@@ -285,6 +349,23 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                         currentFocusList = 0; // 전체 카테고리로 이동함
                         $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
                     }
+
+                    // 쇼퍼 주문 이력 일때
+                    else if(currentFocusList == 3) {
+                        // 구매 상품 리스트 일때
+                        if(histFocus == 1) {
+                            $('#li_shl_tb_b').removeClass("focus");
+                            currentFocusList = 0;
+                            histFocus = 0;
+                            $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
+                        }
+                        // 쇼퍼 리얼 타임 영상 연결 일때
+                        else if(histFocus == 2) {
+                            $('#shlr_on').removeClass("focus");
+                            histFocus = 1;
+                            $('#li_shl_tb_b').addClass("focus");
+                        }
+                    }
                 }
 
                 // **************************************************
@@ -298,21 +379,49 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("focus");
                             currentFocusMenu = currentFocusMenu + 1; // 현재 메뉴 Focus 위치 증가
                             $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
+
+                            // 쇼퍼 주문 이력
+                            if(currentFocusMenu == 1) {
+                                $('#sub_content').hide();
+                                $('#shopper_bag').hide();
+                                //$('#shopper_history').show();
+                            }
+                        }
+
+                        // 쇼퍼 주문 이력 일때
+                        else if(currentFocusMenu == 2) {
+                            this.selectShopperHistory(); // 쇼퍼 주문 이력 조회
+
+                            $('#shopper_history').show();
+                            $('#li_shl_tb_b').addClass("focus");
+                            currentFocusList = 3;
+                            histFocus = 1;
+                            $('li[name="category_menu"]').eq(currentFocusMenu).removeClass('focus');
                         }
 
                         // 쇼퍼's Bag 일때
-                        if(currentFocusMenu == 3) {
+                        else if(currentFocusMenu == 3) {
                             $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("focus");
                             currentFocusList = 2; // 쇼퍼's Bag
                             $('#sb_menu').removeClass("sb_menu").addClass("sb_menu_sel");
 
                         }
                         // 과일에서 가공식품 사이일 때
-                        if(currentFocusMenu >= 4 && currentFocusMenu <= 11) {
+                        else if(currentFocusMenu >= 4 && currentFocusMenu <= 11) {
                             $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("focus");
                             currentFocusList = 1; // 상세 카테고리로 이동함
                             currentFocusDtl = 0; // 상세 카테고리의 첫번째로
                             $('li[name="appendMenu"]').eq(currentFocusDtl).addClass("focus");
+                        }
+                    }
+
+                    // 쇼퍼 주문 이력 일때
+                    else if(currentFocusList == 3) {
+                        // 구매 상품 리스트
+                        if(histFocus == 1) {
+                            $('#li_shl_tb_b').removeClass("focus");
+                            histFocus = 2;
+                            $('#shlr_on').addClass("focus");
                         }
                     }
                 }
@@ -336,8 +445,42 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
 
     // 영상재생
     videoPlay: function(url, category) {
+
+        var categoryName = "";
+
+        switch(category) {
+            case 4 : 
+                categoryName = "과일";
+                break;
+            case 5 : 
+                categoryName = "채소";
+                break;
+            case 6 : 
+                categoryName = "유제품";
+                break;
+            case 7 : 
+                categoryName = "정육";
+                break;
+            case 8 : 
+                categoryName = "수산물";
+                break;
+            case 9 : 
+                categoryName = "쌀잡곡";
+                break;
+            case 10 : 
+                categoryName = "건강친환경";
+                break;
+            case 11 : 
+                categoryName = "가공식품";
+                break;
+            default : 
+                categoryName = "과일";
+                break;
+        }
+
         // 테스트용 영상
-        url = "http://14.52.244.91:8080/video/tv/category/" + (category - 3) + ".mp4";
+        url = "http://14.52.244.91:8080/video/tv/category/" + categoryName + ".mp4";
+        
         // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
         $('#videoDiv').empty().append('<img src="../images/sample_01.jpg" />');
         
@@ -492,5 +635,42 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
     		instance: instance,
     		conditionFunction: conditionFunction
     	});
+    },
+
+    // 현재 시간 구하기 (ampm)
+    getCurrentDate: function() {
+        var now = new Date();
+        var hour = now.getHours();
+        var minute = now.getMinutes();
+        var second = now.getSeconds();
+        var str_ampm, dsp_ampm;
+
+        if(hour == 0) str_ampm ="오후";
+        else if(hour < 13) str_ampm = "오전";
+        else {
+            hour -= 12;
+            str_ampm = "오후";
+        }
+        hour = (hour == 0) ? 12 : hour;
+
+        dsp_ampm = str_ampm + " " + hour + "시 " + minute + "분";
+
+        return dsp_ampm;
+    },
+    
+    // 조회 : 쇼퍼 주문 이력
+    selectShopperHistory: function() {
+        var param = '';
+
+        $.ajax({
+            url         : "http://14.52.244.91:8080/BuyerOrderTask/",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            success     : function(result) {
+                console.log(result);
+            }
+        });
     }
 });

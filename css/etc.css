@@ -31,3 +31,5 @@
 		  }
 
 .vod  .vod_area Object {width:970px; height:545px; }
+
+.shl_tb_b.focus {border-top:1px solid #FF6699; font-size:14px; color:#FF6699; text-align:left; height:160px; padding:30px 10px 55px; vertical-align:top; overflow:hidden; }

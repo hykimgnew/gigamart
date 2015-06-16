@@ -19,10 +19,26 @@ var global = window;
 var cartHtml = "";
 var cartFocus = 0;
 
+//*************************************************
+// *  쇼퍼 주문 이력 팝업
+// * histHtml = 쇼퍼 주문 이력 HTML
+// * histFocus = 쇼퍼 주문 이력 Focus 값
+// *  0 : 선택 안됐을 때
+// *  1 : 주문 이력
+// *  2 : 쇼퍼 리얼 타임 버튼
+// *  3 : 닫기
+// * histPage = 주문 이력 페이지
+//*************************************************
+var histHtml = "";
+var histFocus = 0;
+var histPage = 1;
+
 /** 
  *  현재 리스트 Focus 위치
  *  0 : 카테고리
  *  1 : 상세 카테고리
+ *  2 : 쇼퍼's bag
+ *  3 : 쇼퍼 주문 이력
  **/
 var currentFocusList = 0;
 
@@ -34,7 +50,7 @@ var currentFocusList = 0;
  *  3 : 쇼퍼's Bag
  *  4 : 과일... 
  **/    
-var currentFocusMenu = 3;
+var currentFocusMenu = 4;
 
 /**
  * 현재 상세카테고리 Focus 위치
@@ -58,6 +74,11 @@ var currentFocusDtlPage = 0;
  var nextPageYN = false;
 
 
+/***********************************
+ * CMS API 조회 데이터 
+ ***********************************/
+ var shopperHistoryContent = ""; // 쇼퍼 주문 이력
+
 
 global.onload = function() {
     global.Category = Gigamart.app.category.Category.create();
@@ -80,14 +101,11 @@ App.defineClass('Gigamart.app.category.Category', {
     },
     init: function() {
         $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
-        //addClass(document.querySelectorAll('category_menu')[currentFocusMenu], 'focus');
 
         var me = this;
         global.stbService = Gigamart.app.category.STBService.create(EventBus);
 
-
-        //me.videoObject = document.querySelector('#cate_bag');
-        //global.playerPanel = Gigamart.components.player.PlayerPanel.create();
-
     }
+        
+       
 });

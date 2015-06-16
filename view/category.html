@@ -44,8 +44,9 @@
 
 			<!-- content_right START -->
 			<div class="content_right">
+
 				<!-- category_dtl -->
-				<div id="sub_content" class="sub_content" style="display:none;">
+				<div id="sub_content" class="sub_content" style="display:block;">
 					<div id="content_category" class="content_category">
 						<a id="arrow_top" href="#" class="arrow_top"></a>
 						<ul id="cc_list" class="cc_list">	
@@ -55,7 +56,7 @@
 					</div>
 
 					<div class="content_vod">
-						<p class="cv_title">당일 판매현장 오전 10시 42분</p>
+						<p id="cv_title" class="cv_title"></p>
 						<div class="cv_vod" id="videoDiv">
 							<a href="#" class="btn_play"><img src="../images/btn_play.png" /></a>
 							<img src="../images/sample_01.jpg" />
@@ -64,7 +65,7 @@
 				</div>
 
 				<!-- shopper's Bag -->
-				<div id="shopper_bag" class="shopper_Bag" style="display:block;">
+				<div id="shopper_bag" class="shopper_Bag" style="display:none;">
 					<p class="shopper_Bag_tit">쇼퍼들의 생생한 정보를 볼 수 있는 쇼퍼’s Bag!</p>
 					<div id="sb_menu" class="sb_menu">
 						<ul>	
@@ -124,6 +125,74 @@
 						</ul>
 					</div>
 				</div>
+
+				<!-- 쇼퍼 주문 이력 -->
+				<div id="shopper_history" class="shopper_history" style="display:none; ">
+					<p class="shopper_history_tit">쇼퍼 주문 이력</p>
+					<div class="sh_list">
+						<ul>
+							<li class="shl_left">
+								<ul>
+									<li class="shl_tb_a">
+										<table width="100%" cellpadding="0" cellspacing="0" border="0" >
+											<tr>
+												<th class="bg_grayLine">구매일자</th>
+												<th class="bg_grayLine">주문금액</th>
+												<th>스토어</th>
+											</tr>
+											<tr>
+												<td class="bg_grayLine">2015.05.06 14:06</td>
+												<td class="bg_grayLine">56,300원</td>
+												<td>양재 하나로 마트</td>
+											</tr>
+										</table>
+									</li>
+									<li id="li_shl_tb_b" class="shl_tb_b">
+										<a href="#" class="arrow_top"></a>
+										<a href="#" class="arrow_bottom"></a>
+										<span class="page"><B>01</b> / 01</span>
+										<table width="100%" cellpadding="0" cellspacing="0" border="0" >
+											<tr>
+												<th>구매 상품 리스트</th>
+											</tr>
+											<tr>
+												<td>1. [아침마루] 싱싱한 토마토 5입  / 1봉<br />
+														2. [특가] [팔공상강한우] 채끝 500g (1등급/1+등급 선택)<br />
+														3. 모듬 상추<br />
+														4. [빙그레] 뽀로로와 친구들 액상 요구르트 (80ml *10개)<br />
+												</td>
+											</tr>
+										</table>
+									</li>
+								</ul>
+							</li>
+							<li class="shl_right">
+								<ul>
+									<li class="shlr_photo"></li>
+									<li class="shlr_id">ID : 살림짱 (후기 13)</li>
+									<li>
+										<img src="../images/icon_star.png" />
+										<img src="../images/icon_star.png" />
+										<img src="../images/icon_star.png" />
+										<img src="../images/icon_star.png" />
+										<img src="../images/icon_star_blank.png" />
+									</li>
+									<li id="shlr_on" class="shlr_on">
+										<b>ON</b>
+										<span>쇼퍼 리얼 타임<br />영상 연결</span>
+									</li>
+									<li id="shlr_close" class="shlr_close">닫기</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+
+
+
+				</div>
+
+
+
 			</div>
 			<!--- content_right END -->
 		
