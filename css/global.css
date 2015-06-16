@@ -4,6 +4,7 @@
 @import "etc.css";
 @import "effect.css";
 
+@charset "UTF-8";
 
 /* CSS Document */
 
@@ -137,14 +138,16 @@ a:hover, a:active{text-decoration:none;}
 
 
 
+
+
+
+
+
 #brand {margin:0 40px; padding-top:20px; position:relative;}
-#brand h1 {width:130px; float:left; text-align:center; }
+#brand h1 {width:140px; float:left; text-align:left; padding-left:10px; }
 #brand h2 {float:left; color:#fff; margin:10px 10px 0 0; font-weight:normal; font-size:20px; line-height:34px; height:34px;}
 #brand h3 { font-weight:normal; position:absolute; right:0px; padding:10px 0 0 0; height:34px;}
 #brand h3 .sbg {color:#fff; display:inline-block; line-height:30px; height:32px; background:#2b9330; position:relative; top:0px; font-size:16px;}
-
-
-
 
 
 
@@ -196,7 +199,7 @@ a:hover, a:active{text-decoration:none;}
 #common {clear:both; position:absolute; bottom:0px; right:40px; width:1200px; height:60px;  margin:0 auto; text-align:right; color:#ffffff; }
 #common li {display:inline-block;}
 #common li.cm_cart {position:relative;}
-#common li.cm_cart span.cmc {position:relative; left:-20px; z-index:100; top:-10px;}
+#common li.cm_cart span.cmc {position:relative; left:-20px; z-index:100; top:-10px; ;}
 #common li.cm_cart span.cmc span {position:relative;}
 #common li.cm_cart span.cmc span.cmc_num {background:url(../images/bottom_cart_bg_center.png); top:2px; height:32px; line-height:32px; display:inline-block;}
 #common li.cm_cart span.cmc_price {position:relative; top:12px; left:-5px;  font-weight:normal;}
@@ -257,30 +260,31 @@ a:hover, a:active{text-decoration:none;}
 
 
 
-#content .pj_right div.sc_project div.scp_right .discount_title {height:43px; padding-top:4px; color:#2b9330; font-size:24px;}
+#content .pj_right div.sc_project div.scp_right .discount_title {height:43px; line-height:38px;  font-size:24px; color:#2b9330;}
+#content .pj_right div.sc_project div.scp_right .discount_title li.left {width:321px;  border-bottom:4px solid #2b9330;  float:left;}
+#content .pj_right div.sc_project div.scp_right .discount_title li.right {width:171px; border-bottom:4px solid #2b9330;  float:right; }
 #content .pj_right div.sc_project div.scp_right .discount_top {height:45px; }
-#content .pj_right div.sc_project div.scp_right .discount_top li {display:inline-block; border-top:4px solid #2b9330; width:160px; color:#727272; font-size:12px;}
+#content .pj_right div.sc_project div.scp_right .discount_top li {display:inline-block; width:160px; color:#727272; font-size:12px; padding-top:5px; }
 #content .pj_right div.sc_project div.scp_right .discount_top li b {font-size:18px; display:block; }
 #content .pj_right div.sc_project div.scp_right .discount_list {position:relative; }
 #content .pj_right div.sc_project div.scp_right .discount_list .arrow_top {position:relative; height:20px; width:100%; display:inline-block; background:url(../images/arrow_top.png) center center no-repeat ;}
 #content .pj_right div.sc_project div.scp_right .discount_list .arrow_top.focus {position:relative; height:20px; width:100%; display:inline-block; background:url(../images/arrow_top_over.png) center center no-repeat ;}
 #content .pj_right div.sc_project div.scp_right .discount_list .arrow_bottom {position:relative; height:20px; width:100%; display:inline-block; background:url(../images/arrow_bottom.png) center center no-repeat ;}
 #content .pj_right div.sc_project div.scp_right .discount_list .arrow_bottom.focus {position:relative; height:20px; width:100%; display:inline-block; background:url(../images/arrow_bottom_over.png) center center no-repeat ;}
-
-
-#content .pj_right div.sc_project div.scp_right .discount_list .dl_menu {
-position:relative; width:152px; border-top:4px solid #ffffff; border-right:4px solid #ffffff; border-left:4px solid #ffffff; float:left; margin-bottom:4px; background:url(../images/bg_grline.png) repeat-x center bottom;}
-
-#content .pj_right div.sc_project div.scp_right .discount_list .dl_menu.focus {
-position:relative;width:152px; border-top:4px solid #2b9330; border-right:4px solid #2b9330; border-left:4px solid #2b9330; float:left; margin-bottom:4px; color:#ffffff; background:#2b9330;}
-
+#content .pj_right div.sc_project div.scp_right .discount_list .dl_menu {position:relative; width:152px; border-top:4px solid #ffffff; border-right:4px solid #ffffff; border-left:4px solid #ffffff; float:left; margin-bottom:10px; background:url(../images/bg_grline.png) repeat-x center bottom;}
+#content .pj_right div.sc_project div.scp_right .discount_list .dl_menu.focus {position:relative;width:152px; border-top:4px solid #2b9330; border-right:4px solid #2b9330; border-left:4px solid #2b9330; float:left; margin-bottom:4px; color:#ffffff; background:#2b9330;}
 #content .pj_right div.sc_project div.scp_right .discount_list .polygon_l {z-index:1000; position:absolute; top:0px; right:0px; background:url(../images/polygon_l.png) no-repeat; width:71px; height:21px; display:inline-block; text-align:center; color:#fff; line-height:21px; font-size:12px;}
-#content .pj_right div.sc_project div.scp_right .discount_list .dlm_img img {width:152px;}
+#content .pj_right div.sc_project div.scp_right .discount_list .dlm_img img {width:152px; height:152px;}
 #content .pj_right div.sc_project div.scp_right .discount_list .dlm_tit {line-height:18px; font-size:16px; width:152px; font:rgba(255,255,255,0.1);}
 #content .pj_right div.sc_project div.scp_right .discount_list .dlm_price {display:inline-block; font-size:20px; text-align:right; width:152px; height:32px;}
 #content .pj_right div.sc_project div.scp_right .discount_list  a.dlm_rank {position:absolute; top:0px; left:0px; width:44px; height:52px; padding-top:14px; display:inline-block; text-align:center; background:url(../images/polygon_b_gr.png) no-repeat; color:#ffffff; font-size:11px; }
 #content .pj_right div.sc_project div.scp_right .discount_list  a.dlm_rank b {font-size:20px;}
-#content .pj_right div.sc_project div.scp_right .discount_list .dm_bdr {position:absolute; display:inline-block; width:152px; top:53px; left:0px;}
+#content .pj_right div.sc_project div.scp_right .discount_list .dm_bdr {position:absolute; display:inline-block; width:152px; top:120px; left:0px;}
+#content .pj_right div.sc_project div.scp_right .discount_list .dl_menu_custom {position:absolute;width:152px; border-top:4px solid #FFFFFF; border-right:4px solid #FFFFFF; border-left:4px solid #FFFFFF; float:left; margin-bottom:4px;  top:0px; right:0px; }
+#content .pj_right div.sc_project div.scp_right .discount_list .dl_menu_custom .shooperImg {height:132px; text-align:Center; padding-top:5px; }
+#content .pj_right div.sc_project div.scp_right .discount_list .dl_menu_custom .shooperImg.focus {background:url(../images/img_border.png)no-repeat center center ;}
+#content .pj_right div.sc_project div.scp_right .discount_list .dl_menu_custom .custom { text-align:center; }
+#content .pj_right div.sc_project div.scp_right .discount_list .dl_menu_custom .custom .txt {height:33px; font-size:12px; color:#7b7b7b; text-align:left; overflow:hidden;  }
 
 
 
@@ -536,7 +540,7 @@ position:relative;width:152px; border-top:4px solid #2b9330; border-right:4px so
 
 /*쇼퍼’s Bag*/
 #brand_line {margin:0 40px; padding-top:20px; position:relative; height:50px; border-bottom:2px solid #2b9330;}
-#brand_line h1 {width:130px; float:left; text-align:center; }
+#brand_line h1 {width:140px; float:left; text-align:left; padding-left:10px; }
 #brand_line h2 {float:left; margin:10px 10px 0 0; font-weight:normal; font-size:20px; line-height:30px; height:34px;}
 #brand_line h2 span{color:#fff; font-weight:normal; color:#808080; font-size:18px; line-height:30px; height:34px;}
 #brand_line h3 { font-weight:normal; position:absolute; right:0px; padding:10px 0 0 0; height:34px;}
@@ -635,7 +639,7 @@ position:relative;width:152px; border-top:4px solid #2b9330; border-right:4px so
 
 /*상품정보*/
 #brand_gray {margin:0 40px; padding-top:20px; position:relative; height:50px; }
-#brand_gray h1 {width:130px; float:left; text-align:center; }
+#brand_gray h1 {width:140px; float:left; text-align:left; padding-left:10px; }
 #brand_gray h2 {float:left; margin:10px 10px 0 0; font-weight:normal; font-size:20px; line-height:30px; height:34px;}
 #brand_gray h2 span{color:#fff; font-weight:normal; color:#808080; font-size:18px; line-height:30px; height:34px;}
 #brand_gray h3 { font-weight:normal; position:absolute; right:0px; padding:10px 0 0 0; height:34px;}

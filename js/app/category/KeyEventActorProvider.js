@@ -669,8 +669,11 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             dataType    : "json",
             data        : param,
             async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
             success     : function(result) {
-                console.log(result);
+                console.log("######## 주문 이력 결과 : " + JSON.stringify(result));
             }
         });
     }

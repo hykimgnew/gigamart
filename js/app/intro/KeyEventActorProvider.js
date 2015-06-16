@@ -61,6 +61,10 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
             type        : "post",
             dataType    : "json",
             data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
             success     : function(result) {
                 console.log("############ 로그인 결과 : " + JSON.stringify(result));
 
@@ -74,13 +78,19 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
                 }
 
                 else if(result['resultCode'] == '0') {
-                    alert("로그인에 실패하였습니다.");
-                    return;
+                    console.log("############ 로그인 실패하였습니다.");
+                    location.href = "/view/exhb.html";  // 메인 화면으로 이동
+                    
+                    //alert("로그인에 실패하였습니다.");
+                    // return;
                 }
 
                 else {
-                    alert("셋탑박스를 확인해주시거나 고객센터로 문의해주세요.");
-                    return;
+                    console.log("############ 셋탑박스를 확인해주시거나 고객센터로 문의해주세요.");
+                    location.href = "/view/exhb.html";  // 메인 화면으로 이동
+
+                    //alert("셋탑박스를 확인해주시거나 고객센터로 문의해주세요.");
+                    // return;
                 }
                 
 
