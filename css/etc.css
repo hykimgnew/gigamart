@@ -33,3 +33,29 @@
 .vod  .vod_area Object {width:970px; height:545px; }
 
 .shl_tb_b.focus {border-top:1px solid #FF6699; font-size:14px; color:#FF6699; text-align:left; height:160px; padding:30px 10px 55px; vertical-align:top; overflow:hidden; }
+
+#wrap_chVolume{
+	position : absolute;
+	z-index: 99999;
+	top : 0px;
+	right : 0px;
+}
+.animation{
+		-webkit-transform: translate3d(-43px, 23px, 0);
+		-moz-transform: translate3d(-43px, 23px, 0);
+		transform: translate3d(-43px, 23px, 0);
+
+        -webkit-transition: all 0.1s ease-in-out;
+        -moz-transition: all 0.1s ease-in-out;
+        transition: all 0.1s ease-in-out;
+}
+
+.videobroadcast{
+	left : 0px;
+	top : 0px;
+	width : 1280px;
+	height : 720px;
+	z-index: 0;
+	visibility: hidden;
+}
+

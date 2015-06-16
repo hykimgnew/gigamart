@@ -4,10 +4,10 @@
 
 
 
-@font-face {
+/*@font-face {
     font-family: ygo; 
     src: url('ygo.eot');
     src: local(※), url('ygo.woff') format('woff') 
-    }
+    }*/
 
-
+@font-face{font-weight:normal; font-family:"'ygo'"; src:url('./css/ygo.woff') format('woff'); }

@@ -126,11 +126,21 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
             // **************************************************
             if (keyCode === global.VK_ENTER) {
                 console.log("############ VK_ENTER 1234");
+                console.log("currentFocusList"+currentFocusList);
+                console.log("currentFocusBtn"+currentFocusBtn);
                 // 상세 카테고리 일때
                 if(currentFocusList>=0 &&currentFocusList <= 2) {
-
-                console.log("############ VK_ENTER 2222");
+                    console.log("############ VK_ENTER 2222");
                     location.href ="/view/product1.html";
+                }
+                else if(currentFocusList == 3){
+                    console.log("아래쪽버튼 focus일때");
+                    //아래쪽버튼 focus일때
+                    if(currentFocusBtn == 0) {
+                        //$('div[name="sd_first"]').hide();
+                        //$('div[name="selDepth"]').addClass("animation");
+                        
+                    }    
                 }
             } 
 

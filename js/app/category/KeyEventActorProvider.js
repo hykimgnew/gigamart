@@ -171,6 +171,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                     if(videoPlayer.playState != 'undefined') {
                         if(videoPlayer.playState != 0 ) this.videoStop(); // 영상 재생 중지
                     }
+                    /*videobroadcast.style.visibility = hidden;*/
                     location.href ="/view/category_dtl.html";
                 }
 
