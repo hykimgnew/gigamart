@@ -674,6 +674,12 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             },
             success     : function(result) {
                 console.log("######## 주문 이력 결과 : " + JSON.stringify(result));
+
+                $.each(result['orders'], function(index, entry) {
+                    
+                    console.log("###### JSON read 1 : " + entry['order_id']);
+                    console.log("###### JSON read 1 : " + entry['receiver_name']);
+                });
             }
         });
     }
