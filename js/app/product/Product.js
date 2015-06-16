@@ -45,13 +45,20 @@ var fvFocus = 1;
 
 /** 
  *  버튼 focus 위치
- *  0 : 상세보기 
- *  1 : 찜하기
- *  2 : 장바구니 담기
- *  3 : +
- *  4 : -
+ *  0 : + / -
+ *  1 : 장바구니 담기
+ *  2 : 찜하기
+ *  3 : 상세보기
  **/
-var btFocus = 2;
+var btFocus = 1;
+
+
+/** 
+ *  +/-버튼 focus 위치
+ *  0 : -
+ *  1 : +
+ **/
+var pFocus = 1;
 
 /** 
  *  같은종류 추천상품 Focus 위치
@@ -140,7 +147,6 @@ App.defineClass('Gigamart.app.product.Product', {
         //$('ul[name="li_discount"] li').eq(currentFocusDtl1).addClass('focus');        
         $('li[name="add_cart"]').addClass('focus');
         
-
 
         global.stbService = Gigamart.app.product.STBService.create(EventBus);
 
