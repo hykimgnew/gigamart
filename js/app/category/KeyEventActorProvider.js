@@ -242,8 +242,20 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
 
                     // 쇼퍼 주문 이력 일때
                     else if(currentFocusList == 3) {
+                        // 쇼퍼 주문 이력 페이지 이동
+                        if(histFocus == 1) {
+                            // 현재 페이지가 첫 페이지 일 때
+                            if(currentOrderedProductPage == 0) {
+                                console.log("##### 첫 페이지임..");
+                            }
+                            // 첫페이지가 아닐 때
+                            else {
+                                this.pagingOrderedProduct(currentOrderedProductPage);
+                            }
+                        }
+
                         //  쇼퍼 리얼 타임 영상 연결
-                        if(histFocus == 3) {
+                        else if(histFocus == 3) {
                             $('#shlr_close').removeClass("focus");
                             histFocus = 2;
                             $('#shlr_on').addClass("focus");
@@ -309,7 +321,14 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                     else if(currentFocusList == 3) {
                         // 구매 상품 리스트
                         if(histFocus == 1) {
-                            // TODO : 페이지 있으면 페이지 이동요..
+                            // 현재 페이지가 마지막 페이지 일 때
+                            if(currentOrderedProductPage == totalOrderedPage) {
+                                console.log("##### 더 이상 이동할 페이지 없음..");
+                            }
+                            // 마지막 페이지 아닐 때
+                            else {
+                                this.pagingOrderedProduct(currentOrderedProductPage);
+                            }
                         }
 
                         //  쇼퍼 리얼 타임 영상 연결
@@ -480,7 +499,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         }
 
         // 테스트용 영상
-        url = "http://14.52.244.91:8080/video/tv/category/" + categoryName + ".mp4";
+        url = cmsServerIp + "/video/tv/category/" + categoryName + ".mp4";
         
         // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
         $('#videoDiv').empty().append('<img src="../images/sample_01.jpg" />');
@@ -664,7 +683,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         var param = '';
 
         $.ajax({
-            url         : "http://14.52.244.91:8080/BuyerOrderTask/",
+            url         : cmsServerIp + "/BuyerOrderTask/",
             type        : "post",
             dataType    : "json",
             data        : param,
@@ -676,28 +695,59 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 console.log("######## 주문 이력 결과 : " + JSON.stringify(result));
 
                 var generalYN   = false;
-                var productList = "";
+                var shopperStar = "";
+                // totalOrderedPage, maxOrderedPageView, productList는 Category.js에 전역변수로 선언되어 있음.
 
                 $.each(result['orders'], function(index, entry) {
                     
-                    console.log("###### JSON read 1 : " + entry['order_id']);
-                    console.log("###### JSON read 1 : " + entry['receiver_name']);
-
                     if(generalYN == false && entry['type'] == 'general') {
                         generalYN = true;
 
-                        $('#order_date').html(entry['order_date']);
-                        $('#total_cost').html(entry['total_cost']);
+                        $('#order_date').empty().html(entry['order_date']);
+                        $('#total_cost').empty().html(entry['total_cost']);
+                        $('#shopper_id').empty().html("ID : " + entry['shopper_id']);
 
+                        var rating = Number(entry['shopper_rating']);
+                        if(rating >= 20)    shopperStar += '<img src="../images/icon_star.png" />';
+                        else                shopperStar += '<img src="../images/icon_star_blank.png" />';
+                        if(rating >= 40)    shopperStar += '<img src="../images/icon_star.png" />';
+                        else                shopperStar += '<img src="../images/icon_star_blank.png" />';
+                        if(rating >= 60)    shopperStar += '<img src="../images/icon_star.png" />';
+                        else                shopperStar += '<img src="../images/icon_star_blank.png" />';
+                        if(rating >= 80)    shopperStar += '<img src="../images/icon_star.png" />';
+                        else                shopperStar += '<img src="../images/icon_star_blank.png" />';
+                        if(rating >= 100)   shopperStar += '<img src="../images/icon_star.png" />';
+                        else                shopperStar += '<img src="../images/icon_star_blank.png" />';
+
+                        productList = new Array(); // 구매 리스트 초기화
+                        var cnt = 0;
                         $.each(entry['ordered_product'], function(pindex, pentry) {
-                            productList += Number(pindex)+1 + "." + pentry['name']  + " " + pentry['cost'] + "원 " +  pentry['cnt'] + " " +  pentry['standard'] + "<br />";
+                            cnt                 = Math.ceil(pindex / maxOrderedPageView);
+                            var str             = Number(pindex+1) + ". " + pentry['name']  + " " + pentry['cost'] + "원 " +  pentry['cnt'] + " " +  pentry['standard'] + "<br />";
+                            productList[cnt]    = (productList[cnt] + str).replace("undefined", "");
+                            console.log("pindex : " + pindex + " maxOrderedPageView : " + maxOrderedPageView + " cnt : " + cnt);
                         });
 
-                        $('#ordered_product').append(productList);
+                        $('#shopper_rating').empty().append(shopperStar);
+                        $('#ordered_product').empty().append(productList[currentOrderedProductPage]);
+                        $('#ordered_page').empty().append("<B>" + Number(currentOrderedProductPage+1) + "</b> / " + Number(totalOrderedPage+1));
+                        //if(Math.floor(Math.random() * 2) == 0)  $('#shopper_photo').empty().append('<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_김미나.jpg" />');
+                        //else                                    $('#shopper_photo').empty().append('<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_이순자.jpg" />');
+
+                        // 총 페이지 수
+                        totalOrderedPage = cnt;
                     }
 
                 });
             }
         });
+    },
+
+    // 구매상품 리스트 페이지 이동
+    pagingOrderedProduct : function(page) {
+        // 현재 페이지
+        currentOrderedProductPage = page;
+
+        $('#ordered_product').empty().append(productList[page]);
     }
 });

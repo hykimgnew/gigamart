@@ -21,17 +21,26 @@ var cartFocus = 0;
 
 //*************************************************
 // *  쇼퍼 주문 이력 팝업
-// * histHtml = 쇼퍼 주문 이력 HTML
-// * histFocus = 쇼퍼 주문 이력 Focus 값
+// * histHtml                     = 쇼퍼 주문 이력 HTML
+// * histFocus                    = 쇼퍼 주문 이력 Focus 값
 // *  0 : 선택 안됐을 때
 // *  1 : 주문 이력
 // *  2 : 쇼퍼 리얼 타임 버튼
 // *  3 : 닫기
-// * histPage = 주문 이력 페이지
+// * histPage                     = 주문 이력 페이지
+// * currentOrderedProductPage    = 구매 상품 리스트 현재 페이지 (default : 0)
+// * totalOrderedPage             = 구매 상품 리스트 전체 페이지
+// * maxOrderedPage               = 구매 상품 리스트 한 페이지에 표시할 최대 상품 수 (default : 5)
+// * productList                  = 구매 상품 리스트 배열
 //*************************************************
 var histHtml = "";
 var histFocus = 0;
 var histPage = 1;
+
+var currentOrderedProductPage = 0;
+var totalOrderedPage          = 0;
+var maxOrderedPageView        = 5;
+var productList               = new Array();
 
 /** 
  *  현재 리스트 Focus 위치

@@ -2,6 +2,8 @@
 
 var App = App || {};
 
+var cmsServerIp = "http://14.52.244.91:8080";
+
 /**
  *
  * 클래스를 정의한다.

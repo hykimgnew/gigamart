@@ -57,7 +57,7 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
                         "stb_id" : said
                     };
         $.ajax({
-            url         : "http://14.52.244.91:8080/TVLoginTask/login",
+            url         : cmsServerIp + "/TVLoginTask/login",
             type        : "post",
             dataType    : "json",
             data        : param,

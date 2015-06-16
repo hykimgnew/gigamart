@@ -199,7 +199,7 @@ a:hover, a:active{text-decoration:none;}
 #common {clear:both; position:absolute; bottom:0px; right:40px; width:1200px; height:60px;  margin:0 auto; text-align:right; color:#ffffff; }
 #common li {display:inline-block;}
 #common li.cm_cart {position:relative;}
-#common li.cm_cart span.cmc {position:relative; left:-20px; z-index:100; top:-10px; ;}
+#common li.cm_cart span.cmc {position:relative; left:-20px; z-index:100; top:-10px; }
 #common li.cm_cart span.cmc span {position:relative;}
 #common li.cm_cart span.cmc span.cmc_num {background:url(../images/bottom_cart_bg_center.png); top:2px; height:32px; line-height:32px; display:inline-block;}
 #common li.cm_cart span.cmc_price {position:relative; top:12px; left:-5px;  font-weight:normal;}
