@@ -13,7 +13,12 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
     	var me = this;
 
     	me.actors = [];
-
+        //저렴한상품추천
+        this.selectSalesWon();
+        //할인율최고
+        this.selectSalesPercentage();
+        //쇼퍼추천세트
+        this.selectProductEvent();
     },
 
     // 화면 별 키 이벤트 관련 처리
@@ -733,6 +738,62 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         window.document.removeEventListener('keydown', keyDownEventReceivedForDetail, false);
         changeWindow(WindowType.main);
         initIndexFocus();
+    },
+
+    // 조회 : 저렴한 상품추천
+    selectSalesWon: function() {
+        var param = '';
+
+        $.ajax({
+            url         : cmsServerIp + "/ProductTask/sales_won",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                console.log("######## 저렴한 상품추천 결과 : " + JSON.stringify(result));
+            }
+        });
+    },
+
+    // 조회 : 할인율최고
+    selectSalesPercentage: function() {
+        var param = '';
+
+        $.ajax({
+            url         : cmsServerIp + "/ProductTask/sales_percentage",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                console.log("######## 할인율최고 결과 : " + JSON.stringify(result));
+            }
+        });
+    },
+    // 조회 : 쇼퍼추천세트
+    selectProductEvent: function() {
+        var param = '';
+
+        $.ajax({
+            url         : cmsServerIp + "/ProductTask/product_event",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                console.log("######## 쇼퍼추천세트 결과 : " + JSON.stringify(result));
+            }
+        });
     }
 
     /** 지금 이상품 이가격 조회 */
