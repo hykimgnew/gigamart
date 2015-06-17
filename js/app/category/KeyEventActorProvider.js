@@ -250,7 +250,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             }
                             // 첫페이지가 아닐 때
                             else {
-                                this.pagingOrderedProduct(currentOrderedProductPage);
+                                this.pagingOrderedProduct(currentOrderedProductPage-1);
                             }
                         }
 
@@ -327,7 +327,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             }
                             // 마지막 페이지 아닐 때
                             else {
-                                this.pagingOrderedProduct(currentOrderedProductPage);
+                                this.pagingOrderedProduct(currentOrderedProductPage+1);
                             }
                         }
 
@@ -722,20 +722,23 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                         productList = new Array(); // 구매 리스트 초기화
                         var cnt = 0;
                         $.each(entry['ordered_product'], function(pindex, pentry) {
-                            cnt                 = Math.ceil(pindex / maxOrderedPageView);
-                            var str             = Number(pindex+1) + ". " + pentry['name']  + " " + pentry['cost'] + "원 " +  pentry['cnt'] + " " +  pentry['standard'] + "<br />";
+                            cnt                 = Math.floor(pindex / maxOrderedPageView);
+                            var str             = Number(pindex+1) + ". " + pentry['name']  + " " + pentry['standard'] + " " +  pentry['cost'] + "원 (수량 : " +  pentry['cnt'] + ")<br /><br />";
                             productList[cnt]    = (productList[cnt] + str).replace("undefined", "");
                             console.log("pindex : " + pindex + " maxOrderedPageView : " + maxOrderedPageView + " cnt : " + cnt);
                         });
 
                         $('#shopper_rating').empty().append(shopperStar);
                         $('#ordered_product').empty().append(productList[currentOrderedProductPage]);
+
+                        // 총 페이지 수
+                        totalOrderedPage = cnt;
+
                         $('#ordered_page').empty().append("<B>" + Number(currentOrderedProductPage+1) + "</b> / " + Number(totalOrderedPage+1));
                         //if(Math.floor(Math.random() * 2) == 0)  $('#shopper_photo').empty().append('<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_김미나.jpg" />');
                         //else                                    $('#shopper_photo').empty().append('<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_이순자.jpg" />');
 
-                        // 총 페이지 수
-                        totalOrderedPage = cnt;
+                        
                     }
 
                 });
