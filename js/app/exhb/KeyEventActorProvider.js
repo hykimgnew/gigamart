@@ -235,7 +235,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             // **************************************************
             if(keyCode === global.VK_RED) {
                 /** 기획전으로 이동 */
-                location.href = "/view/exhb.html";
+                location.href = "exhb.html";
             }
 
             // **************************************************
@@ -263,7 +263,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             // **************************************************
             if(keyCode === global.VK_PLAY) {
                 /** 전체 카테고리로 이동 */
-                location.href = "/view/category.html";
+                location.href = "category.html";
             }
 
             // **************************************************
@@ -272,7 +272,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             if (keyCode === global.VK_ENTER) {
                 if(currentFocusList == 0) {
                     /** 전체 카테고리로 이동 */
-                    location.href = "/view/category.html";
+                    location.href = "category.html";
                 }
 
                 if(currentFocusList == 2) {
@@ -765,10 +765,10 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 console.log("######### : " + JSON.stringify(result[1]));
                 
                 $.each(result, function(index, entry) {
-                    console.log("sales_won1234? : " +entry["sales_won"]);
+                    console.log("sales_won1234? : " + result[1][0].product);
                     //옵션 추가
                     for(var i=0; i<entry.length; i++) {
-                        appendHtml += '<span class="polygon_l">'+ result[index+1].entry['sales_won'] +'원 <img src="../images/icon_shift.png" /></span>';
+                        appendHtml += '<span class="polygon_l">'+ entry['sales_won'] +'원 <img src="../images/icon_shift.png" /></span>';
                         appendHtml += '<span class="dm_bdr"></span>';
                         appendHtml += '<ul>';
                         appendHtml += '<li class="dlm_img">';

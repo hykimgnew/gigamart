@@ -113,13 +113,13 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
             // * ◀ KEY (플로팅 Go home)
             // **************************************************
             if(keyCode == VK_RED) {
-                location.href ="/view/exhb.html"; // 기획전 이동
+                location.href ="exhb.html"; // 기획전 이동
             }
             // **************************************************
             // * ◀|| KEY (카테고리 Go home)
             // 
             if(keyCode == VK_PLAY) {
-                location.href ="/view/category.html"; // 기획전 이동
+                location.href ="category.html"; // 기획전 이동
             }    
             // **************************************************
             // * 확인 KEY

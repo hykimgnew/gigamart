@@ -123,14 +123,14 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             // **************************************************
             if(keyCode === global.VK_PLAY) {
                 /** 전체 카테고리로 이동 */
-                location.href = "/view/category.html";
+                location.href = "category.html";
             }
 
             // **************************************************
             // * ◀ KEY (플로팅 Go home)
             // **************************************************
             if(keyCode === global.VK_RED) {
-                location.href ="/view/exhb.html"; // 기획전 이동
+                location.href ="exhb.html"; // 기획전 이동
             }
 
             // **************************************************
@@ -172,13 +172,13 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                         if(videoPlayer.playState != 0 ) this.videoStop(); // 영상 재생 중지
                     }
                     /*videobroadcast.style.visibility = hidden;*/
-                    location.href ="/view/category_dtl.html";
+                    location.href ="category_dtl.html";
                 }
 
                 // 쇼퍼's Bag 일때
                 else if(currentFocusList == 2) {
                     // 쇼퍼's Bag으로 이동
-                    location.href = "/view/shopper_bag.html";
+                    location.href = "shopper_bag.html";
                 }
             } 
 

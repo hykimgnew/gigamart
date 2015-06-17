@@ -74,12 +74,12 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
 
                 if(result['resultCode'] == '1') {
                     console.log("############ 로그인 되었습니다.");
-                    location.href = "/view/exhb.html";  // 메인 화면으로 이동
+                    location.href = "view/exhb.html";  // 메인 화면으로 이동
                 }
 
                 else if(result['resultCode'] == '0') {
                     console.log("############ 로그인 실패하였습니다.");
-                    location.href = "/view/exhb.html";  // 메인 화면으로 이동
+                    location.href = "view/exhb.html";  // 메인 화면으로 이동
                     
                     //alert("로그인에 실패하였습니다.");
                     // return;
@@ -87,7 +87,7 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
 
                 else {
                     console.log("############ 셋탑박스를 확인해주시거나 고객센터로 문의해주세요.");
-                    location.href = "/view/exhb.html";  // 메인 화면으로 이동
+                    location.href = "view/exhb.html";  // 메인 화면으로 이동
 
                     //alert("셋탑박스를 확인해주시거나 고객센터로 문의해주세요.");
                     // return;

@@ -115,13 +115,13 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
             // * ◀ KEY (플로팅 Go home)
             // **************************************************
             if(keyCode == VK_RED) {
-                location.href ="/view/exhb.html"; // 기획전 이동
+                location.href ="exhb.html"; // 기획전 이동
             }
             // **************************************************
             // * ◀|| KEY (카테고리 Go home)
             // 
             if(keyCode == VK_PLAY) {
-                location.href ="/view/category.html"; // 기획전 이동
+                location.href ="category.html"; // 기획전 이동
             }    
             // **************************************************
             // * 확인 KEY
@@ -133,7 +133,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 // 상세 카테고리 일때
                 if(currentFocusList>=0 &&currentFocusList <= 2) {
                     console.log("############ VK_ENTER 2222");
-                    location.href ="/view/product1.html";
+                    location.href ="product1.html";
                 }
                 else if(currentFocusList == 3){
                     console.log("아래쪽버튼 focus일때");
