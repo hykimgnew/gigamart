@@ -16,9 +16,9 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         //저렴한상품추천
         this.selectSalesWon();
         //할인율최고
-        this.selectSalesPercentage();
+        //this.selectSalesPercentage();
         //쇼퍼추천세트
-        this.selectProductEvent();
+        //this.selectProductEvent();
     },
 
     // 화면 별 키 이벤트 관련 처리
@@ -743,6 +743,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
     // 조회 : 저렴한 상품추천
     selectSalesWon: function() {
         var param = '';
+        var appendHtml = '';
 
         $.ajax({
             url         : cmsServerIp + "/ProductTask/sales_won",
@@ -754,7 +755,34 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                             withCredentials: true
             },
             success     : function(result) {
+                //var val1 = jQuery.parseJSON(result);
+                var val2 = JSON.stringify(result);
                 console.log("######## 저렴한 상품추천 결과 : " + JSON.stringify(result));
+                console.log("val1[0] : " + val2[0]);
+                console.log("val1[1] : " + val2[1]);
+                console.log("11111111111111 : " + val2[1].sales_won);
+                console.log("22222222222222 : " + val2[1].sales_won);
+                console.log("######### : " + JSON.stringify(result[1]));
+                
+                $.each(result, function(index, entry) {
+                    console.log("sales_won1234? : " +entry["sales_won"]);
+                    //옵션 추가
+                    for(var i=0; i<entry.length; i++) {
+                        appendHtml += '<span class="polygon_l">'+ result[index+1].entry['sales_won'] +'원 <img src="../images/icon_shift.png" /></span>';
+                        appendHtml += '<span class="dm_bdr"></span>';
+                        appendHtml += '<ul>';
+                        appendHtml += '<li class="dlm_img">';
+                        appendHtml += '<img src="../images/sample_01.jpg" />';
+                        appendHtml += '</li>';
+                        appendHtml += '<li class="dlm_tit">'+entry['name'] +'</li>';
+                        appendHtml += '<li class="dlm_price">'+entry['cost'] +'원</li>';
+                        appendHtml += '</ul>';
+                        $('li[name="li_discount1"]').append(appendHtml);
+                    }
+                    
+                });
+
+
             }
         });
     },
