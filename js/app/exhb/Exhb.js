@@ -28,10 +28,20 @@ var fvCode = 1;
 // *  간편 장바구니 팝업
 // * cartHtml = 장바구니 HTML
 // * cartFocus = 장바구니 Focus 값
+// * histPage                     = 상품페이지
+// * currentOrderedProductPage    = 상품 리스트 현재 페이지 (default : 0)
+// * totalOrderedPage             = 상품 리스트 전체 페이지
+// * maxOrderedPage               = 상품 리스트 한 페이지에 표시할 최대 상품 수 (default : 2)
+// * productList                  = 상품 리스트 배열
 //*************************************************
 var cartHtml = "";
 var cartFocus = 0;
+var histPage = 1;
 
+var currentOrderedProductPage = 0;
+var totalOrderedPage          = 0;
+var maxOrderedPageView        = 2;
+var productList               = new Array();
 //*************************************************
 //*  팝업 없을 때
 //*************************************************
@@ -84,7 +94,12 @@ var currentFocusDtl3 = 0;
  var prevPageYN2 = false;
  var nextPageYN2 = false;
 
-
+/** 
+ * 현재 상세카테고리의 페이지
+ * 0 : 1페이지
+ * 1 : 2페이지... (차후에는 페이징 모듈 필요함)
+ **/
+var currentFocusDtlPage = 0;
  /**
   * 내가 늘 사는 상품 지금 얼마? : 확인/상세/담기 
   **/

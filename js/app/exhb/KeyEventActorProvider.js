@@ -16,8 +16,9 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         //저렴한상품추천
         this.selectSalesWon();
         //할인율최고
-        //this.selectSalesPercentage();
+        this.selectSalesPercentage();
         //쇼퍼추천세트
+        this.selectShopper();
         //this.selectProductEvent();
     },
 
@@ -758,30 +759,53 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 //var val1 = jQuery.parseJSON(result);
                 var val2 = JSON.stringify(result);
                 console.log("######## 저렴한 상품추천 결과 : " + JSON.stringify(result));
-                console.log("val1[0] : " + val2[0]);
-                console.log("val1[1] : " + val2[1]);
-                console.log("11111111111111 : " + val2[1].sales_won);
-                console.log("22222222222222 : " + val2[1].sales_won);
-                console.log("######### : " + JSON.stringify(result[1]));
                 
-                $.each(result, function(index, entry) {
-                    console.log("sales_won1234? : " + result[1][0].product);
+                /*$.each(result['product'], function(index, entry) {
                     //옵션 추가
-                    for(var i=0; i<entry.length; i++) {
+                        appendHtml = "";
                         appendHtml += '<span class="polygon_l">'+ entry['sales_won'] +'원 <img src="../images/icon_shift.png" /></span>';
                         appendHtml += '<span class="dm_bdr"></span>';
                         appendHtml += '<ul>';
                         appendHtml += '<li class="dlm_img">';
-                        appendHtml += '<img src="../images/sample_01.jpg" />';
+                        appendHtml += '<img src="' + cmsServerIp + entry['img']+'"/>';
                         appendHtml += '</li>';
                         appendHtml += '<li class="dlm_tit">'+entry['name'] +'</li>';
                         appendHtml += '<li class="dlm_price">'+entry['cost'] +'원</li>';
                         appendHtml += '</ul>';
-                        $('li[name="li_discount1"]').append(appendHtml);
-                    }
-                    
+                        $('li[name="li_discount1"]').eq(index).append(appendHtml);    
+
+                });
+*/
+
+                productList = new Array(); // 구매 리스트 초기화
+                var cnt = 0;
+                $.each(result['product'], function(index, entry) {
+                        appendHtml = "";
+                        appendHtml += '<span class="polygon_l">'+ entry['sales_won'] +'원 <img src="../images/icon_shift.png" /></span>';
+                        appendHtml += '<span class="dm_bdr"></span>';
+                        appendHtml += '<ul>';
+                        appendHtml += '<li class="dlm_img">';
+                        appendHtml += '<img src="' + cmsServerIp + entry['img']+'"/>';
+                        appendHtml += '</li>';
+                        appendHtml += '<li class="dlm_tit">'+entry['name'] +'</li>';
+                        appendHtml += '<li class="dlm_price">'+entry['cost'] +'원</li>';
+                        appendHtml += '</ul>';
+                    cnt                 = Math.floor(index / maxOrderedPageView);
+                    var str             = Number(index+1) + ". " +appendHtml;
+                    productList[cnt]    = (productList[cnt] + str).replace("undefined", "");
+                    console.log("index : " + index + " maxOrderedPageView : " + maxOrderedPageView + " cnt : " + cnt+"currentOrderedProductPage : "+currentOrderedProductPage);
                 });
 
+                $('li[name="li_discount1"]').empty().append(productList[currentOrderedProductPage]);
+
+                // 총 페이지 수
+                totalOrderedPage = cnt;
+
+                $('li[name="li_discount1"]').empty().append("<B>" + Number(currentOrderedProductPage+1) + "</b> / " + Number(totalOrderedPage+1));
+                        
+
+
+                
 
             }
         });
@@ -790,7 +814,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
     // 조회 : 할인율최고
     selectSalesPercentage: function() {
         var param = '';
-
+        var appendHtml = '';
         $.ajax({
             url         : cmsServerIp + "/ProductTask/sales_percentage",
             type        : "post",
@@ -802,12 +826,76 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             },
             success     : function(result) {
                 console.log("######## 할인율최고 결과 : " + JSON.stringify(result));
+                $.each(result['product'], function(index, entry) {
+
+                    //옵션 추가
+                        appendHtml = "";
+                        appendHtml += '<span class="polygon_l">'+ entry['sales_percentage'] +'%</span>';
+                        appendHtml += '<span class="dm_bdr"></span>';
+                        appendHtml += '<ul>';
+                        appendHtml += '<li class="dlm_img">';
+                        appendHtml += '<img src="' + cmsServerIp + entry['img']+'"/>';
+                        appendHtml += '</li>';
+                        appendHtml += '<li class="dlm_tit">'+entry['name'] +'</li>';
+                        appendHtml += '<li class="dlm_price">'+entry['cost'] +'원</li>';
+                        appendHtml += '</ul>';
+                        $('li[name="li_discount2"]').eq(index).append(appendHtml);    
+
+                });
             }
         });
     },
     // 조회 : 쇼퍼추천세트
+    selectShopper : function(){
+        console.log("######## 쇼퍼추천세트");
+        var appendHtml = '';
+        var appendHtml2 = '';
+        var shopperImg = "";
+        var shopperSet = "";
+        var shopperName ="";
+        var shopperProduct ="";
+
+        appendHtml = "";
+        appendHtml += '<li class="shooperImg" name="shooperImg" id="shooperImg"></li>';
+        appendHtml += '<li>';
+        appendHtml += '<img src="../images/icon_star.png" /><img src="../images/icon_star.png" /><img src="../images/icon_star.png" /><img src="../images/icon_star.png" /><img src="../images/icon_star_blank.png" />';
+        appendHtml += '</li>';
+        appendHtml += '<li class="pd_t5 pd_b5"><img src="../images/txt_custom.png" /></li>';
+        appendHtml += '<li class="txt"style="font-size:12px;">무더운 여름에 시원하게 얼음동동 콩국수 어떠세요?  </li>';
+        appendHtml += '</ul>';
+        
+
+        appendHtml2 = "";
+        appendHtml2 += '<a href="#" class="dlm_rank"><b>3</b>위</a>';
+        appendHtml2 += '<span class="polygon_l">세트구매</span>';
+        appendHtml2 += '<span class="dm_bdr"></span>';
+        appendHtml2 += '<ul>';
+        appendHtml2 += '<li class="dlm_img" name="shooperImg2"></li>';
+        appendHtml2 += '<li class="dlm_tit" name="shopper_product"></li>';
+        appendHtml2 += '<li class="dlm_price">24,900원</li>';
+        appendHtml2 += '</ul>';
+        
+        if(Math.floor(Math.random() * 2) == 0) {shopperImg = '<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_김미나.jpg" />'; shopperName="김미나 쇼퍼";}
+        else  {shopperImg ='<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_이순자.jpg" />'; shopperName="이순자 쇼퍼";}
+        if(Math.floor(Math.random() * 2) == 0)  {shopperSet = '<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼세트_닭볶음탕.jpg" />';shopperProduct = "닭볶음탕";} 
+        else  {shopperSet ='<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼세트_소고기샤브샤브2.jpg" />'; shopperProduct = "소고기샤브샤브"; }
+
+        console.log("######## shopperImg->"+shopperImg);
+
+        console.log("######## shopperSet->"+shopperSet);
+        $('li[name="li_discount3"]').eq(0).append(appendHtml);  //쇼퍼 
+        $('li[name="li_discount3"]').eq(1).append(appendHtml2);    
+        $('li[name="shooperImg"]').empty().append(shopperImg);
+        $('li[name="shooperImg2"]').empty().html(shopperSet);
+        $('span[name="shopper_name"]').empty().html(shopperName);
+        $('li[name="shopper_product"]').empty().html(shopperProduct);
+
+
+    },
+    // 조회 :
     selectProductEvent: function() {
         var param = '';
+        var appendHtml = '';
 
         $.ajax({
             url         : cmsServerIp + "/ProductTask/product_event",
@@ -819,7 +907,20 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                             withCredentials: true
             },
             success     : function(result) {
-                console.log("######## 쇼퍼추천세트 결과 : " + JSON.stringify(result));
+                console.log("########결과 : " + JSON.stringify(result));
+                $.each(result['product'], function(index, entry) {
+                    //옵션 추가
+                        appendHtml = "";
+                        appendHtml += '<span class="polygon_l">'+ entry['sales_percentage'] +'%</span>';
+                        appendHtml += '<span class="dm_bdr"></span>';
+                        appendHtml += '<ul>';
+                        appendHtml += '<li class="dlm_img">';
+                        appendHtml += '<img src="' + cmsServerIp + entry['img']+'"/>';
+                        appendHtml += '</li>';
+                        appendHtml += '<li class="dlm_tit">'+entry['name'] +'</li>';
+                        appendHtml += '<li class="dlm_price">'+entry['cost'] +'원</li>';
+                        appendHtml += '</ul>';
+                });
             }
         });
     }
