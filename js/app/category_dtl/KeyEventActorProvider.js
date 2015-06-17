@@ -11,6 +11,8 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
     	me.actors = [];
 
+        this.selectProductSubCategory();
+
     },
 
     // 화면 별 키 이벤트 관련 처리
@@ -137,8 +139,8 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                     console.log("아래쪽버튼 focus일때");
                     //아래쪽버튼 focus일때
                     if(currentFocusBtn == 0) {
-                        //$('div[name="sd_first"]').hide();
-                        //$('div[name="selDepth"]').addClass("animation");
+                        $('div[name="sd_first"]').hide();
+                        $('div[name="selDepth"]').addClass("animation");
                         
                     }    
                 }
@@ -602,5 +604,48 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
     		instance: instance,
     		conditionFunction: conditionFunction
     	});
+    },
+
+    // 조회 : 상세카테고리별 상품정보
+    selectProductSubCategory: function() {
+        var param = {
+                        "subcategory" : '귤/한라봉/천혜향'
+                    };
+        $.ajax({
+            url         : "http://14.52.244.91:8080/ProductSubCategoryTask",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                console.log("######################################################################################");
+                console.log("######## 상세카테고리별 상품정보 결과 : " + JSON.stringify(result));
+
+                // var listHtml = new Array();
+
+                //$.each(result['orders'], function(index, entry) {
+
+                    
+                        // listHtml[0] += "<li>entry['product_name']</li>";
+                        // listHtml[0] += "<li>entry['product_name']</li>";
+                        // listHtml[index] += "<li>entry['product_name']</li>";
+                
+                    
+
+                    //console.log("###### JSON read 1 : " + entry['order_id']);
+                    //console.log("###### JSON read 1 : " + entry['receiver_name']);
+                //});
+
+                $('#list').append(listHtml);
+            },
+            error : function(){
+                    console.log("에러");
+                }
+        });
     }
+
+
 });
