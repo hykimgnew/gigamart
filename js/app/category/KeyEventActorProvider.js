@@ -733,7 +733,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
 
                         // 총 페이지 수
                         totalOrderedPage = cnt;
-
+                            
                         $('#ordered_page').empty().append("<B>" + Number(currentOrderedProductPage+1) + "</b> / " + Number(totalOrderedPage+1));
                         //if(Math.floor(Math.random() * 2) == 0)  $('#shopper_photo').empty().append('<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_김미나.jpg" />');
                         //else                                    $('#shopper_photo').empty().append('<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_이순자.jpg" />');
