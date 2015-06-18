@@ -19,6 +19,18 @@ var global = window;
 var cartHtml = "";
 var cartFocus = 0;
 
+//*************************************************
+// *  쇼퍼 list page
+// * currentShopperListPage       = 쇼퍼 LIST 현재 페이지 (default : 0)
+// * totalShopperListPage         = 쇼퍼 LIST 전체 페이지
+// * maxShopperListPage           = 쇼퍼 LIST 한 페이지에 들어갈 쇼퍼 수 (default : 2)
+// * arrShopperList               = 쇼퍼 LIST 배열
+//*************************************************
+var currentShopperListPage  = 0;
+var totalShopperListPage    = 0;
+var maxShopperListPage      = 2;
+var arrShopperList          = new Array();
+
 
 global.onload = function() {
     global.Shopper_bag = Gigamart.app.shopper_bag.Shopper_bag.create();

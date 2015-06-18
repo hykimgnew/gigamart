@@ -9,6 +9,9 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
 
     	me.actors = [];
 
+        // 쇼퍼 List
+        this.selectShopperList();
+
     },
 
     // 화면 별 키 이벤트 관련 처리
@@ -181,6 +184,45 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
         window.document.removeEventListener('keydown', keyDownEventReceivedForDetail, false);
         changeWindow(WindowType.main);
         initIndexFocus();
-    }
+    },
 
+
+    // 조회 : 쇼퍼 List (인기순)
+    selectShopperList: function() {
+        var param = '';
+        
+        $.ajax({
+            url         : cmsServerIp + "/ShopperTask/Select/Popular/",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                console.log("##### shopper List json " + JSON.stringify(result));
+
+                $.each(result['resultArr'], function(index, entry) { 
+                    // *** 쇼퍼 별점 ***
+                    var shopperRating   = Number(entry['score']);       // 쇼퍼 평점
+                    var shopperStar     = "";                           // 쇼퍼 별점 HTML
+
+                    if(shopperRating >= 20) shopperStar += '<img src="../images/icon_star.png" />';
+                    else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+                    if(shopperRating >= 40) shopperStar += '<img src="../images/icon_star.png" />';
+                    else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+                    if(shopperRating >= 60) shopperStar += '<img src="../images/icon_star.png" />';
+                    else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+                    if(shopperRating >= 80) shopperStar += '<img src="../images/icon_star.png" />';
+                    else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+                    if(shopperRating >= 100)shopperStar += '<img src="../images/icon_star.png" />';
+                    else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+
+                    $('span[name="shopper_rating"]').eq(index).empty().append(shopperStar);
+                });
+
+            }
+        });
+    }
 });
