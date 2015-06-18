@@ -46,6 +46,19 @@ var currentOrderedProductPage = 0;
 var totalOrderedPage          = 0;
 var maxOrderedPageView        = 2;
 
+
+//*************************************************
+// * 지금 이상품 이가격 하단? : 페이징
+// * currentOrderedProductPage2    = 상품 리스트 현재 페이지 (default : 0)
+// * totalOrderedPage2            = 상품 리스트 전체 페이지
+// * maxOrderedPage2               = 상품 리스트 한 페이지에 표시할 최대 상품 수 (default : 4)
+//*************************************************
+var currentOrderedProductPage2 = 0;
+var totalOrderedPage2          = 0;
+var maxOrderedPageView2        = 4;
+
+
+
 //*************************************************
 // *  저렴한 상품 추천
 // * productList                  = 상품 리스트 배열
@@ -57,6 +70,12 @@ var productList               = new Array();
 // * productList2                  = 상품 리스트 배열
 //*************************************************
 var productList2               = new Array();
+
+//*************************************************
+// *  지금 이상품 이가격 하단
+// * productList3                  = 상품 리스트 배열
+//*************************************************
+var productList3               = new Array();
 
 
 //*************************************************
@@ -71,7 +90,7 @@ var productList2               = new Array();
  *  4 : 할인율 초괴
  *  5 : 추천 세트
  **/
-var currentFocusList = 0;
+var currentFocusList = 2;
 
 /** 
  *  지금 이 상품 이 가격 하단 동영상 Focus 위치
@@ -146,7 +165,9 @@ App.defineClass('Gigamart.app.exhb.Exhb', {
     init: function() {
         var me = this;
         
-        $('#pj_left').addClass("focus");
+        //$('#pj_left').addClass("focus");
+        $('li[name="sl_menu"]').eq(currentFocusMenu).addClass('focus');
+        
         global.stbService = Gigamart.app.exhb.STBService.create(EventBus);
 
         // 팝업 Load
