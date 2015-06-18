@@ -29,19 +29,36 @@ var fvCode = 1;
 // * cartHtml = 장바구니 HTML
 // * cartFocus = 장바구니 Focus 값
 // * histPage                     = 상품페이지
-// * currentOrderedProductPage    = 상품 리스트 현재 페이지 (default : 0)
-// * totalOrderedPage             = 상품 리스트 전체 페이지
-// * maxOrderedPage               = 상품 리스트 한 페이지에 표시할 최대 상품 수 (default : 2)
-// * productList                  = 상품 리스트 배열
 //*************************************************
 var cartHtml = "";
 var cartFocus = 0;
 var histPage = 1;
 
+
+
+//*************************************************
+// * 내가 늘 사는 상품 지금 얼마? : 페이징
+// * currentOrderedProductPage    = 상품 리스트 현재 페이지 (default : 0)
+// * totalOrderedPage             = 상품 리스트 전체 페이지
+// * maxOrderedPage               = 상품 리스트 한 페이지에 표시할 최대 상품 수 (default : 2)
+//*************************************************
 var currentOrderedProductPage = 0;
 var totalOrderedPage          = 0;
 var maxOrderedPageView        = 2;
+
+//*************************************************
+// *  저렴한 상품 추천
+// * productList                  = 상품 리스트 배열
+//*************************************************
 var productList               = new Array();
+
+//*************************************************
+// *  할인율 최고
+// * productList2                  = 상품 리스트 배열
+//*************************************************
+var productList2               = new Array();
+
+
 //*************************************************
 //*  팝업 없을 때
 //*************************************************

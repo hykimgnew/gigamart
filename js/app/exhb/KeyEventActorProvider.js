@@ -912,18 +912,11 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                                         "name" : entry['name'],
                                         "cost" : entry['cost']
                                      };
-                    //var valAppendHtml = JSON.stringify(appendHtml);
                     cnt                 = Math.floor(index / maxOrderedPageView);
                     var str             = Number(index+1) + ". " +appendHtml;
-                    //productList[cnt]    = (productList[cnt] + str).replace("undefined", "");
-                    if(index == 0)      productList[cnt] = appendHtml;
-                    else                productList[cnt] = productList[cnt] + appendHtml;
-                    
-                    //productList[cnt]    = (productList[cnt] + appendHtml).replace("undefined", ""); // 이름앞에 undefuned가 붙음..
 
-                    //console.log("productList[cmt]==>"+productList[cnt]+valAppendHtml);
-                    console.log("index : " + index + " maxOrderedPageView : " + maxOrderedPageView + " cnt : " + cnt);
-                                    
+                    productList[index]    = appendHtml;
+                    //console.log("index : " + index + " maxOrderedPageView : " + maxOrderedPageView + " cnt : " + cnt);
                 });
 
 
@@ -963,7 +956,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             },
             success     : function(result) {
                 console.log("######## 할인율최고 결과 : " + JSON.stringify(result));
-                productList = new Array(); // 구매 리스트 초기화
+                productList2 = new Array(); // 구매 리스트 초기화
                 var cnt = 0;
                 $.each(result['product'], function(index, entry) {
                         $('span[name="pd_sales_percentage"]').eq(index).empty().html(entry['sales_percentage']+"%");
@@ -980,8 +973,8 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     cnt                 = Math.floor(index / maxOrderedPageView);
                     var str             = Number(index+1) + ". " +appendHtml;
                     //productList[cnt]    = (productList[cnt] + str).replace("undefined", "");
-                    productList[cnt]    = productList[cnt] + appendHtml;
-                    console.log("index : " + index + " maxOrderedPageView : " + maxOrderedPageView + " cnt : " + cnt);
+                    productList2[index]    =  appendHtml;
+                    //console.log("index : " + index + " maxOrderedPageView : " + maxOrderedPageView + " cnt : " + cnt);
                 });
 
                 // 총 페이지 수
@@ -1085,10 +1078,12 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         
         console.log("########리스트 페이지 이동 currentOrderedProductPage : " + currentOrderedProductPage);
         //console.log("######## productList[0000] : " + JSON.stringify(appendHtml));
-        /*console.log("######## productList[0] : " + productList);
+        console.log("######## productList[0] : " + productList);
+        console.log("######## productList.length : " + productList.length);
         console.log("######## productList[0] : " + productList[0]);
         console.log("######## productList[0] : " + productList[0].name);
-        console.log("######## productList[1] : " + productList[1]["name"]);*/
+        console.log("######## productList[1] : " + productList[1]["name"]);
+
 
         for(var i=0 ; i < productList.length ; i++) {
             console.log("######## productList " + i + ": " + productList[i]);
@@ -1099,7 +1094,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
         //$('#ordered_product').empty().append(productList[page]);
         $('span[name="pd_sales_won"]').eq(0).empty().append(productList[page*2].sales_won);
-        $('li[name="pd_img"]').eq(0).empty().append(productList[page*2].img);
+        $('li[name="pd_img"]').eq(0).empty().append('<img src="' + cmsServerIp + productList[page*2].img + '"/>');
         $('li[name="pd_name"]').eq(0).empty().append(productList[page*2].name);
         $('li[name="pd_cost"]').eq(0).empty().append(productList[page*2].cost);
 
