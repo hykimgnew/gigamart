@@ -725,7 +725,6 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             cnt                 = Math.floor(pindex / maxOrderedPageView);
                             var str             = Number(pindex+1) + ". " + pentry['name']  + " " + pentry['standard'] + " " +  pentry['cost'] + "원 (수량 : " +  pentry['cnt'] + ")<br /><br />";
                             productList[cnt]    = (productList[cnt] + str).replace("undefined", "");
-                            console.log("pindex : " + pindex + " maxOrderedPageView : " + maxOrderedPageView + " cnt : " + cnt);
                         });
 
                         $('#shopper_rating').empty().append(shopperStar);
@@ -733,8 +732,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
 
                         // 총 페이지 수
                         totalOrderedPage = cnt;
-                            
-                        $('#ordered_page').empty().append("<B>" + Number(currentOrderedProductPage+1) + "</b> / " + Number(totalOrderedPage+1));
+                        $('#ordered_page').empty().append("<b>" + Number(currentOrderedProductPage+1) + "</b> / " + Number(totalOrderedPage+1));
                         //if(Math.floor(Math.random() * 2) == 0)  $('#shopper_photo').empty().append('<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_김미나.jpg" />');
                         //else                                    $('#shopper_photo').empty().append('<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_이순자.jpg" />');
 
@@ -752,5 +750,32 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         currentOrderedProductPage = page;
 
         $('#ordered_product').empty().append(productList[page]);
+    },
+
+    // 조회 : 쇼퍼's Bag
+    selectShoppersBag : function() {
+        $.ajax({
+                url         : cmsServerIp + "/BuyerOrderTask/",
+                type        : "post",
+                dataType    : "json",
+                data        : param,
+                async       : true,
+                xhrFields   : {
+                                withCredentials: true
+                },
+                success     : function(result) {
+                    console.log("######## 주문 이력 결과 : " + JSON.stringify(result));
+
+                    var generalYN   = false;
+                    var shopperStar = "";
+                    // totalOrderedPage, maxOrderedPageView, productList는 Category.js에 전역변수로 선언되어 있음.
+
+                    $.each(result['orders'], function(index, entry) {
+
+                    });
+                }
+        });
     }
+
+
 });
