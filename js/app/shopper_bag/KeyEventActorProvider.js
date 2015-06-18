@@ -1,5 +1,22 @@
 'use strict';
 
+
+// 마트는 지금 레이아웃 생성
+function makeTweetList() {
+    var appendHtml =  '<li class="smtc_person">';
+        appendHtml += ' <span name="shopper_img"></span>';
+        appendHtml += '     <ul>';
+        appendHtml += '         <li name="shopper_id"></li>';
+        appendHtml += '         <li name="tweet_date"></li>';
+        appendHtml += '     </ul>';
+        appendHtml += '</li>';
+        appendHtml += '<li name="tweet" class="smtc_txt"></li>';
+        appendHtml += '<li name="product_img" class="smtc_img"></li>';
+
+    $('#ul_tweet').append(appendHtml);
+}
+
+
 /**
  *  Shopper_bag Js : KeyEventActorProvider (키 이벤트 처리)
  **/
@@ -11,6 +28,9 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
 
         // 쇼퍼 List
         this.selectShopperList();
+
+        // 마트는 지금
+        this.selectTweetList();
 
     },
 
@@ -201,7 +221,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                             withCredentials: true
             },
             success     : function(result) {
-                console.log("##### shopper List json " + JSON.stringify(result));
+                // console.log("##### shopper List json " + JSON.stringify(result));
 
                 $.each(result['resultArr'], function(index, entry) { 
                     // *** 쇼퍼 별점 ***
@@ -220,9 +240,84 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
 
                     $('span[name="shopper_rating"]').eq(index).empty().append(shopperStar);
+
+                    // *** 쇼퍼 이미지 ***/
+                    $('p[name="shopper_img"]').eq(index).empty().append("<img src=" + cmsServerIp + entry['img'] + " width='160' height='120' />");
+
+                    // *** 쇼퍼 ID ***/
+                    $('span[name="shopper_name"]').eq(index).empty().append("ID : " + entry['shopper_id']);
+
+                    // *** 쇼퍼 후기 ***/
+                    $('span[name="epilogue"]').eq(index).empty().append("(후기 : " + "API누락" + ")");
+
+                    // *** 쇼퍼 설명 ***/
+                    $('p[name="description"]').eq(index).empty().append(entry['description']);
+
+                    // *** 인기주문 ***/
+                    $('span[name="popular_order"]').eq(index).empty().append("인기 주문 :  " + "API 누락" + "");
                 });
 
             }
         });
-    }
+    },
+
+    // 조회 : 쇼퍼 추천세트 (인기순) (TODO: GUI만 표시..)
+    /*selectShopperList: function() {
+        var param = '';
+        
+        $.ajax({
+            url         : cmsServerIp + "/ShopperTask/Select/Popular/",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+            }
+        });
+    },*/
+
+
+    // 조회 : 마트는 지금?
+    selectTweetList: function() {
+        var param = '';
+        
+        $.ajax({
+            url         : cmsServerIp + "/mart_now/tv_api",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+
+                //console.log("##### mart List json " + JSON.stringify(result));  
+
+                console.log("################## " + result['tweet'].length);
+
+                /*for(var i=0 ; i < result['tweet'].length ; i++) {
+                    makeTweetList();
+                }*/
+
+                $.each(result['tweet'], function(index, entry) {
+                    makeTweetList();
+
+                    // *** 쇼퍼 이미지 ***/
+                    $('span[name="shopper_img"]').eq(index).empty().append("<img src=" + cmsServerIp + entry['shopper_img'] + " width='60' height='68' />");
+                    // *** 쇼퍼 ID ***/
+                    $('li[name="shopper_id"]').eq(index).empty().append(entry['shopper_id']);
+                    // *** 트윗 일시 ***/
+                    $('li[name="tweet_date"]').eq(index).empty().append(entry['tweet_date']);
+                    // *** 트윗 내용 ***/
+                    $('li[name="tweet"]').eq(index).empty().append(entry['tweet']);
+                    // *** 제품 이미지 ***/
+                    $('li[name="product_img"]').eq(index).empty().append("<img src=" + cmsServerIp + entry['product_img'] + " width='393' height='180' />");
+                });
+            }
+        });
+    } 
 });
