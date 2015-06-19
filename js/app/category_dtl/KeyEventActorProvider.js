@@ -1,6 +1,7 @@
 'use strict';
 
 var videoPlayer = window.oipfObjectFactory.createVideoMpegObject();
+var resultSet;
 
 // 숫자 -> 금액
 function cn_toPrice(n) {
@@ -40,6 +41,25 @@ function makeProduct() {
     $('ul[name="ul_discount"]').append(appendHtml);
 }
 
+function updateProductInfo() {
+    var idx = currentFocusDtl + (9 * currentFocusDtlPage);
+        
+    console.log("############ 동영상 : " + cmsServerIp + resultSet[idx]["video"]);
+    console.log("############ 이미지 : " + cmsServerIp + resultSet[idx]["img"]);
+
+    $('#cif_vod').empty().append('<img src="' + cmsServerIp + resultSet[idx]["img"] + '" width="448" height="253" />');
+    $('#cif_exp').empty().append(resultSet[idx]["name"]);
+    // 영상이 있으면
+    /*if(resultSet[idx]["video"] != null && resultSet[idx]["video"] != '' && resultSet[idx]["video"] != 'undefined') {
+        var url = cmsServerIp + resultSet[idx]["video"];
+        videoPlay(url);
+    } */
+    // 영상 없으면
+    /*else {
+        $('#cif_vod').empty().append('<img src="' + cmsServerIp + resultSet[idx]["img"] + '" width="448" height="253" />');
+    }*/
+}
+
 
 /**
  *  Category Js : KeyEventActorProvider (키 이벤트 처리)
@@ -52,6 +72,8 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
         this.selectProductSubCategory();
 
+        // 당일 판매현장 시각
+        $('#ci_title').html("당일 판매현장 " + this.getCurrentDate());
     },
 
     // 화면 별 키 이벤트 관련 처리
@@ -209,7 +231,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                             }
                             else if(prevPageYN == false) {
                                 // 전 페이지 없음
-                                console.log("상세카테고리  : 전 페이지 없음");
+                                console.log("상세카테고리 : 전 페이지 없음");
                             }
                         }
 
@@ -221,6 +243,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                             verticalFocus   = verticalFocus - 1;    // 행 감소
                             horizonFocus    = horizonFocus;         // 열 증감 없음
                             currentFocusDtl = currentFocusDtl - 3;  // 위치 변경
+                            updateProductInfo();                    // 우측 상품 정보 갱신
 
                             $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
                             $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
@@ -253,6 +276,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                             verticalFocus   = verticalFocus + 1;    // 행 증가
                             horizonFocus    = horizonFocus;         // 열 증감 없음
                             currentFocusDtl = currentFocusDtl + 3;  // 위치 변경
+                            updateProductInfo();                    // 우측 상품 정보 갱신
 
                             $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
                             $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
@@ -298,6 +322,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                             verticalFocus   = verticalFocus;        // 행 증감 없음
                             horizonFocus    = horizonFocus - 1;     // 열 감소
                             currentFocusDtl = currentFocusDtl - 1;  // 위치 변경
+                            updateProductInfo();                    // 우측 상품 정보 갱신
 
                             $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
                             $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
@@ -334,6 +359,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                             verticalFocus   = verticalFocus;        // 행 증감 없음
                             horizonFocus    = horizonFocus + 1;     // 열 증가
                             currentFocusDtl = currentFocusDtl + 1;  // 위치 변경
+                            updateProductInfo();                    // 우측 상품 정보 갱신
 
                             $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
                             $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
@@ -365,16 +391,13 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
     },
 
     // 영상재생
-    videoPlay: function(url, category) {
-        // 테스트용 영상
-        url = "http://14.52.244.91:8080/video/tv/category/" + (category - 3) + ".mp4";
-        // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
-        $('#videoDiv').empty().append('<img src="../images/sample_01.jpg" />');
+    videoPlay: function(url) {
+        // $('#videoDiv').empty().append('<img src="../images/sample_01.jpg" />');
         
-        videoPlayer.width = 704;
-        videoPlayer.height = 396;
-        $('#videoDiv').empty()
-        document.getElementById('videoDiv').appendChild(videoPlayer);
+        videoPlayer.width = 448;
+        videoPlayer.height = 253;
+        $('#cif_vod').empty()
+        document.getElementById('cif_vod').appendChild(videoPlayer);
         videoPlayer.data = url;
         videoPlayer.play(1);
     },
@@ -388,6 +411,27 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
         } catch(err){
              alert("Video stop " + err);
         }
+    },
+
+    // 현재 시간 구하기 (ampm)
+    getCurrentDate: function() {
+        var now = new Date();
+        var hour = now.getHours();
+        var minute = now.getMinutes();
+        var second = now.getSeconds();
+        var str_ampm, dsp_ampm;
+
+        if(hour == 0) str_ampm ="오후";
+        else if(hour < 13) str_ampm = "오전";
+        else {
+            hour -= 12;
+            str_ampm = "오후";
+        }
+        hour = (hour == 0) ? 12 : hour;
+
+        dsp_ampm = str_ampm + " " + hour + "시 " + minute + "분";
+
+        return dsp_ampm;
     },
 
     addKeyEventActor: function (instance, conditionFunction) {
@@ -470,6 +514,10 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
         if(requestCategoryCode == 11 && requestCategoryDtlCode == '빵/식빵/케익/잼')        requestCategoryDtlCode = 5;
     },
 
+    // 갱신 : 상품정보
+    updateProductInfo : function() {
+
+    },
 
 
     // 조회 : 상세카테고리별 상품정보
@@ -490,6 +538,8 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 console.log("######## 상세카테고리 파라미터 : " + requestCategoryDtlCode);
                 console.log("######## 상품목록 결과 개수 : " + result.length);
 
+                resultSet = result;
+
                 // 결과값이 9보다 크면 ul > li 9개만 세팅
                 if(result.length > 9) {
                     for(var i=0 ; i < 9 ; i++) {
@@ -505,11 +555,6 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
                 // 결과값을 넣는다.
                 $.each(result, function(index, entry) {
-
-                    // 제목제한(10 byte)
-                    /*var name = entry['name'];
-                    if(name.length > 10) name = name.substring(0, 13);*/
-
                     // 처음에 뿌려주는 9개만 넣는다.
                     if(index < 9) {
                         $('li[name="li_img"]').eq(index).append('<img src="' + cmsServerIp + entry['img'] + '" />');
@@ -527,6 +572,9 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
             complete  : function(result) {
                 $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
                 $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+
+                // 우측 상품 영역 갱신
+                updateProductInfo(); 
             }
         });
     }

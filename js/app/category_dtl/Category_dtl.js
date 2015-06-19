@@ -62,7 +62,7 @@ var currentFocusBtn = 0;
 /** 
  * 현재 상세카테고리의 페이지
  * 0 : 1페이지
- * 1 : 2페이지... (차후에는 페이징 모듈 필요함)
+ * 1 : 2페이지... 
  **/
 var currentFocusDtlPage = 0;
 

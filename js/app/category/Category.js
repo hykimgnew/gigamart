@@ -93,7 +93,7 @@ var currentFocusDtlPage = 0;
 /***********************************
  * CMS API 조회 데이터 
  ***********************************/
- var shopperHistoryContent = ""; // 쇼퍼 주문 이력
+var shopperHistoryContent = ""; // 쇼퍼 주문 이력
 
 
 global.onload = function() {
