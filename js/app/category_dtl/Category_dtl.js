@@ -78,6 +78,12 @@ var currentFocusDtlPage = 0;
  **/
 var btnokfill = '<img src="../images/btn_ok_fill.png"/>';
 
+/**
+ * 상세카테고리 : 메뉴 배열
+ **/
+var arrSubCategory = new Array();
+
+
 
 global.onload = function() {
     global.Category_dtl = Gigamart.app.category_dtl.Category_dtl.create();

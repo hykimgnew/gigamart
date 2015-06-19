@@ -41,6 +41,7 @@ function makeProduct() {
     $('ul[name="ul_discount"]').append(appendHtml);
 }
 
+// 우측 상품정보 갱신
 function updateProductInfo() {
     var idx = currentFocusDtl + (9 * currentFocusDtlPage);
         
@@ -49,6 +50,10 @@ function updateProductInfo() {
 
     $('#cif_vod').empty().append('<img src="' + cmsServerIp + resultSet[idx]["img"] + '" width="448" height="253" />');
     $('#cif_exp').empty().append(resultSet[idx]["name"]);
+    $('#cif_exp_txt').empty().append(resultSet[idx]["description"]);
+    $('#cif_exp_price_glm').empty().append("(" + resultSet[idx]["standard"] + ")");
+    $('#cif_exp_price_won').empty().append(cn_toPrice(resultSet[idx]["cost"]) + "원");
+
     // 영상이 있으면
     /*if(resultSet[idx]["video"] != null && resultSet[idx]["video"] != '' && resultSet[idx]["video"] != 'undefined') {
         var url = cmsServerIp + resultSet[idx]["video"];
@@ -59,6 +64,78 @@ function updateProductInfo() {
         $('#cif_vod').empty().append('<img src="' + cmsServerIp + resultSet[idx]["img"] + '" width="448" height="253" />');
     }*/
 }
+
+// 서브카테고리 배열
+function setSubCategory() {
+    console.log("############## 카테고리 : " + requestCategoryCode);
+
+    if(requestCategoryCode == '과일') {
+        arrSubCategory = [ "사과/배", "참외/토마토", "키위/딸기/멜론/수박", "귤/한라봉/천혜향", "바나나/오렌지/외국과일", "복분자/블루베리", "견과/견과" ];
+    }
+
+    else if(requestCategoryCode == '채소') {
+        arrSubCategory = [ "고구마/감자/호박", "파/양파/마늘/생강", "당근/오이/가지/고추", "배추/양배추/무", "쌈 채소/기타", "파프리카/피망", "표고/송이/버섯류", "나물류/새순" ];
+    }
+
+    else if(requestCategoryCode == '유제품/두부/계란') {
+        arrSubCategory = [ "우유", "두유", "요구르트", "버터/치즈/마가린", "두부", "계란/메추리알" ];
+    }
+
+    else if(requestCategoryCode == '정육') {
+        arrSubCategory = [ "소고기", "돼지고기", "닭/오리", "양념육/육포" ];
+    }
+
+    else if(requestCategoryCode == '수산물/건어물') {
+        arrSubCategory = [ "생선/해산물", "멸치/건새우/건어", "미역/김/해조류", "어포/안주류" ];
+    }
+
+    else if(requestCategoryCode == '쌀/잡곡/견과') {
+        arrSubCategory = [ "쌀", "찹쌀/현미" ];
+    }
+
+    else if(requestCategoryCode == '건강/친환경/유기농') {
+        arrSubCategory = [ "홍삼/건강식품", "친환경/유기농샵" ];
+    } 
+
+    else if(requestCategoryCode == '가공식품') {
+        arrSubCategory = [ "즉석/간편식/햄/통조림", "라면/국수/면류", "생수/커피/차/음료", "조미료/향신료/장류", "과자", "사탕/초콜릿/껌", "빵/식빵/케익/잼" ];
+    }
+
+    updateSubCategoryTitle(); // 제목 Set
+}
+
+// 서브카테고리 제목 Set
+function updateSubCategoryTitle() {
+    console.log("############ 카테고리 배열 cnt : " + arrSubCategory.length);
+    for(var i=0 ; i < arrSubCategory.length ; i++) {
+        if(arrSubCategory[i] == requestCategoryDtlCode) {
+            console.log("#### 카테고리 : " + i + " : " + requestCategoryDtlCode);
+            $('div[name="sd_first_tit"]').empty().append(arrSubCategory[i]);
+
+            // 마지막 항목이면
+            if(i == arrSubCategory.length-1) {
+                console.log("#### 카테고리 마지막 ");
+                $('div[name="sd_second"]').hide(); // second 감춤
+                $('div[name="sd_third"]').hide(); // third 감춤
+            }
+
+            // 마지막에서 두번째 항목이면
+            else if(i == arrSubCategory.length-2) {
+                console.log("#### 카테고리 마지막에서 두번째 ");
+                $('div[name="sd_third"]').hide(); // third 감춤
+                $('div[name="sd_second"]').empty().append(arrSubCategory[i+1]);
+            }
+
+            // 마지막에서 세번째 항목 이전이면
+            else if(i < arrSubCategory.length-2) {
+                console.log("#### 카테고리 마지막에서 세번째보다 작으면.. ");
+                $('div[name="sd_second"]').empty().append(arrSubCategory[i+1]);
+            }
+            
+        }
+    }
+}
+
 
 
 /**
@@ -71,6 +148,10 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
     	me.actors = [];
 
         this.selectProductSubCategory();
+
+        // 메뉴명 표기
+        
+
 
         // 당일 판매현장 시각
         $('#ci_title').html("당일 판매현장 " + this.getCurrentDate());
@@ -573,8 +654,12 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
                 $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
 
+                // 서브카테고리 Set
+                setSubCategory();
+
                 // 우측 상품 영역 갱신
                 updateProductInfo(); 
+
             }
         });
     }

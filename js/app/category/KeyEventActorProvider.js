@@ -421,7 +421,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                     else if(currentFocusList == 3) {
                         // 구매 상품 리스트 일때
                         if(histFocus == 1) {
-                            $('#li_shl_tb_b').removeClass("focus");
+                            $('#th_product_list').removeClass("focus");
                             currentFocusList = 0;
                             histFocus = 0;
                             $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
@@ -430,7 +430,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                         else if(histFocus == 2) {
                             $('#shlr_on').removeClass("focus");
                             histFocus = 1;
-                            $('#li_shl_tb_b').addClass("focus");
+                            $('#th_product_list').addClass("focus");
                         }
                     }
                 }
@@ -460,7 +460,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             this.selectShopperHistory(); // 쇼퍼 주문 이력 조회
 
                             $('#shopper_history').show();
-                            $('#li_shl_tb_b').addClass("focus");
+                            $('#th_product_list').addClass("focus");
                             currentFocusList = 3;
                             histFocus = 1;
                             $('li[name="category_menu"]').eq(currentFocusMenu).removeClass('focus');
@@ -486,7 +486,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                     else if(currentFocusList == 3) {
                         // 구매 상품 리스트
                         if(histFocus == 1) {
-                            $('#li_shl_tb_b').removeClass("focus");
+                            $('#th_product_list').removeClass("focus");
                             histFocus = 2;
                             $('#shlr_on').addClass("focus");
                         }
