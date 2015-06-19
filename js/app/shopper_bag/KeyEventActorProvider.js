@@ -3,6 +3,7 @@
 
 // 마트는 지금 레이아웃 생성
 function makeTweetList() {
+
     var appendHtml =  '<li class="smtc_person">';
         appendHtml += ' <span name="shopper_img"></span>';
         appendHtml += '     <ul>';

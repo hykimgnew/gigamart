@@ -2,6 +2,16 @@
 
 var videoPlayer = window.oipfObjectFactory.createVideoMpegObject();
 
+// 숫자 -> 금액
+function cn_toPrice(n) {
+    if(isNaN(n)){return 0;}
+    var reg = /(^[+-]?\d+)(\d{3})/;   
+    n += '';
+    while (reg.test(n))
+    n = n.replace(reg, '$1' + ',' + '$2');
+    return n;
+}
+
 /**
  *  Category Js : KeyEventActorProvider (키 이벤트 처리)
  **/
@@ -704,7 +714,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                         generalYN = true;
 
                         $('#order_date').empty().html(entry['order_date']);
-                        $('#total_cost').empty().html(entry['total_cost']);
+                        $('#total_cost').empty().html(cn_toPrice(entry['total_cost']) + "원");
                         $('#shopper_id').empty().html("ID : " + entry['shopper_id']);
 
                         var rating = Number(entry['shopper_rating']);
@@ -723,7 +733,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                         var cnt = 0;
                         $.each(entry['ordered_product'], function(pindex, pentry) {
                             cnt                 = Math.floor(pindex / maxOrderedPageView);
-                            var str             = Number(pindex+1) + ". " + pentry['name']  + " " + pentry['standard'] + " " +  pentry['cost'] + "원 (수량 : " +  pentry['cnt'] + ")<br /><br />";
+                            var str             = Number(pindex+1) + ". " + pentry['name']  + " " + pentry['standard'] + " " +  cn_toPrice(pentry['cost']) + "원 (수량 : " +  pentry['cnt'] + ")<br /><br />";
                             productList[cnt]    = (productList[cnt] + str).replace("undefined", "");
                         });
 
