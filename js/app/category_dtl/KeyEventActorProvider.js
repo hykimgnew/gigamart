@@ -130,6 +130,11 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 console.log("############ VK_ENTER 1234");
                 console.log("currentFocusList"+currentFocusList);
                 console.log("currentFocusBtn"+currentFocusBtn);
+                
+                /**********test용****************/
+                location.href ="product1.html";
+                /*******************************/
+
                 // 상세 카테고리 일때
                 if(currentFocusList>=0 &&currentFocusList <= 2) {
                     console.log("############ VK_ENTER 2222");
@@ -639,7 +644,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                     //console.log("###### JSON read 1 : " + entry['receiver_name']);
                 //});
 
-                $('#list').append(listHtml);
+                //$('#list').append(listHtml);
             },
             error : function(){
                     console.log("에러");
