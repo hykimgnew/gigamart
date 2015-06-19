@@ -52,11 +52,14 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
 
                 currentFocusDtl     = Number(requestCategoryDtlCode);
                 $('li[name="appendMenu"]').eq(currentFocusDtl).addClass("focus");
+            } else {
+                // 메뉴 갱신
+                this.menuRefresh();
             }
+        } else {
+            // 메뉴 갱신
+            this.menuRefresh();
         }
-
-        // 메뉴 갱신
-        // this.menuRefresh();
         
         // 당일 판매현장 시각
         $('#cv_title').html("당일 판매현장 " + this.getCurrentDate());
