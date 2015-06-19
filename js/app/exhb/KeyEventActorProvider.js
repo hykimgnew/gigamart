@@ -1,5 +1,22 @@
 'use strict';
 
+
+// 지금 이상품 이가격 하단 레이아웃 생성
+function makeTweetList() {
+    var appendHtml =  '<li name="sl_menu" class="sl_menu pd_r10">';
+        appendHtml += ' <span class="polygon_b" name="slp_flag"></span>';
+        appendHtml += '     <a href="#" class="sl_play"><img src="../images/btn_play_s.png" /></a>';
+        appendHtml += '     <ul>';
+        appendHtml += '         <li> <img src="../images/sample_02.jpg" width="144" height="92" /></li>';
+        appendHtml += '         <li class="slm_txt" name="slp_title"></li>';
+        appendHtml += '     </ul>';
+        appendHtml += '<input type="hidden" name="tv_video" class="tv_video"id=""/>';
+        appendHtml += '</li>';
+    $('#ul_tweet').append(appendHtml);
+}
+
+
+
 /**
  *  Exhb Js : KeyEventActorProvider (키 이벤트 처리)
  **/
@@ -15,7 +32,7 @@ function fn_videoPlay(url, category, type) {
         // 테스트용 영상
         url = "http://14.52.244.91:8080" + url;
         // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
-        $('#span_videoDiv').empty().append('<img src="../images/sample_01.jpg" />');
+        $('#span_videoDiv').empty().append('<img src="../images/sample_02.jpg"  style="width : 610px; height : 343px;"/>');
         
         videoPlayer.width = 610;
         videoPlayer.height = 343;
@@ -29,7 +46,7 @@ function fn_videoPlay(url, category, type) {
         // 테스트용 영상
         url = "http://14.52.244.91:8080" + url;
         // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
-        $('#p_videoDiv').empty().append('<img src="../images/sample_01.jpg" />');
+        $('#p_videoDiv').empty().append('<img src="../images/sample_02.jpg" style="width : 970px; height : 545px;"/>');
         
         videoPlayer2.width = 970;
         videoPlayer2.height = 545;
@@ -43,6 +60,8 @@ function fn_videoPlay(url, category, type) {
 App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
     _construct: function() {
     	var me = this;
+        // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
+        $('#span_videoDiv').empty().append('<img src="../images/sample_02.jpg"  style="width : 610px; height : 343px;"/>');
 
     	me.actors = [];
         //저렴한상품추천
@@ -57,6 +76,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
         // 지금 이상품 이가격 하단
         this.selectProductEvent();
+
         //처름 지금이상품 이가격 하단에 focus되므로 video재생
         var url = $('li[name="sl_menu"]').eq(currentFocusMenu).children('.tv_video').val();
         console.log("###################################################################################### url : " + url);
@@ -341,7 +361,6 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 // * 위 KEY
                 // **************************************************
                 if(keyCode === global.VK_UP) {
-                    
                     // 지금 이상품 이가격(하단) -> 지금 이상품 이가격
                     /*if(currentFocusList == 2) {
                         $('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
@@ -350,10 +369,29 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     }*/
 
                     // 지금 이상품 이가격(하단)
-                    if(currentFocusList == 1) {
+                    if(currentFocusList == 2) {
+                        console.log("##### 지금 이상품 이가격(하단)지금 이상품 이가격(하단)지금 이상품 이가격(하단)지금 이상품 이가격(하단)..");
                         if(prevPageYN1 == true) {
                             // 전 페이지 조회
                             console.log("지금 이상품 이가격 : 전 페이지 조회");
+                            if(currentOrderedProductPage2 == 0) {
+                                    console.log("##### 첫페이지임 ..");
+                                }
+                                // 마지막 페이지 아닐 때
+                            else {
+                                console.log("##### 마지막 페이지 아닐 때..");
+                                //$('li[name="li_discount2"]').eq(currentFocusDtl2).removeClass('focus');
+                                //$('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').empty();
+                                //currentFocusDtl2 = currentFocusDtl2 - 1;
+                                //$('a[name="arrow_top"]').addClass('focus'); 
+                                this.pagingOrderedProduct2(Number(currentOrderedProductPage2-1));
+
+                                var url = $('li[name="sl_menu"]').eq(currentFocusMenu).children('.tv_video').val(); 
+                                this.videoPlay(url, Number(currentFocusMenu+2), 1);
+                                console.log("VK_DOWN 지금 이상품 이가격(하단)-> 지금 이상품 이가격(하단) 영상 재생 url"+url);
+                            }
+
+
                         } else if(prevPageYN1 == false) {
                             // 전 페이지 없음
                             console.log("지금 이상품 이가격 : 전 페이지 없음");
@@ -375,9 +413,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                                 // 마지막 페이지 아닐 때
                                 else {
                                     console.log("##### 마지막 페이지 아닐 때..");
-                                    $('li[name="li_discount1"]').eq(currentFocusDtl1).removeClass('focus');
-                                    $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dm_bdr').empty();
-                                    currentFocusDtl1 = currentFocusDtl1 - 1;
+                                    $('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
                                     $('a[name="arrow_top"]').addClass('focus');  
                                     this.pagingOrderedProduct(currentOrderedProductPage-1);
                                 }
@@ -512,6 +548,22 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         if(nextPageYN1 == true) {
                             // 다음 페이지 조회
                             console.log("지금 이상품 이가격 : 다음 페이지 조회");
+                            if(currentOrderedProductPage2 == totalOrderedPage2) {
+                                    console.log("##### 더 이상 이동할 페이지 없음..");
+                            }
+                            // 마지막 페이지 아닐 때
+                            else {
+                                console.log("##### 마지막 페이지 아닐 때..");
+                                //$('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
+                                //currentFocusDtl1 = currentFocusDtl1 + 1; 
+                                //$('a[name="arrow_bottom2"]').addClass('focus'); 
+                               
+                                this.pagingOrderedProduct2(Number(currentOrderedProductPage2+1));
+                                 var url = $('li[name="sl_menu"]').eq(currentFocusMenu).children('.tv_video').val();
+                                console.log("VK_DOWN 지금 이상품 이가격(하단)-> 지금 이상품 이가격(하단) 영상 재생 url"+url);
+                                this.videoPlay(url, Number(currentFocusMenu+2), 1);
+
+                            }
                         } else if(nextPageYN1 == false) {
                             // 다음 페이지 없음
                             console.log("지금 이상품 이가격 : 다음 페이지 없음");
@@ -678,7 +730,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     if(currentFocusList == 2) {
                         // 지금 이상품 이가격(하단 왼쪽) -> 전체 카테고리
                         if(currentFocusMenu == 0) {
-                            videoPlayer.stop();
+                            //videoPlayer.stop();
 
                             $('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
                             currentFocusList = 0;
@@ -688,13 +740,25 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         } 
                         else if(currentFocusMenu > 0) {
                             $('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
+                            console.log("currentFocusMenu-> url"+currentFocusMenu);
                             currentFocusMenu = currentFocusMenu - 1;
                             fvCode = currentFocusMenu; // TODO : 나중에 타임세일 코드 넣어야함
                             $('li[name="sl_menu"]').eq(currentFocusMenu).addClass('focus');
                             
                             var url = $('li[name="sl_menu"]').eq(currentFocusMenu).children('.tv_video').val();
-                            console.log("지금 이상품 이가격(하단)-> 지금 이상품 이가격(하단) 영상 재생 url"+url);
-                            this.videoPlay(url, Number(currentFocusMenu+2), 1);
+                            //url : 치킨일땐 이미지 뿌리기                           
+                            if(url == "/video/tv/product_event/2-6기획전_치킨.mp4"){
+                                console.log("지금 이상품 이가격(하단)-> 지금 이상품 이가격(하단) 치킨영상 재생 url"+url);
+                                this.videoPlay(url, Number(currentFocusMenu+2), 1);
+                            }
+                            else{
+                                 console.log("지금 이상품 이가격(하단)-> 지금 이상품 이가격(하단) 영상 url"+url);   
+                                 this.videoPlay(url, Number(currentFocusMenu+2), 1);
+                            }
+                            
+                        
+
+
                         }
                     }
                     
@@ -805,7 +869,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         // 지금 이상품 이가격(하단 오른쪽) -> 저렴한 상품 추천
                         else if(currentFocusMenu == 3) {
                             //this.videoStop();
-                            videoPlayer.stop();
+                            //videoPlayer.stop();
 
                             $('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
                             currentFocusList = 3;
@@ -875,31 +939,45 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
     videoPlay: function(url, category, type) {
         // 지금 이상품 이가격
         if(type == 1) {
+                
+            //url : /video/tv/product_event/2-6기획전_치킨.mp4 일때 
+            if(url == "/video/tv/product_event/2-6기획전_치킨.mp4"){
+                console.log("치킨!!!! : "+url);
+               // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
+                $('#span_videoDiv').empty().append('<img src="../images/sample_02.jpg" style="width : 610px; height : 343px;"/>');
+            }
+            else{
+                console.log("치킨아님!!!! : "+url);
             // 테스트용 영상
             url = "http://14.52.244.91:8080" + url;
-            // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
-            $('#span_videoDiv').empty().append('<img src="../images/sample_01.jpg" />');
+                videoPlayer.width = 610;
+                videoPlayer.height = 343;
+                $('#span_videoDiv').empty()
+                document.getElementById('span_videoDiv').appendChild(videoPlayer);
+                videoPlayer.data = url;
+                videoPlayer.play(1);
+            }
+
             
-            videoPlayer.width = 610;
-            videoPlayer.height = 343;
-            $('#span_videoDiv').empty()
-            document.getElementById('span_videoDiv').appendChild(videoPlayer);
-            videoPlayer.data = url;
-            videoPlayer.play(1);
         }
         // 전체 영상보기
         else if(type == 2) {
+            //url : /video/tv/product_event/2-6기획전_치킨.mp4 일때 
+            if(url == "/video/tv/product_event/2-6기획전_치킨.mp4"){
+                // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)]
+                $('#p_videoDiv').empty().append('<img src="../images/sample_02.jpg" style="width : 970px; height : 545px;"/>');
+            }
+            else{
             // 테스트용 영상
             url = "http://14.52.244.91:8080" + url;
-            // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
-            $('#p_videoDiv').empty().append('<img src="../images/sample_01.jpg" />');
-            
             videoPlayer2.width = 970;
             videoPlayer2.height = 545;
             $('#p_videoDiv').empty()
             document.getElementById('p_videoDiv').appendChild(videoPlayer2);
             videoPlayer2.data = url;
             videoPlayer2.play(1);
+            }
+            
         }
     },
 
@@ -1088,7 +1166,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
     selectProductEvent: function() {
         var param = '';
         var appendHtml = '';
-
+        var str = '';
         $.ajax({
             url         : cmsServerIp + "/ProductTask/product_event",
             type        : "post",
@@ -1103,6 +1181,23 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 
                 productList3 = new Array(); // 구매 리스트 초기화
                 var cnt = 0;
+
+                /*$.each(result['product'], function(index, entry) {
+                    console.log("index : " + index + " maxOrderedPageView2 : " + maxOrderedPageView2 );
+                    makeTweetList();
+                     상품 플래그 
+                    $('span[name="slp_flag"]').eq(index).empty().append(entry['flag']);
+                     상품 title
+                    $('li[name="slp_title"]').eq(index).empty().append(entry['title']);
+                     비디오 hidden값 
+                    $('input[name="tv_video"]').eq(index).empty().append(entry['tv_video']);
+                     
+                });
+                //4번째있는 이미지의 class속성 제거(오른쪽여백)
+                $('li[name="sl_menu"]').eq(3).removeClass('pd_r10');*/
+
+
+
                 $.each(result['product'], function(index, entry) {
                         $('span[name="slp_flag"]').eq(index).empty().html(entry['flag']);
                         $('li[name="slp_title"]').eq(index).empty().html(entry['title']);
@@ -1117,10 +1212,15 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                                         "tv_video" : entry['tv_video']
                                      };
                     cnt                 = Math.floor(index / maxOrderedPageView2);
-                    var str             = Number(index+1) + ". " +appendHtml;
-
-                    productList3[index]    = appendHtml;
+                    var str             = appendHtml;
+                    productList3[index]    = str;
                     console.log("index : " + index + " maxOrderedPageView2 : " + maxOrderedPageView2 + " cnt : " + cnt);
+/*
+                    cnt                 = Math.floor(pindex / maxOrderedPageView);
+                    var str             = Number(pindex+1) + ". " + pentry['name']  + " " + pentry['standard'] + " " +  pentry['cost'] + "원 (수량 : " +  pentry['cnt'] + ")<br /><br />";
+                    productList[cnt]    = (productList[cnt] + str).replace("undefined", "");*/
+
+
                 });
 
 
@@ -1140,6 +1240,8 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             },
             complete    : function(result) {
                 if(videoFlag) {
+                    // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
+                    //$('#span_videoDiv').empty().append('<img src="../images/sample_02.jpg" />');
                     fn_videoPlay(video[0], Number(currentFocusMenu+2), 1);
                     videoFlag = false;
                     console.log("###################################################################################### video complete url : " + video[1]);
@@ -1148,7 +1250,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         });
         
     },
-    // 리스트 페이지 이동
+    // 내가 늘 사는 상품 지금 얼마? 리스트 페이지 이동
     pagingOrderedProduct : function(page) {
         // 현재 페이지
         currentOrderedProductPage = page;
@@ -1194,6 +1296,26 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
         
     },
-    
+    // 지금 이상품 이가격 하단 리스트 페이지 이동
+    pagingOrderedProduct2 : function(page) {
+        // 현재 페이지
+        currentOrderedProductPage2 = page;
+        console.log("########리스트 페이지 이동 currentOrderedProductPage2 : " + currentOrderedProductPage2);
+        console.log("########productList3.length : " + productList3.length);
+        for(var i=0 ; i < productList3.length ; i++) {
+            console.log("######## productList3 i :  " + i + ": " + productList3[i]);
+            console.log("######## productList3 stringify " + i + ": " + JSON.stringify(productList3[i]));
+
+        }
+        for(var i=0 ; i < 4 ; i++) {
+            console.log("(page*4)+i : "+ Number((page*4)+i));    
+            $('span[name="slp_flag"]').eq(i).empty().html(productList3[Number((page*4)+i)].flag);
+            $('li[name="slp_title"]').eq(i).empty().html(productList3[Number((page*4)+i)].title);
+            $('input[name="tv_video"]').eq(i).val(productList3[Number((page*4)+i)].tv_video);
+            //$('input[name="tv_video"]').eq(index).val(entry['tv_video']);
+        }
+        //fn_videoPlay(video[0], Number(currentFocusMenu+2), 1);
+
+    }
 
 });

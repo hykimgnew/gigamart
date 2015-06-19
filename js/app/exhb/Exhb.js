@@ -141,6 +141,12 @@ var currentFocusDtlPage = 0;
   **/
   var btnokfill = '<img src="../images/btn_ok_fill.png"/>';
 
+/**
+  * 지금 이상품 이가격 하단 페이지 Λ V 커서 focus
+ true일경우 Λ 에 focus
+ false일경우 V 에 focus
+ **/
+ var slArrow = false;
 
 
 global.onload = function() {
@@ -167,7 +173,7 @@ App.defineClass('Gigamart.app.exhb.Exhb', {
         
         //$('#pj_left').addClass("focus");
         $('li[name="sl_menu"]').eq(currentFocusMenu).addClass('focus');
-        
+
         global.stbService = Gigamart.app.exhb.STBService.create(EventBus);
 
         // 팝업 Load
