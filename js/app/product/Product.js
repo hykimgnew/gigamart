@@ -14,6 +14,7 @@ var global = window;
 var requestProductView      = request.getParameter("productView");
 var requestCurrentFocusList = request.getParameter("currentFocusList");
 var requestCurrentFocusMenu = request.getParameter("currentFocusMenu");
+var requestCurrentFocusMenul = request.getParameter("currentFocusMenul");
 //currentFocusList="+currentFocusList+"&currentFocusMenu="+currentFocusMenu;
 
 
@@ -137,6 +138,15 @@ var currentFocusDtlPage = 0;
 var productView = 1;
 
 
+
+//*************************************************
+// *  관련 기획전 위치
+// *  1  0
+// *  2  3
+//*************************************************
+var giFocus = 0;
+
+
 //*************************************************
 // *  수량선택 팝업
 // * popHtml = 수량선택팝업 HTML
@@ -180,7 +190,7 @@ App.defineClass('Gigamart.app.product.Product', {
         //상품정보의 첫번째 페이지일때 장바구니 담기에 포커스
         if(productView ==1){
           console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@init 첫페이지@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-          $('li[name="add_cart"]').addClass('focus');
+          //$('li[name="add_cart"]').addClass('focus');
         }
         //상품정보의 두번째 페이지일때 첫번째 페이지에서 마지막으로 focus된 영역
         else{
