@@ -2,6 +2,10 @@
 
 var videoPlayer = window.oipfObjectFactory.createVideoMpegObject();
 
+var request = new Request();
+
+
+
 /**
  *  Category Js : KeyEventActorProvider (키 이벤트 처리)
  **/
@@ -104,7 +108,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 /*if(videoPlayer.playState != 'undefined') {
                     if(videoPlayer.playState != 0 ) this.videoStop(); // 영상 재생 중지
                 }
-*/
+                */
                 isCart = true;
                 cartHtml = $('#wrap').html(); // 간편 장바구니에 들어갈 부분의 html 백업 (간편 장바구니 해제 후에 다시 돌려두어야함)
                 $('#wrap').load("easy_cart.html");
@@ -236,10 +240,6 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                             currentFocusBtn = 1;      
                         }
                     }    
-
-
-
-
                 }
 
                 // **************************************************
@@ -434,15 +434,18 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                     }
                 }
 
-                console.log("* getKeyEventActor : " + keyCode );
-                console.log("리스트 종류 : " + currentFocusList);
-                console.log("전체카테고리 : " + currentFocusMenu);
-                console.log("상세카테고리 페이지 : " + currentFocusDtlPage);
-                console.log("상세카테고리 : " + currentFocusDtl);
+                console.log("* getKeyEventActor : "     + keyCode );
+                console.log("리스트 종류 : "            + currentFocusList);
+                console.log("전체카테고리 : "           + currentFocusMenu);
+                console.log("상세카테고리 페이지 : "    + currentFocusDtlPage);
+                console.log("상세카테고리 : "           + currentFocusDtl);
                 
                 
             } else if (keyCode === global.VK_BACK) {
-                
+                // 전체 카테고리로 이동
+                this.transCategoryCode(); // 한글코드를 숫자코드로 변환 후 페이지 이동
+
+                location.href = "category.html?categoryCode=" + requestCategoryCode + "&categoryDtlCode=" + requestCategoryDtlCode + "&categoryDtlPage=" + requestCategoryDtlPage;
             } else if (keyCode === global.VK_ESCAPE) {
                 
             } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
@@ -611,10 +614,85 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
     	});
     },
 
+    // 변환 : 카테고리 코드 한글 -> 숫자 (CMS에서 한글 파라미터는 최대한 배제하는 편이..)
+    transCategoryCode: function() {
+        // 카테고리 코드
+        if(requestCategoryCode == '과일')                 requestCategoryCode = 4;
+        if(requestCategoryCode == '채소')                 requestCategoryCode = 5;
+        if(requestCategoryCode == '유제품/두부/계란')     requestCategoryCode = 6;
+        if(requestCategoryCode == '정육')                 requestCategoryCode = 7;
+        if(requestCategoryCode == '수산물/건어물')        requestCategoryCode = 8;
+        if(requestCategoryCode == '쌀/잡곡/견과')         requestCategoryCode = 9;
+        if(requestCategoryCode == '건강/친환경/유기농')   requestCategoryCode = 10;
+        if(requestCategoryCode == '가공식품')             requestCategoryCode = 11;
+
+        // 상세카테고리 코드
+        // 과일
+        if(requestCategoryCode == 4 && requestCategoryDtlCode == '사과/배')                 requestCategoryDtlCode = 0;
+        if(requestCategoryCode == 4 && requestCategoryDtlCode == '참외/토마토')             requestCategoryDtlCode = 1;
+        if(requestCategoryCode == 4 && requestCategoryDtlCode == '키위/딸기/멜론/수박')     requestCategoryDtlCode = 2;
+        if(requestCategoryCode == 4 && requestCategoryDtlCode == '귤/한라봉/천혜향')        requestCategoryDtlCode = 3;
+        if(requestCategoryCode == 4 && requestCategoryDtlCode == '바나나/오렌지/외국과일')  requestCategoryDtlCode = 4;
+        if(requestCategoryCode == 4 && requestCategoryDtlCode == '복분자/블루베리')         requestCategoryDtlCode = 5;
+        if(requestCategoryCode == 4 && requestCategoryDtlCode == '견과/견과')               requestCategoryDtlCode = 6;
+        
+        // 채소
+        if(requestCategoryCode == 5 && requestCategoryDtlCode == '고구마/감자/호박')        requestCategoryDtlCode = 0;
+        if(requestCategoryCode == 5 && requestCategoryDtlCode == '파/양파/마늘/생강')       requestCategoryDtlCode = 1;
+        if(requestCategoryCode == 5 && requestCategoryDtlCode == '당근/오이/가지/고추')     requestCategoryDtlCode = 2;
+        if(requestCategoryCode == 5 && requestCategoryDtlCode == '배추/양배추/무')          requestCategoryDtlCode = 3;
+        if(requestCategoryCode == 5 && requestCategoryDtlCode == '쌈 채소/기타')            requestCategoryDtlCode = 4;
+        if(requestCategoryCode == 5 && requestCategoryDtlCode == '파프리카/피망')           requestCategoryDtlCode = 5;
+        if(requestCategoryCode == 5 && requestCategoryDtlCode == '표고/송이/버섯류')        requestCategoryDtlCode = 6;
+        if(requestCategoryCode == 5 && requestCategoryDtlCode == '나물류/새순') {
+            requestCategoryDtlCode = 0;
+            requestCategoryDtlPage = 1;
+        }
+
+        // 유제품/두부/계란
+        if(requestCategoryCode == 6 && requestCategoryDtlCode == '우유')                    requestCategoryDtlCode = 0;
+        if(requestCategoryCode == 6 && requestCategoryDtlCode == '두유')                    requestCategoryDtlCode = 1;
+        if(requestCategoryCode == 6 && requestCategoryDtlCode == '요구르트')                requestCategoryDtlCode = 2;
+        if(requestCategoryCode == 6 && requestCategoryDtlCode == '버터/치즈/마가린')        requestCategoryDtlCode = 3;
+        if(requestCategoryCode == 6 && requestCategoryDtlCode == '두부')                    requestCategoryDtlCode = 4;
+        if(requestCategoryCode == 6 && requestCategoryDtlCode == '계란/메추리알')           requestCategoryDtlCode = 5;
+
+        // 정육
+        if(requestCategoryCode == 7 && requestCategoryDtlCode == '소고기')                  requestCategoryDtlCode = 0;
+        if(requestCategoryCode == 7 && requestCategoryDtlCode == '돼지고기')                requestCategoryDtlCode = 1;
+        if(requestCategoryCode == 7 && requestCategoryDtlCode == '닭/오리')                 requestCategoryDtlCode = 2;
+        if(requestCategoryCode == 7 && requestCategoryDtlCode == '양념육/육포')             requestCategoryDtlCode = 3;
+
+        // 수산물/건어물
+        if(requestCategoryCode == 8 && requestCategoryDtlCode == '생선/해산물')             requestCategoryDtlCode = 0;
+        if(requestCategoryCode == 8 && requestCategoryDtlCode == '멸치/건새우/건어')        requestCategoryDtlCode = 1;
+        if(requestCategoryCode == 8 && requestCategoryDtlCode == '미역/김/해조류')          requestCategoryDtlCode = 2;
+        if(requestCategoryCode == 8 && requestCategoryDtlCode == '어포/안주류')             requestCategoryDtlCode = 3;
+
+        // 쌀/잡곡/견과
+        if(requestCategoryCode == 9 && requestCategoryDtlCode == '쌀')                      requestCategoryDtlCode = 0;
+        if(requestCategoryCode == 9 && requestCategoryDtlCode == '찹쌀/현미')               requestCategoryDtlCode = 1;
+
+        // 건강/친환경/유기농
+        if(requestCategoryCode == 10 && requestCategoryDtlCode == '홍삼/건강식품')          requestCategoryDtlCode = 0;
+        if(requestCategoryCode == 10 && requestCategoryDtlCode == '친환경/유기농샵')        requestCategoryDtlCode = 1;
+        
+
+        // 가공식품
+        if(requestCategoryCode == 11 && requestCategoryDtlCode == '즉석/간편식/햄/통조림')  requestCategoryDtlCode = 0;
+        if(requestCategoryCode == 11 && requestCategoryDtlCode == '라면/국수/면류')         requestCategoryDtlCode = 1;
+        if(requestCategoryCode == 11 && requestCategoryDtlCode == '생수/커피/차/음료')      requestCategoryDtlCode = 2;
+        if(requestCategoryCode == 11 && requestCategoryDtlCode == '조미료/향신료/장류')     requestCategoryDtlCode = 3;
+        if(requestCategoryCode == 11 && requestCategoryDtlCode == '과자')                   requestCategoryDtlCode = 4;
+        if(requestCategoryCode == 11 && requestCategoryDtlCode == '빵/식빵/케익/잼')        requestCategoryDtlCode = 5;
+    },
+
+
+
     // 조회 : 상세카테고리별 상품정보
     selectProductSubCategory: function() {
         var param = {
-                        "subcategory" : '귤/한라봉/천혜향'
+                        "subcategory" : requestCategoryDtlCode
                     };
         $.ajax({
             url         : "http://14.52.244.91:8080/ProductSubCategoryTask",
@@ -626,7 +704,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                             withCredentials: true
             },
             success     : function(result) {
-                console.log("######################################################################################");
+                console.log("######## 상세카테고리 파라미터 : " + requestCategoryDtlCode);
                 console.log("######## 상세카테고리별 상품정보 결과 : " + JSON.stringify(result));
 
                 // var listHtml = new Array();

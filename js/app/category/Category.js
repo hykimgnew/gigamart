@@ -6,6 +6,13 @@
 var global = window;
 
 //*************************************************
+// * 넘어온 전체카테고리, 상세카테고리 코드 (포커스 보전용)
+//*************************************************
+var requestCategoryCode     = request.getParameter("categoryCode");
+var requestCategoryDtlCode  = request.getParameter("categoryDtlCode");
+var requestCategoryDtlPage  = request.getParameter("categoryDtlPage");
+
+//*************************************************
 // * Popup
 // * isCart       : 간편 장바구니
 //*************************************************
