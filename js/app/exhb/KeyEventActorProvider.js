@@ -91,6 +91,9 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         console.log("###################################################################################### video url : " + video[1]);
         //this.videoPlay("/video/tv/product_event/2-1기획전_매실.mp4", Number(currentFocusMenu+2), 1);
         
+        // 당일 판매현장 시각
+        $('#cv_title').html("오늘 " + this.getCurrentDate() +" 현장 영상");
+
     },
 
     // 화면 별 키 이벤트 관련 처리
@@ -359,6 +362,20 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     console.log("전체 영상보기 영상 재생 url"+url);
                     this.videoPlay(url, Number(currentFocusMenu+2), 2);
                 }
+                //단골쇼퍼
+                if(currentFocusList == 5) {
+                    //쇼퍼
+                    if(currentFocusDtl3 == 0) {
+                        // 쇼퍼's Bag으로 이동
+                        location.href = "shopper_bag.html";        
+                    }
+                    //추천세트
+                    else if(currentFocusDtl3 == 1){
+                        /** 전체 카테고리로 이동 */
+                        location.href = "category.html";
+                    }
+
+                }
             } 
 
             // **************************************************
@@ -421,9 +438,16 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                                 // 마지막 페이지 아닐 때
                                 else {
                                     console.log("##### 마지막 페이지 아닐 때..");
-                                    $('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
-                                    $('a[name="arrow_top"]').addClass('focus');  
+                                    //$('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
+                                    $('li[name="li_discount1"]').eq(currentFocusDtl1).removeClass('focus');
+                                    $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dm_bdr').empty();
+                                    //$('a[name="arrow_top"]').addClass('focus');  
                                     this.pagingOrderedProduct(currentOrderedProductPage-1);
+
+                                    currentFocusDtl1 = currentFocusDtl1 + 1; 
+                                    $('li[name="li_discount1"]').eq(currentFocusDtl1).addClass('focus');
+                                    $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dm_bdr').append(btnokfill);
+
                                 }
                             }
                             else if(prevPageYN2 == false) {
@@ -471,9 +495,12 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                                     console.log("##### 마지막 페이지 아닐 때..");
                                     $('li[name="li_discount2"]').eq(currentFocusDtl2).removeClass('focus');
                                     $('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').empty();
-                                    currentFocusDtl2 = currentFocusDtl2 - 1;
-                                    $('a[name="arrow_top"]').addClass('focus');  
+                                    
+                                    //$('a[name="arrow_top"]').addClass('focus');  
                                     this.pagingOrderedProduct(Number(currentOrderedProductPage-1));
+                                    currentFocusDtl2 = currentFocusDtl2 + 1;
+                                     $('li[name="li_discount2"]').eq(currentFocusDtl2).addClass('focus');
+                                    $('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').append(btnokfill);
                                 }
                             }
                             else if(prevPageYN2 == false) {
@@ -508,16 +535,13 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                             if(prevPageYN2 == true) {
                                 // 전 페이지 조회
                                 console.log("내가 늘 사는 상품 지금 얼마? : 전 페이지 조회");
-                                $('li[name="shooperImg"]').removeClass('focus');
-                                currentFocusDtl3 = currentFocusDtl3 - 1;
-                                $('a[name="arrow_top"]').addClass('focus');  
+                                //$('li[name="shooperImg"]').removeClass('focus');
+                                //currentFocusDtl3 = currentFocusDtl3 - 1;
+                                //$('a[name="arrow_top"]').addClass('focus');  
                             }
                             else if(prevPageYN2 == false) {
                                 // 전 페이지 없음
                                 console.log("내가 늘 사는 상품 지금 얼마? : 전 페이지 없음");
-                                /*$('li[name="shooperImg"]').removeClass('focus');
-                                currentFocusDtl3 = currentFocusDtl3 - 1;
-                                $('a[name="arrow_top"]').addClass('focus');  */
                             }
                             
                         }
@@ -602,9 +626,11 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                                     console.log("##### 마지막 페이지 아닐 때..");
                                     $('li[name="li_discount1"]').eq(currentFocusDtl1).removeClass('focus');
                                     $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dm_bdr').empty(); 
-                                    currentFocusDtl1 = currentFocusDtl1 + 1; 
-                                    $('a[name="arrow_bottom"]').addClass('focus'); 
+                                    //$('a[name="arrow_bottom"]').addClass('focus'); 
                                     this.pagingOrderedProduct(Number(currentOrderedProductPage+1));
+                                    currentFocusDtl1 = currentFocusDtl1 - 1; 
+                                    $('li[name="li_discount1"]').eq(currentFocusDtl1).addClass('focus');
+                                    $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dm_bdr').append(btnokfill);
                                 }
 
 
@@ -658,9 +684,11 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                                     console.log("##### 마지막 페이지 아닐 때..");
                                      $('li[name="li_discount2"]').eq(currentFocusDtl2).removeClass('focus');
                                     $('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').empty(); 
-                                    currentFocusDtl2 = currentFocusDtl2 + 1; 
-                                    $('a[name="arrow_bottom"]').addClass('focus');  
                                     this.pagingOrderedProduct(Number(currentOrderedProductPage+1));
+                                    currentFocusDtl2 = currentFocusDtl2 - 1; 
+                                    $('li[name="li_discount2"]').eq(currentFocusDtl2).addClass('focus');
+                                    $('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').append(btnokfill);
+
                                 }
                             }
                             else if(nextPageYN2 == false) {
@@ -686,7 +714,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         }
                    }
 
-                   // 추천 세트
+                   // 단골쇼퍼
                    else if(currentFocusList == 5) {
                         console.log("DOWN 추천 세트 currentFocusDtl2? : "+currentFocusDtl2+"currentFocusDtl3? : "+currentFocusDtl3);
                         if(currentFocusDtl3 == 0) {
@@ -703,10 +731,10 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                             if(nextPageYN2 == true) {
                                 // 다음 페이지 조회
                                 console.log("내가 늘 사는 상품 지금 얼마? : 다음 페이지 조회");
-                                $('li[name="li_discount3"]').eq(currentFocusDtl3).removeClass('focus');
-                                $('li[name="li_discount3"]:eq('+ currentFocusDtl3 + ') > .dm_bdr').empty(); 
-                                currentFocusDtl3 = currentFocusDtl3 + 1; 
-                                $('a[name="arrow_bottom"]').addClass('focus');  
+                                //$('li[name="li_discount3"]').eq(currentFocusDtl3).removeClass('focus');
+                                //$('li[name="li_discount3"]:eq('+ currentFocusDtl3 + ') > .dm_bdr').empty(); 
+                                //currentFocusDtl3 = currentFocusDtl3 + 1; 
+                                //$('a[name="arrow_bottom"]').addClass('focus');  
 
                             }
                             else if(nextPageYN2 == false) {
@@ -1153,8 +1181,8 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         appendHtml2 += '<li class="dlm_price">24,900원</li>';
         appendHtml2 += '</ul>';
         
-        if(Math.floor(Math.random() * 2) == 0) {shopperImg = '<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_김미나.jpg" />'; shopperName="김미나 쇼퍼";}
-        else  {shopperImg ='<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_이순자.jpg" />'; shopperName="이순자 쇼퍼";}
+        if(Math.floor(Math.random() * 2) == 0) {shopperImg = '<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_김미나.png" />'; shopperName="김미나 쇼퍼";}
+        else  {shopperImg ='<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_이순자.png" />'; shopperName="이순자 쇼퍼";}
         if(Math.floor(Math.random() * 2) == 0)  {shopperSet = '<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼세트_닭볶음탕.jpg" />';shopperProduct = "닭볶음탕";} 
         else  {shopperSet ='<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼세트_소고기샤브샤브2.jpg" />'; shopperProduct = "소고기샤브샤브"; }
 
@@ -1324,6 +1352,28 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         }
         //fn_videoPlay(video[0], Number(currentFocusMenu+2), 1);
 
-    }
+    },
+
+    // 현재 시간 구하기 (ampm)
+    getCurrentDate: function() {
+        var now = new Date();
+        var hour = now.getHours();
+        var minute = now.getMinutes();
+        var second = now.getSeconds();
+        var str_ampm, dsp_ampm;
+
+        if(hour == 0) str_ampm ="오후";
+        else if(hour < 13) str_ampm = "오전";
+        else {
+            hour -= 12;
+            str_ampm = "오후";
+        }
+        hour = (hour == 0) ? 12 : hour;
+
+        dsp_ampm = str_ampm + " " + hour + "시 " + minute + "분";
+
+        return dsp_ampm;
+    },
+    
 
 });

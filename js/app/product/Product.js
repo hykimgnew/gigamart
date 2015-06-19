@@ -6,6 +6,19 @@
 var global = window;
 
 //*************************************************
+// * 상세카테고리 코드 (포커스 보전용)
+//*************************************************
+//var requestCategoryDtlCode  = request.getParameter("categoryDtlCode");
+//var requestCategoryCode     = request.getParameter("categoryCode");
+//var requestCategoryDtlPage  = request.getParameter("categoryDtlPage");
+var requestProductView      = request.getParameter("productView");
+var requestCurrentFocusList = request.getParameter("currentFocusList");
+var requestCurrentFocusMenu = request.getParameter("currentFocusMenu");
+//currentFocusList="+currentFocusList+"&currentFocusMenu="+currentFocusMenu;
+
+
+
+//*************************************************
 // * Popup
 // * isCart       : 간편 장바구니
 //*************************************************
@@ -29,7 +42,7 @@ var cartFocus = 0;
  *  1 : 상품정보 전체화면
  *  2 : 같은종류 추천상품
  *  3 : 다른사람이 구매한 연관상품
- *  4 :
+ *  4 : 팝업
  **/
 var currentFocusList = 0;
 
@@ -116,6 +129,25 @@ var currentFocusDtlPage = 0;
 
 
 
+//*************************************************
+// *  상품정보 위치(첫번째화면 / 두번째화면)
+// *  1 : 첫번째화면
+// *  2 : 두번째화면
+//*************************************************
+var productView = 1;
+
+
+//*************************************************
+// *  수량선택 팝업
+// * popHtml = 수량선택팝업 HTML
+// * popFocus = 수량선택팝업 Focus 값
+//* 0 : -
+//* 1 : +
+//* 2 : 확인
+//* 3 : 취소
+//*************************************************
+var popHtml = "";
+var popFocus = 0;
  /**
   * 상세카테고리 : 확인/상세/담기 
   **/
@@ -145,9 +177,17 @@ App.defineClass('Gigamart.app.product.Product', {
 
         var me = this;
         //$('ul[name="li_discount"] li').eq(currentFocusDtl1).addClass('focus');        
-        $('li[name="add_cart"]').addClass('focus');
-        
+        //상품정보의 첫번째 페이지일때 장바구니 담기에 포커스
+        if(productView ==1){
+          console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@init 첫페이지@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+          $('li[name="add_cart"]').addClass('focus');
+        }
+        //상품정보의 두번째 페이지일때 첫번째 페이지에서 마지막으로 focus된 영역
+        else{
+          console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@init 두번째페이지@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
+        }
+        
         global.stbService = Gigamart.app.product.STBService.create(EventBus);
 
 

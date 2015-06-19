@@ -10,6 +10,9 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
     	var me = this;
 
     	me.actors = [];
+        console.log("############# requestProductView : " + requestProductView);
+        console.log("############# requestCurrentFocusList : " + requestCurrentFocusList);
+        console.log("############# requestCurrentFocusMenu : " + requestCurrentFocusMenu);
 
     },
 
@@ -125,18 +128,106 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
             // * 확인 KEY
             // **************************************************
             if (keyCode === global.VK_ENTER) {
-                if(currentFocusList == 0) {
-                    if(btFocus == 0) { //+/-일때 popup
-                        $('div[name="wrap_chVolume"]').show();
+                //상품정보의 첫번째 화면일때
+                if(productView ==1){
+                    if(currentFocusList == 0) {
+                        if(btFocus == 0) { //+/-일때 popup
+                            var num = Number($('span[name="pr_num_num"]').html());
+                            // -에 포커스일때
+                            if(pFocus == 0){
+                                currentFocusList = 4;
+                                popFocus = 0;
+                                $('span[name="pr_num_minus"]').removeClass('focus'); 
+                                $('div[name="wrap_chVolume"]').show();
+                                $('span[name="pr_num_numP"]').html(num);
+                                $('span[name="pr_num_minusP"]').addClass('focus'); 
+                            }
+                            // +에 포커스일때
+                            else{
+                                currentFocusList = 4;
+                                popFocus = 1;
+                                $('span[name="pr_num_plus"]').removeClass('focus'); 
+                                $('div[name="wrap_chVolume"]').show();
+                                $('span[name="pr_num_numP"]').html(num);
+                                $('span[name="pr_num_plusP"]').addClass('focus'); 
+                                
+                            }   
+                           
+                        }
+                    }
+                    else if(currentFocusList == 1){
+
+                    }
+                    else if(currentFocusList == 2){
+
+                    }
+                    else if(currentFocusList == 3){
+
+                    }
+                    //팝업
+                    else if(currentFocusList == 4) {
+                        //-에 포커스일때
+                        if(popFocus == 0){
+                            var num = Number($('span[name="pr_num_num"]').html());
+                            var numP = Number($('span[name="pr_num_numP"]').html());
+                            if(numP > 1){
+                                numP = numP - 1;
+                                $('span[name="pr_num_numP"]').html(numP);
+                            }else if(numP == 1){
+
+                            }
+                        }
+                        //+에 포커스일때
+                        else if(popFocus == 1){
+                            var num = Number($('span[name="pr_num_num"]').html());
+                            var numP = Number($('span[name="pr_num_numP"]').html());
+                            if(numP == 1 || numP>1){
+                                numP = numP + 1;
+                                $('span[name="pr_num_numP"]').html(numP);
+                            }else{
+
+                            }
+                        }
+                        //확인에 포커스일때
+                        else if(popFocus == 2){
+                            $('span[id="btn_ok"]').removeClass('focus');
+                            var numP = Number($('span[name="pr_num_numP"]').html());
+                            $('span[name="pr_num_num"]').html(numP);
+
+                            currentFocusList = 0;
+                            pFocus = pFocus;
+                            if(pFocus == 0){
+                                //팝업전화면에서 pFocus포커스가 - 였을때
+                                $('span[name="pr_num_minus"]').addClass('focus');
+                            }else{
+                                //팝업전화면에서 pFocus포커스가 + 였을때
+                                $('span[name="pr_num_plus"]').addClass('focus');
+                            }
+                            
+                            $('div[name="wrap_chVolume"]').hide();
+
+
+                        }
+                        //취소에 포커스일때
+                        else if(popFocus == 3){
+                            $('span[id="btn_close"]').removeClass('focus'); 
+                            console.log("pFocus==>"+pFocus);
+                            currentFocusList = 0;
+                            pFocus = pFocus;
+                            if(pFocus == 0){
+                                //팝업전화면에서 pFocus포커스가 - 였을때
+                                $('span[name="pr_num_minus"]').addClass('focus');
+                            }else{
+                                //팝업전화면에서 pFocus포커스가 + 였을때
+                                $('span[name="pr_num_plus"]').addClass('focus');
+                            }
+                            
+                            $('div[name="wrap_chVolume"]').hide();
+                        }
                     }
                 }
-                else if(currentFocusList == 1){
-
-                }
-                else if(currentFocusList == 2){
-
-                }
-                else if(currentFocusList == 3){
+                //상품정보의 두번째 화면일때
+                else{
 
                 }
             } 
@@ -149,55 +240,79 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 // * 위 KEY
                 // **************************************************
                 if(keyCode === global.VK_UP) {
-                    console.log("currentFocusList==>"+currentFocusList);
-                    // 장바구니 찜하기 상세보기 버튼들..
-                    if(currentFocusList == 0) {
-                        if(btFocus == 2) { //찜하기 focus일때
-                            console.log("btFocus131313==>"+btFocus);
-                            $('ul[name="ci_btn"]').children().eq(btFocus).removeClass('focus');
-                            btFocus = btFocus + 1;
-                            $('ul[name="ci_btn"]').children().eq(btFocus).addClass('focus');
+                    //상품정보의 첫번째 화면일때
+                    if(productView ==1){
+                        console.log("currentFocusList==>"+currentFocusList);
+                        // 장바구니 찜하기 상세보기 버튼들..
+                        if(currentFocusList == 0) {
+                            if(btFocus == 2) { //찜하기 focus일때
+                                console.log("btFocus131313==>"+btFocus);
+                                $('ul[name="ci_btn"]').children().eq(btFocus).removeClass('focus');
+                                btFocus = btFocus + 1;
+                                $('ul[name="ci_btn"]').children().eq(btFocus).addClass('focus');
+                            }
                         }
-                    }
-                    //상품정보 전체화면
-                    else if(currentFocusList == 1) {
-                        
-                    }
-                    // 상품정보 같은종류 추천상품
-                    else if(currentFocusList == 2) {
-                        
-                    }  
-                    //상품정보 다른사람이 구매한 연관상품
-                    else if(currentFocusList == 3) {
-                        if(currentFocusMenul == 0){//다른사람이 구매한 연관상품->+ focus
-                            $('li[name="pl_menul"]').eq(currentFocusMenul).removeClass('focus');   
-                            $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
-                            if(pFocus == 1){
-                                $('span[name="pr_num_plus"]').addClass('focus');
-                            }else{
-                                $('span[name="pr_num_minus"]').addClass('focus'); 
-                            }    
-                            currentFocusList = 0;
-                            //currentFocusMenul = currentFocusMenul-1;
+                        //상품정보 전체화면
+                        else if(currentFocusList == 1) {
+                            
                         }
-                        else if(currentFocusMenul == 1){//다른사람이 구매한 연관상품 -> 장바구니담기 focus
-                            console.log("다른사람이 구매한 연관상품 -> 장바구니담기 focus currentFocusMenul==>"+currentFocusMenul);    
-                            $('li[name="pl_menul"]').eq(currentFocusMenul).removeClass('focus');   
-                            $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
-                            $('ul[name="ci_btn"]').children().eq(btFocus).addClass('focus');
-                            currentFocusList = 0;
-                            //currentFocusMenul = currentFocusMenul-1;
+                        // 상품정보 같은종류 추천상품
+                        else if(currentFocusList == 2) {
+                            
+                        }  
+                        //상품정보 다른사람이 구매한 연관상품
+                        else if(currentFocusList == 3) {
+                            if(currentFocusMenul == 0){//다른사람이 구매한 연관상품->+ focus
+                                $('li[name="pl_menul"]').eq(currentFocusMenul).removeClass('focus');   
+                                $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
+                                if(pFocus == 1){
+                                    $('span[name="pr_num_plus"]').addClass('focus');
+                                }else{
+                                    $('span[name="pr_num_minus"]').addClass('focus'); 
+                                }    
+                                currentFocusList = 0;
+                                //currentFocusMenul = currentFocusMenul-1;
+                            }
+                            else if(currentFocusMenul == 1){//다른사람이 구매한 연관상품 -> 장바구니담기 focus
+                                console.log("다른사람이 구매한 연관상품 -> 장바구니담기 focus currentFocusMenul==>"+currentFocusMenul);    
+                                $('li[name="pl_menul"]').eq(currentFocusMenul).removeClass('focus');   
+                                $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
+                                $('ul[name="ci_btn"]').children().eq(btFocus).addClass('focus');
+                                currentFocusList = 0;
+                                //currentFocusMenul = currentFocusMenul-1;
+                            }
+                            else if(currentFocusMenul == 2){//다른사람이 구매한 연관상품 -> 찜하기 focus
+                                console.log("다른사람이 구매한 연관상품 -> 찜하기 focus currentFocusMenul==>"+currentFocusMenul);  
+                                $('li[name="pl_menul"]').eq(currentFocusMenul).removeClass('focus');   
+                                $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
+                                $('ul[name="ci_btn"]').children().eq(btFocus).addClass('focus');
+                                currentFocusList = 0;
+                                //currentFocusMenul = currentFocusMenul-1;
+                            }
+                        }    
+                        //팝업
+                        else if(currentFocusList == 4) {
+                            //확인버튼에 포커스
+                            if(popFocus == 2){
+                                console.log("확인버튼에 포커스"); 
+                                $('span[id="btn_ok"]').removeClass('focus'); 
+                                popFocus = 0;
+                                $('span[name="pr_num_minusP"]').addClass('focus'); 
+                            }
+                            //취소버튼에 포커스
+                            else if(popFocus == 3){
+                                console.log("취소버튼에 포커스"); 
+                                $('span[id="btn_close"]').removeClass('focus'); 
+                                popFocus = 1;
+                                $('span[name="pr_num_plusP"]').addClass('focus');
+                            }
                         }
-                        else if(currentFocusMenul == 2){//다른사람이 구매한 연관상품 -> 찜하기 focus
-                            console.log("다른사람이 구매한 연관상품 -> 찜하기 focus currentFocusMenul==>"+currentFocusMenul);  
-                            $('li[name="pl_menul"]').eq(currentFocusMenul).removeClass('focus');   
-                            $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
-                            $('ul[name="ci_btn"]').children().eq(btFocus).addClass('focus');
-                            currentFocusList = 0;
-                            //currentFocusMenul = currentFocusMenul-1;
-                        }
-                    }    
 
+                    }
+                    //상품정보의 두번째 화면일때
+                    else{
+
+                    }
 
 
 
@@ -207,68 +322,107 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 // * 아래 KEY
                 // **************************************************
                 if(keyCode === global.VK_DOWN) {
-                   
-                   // 장바구니 찜하기 상세보기 버튼들..
-                    if(currentFocusList == 0) {
-                        if(btFocus  == 0){ //+/- focus -> 다른사람이 구매한 연관상품
-                            //$('ul[name="ci_btn"]').children().eq(btFocus).removeClass('focus');
-                            
+                       //상품정보의 첫번째 화면일때
+                       if(productView ==1){
+                           // 장바구니 찜하기 상세보기 버튼들..
+                            if(currentFocusList == 0) {
+                                if(btFocus  == 0){ //+/- focus -> 다른사람이 구매한 연관상품
+                                    //$('ul[name="ci_btn"]').children().eq(btFocus).removeClass('focus');
+                                    if(pFocus == 1){
+                                        $('span[name="pr_num_plus"]').removeClass('focus');
+                                    }else{
+                                        $('span[name="pr_num_minus"]').removeClass('focus'); 
+                                    } 
+                                    $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();    
+                                    currentFocusMenul = 0;
+                                    currentFocusList = 3;
+                                    console.log("currentFocusList!!!==>"+currentFocusList);
+                                    $('li[name="pl_menul"]').eq(btFocus).addClass('focus');     
+                                    $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').append(btnokfill);     
+                                }
+                                else if(btFocus  == 1){//장바구니 담기focus -> 다른사람이 구매한 연관상품
+                                    $('ul[name="ci_btn"]').children().eq(btFocus).removeClass('focus');
+                                    $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
+                                    console.log("장바구니 담기focus -> 다른사람이 구매한 연관상품 currentFocusMenul111==>"+currentFocusMenul);  
+                                    currentFocusMenul = btFocus;
+                                    currentFocusList = 3;
+                                    console.log("장바구니 담기focus -> 다른사람이 구매한 연관상품 currentFocusMenul222==>"+currentFocusMenul);  
+                                    $('li[name="pl_menul"]').eq(btFocus).addClass('focus'); 
+                                    $('li[name="pl_menul"]:eq('+ btFocus + ') > .pm_bdr').append(btnokfill);     
+                                }
+                                else if(btFocus  == 2){//찜하기 focus -> 다른사람이 구매한 연관상품
+                                    $('ul[name="ci_btn"]').children().eq(btFocus).removeClass('focus');
+                                    $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
+                                    console.log("찜하기 focus -> 다른사람이 구매한 연관상품 currentFocusMenul111==>"+currentFocusMenul);  
+                                    currentFocusMenul = btFocus;
+                                    currentFocusList =3;
+                                    console.log("찜하기 focus -> 다른사람이 구매한 연관상품 currentFocusMenul222==>"+currentFocusMenul);  
+                                    $('li[name="pl_menul"]').eq(btFocus).addClass('focus');  
+                                    $('li[name="pl_menul"]:eq('+ btFocus + ') > .pm_bdr').append(btnokfill);   
+                                }
+                                else if(btFocus  == 3) { //상세보기 focus일때
+                                    console.log("btFocus111==>"+btFocus);
+                                    $('ul[name="ci_btn"]').children().eq(btFocus).removeClass('focus');
+                                    btFocus = btFocus - 1;
+                                    console.log("btFocus222==>"+btFocus);
+                                    $('ul[name="ci_btn"]').children().eq(btFocus).addClass('focus');
+                                }
+                            }
 
-                            if(pFocus == 1){
-                                $('span[name="pr_num_plus"]').removeClass('focus');
-                            }else{
-                                $('span[name="pr_num_minus"]').removeClass('focus'); 
-                            } 
-                            $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();    
-                            currentFocusMenul = 0;
-                            currentFocusList = 3;
-                            console.log("currentFocusList!!!==>"+currentFocusList);
-                            $('li[name="pl_menul"]').eq(btFocus).addClass('focus');     
-                            $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').append(btnokfill);     
-                        }
-                        else if(btFocus  == 1){//장바구니 담기focus -> 다른사람이 구매한 연관상품
-                            $('ul[name="ci_btn"]').children().eq(btFocus).removeClass('focus');
-                            $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
-                            console.log("장바구니 담기focus -> 다른사람이 구매한 연관상품 currentFocusMenul111==>"+currentFocusMenul);  
-                            currentFocusMenul = btFocus;
-                            currentFocusList = 3;
-                            console.log("장바구니 담기focus -> 다른사람이 구매한 연관상품 currentFocusMenul222==>"+currentFocusMenul);  
-                            $('li[name="pl_menul"]').eq(btFocus).addClass('focus'); 
-                            $('li[name="pl_menul"]:eq('+ btFocus + ') > .pm_bdr').append(btnokfill);     
-                        }
-                        else if(btFocus  == 2){//찜하기 focus -> 다른사람이 구매한 연관상품
-                            $('ul[name="ci_btn"]').children().eq(btFocus).removeClass('focus');
-                            $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
-                            console.log("찜하기 focus -> 다른사람이 구매한 연관상품 currentFocusMenul111==>"+currentFocusMenul);  
-                            currentFocusMenul = btFocus;
-                            currentFocusList =3;
-                            console.log("찜하기 focus -> 다른사람이 구매한 연관상품 currentFocusMenul222==>"+currentFocusMenul);  
-                            $('li[name="pl_menul"]').eq(btFocus).addClass('focus');  
-                            $('li[name="pl_menul"]:eq('+ btFocus + ') > .pm_bdr').append(btnokfill);   
-                        }
-                        else if(btFocus  == 3) { //상세보기 focus일때
-                            console.log("btFocus111==>"+btFocus);
-                            $('ul[name="ci_btn"]').children().eq(btFocus).removeClass('focus');
-                            btFocus = btFocus - 1;
-                            console.log("btFocus222==>"+btFocus);
-                            $('ul[name="ci_btn"]').children().eq(btFocus).addClass('focus');
-                        }
-                    }
+                           // 상품정보 전체화면
+                           else if(currentFocusList == 1) {
+                                
+                           }
 
-                   // 상품정보 전체화면
-                   else if(currentFocusList == 1) {
-                        
-                   }
+                           // 같은종류 추천상품
+                           else if(currentFocusList == 2) {
+                                productView = 2;
+                                //상품정보의 두번째화면으로 이동   
+                                console.log("같은종류 추천상품 상품정보의 두번째화면으로 이동 ");
+                                console.log("currentFocusList==>"+currentFocusList+" , currentFocusMenu==>"+currentFocusMenu);
+                                $('li[name="pl_menu"]').eq(currentFocusMenu).removeClass('focus');   
+                                $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').empty();
+                                currentFocusList = currentFocusList;
+                                currentFocusMenu = currentFocusMenu;
+                                location.href="product2.html?productView="+productView+"&currentFocusList="+currentFocusList+"&currentFocusMenu="+currentFocusMenu;
+                                
+                            }
 
-                   // 같은종류 추천상품
-                   else if(currentFocusList == 2) {
-                        
-                    }
+                             //다른사람이 구매한 연관상품
+                            else if(currentFocusList == 3) {
+                                productView = 2;
+                                //상품정보의 두번째화면으로 이동   
+                                console.log("다른사람이 구매한 연관상품 상품정보의 두번째화면으로 이동 ");
+                                console.log("currentFocusList==>"+currentFocusList+" , currentFocusMenul==>"+currentFocusMenul);
+                                $('li[name="pl_menul"]').eq(currentFocusMenul).removeClass('focus'); 
+                                $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
+                                currentFocusList = currentFocusList;
+                                currentFocusMenul = currentFocusMenul;
+                                //location.href="product2.html"
+                                location.href="product2.html?productView="+productView+"&currentFocusList="+currentFocusList+"&currentFocusMenul="+currentFocusMenul;
+                            }
+                            //팝업
+                            else if(currentFocusList == 4) {
+                                //-에 focus일떄->확인
+                                if(popFocus == 0){
+                                    $('span[name="pr_num_minusP"]').removeClass('focus');
+                                    popFocus = 2;   
+                                    $('span[id="btn_ok"]').addClass('focus'); 
+                                    console.log("-에 focus일떄->확인 popFocus->"+popFocus);
+                                }
+                                //+에 focus일때->취소
+                                else if(popFocus == 1){
+                                    $('span[name="pr_num_plusP"]').removeClass('focus'); 
+                                    popFocus = 3;
+                                    $('span[id="btn_close"]').addClass('focus'); 
+                                    console.log("+에 focus일때->취소->"+popFocus);
+                                }
+                            }
+                    }   
+                    //상품정보의 두번째 화면일때
+                    else{
 
-                     //다른사람이 구매한 연관상품
-                    else if(currentFocusList == 3) {
-                        
-                    }    
+                    } 
 
 
                 }
@@ -276,93 +430,114 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 // * 좌 KEY
                 // **************************************************
                 if(keyCode === global.VK_LEFT) {
-                    // 장바구니 찜하기 상세보기 버튼들..
-                    if(currentFocusList == 0) {
-                        if(btFocus  == 0) { // +/- focus일때
-                            if(pFocus == 1){ //+에 focus
-                                $('span[name="pr_num_plus"]').removeClass('focus');
-                                pFocus = pFocus - 1;
-                                $('span[name="pr_num_minus"]').addClass('focus'); 
+                    //상품정보의 첫번째 화면일때
+                    if(productView ==1){
+                        // 장바구니 찜하기 상세보기 버튼들..
+                        if(currentFocusList == 0) {
+                            if(btFocus  == 0) { // +/- focus일때
+                                if(pFocus == 1){ //+에 focus
+                                    $('span[name="pr_num_plus"]').removeClass('focus');
+                                    pFocus = pFocus - 1;
+                                    $('span[name="pr_num_minus"]').addClass('focus'); 
+                                }
+                            }
+                            if(btFocus  == 1) { //장바구니담기 focus일때
+                               $('ul[name="ci_btn"]').children().eq(btFocus).removeClass('focus');
+                               btFocus = btFocus - 1;
+                               $('span[name="pr_num_plus"]').addClass('focus'); //+에 focus
+                            }
+                            if(btFocus  == 2) { //찜하기 focus일때
+                                $('ul[name="ci_btn"]').children().eq(btFocus).removeClass('focus');
+                                btFocus = btFocus - 1;
+                                $('ul[name="ci_btn"]').children().eq(btFocus).addClass('focus');
                             }
                         }
-                        if(btFocus  == 1) { //장바구니담기 focus일때
-                           $('ul[name="ci_btn"]').children().eq(btFocus).removeClass('focus');
-                           btFocus = btFocus - 1;
-                           $('span[name="pr_num_plus"]').addClass('focus'); //+에 focus
-                        }
-                        if(btFocus  == 2) { //찜하기 focus일때
-                            $('ul[name="ci_btn"]').children().eq(btFocus).removeClass('focus');
-                            btFocus = btFocus - 1;
-                            $('ul[name="ci_btn"]').children().eq(btFocus).addClass('focus');
+
+                        // 상품정보 전체화면
+                        else if(currentFocusList == 1) {
+                            /*$('li[name="li_discount2"]').eq(currentFocusDtl2).removeClass('focus');
+                            $('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').empty();
+                            currentFocusList = 0;
+                            currentFocusDtl1 = currentFocusDtl2; // 열2 선택 순서가 그대로 열1으로 이동
+                            $('li[name="li_discount1"]').eq(currentFocusDtl1).addClass('focus');
+                            $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dm_bdr').append(btnokfill);*/
                         }
 
-                        
+                        // 같은종류 추천상품
+                        else if(currentFocusList == 2) {
+                            if(currentFocusMenu == 1){//같은종류 추천상품2번째->1번째
+                                console.log("같은종류 추천상품2번째->1번째 focus currentFocusMenu==>"+currentFocusMenu);  
+                                $('li[name="pl_menu"]').eq(currentFocusMenu).removeClass('focus'); 
+                                $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').empty();
+                                currentFocusMenu = currentFocusMenu-1;
+                                $('li[name="pl_menu"]').eq(currentFocusMenu).addClass('focus');  
+                                $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').append(btnokfill); 
+                            }
+                            else if(currentFocusMenu == 2){//같은종류 추천상품3번째->2번째
+                                console.log("같은종류 추천상품3번째->2번째 focus currentFocusMenu==>"+currentFocusMenu); 
+                                $('li[name="pl_menu"]').eq(currentFocusMenu).removeClass('focus');   
+                                $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').empty();
+                                currentFocusMenu = currentFocusMenu-1;
+                                $('li[name="pl_menu"]').eq(currentFocusMenu).addClass('focus');  
+                                $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').append(btnokfill); 
+                            }
+                        }
+
+                        //다른사람이 구매한 연관상품 
+                        else if(currentFocusList == 3) {
+                            console.log("LEFT");
+                            console.log("currentFocusMenul==>"+currentFocusMenul); 
+                            if(currentFocusMenul == 0){//다른사람이 구매한 연관상품1번째->같은종류 추천상품3번째
+                                console.log("다른사람이 구매한 연관상품1번째->같은종류 추천상품3번째 currentFocusMenul==>"+currentFocusMenul);  
+                                $('li[name="pl_menul"]').eq(currentFocusMenul).removeClass('focus'); 
+                                $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
+                                currentFocusMenu = 2;
+                                $('li[name="pl_menu"]').eq(currentFocusMenu).addClass('focus');  
+                                $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').append(btnokfill); 
+                                currentFocusList = 2;
+                            }
+                            else if(currentFocusMenul == 1){//다른사람이 구매한 연관상품2번째->1번째
+                                console.log("다른사람이 구매한 연관상품2번째 focus currentFocusMenul==>"+currentFocusMenul);  
+                                $('li[name="pl_menul"]').eq(currentFocusMenul).removeClass('focus'); 
+                                $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
+                                currentFocusMenul = currentFocusMenul-1;
+                                btFocus = currentFocusMenul
+                                $('li[name="pl_menul"]').eq(currentFocusMenul).addClass('focus');  
+                                $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').append(btnokfill); 
+                            }
+                            else if(currentFocusMenul == 2){//다른사람이 구매한 연관상품3번째->2번째
+                                console.log("다른사람이 구매한 연관상품3번째 focus currentFocusMenul==>"+currentFocusMenul); 
+                                $('li[name="pl_menul"]').eq(currentFocusMenul).removeClass('focus');   
+                                $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
+                                currentFocusMenul = currentFocusMenul-1;
+                                btFocus = currentFocusMenul
+                                $('li[name="pl_menul"]').eq(currentFocusMenul).addClass('focus');  
+                                $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').append(btnokfill); 
+                            }
+                        } 
+                        //팝업
+                        else if(currentFocusList == 4) {
+                            //+일때-> -
+                            if(popFocus == 1){
+                                $('span[name="pr_num_plusP"]').removeClass('focus'); 
+                                popFocus = 0;
+                                $('span[name="pr_num_minusP"]').addClass('focus'); 
+                            }
+                            //취소 -> 확인
+                            else if(popFocus == 3){
+                                $('span[id="btn_close"]').removeClass('focus');
+                                popFocus = 2;
+                                $('span[id="btn_ok"]').addClass('focus');
+                            }
+
+                        }
 
 
                     }
+                    //상품정보의 두번째 화면일때
+                    else{
 
-                    // 상품정보 전체화면
-                    else if(currentFocusList == 1) {
-                        /*$('li[name="li_discount2"]').eq(currentFocusDtl2).removeClass('focus');
-                        $('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').empty();
-                        currentFocusList = 0;
-                        currentFocusDtl1 = currentFocusDtl2; // 열2 선택 순서가 그대로 열1으로 이동
-                        $('li[name="li_discount1"]').eq(currentFocusDtl1).addClass('focus');
-                        $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dm_bdr').append(btnokfill);*/
-                    }
-
-                    // 같은종류 추천상품
-                    else if(currentFocusList == 2) {
-                        if(currentFocusMenu == 1){//같은종류 추천상품2번째->1번째
-                            console.log("같은종류 추천상품2번째->1번째 focus currentFocusMenu==>"+currentFocusMenu);  
-                            $('li[name="pl_menu"]').eq(currentFocusMenu).removeClass('focus'); 
-                            $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').empty();
-                            currentFocusMenu = currentFocusMenu-1;
-                            $('li[name="pl_menu"]').eq(currentFocusMenu).addClass('focus');  
-                            $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').append(btnokfill); 
-                        }
-                        else if(currentFocusMenu == 2){//같은종류 추천상품3번째->2번째
-                            console.log("같은종류 추천상품3번째->2번째 focus currentFocusMenu==>"+currentFocusMenu); 
-                            $('li[name="pl_menu"]').eq(currentFocusMenu).removeClass('focus');   
-                            $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').empty();
-                            currentFocusMenu = currentFocusMenu-1;
-                            $('li[name="pl_menu"]').eq(currentFocusMenu).addClass('focus');  
-                            $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').append(btnokfill); 
-                        }
-                    }
-
-                    //다른사람이 구매한 연관상품 
-                    else if(currentFocusList == 3) {
-                        console.log("LEFT");
-                        console.log("currentFocusMenul==>"+currentFocusMenul); 
-                        if(currentFocusMenul == 0){//다른사람이 구매한 연관상품1번째->같은종류 추천상품3번째
-                            console.log("다른사람이 구매한 연관상품1번째->같은종류 추천상품3번째 currentFocusMenul==>"+currentFocusMenul);  
-                            $('li[name="pl_menul"]').eq(currentFocusMenul).removeClass('focus'); 
-                            $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
-                            currentFocusMenu = 2;
-                            $('li[name="pl_menu"]').eq(currentFocusMenu).addClass('focus');  
-                            $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').append(btnokfill); 
-                            currentFocusList = 2;
-                        }
-                        else if(currentFocusMenul == 1){//다른사람이 구매한 연관상품2번째->1번째
-                            console.log("다른사람이 구매한 연관상품2번째 focus currentFocusMenul==>"+currentFocusMenul);  
-                            $('li[name="pl_menul"]').eq(currentFocusMenul).removeClass('focus'); 
-                            $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
-                            currentFocusMenul = currentFocusMenul-1;
-                            btFocus = currentFocusMenul
-                            $('li[name="pl_menul"]').eq(currentFocusMenul).addClass('focus');  
-                            $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').append(btnokfill); 
-                        }
-                        else if(currentFocusMenul == 2){//다른사람이 구매한 연관상품3번째->2번째
-                            console.log("다른사람이 구매한 연관상품3번째 focus currentFocusMenul==>"+currentFocusMenul); 
-                            $('li[name="pl_menul"]').eq(currentFocusMenul).removeClass('focus');   
-                            $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
-                            currentFocusMenul = currentFocusMenul-1;
-                            btFocus = currentFocusMenul
-                            $('li[name="pl_menul"]').eq(currentFocusMenul).addClass('focus');  
-                            $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').append(btnokfill); 
-                        }
-                    }    
+                    }   
                 }
 
                 // **************************************************
@@ -370,88 +545,112 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 // **************************************************
                 if(keyCode === global.VK_RIGHT) {
 
-                    // 장바구니 찜하기 상세보기 버튼들..
-                    if(currentFocusList == 0) {
-                        if(btFocus  == 0) { // +/- focus일때
-                            if(pFocus == 1){ //+에 focus
-                                $('span[name="pr_num_plus"]').removeClass('focus');
+                    //상품정보의 첫번째 화면일때
+                    if(productView ==1){
+                        // 장바구니 찜하기 상세보기 버튼들..
+                        if(currentFocusList == 0) {
+                            if(btFocus  == 0) { // +/- focus일때
+                                if(pFocus == 1){ //+에 focus
+                                    $('span[name="pr_num_plus"]').removeClass('focus');
+                                    btFocus = btFocus + 1;
+                                    console.log("btFocus2424==>"+btFocus);
+                                    $('ul[name="ci_btn"]').children().eq(btFocus).addClass('focus');
+                                }else{ //-에 focus
+                                    $('span[name="pr_num_minus"]').removeClass('focus');
+                                    pFocus = pFocus + 1;
+                                    $('span[name="pr_num_plus"]').addClass('focus');
+                                }
+                            }
+                            else if(btFocus  == 1) { //장바구니담기 focus일때
+                                console.log("btFocus@==>"+btFocus);
+                                $('ul[name="ci_btn"]').children().eq(btFocus).removeClass('focus');
                                 btFocus = btFocus + 1;
-                                console.log("btFocus2424==>"+btFocus);
+                                console.log("btFocus@@==>"+btFocus);
                                 $('ul[name="ci_btn"]').children().eq(btFocus).addClass('focus');
-                            }else{ //-에 focus
-                                $('span[name="pr_num_minus"]').removeClass('focus');
-                                pFocus = pFocus + 1;
-                                $('span[name="pr_num_plus"]').addClass('focus');
                             }
                         }
-                        else if(btFocus  == 1) { //장바구니담기 focus일때
-                            console.log("btFocus@==>"+btFocus);
-                            $('ul[name="ci_btn"]').children().eq(btFocus).removeClass('focus');
-                            btFocus = btFocus + 1;
-                            console.log("btFocus@@==>"+btFocus);
-                            $('ul[name="ci_btn"]').children().eq(btFocus).addClass('focus');
+                        // 상품정보 전체화면
+                        else if(currentFocusList == 1){
+
                         }
-                    }
-                    // 상품정보 전체화면
-                    else if(currentFocusList == 1){
+                        // 같은종류 추천상품
+                        else if(currentFocusList == 2){
+                            if(currentFocusMenu == 0){//같은종류 추천상품1번째->2번째
+                                console.log("같은종류 추천상품1번째->2번째 focus currentFocusMenu==>"+currentFocusMenu);  
+                                $('li[name="pl_menu"]').eq(currentFocusMenu).removeClass('focus'); 
+                                $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').empty();
+                                currentFocusMenu = currentFocusMenu+1;
+                                $('li[name="pl_menu"]').eq(currentFocusMenu).addClass('focus');  
+                                $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').append(btnokfill); 
+                            }
+                            else if(currentFocusMenu == 1){//같은종류 추천상품2번째->3번째
+                                console.log("같은종류 추천상품2번째->3번째 focus currentFocusMenu==>"+currentFocusMenu); 
+                                $('li[name="pl_menu"]').eq(currentFocusMenu).removeClass('focus');   
+                                $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').empty();
+                                currentFocusMenu = currentFocusMenu+1;
+                                $('li[name="pl_menu"]').eq(currentFocusMenu).addClass('focus');  
+                                $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').append(btnokfill); 
+                            } 
+                            else if(currentFocusMenu == 2){//같은종류 추천상품3번째->다른사람이 구매한 연관상품 1번째
+                                console.log("같은종류 추천상품2번째->3번째 focus currentFocusMenu==>"+currentFocusMenu); 
+                                $('li[name="pl_menu"]').eq(currentFocusMenu).removeClass('focus');   
+                                $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').empty();
+                                currentFocusMenul =0;
+                                btFocus = currentFocusMenul
+                                $('li[name="pl_menul"]').eq(currentFocusMenul).addClass('focus');  
+                                $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').append(btnokfill); 
+                                currentFocusList = 3;
+                            } 
 
-                    }
-                    // 같은종류 추천상품
-                    else if(currentFocusList == 2){
-                        if(currentFocusMenu == 0){//같은종류 추천상품1번째->2번째
-                            console.log("같은종류 추천상품1번째->2번째 focus currentFocusMenu==>"+currentFocusMenu);  
-                            $('li[name="pl_menu"]').eq(currentFocusMenu).removeClass('focus'); 
-                            $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').empty();
-                            currentFocusMenu = currentFocusMenu+1;
-                            $('li[name="pl_menu"]').eq(currentFocusMenu).addClass('focus');  
-                            $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').append(btnokfill); 
+
                         }
-                        else if(currentFocusMenu == 1){//같은종류 추천상품2번째->3번째
-                            console.log("같은종류 추천상품2번째->3번째 focus currentFocusMenu==>"+currentFocusMenu); 
-                            $('li[name="pl_menu"]').eq(currentFocusMenu).removeClass('focus');   
-                            $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').empty();
-                            currentFocusMenu = currentFocusMenu+1;
-                            $('li[name="pl_menu"]').eq(currentFocusMenu).addClass('focus');  
-                            $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').append(btnokfill); 
-                        } 
-                        else if(currentFocusMenu == 2){//같은종류 추천상품3번째->다른사람이 구매한 연관상품 1번째
-                            console.log("같은종류 추천상품2번째->3번째 focus currentFocusMenu==>"+currentFocusMenu); 
-                            $('li[name="pl_menu"]').eq(currentFocusMenu).removeClass('focus');   
-                            $('li[name="pl_menu"]:eq('+ currentFocusMenu + ') > .pm_bdr').empty();
-                            currentFocusMenul =0;
-                            btFocus = currentFocusMenul
-                            $('li[name="pl_menul"]').eq(currentFocusMenul).addClass('focus');  
-                            $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').append(btnokfill); 
-                            currentFocusList = 3;
-                        } 
+                        // 다른사람이 구매한 연관상품
+                        else if(currentFocusList == 3){
+                            console.log("Right");
+                            console.log("currentFocusMenulRight==>"+currentFocusMenul); 
+                            if(currentFocusMenul == 0){//다른사람이 구매한 연관상품1번째->2번째
+                                console.log("다른사람이 구매한 연관상품1번째 focus currentFocusMenul==>"+currentFocusMenul);  
 
-
-                    }
-                    // 다른사람이 구매한 연관상품
-                    else if(currentFocusList == 3){
-                        console.log("Right");
-                        console.log("currentFocusMenulRight==>"+currentFocusMenul); 
-                        if(currentFocusMenul == 0){//다른사람이 구매한 연관상품1번째->2번째
-                            console.log("다른사람이 구매한 연관상품1번째 focus currentFocusMenul==>"+currentFocusMenul);  
-
-                            $('li[name="pl_menul"]').eq(currentFocusMenul).removeClass('focus'); 
-                            $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
-                            currentFocusMenul = currentFocusMenul+1;
-                            btFocus = currentFocusMenul
-                            $('li[name="pl_menul"]').eq(currentFocusMenul).addClass('focus');  
-                            $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').append(btnokfill); 
+                                $('li[name="pl_menul"]').eq(currentFocusMenul).removeClass('focus'); 
+                                $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
+                                currentFocusMenul = currentFocusMenul+1;
+                                btFocus = currentFocusMenul
+                                $('li[name="pl_menul"]').eq(currentFocusMenul).addClass('focus');  
+                                $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').append(btnokfill); 
+                            }
+                            else if(currentFocusMenul == 1){//다른사람이 구매한 연관상품2번째->3번째
+                                console.log("다른사람이 구매한 연관상품2번째 focus currentFocusMenul==>"+currentFocusMenul); 
+                                $('li[name="pl_menul"]').eq(currentFocusMenul).removeClass('focus');   
+                                $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
+                                currentFocusMenul = currentFocusMenul+1;
+                                btFocus = currentFocusMenul
+                                $('li[name="pl_menul"]').eq(currentFocusMenul).addClass('focus');  
+                                $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').append(btnokfill); 
+                            }    
                         }
-                        else if(currentFocusMenul == 1){//다른사람이 구매한 연관상품2번째->3번째
-                            console.log("다른사람이 구매한 연관상품2번째 focus currentFocusMenul==>"+currentFocusMenul); 
-                            $('li[name="pl_menul"]').eq(currentFocusMenul).removeClass('focus');   
-                            $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
-                            currentFocusMenul = currentFocusMenul+1;
-                            btFocus = currentFocusMenul
-                            $('li[name="pl_menul"]').eq(currentFocusMenul).addClass('focus');  
-                            $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').append(btnokfill); 
-                        }    
+                        //팝업
+                        else if(currentFocusList == 4) {
+                            //-일때-> +
+                            if(popFocus == 0){
+                                $('span[name="pr_num_minusP"]').removeClass('focus'); 
+                                popFocus = 1;
+                                $('span[name="pr_num_plusP"]').addClass('focus'); 
+                            }
+                            //확인 -> 취소
+                            else if(popFocus == 2){
+                                $('span[id="btn_ok"]').removeClass('focus');
+                                popFocus = 3;
+                                $('span[id="btn_close"]').addClass('focus');
+                            }
+
+                        }
+
+
                     }
-                    
+                    //상품정보의 두번째 화면일때
+                    else{
+
+                    }
                     
                 }
 

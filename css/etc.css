@@ -61,3 +61,5 @@
 
 #content .pj_right div.sc_project div.scp_right .discount_list .dl_menu_custom {position:relative!important;width:152px; border-top:4px solid #FFFFFF; border-right:4px solid #FFFFFF; border-left:4px solid #FFFFFF; float:left; margin-bottom:4px;  top:0px; right:0px; }
 #content .pj_right div.sc_project div.scp_right .discount_list .dlm_tit {line-height:18px; font-size:16px; width:152px; font:rgba(255,255,255,0.1); height : 18px;overflow: hidden;}
+.pop li.pr_num span.pr_num_num {position:relative; top:7px!important; width:390px!important; height:42px; line-height:38px; font-size:24px; font-weight:bold; border-top:2px solid #b8b8b8; border-bottom:2px solid #b8b8b8;}
+#content .con_wrap .cw_right .cr_infoArea .ci_btn li.pr_num span.pr_num_num {position:relative; top:7px!important; width:82px; height:42px; line-height:38px; font-size:24px; font-weight:bold; border-top:2px solid #6c6c6c; border-bottom:2px solid #6c6c6c; }
