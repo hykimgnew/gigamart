@@ -169,6 +169,11 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 console.log("############ VK_ENTER 1234");
                 console.log("currentFocusList"+currentFocusList);
                 console.log("currentFocusBtn"+currentFocusBtn);
+                
+                /**********test용****************/
+                location.href ="product1.html";
+                /*******************************/
+
                 // 상세 카테고리 일때
                 if(currentFocusList == 0) {
                     console.log("############ VK_ENTER 2222");
