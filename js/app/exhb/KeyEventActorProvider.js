@@ -1,5 +1,15 @@
 'use strict';
 
+// 숫자 -> 금액
+function cn_toPrice(n) {
+    if(isNaN(n)){return 0;}
+    var reg = /(^[+-]?\d+)(\d{3})/;   
+    n += '';
+    while (reg.test(n))
+    n = n.replace(reg, '$1' + ',' + '$2');
+    return n;
+}
+
 
 // 지금 이상품 이가격 하단 레이아웃 생성
 function makeTweetList() {
@@ -14,8 +24,6 @@ function makeTweetList() {
         appendHtml += '</li>';
     $('#ul_tweet').append(appendHtml);
 }
-
-
 
 /**
  *  Exhb Js : KeyEventActorProvider (키 이벤트 처리)
@@ -1025,15 +1033,15 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 productList = new Array(); // 구매 리스트 초기화
                 var cnt = 0;
                 $.each(result['product'], function(index, entry) {
-                        $('span[name="pd_sales_won"]').eq(index).empty().html(entry['sales_won']+"원");
+                        $('span[name="pd_sales_won"]').eq(index).empty().html(cn_toPrice(entry['sales_won'])+"원");
                         $('li[name="pd_img"]').eq(index).empty().html('<img src="'+cmsServerIp + entry['img']+'"/>');
                         $('li[name="pd_name"]').eq(index).empty().html(entry['name']);
-                        $('li[name="pd_cost"]').eq(index).empty().html(entry['cost']); 
+                        $('li[name="pd_cost"]').eq(index).empty().html(cn_toPrice(entry['cost']) + "원"); 
                         appendHtml = {
-                                        "sales_won" : entry['sales_won'],
+                                        "sales_won" : cn_toPrice(entry['sales_won']),
                                         "img" : entry['img'],
                                         "name" : entry['name'],
-                                        "cost" : entry['cost']
+                                        "cost" : cn_toPrice(entry['cost']) + "원"
                                      };
                     cnt                 = Math.floor(index / maxOrderedPageView);
                     var str             = Number(index+1) + ". " +appendHtml;
@@ -1085,12 +1093,12 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         $('span[name="pd_sales_percentage"]').eq(index).empty().html(entry['sales_percentage']+"%");
                         $('li[name="pd_img2"]').eq(index).empty().html('<img src="'+cmsServerIp + entry['img']+'"/>');
                         $('li[name="pd_name2"]').eq(index).empty().html(entry['name']);
-                        $('li[name="pd_cost2"]').eq(index).empty().html(entry['cost']);
+                        $('li[name="pd_cost2"]').eq(index).empty().html(cn_toPrice(entry['cost']) + "원");
                         appendHtml = {
                                         "sales_percentage" : entry['sales_percentage'],
                                         "img2" : entry['img'],
                                         "name2" : entry['name'],
-                                        "cost2" : entry['cost']
+                                        "cost2" : cn_toPrice(entry['cost']) + "원"
                                      };
                         
                     cnt                 = Math.floor(index / maxOrderedPageView);

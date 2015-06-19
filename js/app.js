@@ -4,15 +4,6 @@ var App = App || {};
 
 var cmsServerIp = "http://14.52.244.91:8080";
 
-// 숫자 -> 금액
-function cn_toPrice(n) {
-	if(isNaN(n)){return 0;}
-    var reg = /(^[+-]?\d+)(\d{3})/;   
-    n += '';
-    while (reg.test(n))
-    n = n.replace(reg, '$1' + ',' + '$2');
-    return n;
-}
 
 /**
  * Request.getParameter("args")
