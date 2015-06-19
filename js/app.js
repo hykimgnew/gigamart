@@ -15,7 +15,9 @@ var Request = function()
     this.getParameter = function( name )
     {
         var rtnval = '';
-        var nowAddress = unescape(location.href);
+        var nowAddress = unescape(encodeURIComponent(location.href));
+        nowAddress = decodeURIComponent(nowAddress);
+
         var parameters = (nowAddress.slice(nowAddress.indexOf('?')+1,nowAddress.length)).split('&');
         for(var i = 0 ; i < parameters.length ; i++)
         {
@@ -26,8 +28,7 @@ var Request = function()
                 break;
             }
         }
-		// return rtnval;
-        document.write( rtnval );
+		return rtnval;
     }
 }
 var request = new Request();

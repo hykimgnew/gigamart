@@ -6,6 +6,13 @@
 var global = window;
 
 //*************************************************
+// * 넘어온 전체카테고리, 상세카테고리 코드
+//*************************************************
+var requestCategoryCode     = request.getParameter("categoryCode");
+var requestCategoryDtlCode  = request.getParameter("categoryDtlCode");
+var requestCategoryDtlPage  = request.getParameter("categoryDtlPage");
+
+//*************************************************
 // * Popup
 // * isCart       : 간편 장바구니
 //*************************************************
@@ -34,7 +41,7 @@ var cartFocus = 0;
 var currentFocusList = 0;
 /**
  * 상세카테고리 Focus 위치 1열
- * 상세카테고리 Focus 위치  2열
+ * 상세카테고리 Focus 위치 2열
  * 상세카테고리 Focus 위치 3열
  * 0 : 
  * 1 : 
