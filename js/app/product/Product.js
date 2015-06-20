@@ -11,9 +11,13 @@ var global = window;
 //var requestCategoryDtlCode  = request.getParameter("categoryDtlCode");
 //var requestCategoryCode     = request.getParameter("categoryCode");
 //var requestCategoryDtlPage  = request.getParameter("categoryDtlPage");
+//페이지-첫페이지 두번째페이지
 var requestProductView      = request.getParameter("productView");
+//같은종류추천/다른사람이 구매한 연관상품
 var requestCurrentFocusList = request.getParameter("currentFocusList");
+//같은종류추천일때 menu focus
 var requestCurrentFocusMenu = request.getParameter("currentFocusMenu");
+//다른사람이 구매한 연관상품일때 menu focus
 var requestCurrentFocusMenul = request.getParameter("currentFocusMenul");
 //currentFocusList="+currentFocusList+"&currentFocusMenu="+currentFocusMenu;
 
@@ -25,6 +29,7 @@ var requestCurrentFocusMenul = request.getParameter("currentFocusMenul");
 var requestCategoryCode     = request.getParameter("categoryCode");
 var requestCategoryDtlCode  = request.getParameter("categoryDtlCode");
 var requestCategoryDtlPage  = request.getParameter("categoryDtlPage");
+var requestCategoryDtlId  = request.getParameter("id");
 
 
 
