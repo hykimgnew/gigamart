@@ -843,7 +843,41 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             success     : function(result) {
                  console.log("#####%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% shopper List json " + JSON.stringify(result));
 
-                $.each(result['shopper'], function(index, entry) { 
+                // *** 쇼퍼 별점 ***
+                var shopperRating   = Number(result['shopper']['rating']);       // 쇼퍼 평점
+                var shopperStar     = "";                           // 쇼퍼 별점 HTML
+
+                if(shopperRating >= 20) shopperStar += '<img src="../images/icon_star.png" />';
+                else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+                if(shopperRating >= 40) shopperStar += '<img src="../images/icon_star.png" />';
+                else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+                if(shopperRating >= 60) shopperStar += '<img src="../images/icon_star.png" />';
+                else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+                if(shopperRating >= 80) shopperStar += '<img src="../images/icon_star.png" />';
+                else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+                if(shopperRating >= 100)shopperStar += '<img src="../images/icon_star.png" />';
+                else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+
+
+                $('span[name="shopper_rating"]').empty().append(shopperStar);
+                $('li[name="shopper_img"]').empty().append("<img src=" + cmsServerIp + result['shopper']['img'] + " width='160' height='120' />");
+                $('span[name="shopper_name"]').empty().append(result['shopper']['shopper_id']);
+                $('span[name="shopper_cate"]').empty().append(result['shopper']['shopping_main']);
+
+                /* $('p[name="shopper_img"]').empty().append("<img src=" + cmsServerIp + result['shopper']['img'] + " width='160' height='120' />");
+                 $('span[name="shopper_name"]').empty().append("ID : " + result['shopper']['shopper_id']);
+                 $('span[name="epilogue"]')..empty().append("(후기 : " + result['shopper']['reply_cnt'] + ")");
+                 $('p[name="description"]').empty().append(result['shopper']['description']);
+                 $('span[name="popular_order"]').empty().append("인기 주문 :  " + result['shopper']['shopping_main'] + "");
+
+*/
+
+
+
+
+
+
+                /*$.each(result['shopper'], function(index, entry) { 
                     console.log("========rating===========================================" + entry['rating']);
                     console.log("========img===========================================" + entry['img']);
                     console.log("========shopper_id===========================================" + entry['shopper_id']);
@@ -865,24 +899,24 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
 
                     $('span[name="shopper_rating"]').empty().append(shopperStar);
 
-                    // *** 쇼퍼 이미지 ***/
+                    // 쇼퍼 이미지
                     $('li[name="shopper_img"]').empty().append("<img src=" + cmsServerIp + entry['img'] + " width='160' height='120' />");
 
-                    // *** 쇼퍼 ID ***/
+                    // 쇼퍼 ID
                     $('span[name="shopper_name"]').empty().append(entry['shopper_id']);
 
-                    // *** 쇼퍼 후기 ***/
+                    // 쇼퍼 후기
                     //$('span[name="epilogue"]').empty().append("(후기 : " + "API누락" + ")");
 
-                    // *** 쇼퍼 설명 ***/
+                    // 쇼퍼 설명
                     //$('p[name="description"]').empty().append(entry['description']);
 
-                    // *** 인기주문 ***/
+                    // 인기주문
                     //$('span[name="popular_order"]').empty().append("인기 주문 :  " + "API 누락" + "");
 
-                    // *** 쇼핑 주종목 ***/
+                    // 쇼핑 주종목
                     $('span[name="shopper_cate"]').empty().append(entry['shopping_main']);
-                });
+                });*/
 
             }
         });

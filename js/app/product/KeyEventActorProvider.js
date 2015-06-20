@@ -960,10 +960,16 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 
                 
             } else if (keyCode === global.VK_BACK) {
-                console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%전체 카테고리로 이동");
-                // 전체 카테고리로 이동
-                //this.transCategoryCode(); // 한글코드를 숫자코드로 변환 후 페이지 이동
+                if(requestCategoryCode  == null || requestCategoryCode  == '' || requestCategoryCode  == 'undefined') {
+                    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%기획전으로 이동");
+                    location.href = "exhb.html"; 
+                }else{
+                    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%전체 카테고리로 이동");
+                    // 전체 카테고리로 이동
+                    //this.transCategoryCode(); // 한글코드를 숫자코드로 변환 후 페이지 이동
                     location.href = "category_dtl.html?categoryCode=" + requestCategoryCode + "&categoryDtlCode=" + requestCategoryDtlCode + "&categoryDtlPage=" + requestCategoryDtlPage;
+                
+                }
                 
                 
             } else if (keyCode === global.VK_ESCAPE) {

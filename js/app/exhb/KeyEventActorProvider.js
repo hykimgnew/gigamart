@@ -117,7 +117,68 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                 // 상품 상세보기
                 else if(fvFocus == 2) {
-                    console.log("상품 상세보기..");
+                    console.log("=====================================================");
+                    console.log("=====================================================");
+                    console.log("상품 상세보기..var fvCode = "+fvCode);
+                    console.log("currentOrderedProductPage2 = "+currentOrderedProductPage2);
+                    console.log("fvUrl = "+fvUrl);
+                    console.log("fvId = "+fvId);
+                    var requestCategoryDtlId = "";
+                    var requestCategoryDtlCode = "";
+                    //url 이름 찾기
+                    var a = fvUrl.split("/");
+                    var aa = a[4];
+                    var b = aa.split(".");
+                    var bb = b[0]
+                    console.log("bb="+bb);
+                    if(bb == "2-1기획전_매실"){
+                        requestCategoryDtlId="11000";
+                        requestCategoryDtlCode = "사과/배";
+                        //this.selectProductSubCategory();
+                    }else if(bb == "2-2기획전_문어"){
+                        requestCategoryDtlId="54009";
+                        requestCategoryDtlCode = "생선/해산물";
+                        //this.selectProductSubCategory();
+                    }else if(bb == "2-3기획전_한우"){
+                        requestCategoryDtlId="41000";
+                        requestCategoryDtlCode = "소고기";
+                        //this.selectProductSubCategory();
+                    }else if(bb == "2-4기획전_활전복"){
+                        requestCategoryDtlId="54010";
+                        requestCategoryDtlCode = "생선/해산물";
+                        //this.selectProductSubCategory();
+                    }else if(bb == "2-5기획전_해산물"){
+                        requestCategoryDtlId="51008";
+                        requestCategoryDtlCode = "생선/해산물";
+                        //this.selectProductSubCategory();
+                    }else if(bb == "2-6기획전_치킨"){
+                        requestCategoryDtlId="43007";
+                        requestCategoryDtlCode = "닭/오리";
+                        //this.selectProductSubCategory();
+                    }else if(bb == "2-7기획전_활어회"){
+                        requestCategoryDtlId="54011";
+                        requestCategoryDtlCode = "생선/해산물";
+                        //this.selectProductSubCategory();
+                    }else if(bb == "2-8기획전_파프리카"){
+                        requestCategoryDtlId="26000";
+                        requestCategoryDtlCode = "파프리카/피망";
+                        //this.selectProductSubCategory();
+                    }
+                    console.log("requestCategoryDtlId = "+fvId);
+                    console.log("requestCategoryDtlCode = "+requestCategoryDtlCode);
+                    location.href="product1.html?id="+requestCategoryDtlId+"&categoryDtlCode="+requestCategoryDtlCode;
+                        
+
+                    //지금 이상품 이가격 하단 페이징 첫페이지일때
+                    if(currentOrderedProductPage2 == 0){
+
+                    }else{
+
+                    }
+                    /*var url = "&categoryDtlCode=" + requestCategoryDtlCode
+                                + "&id=" + requestCategoryDtlId;*/
+
+
                 }
 
                 // 닫기
@@ -356,11 +417,63 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     isFullVideo = true;
                     $('#popup_fv').show();
                     $('#btn_cart').addClass('focus');
-
                     // 전체 영상보기 영상 재생
                     var url = $('li[name="sl_menu"]').eq(currentFocusMenu).children('.tv_video').val();
-                    console.log("전체 영상보기 영상 재생 url"+url);
-                    this.videoPlay(url, Number(currentFocusMenu+2), 2);
+                    fvUrl = url;
+                    fvId = $('input[name="sl_id"]').val();
+
+
+
+                    var requestCategoryDtlCode = "";
+                    var a = fvUrl.split("/");
+                    var aa = a[4];
+                    var b = aa.split(".");
+                    var bb = b[0]
+                    console.log("bb="+bb);
+                    if(bb == "2-1기획전_매실"){
+                        //requestCategoryDtlId="11000";
+                        requestCategoryDtlCode = "사과/배";
+                        this.selectProductSubCategory(requestCategoryDtlCode,11000);
+                    }else if(bb == "2-2기획전_문어"){
+                        //requestCategoryDtlId="54009";
+                        requestCategoryDtlCode = "생선/해산물";
+                        this.selectProductSubCategory(requestCategoryDtlCode,54009);
+                    }else if(bb == "2-3기획전_한우"){
+                        //requestCategoryDtlId="41000";
+                        requestCategoryDtlCode = "소고기";
+                        this.selectProductSubCategory(requestCategoryDtlCode,41000);
+                    }else if(bb == "2-4기획전_활전복"){
+                        //requestCategoryDtlId="54010";
+                        requestCategoryDtlCode = "생선/해산물";
+                        this.selectProductSubCategory(requestCategoryDtlCode,54010);
+                    }else if(bb == "2-5기획전_해산물"){
+                        //requestCategoryDtlId="51008";
+                        requestCategoryDtlCode = "생선/해산물";
+                        this.selectProductSubCategory(requestCategoryDtlCode,51008);
+                    }else if(bb == "2-6기획전_치킨"){
+                        //requestCategoryDtlId="43007";
+                        requestCategoryDtlCode = "닭/오리";
+                        this.selectProductSubCategory(requestCategoryDtlCode,43007);
+                    }else if(bb == "2-7기획전_활어회"){
+                        //requestCategoryDtlId="54011";
+                        requestCategoryDtlCode = "생선/해산물";
+                        this.selectProductSubCategory(requestCategoryDtlCode,54011);
+                    }else if(bb == "2-8기획전_파프리카"){
+                        //requestCategoryDtlId="26000";
+                        requestCategoryDtlCode = "파프리카/피망";
+                        this.selectProductSubCategory(requestCategoryDtlCode,26000);
+                    }
+
+
+
+
+
+
+
+
+                    console.log("전체 영상보기 영상 재생 url : "+url);
+                    console.log("전체 영상보기 영상 재생 fvId : "+fvId);
+                    this.videoPlay(url, Number(currentFocusMenu+2), 2);;
                 }
                 //단골쇼퍼
                 if(currentFocusList == 5) {
@@ -985,7 +1098,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             if(url == "/video/tv/product_event/2-6기획전_치킨.mp4"){
                 console.log("치킨!!!! : "+url);
                // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
-                $('#span_videoDiv').empty().append('<img src="../images/sample_02.jpg" style="width : 610px; height : 343px;"/>');
+                $('#span_videoDiv').empty().append('<img src="'+cmsServerIp+'/video/tv/product_event/2-6기획전_치킨.png" style="width : 610px; height : 343px;"/>');
             }
             else{
                 console.log("치킨아님!!!! : "+url);
@@ -1006,7 +1119,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             //url : /video/tv/product_event/2-6기획전_치킨.mp4 일때 
             if(url == "/video/tv/product_event/2-6기획전_치킨.mp4"){
                 // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)]
-                $('#p_videoDiv').empty().append('<img src="../images/sample_02.jpg" style="width : 970px; height : 545px;"/>');
+                $('#p_videoDiv').empty().append('<img src="'+cmsServerIp+'/video/tv/product_event/2-6기획전_치킨.png" style="width : 970px; height : 545px;"/>');
             }
             else{
             // 테스트용 영상
@@ -1240,10 +1353,19 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
 
                 $.each(result['product'], function(index, entry) {
+                        var img = entry['tv_video']
+                        var img2 = img.replace("mp4","png");
+                        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+                        console.log("img-->"+img);
+                        console.log("img2-->"+img2);
+                        console.log("ip+img2-->"+cmsServerIp+img2);
+                        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
                         $('span[name="slp_flag"]').eq(index).empty().html(entry['flag']);
                         $('li[name="slp_title"]').eq(index).empty().html(entry['title']);
                         $('input[name="tv_video"]').eq(index).val(entry['tv_video']);
-                        $('li[name="sl_img"]').eq(index).empty().html('<img src="'+cmsServerIp + entry['img']+'"/>');
+                        $('li[name="sl_img"]').eq(index).empty().html('<img class="sl_menu_img" src="'+cmsServerIp +img2+'"/>');
+                        $('input[name="sl_id"]').eq(index).val(entry['product_id']);
+                        //$('li[name="sl_img"]').eq(index).empty().html('<img src="'+cmsServerIp + entry['img']+'"/>');
 
                         video[index] = entry['tv_video'];
                         console.log("###################################################################################### video success url : " + video[1]);
@@ -1252,7 +1374,8 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                                         "flag" : entry['flag'],
                                         "title" : entry['title'],
                                         "tv_video" : entry['tv_video'],
-                                        "img" : entry['img']
+                                        "img" : entry['img'],
+                                        "product_id" : entry['product_id'] 
                                      };
                     cnt                 = Math.floor(index / maxOrderedPageView2);
                     var str             = appendHtml;
@@ -1350,14 +1473,29 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             console.log("######## productList3 stringify " + i + ": " + JSON.stringify(productList3[i]));
 
         }
+
+        //productImgList = new Array();
+
+
         for(var i=0 ; i < 4 ; i++) {
+            var img = productList3[Number((page*4)+i)].tv_video;
+            var img2 = img.replace("mp4","png");
+            console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+            console.log("img-->"+img);
+            console.log("img2-->"+img2);
+            console.log("ip+img2-->"+cmsServerIp+img2);
+            console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
             console.log("(page*4)+i : "+ Number((page*4)+i));    
             $('span[name="slp_flag"]').eq(i).empty().html(productList3[Number((page*4)+i)].flag);
             $('li[name="slp_title"]').eq(i).empty().html(productList3[Number((page*4)+i)].title);
             $('input[name="tv_video"]').eq(i).val(productList3[Number((page*4)+i)].tv_video);
-            $('li[name="sl_img"]').eq(i).empty().html('<img src="'+cmsServerIp + productList3[Number((page*4)+i)].img+'"/>');
+            $('li[name="sl_img"]').eq(i).empty().html('<img class="sl_menu_img" src="'+cmsServerIp +img2+'"/>');
+            $('input[name="sl_id"]').eq(i).val(productList3[Number((page*4)+i)].tv_videoproduct_id);
+            //$('li[name="sl_img"]').eq(i).empty().html('<img src="'+cmsServerIp + productList3[Number((page*4)+i)].img+'"/>');
             //$('input[name="tv_video"]').eq(index).val(entry['tv_video']);
         }
+
+
         //fn_videoPlay(video[0], Number(currentFocusMenu+2), 1);
 
     },
@@ -1382,6 +1520,47 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
         return dsp_ampm;
     },
-    
+    // 조회 : 상세카테고리별 상품정보
+    selectProductSubCategory: function(requestCategoryDtlCode,fvId) {
+                console.log("######################################################################");
+                console.log("######## requestCategoryDtlCode  : "+requestCategoryDtlCode);
+                console.log("######## fvId  : "+fvId);
+                console.log("######################################################################");
+        var param = {
+                        "subcategory" : requestCategoryDtlCode
+                    };
+        $.ajax({
+            url         : cmsServerIp + "/ProductSubCategoryTask",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                console.log("######################################################################");
+                console.log("######## result  : " + result);
+                console.log("########상세카테고리별 상품정보 결과 : " + JSON.stringify(result));
+                console.log("######################################################################");
+
+
+                // 결과값을 넣는다.
+                $.each(result, function(index, entry) {
+                    // 처음에 뿌려주는 9개만 넣는다.
+                    if(entry['id'] == fvId) {
+                        console.log("######## entry[id]와 request값 같은때 ########");
+                        $('span[name="pd_name"]').empty().append(entry['name']);
+                        $('span[name="pd_cost"]').empty().append(cn_toPrice(entry['cost']) + "원");
+                        $('span[name="pd_standard"]').empty().append(entry['standard']);
+                    }
+                });
+                // 리스트에 뿌려주는건 9개씩 따로 해줌
+            },
+            error : function(){
+                    console.log("에러");
+            }
+        });
+    }
 
 });

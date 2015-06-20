@@ -20,10 +20,13 @@ var global = window;
 // *  2 : 상품정보 보기
 // *  3 : 닫기
 // * fvCode     : 현재 선택된 상품 코드
+// * fvUrl     : 현재 선택된 상품의 관련 url(상품정보보기에 parameter값 때문)--안써
+// * fvId     : 현재 선택된 상품의 관련 id(상품정보보기에 parameter값 때문)
 //*************************************************
 var fvFocus = 1;
-var fvCode = 1; 
-
+var fvCode = 0; 
+var fvUrl = "";
+var fvId = "";
 //*************************************************
 // *  간편 장바구니 팝업
 // * cartHtml = 장바구니 HTML
