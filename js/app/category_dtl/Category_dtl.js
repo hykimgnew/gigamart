@@ -46,11 +46,13 @@ var currentFocusList = 0;
  *                             345
  *                             678
  * productList     = 상품 배열
+ * currentPageCnt  = 현재 페이지의 상품 갯수
  **/
 var horizonFocus  = 0;
 var verticalFocus = 0;
 var currentFocusDtl = 0;
 var productList   = new Array();
+var currentPageCnt = 0;
 
 /**
  * 현재 상세카테고리 화살표 button Focus 위치

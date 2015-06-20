@@ -44,15 +44,15 @@ function makeProduct() {
 // 빈 리스트 레이아웃 생성
 function makeEmptyProduct() {
 
-    var appendHtml =  '<li name="li_empty" class="dl_menu mg_r5">';
+    var appendHtml =  '<li name="li_empty">';
+        /*appendHtml += '    <span></span>';
         appendHtml += '    <span></span>';
         appendHtml += '    <span></span>';
-        appendHtml += '    <span class="dm_bdr"></span>';
         appendHtml += '    <ul>';
         appendHtml += '       <li name="li_img" class="dlm_img"></li>';
         appendHtml += '       <li name="li_name" class="dlm_tit"></li>';
         appendHtml += '       <li name="li_cost" class="dlm_price"></li>';
-        appendHtml += '    </ul>';
+        appendHtml += '    </ul>';*/
         appendHtml += '</li>';
 
     $('ul[name="ul_discount"]').append(appendHtml);
@@ -157,45 +157,64 @@ function updateSubCategoryTitle() {
 
 // 페이징 변경 좌측 항목 업데이트
 function updateSubCategoryList() {
-    var startIdx    = 9 * currentFocusDtlPage;      // 페이지에서 시작되는 위치
-    var endIdx      = resultSet.length;             // 총 길이
-    var result_len  = endIdx - startIdx;            // 현재 페이지 길이
-    //var idx         = startIdx + currentFocusDtl; // 현재 인덱스
+   // 변경 해야 할 파라미터 
+   // var horizonFocus  = 0;    가로값 (0~2)
+   // var verticalFocus = 0;    세로값 (0~2)
+   // var currentFocusDtl = 0;  현재위치 (0~8)
+   // var currentFocusDtlPage = 0; 페이지 (0~n)  (한페이지에 9개의 데이터)
+   // var prevPageYN = false; 이전페이지 
+   // var nextPageYN = false; 다음페이지
+   var resultLen    = resultSet.length;            // 데이터 전체 갯수
+   var startIdx     = currentFocusDtlPage * 9;     // 페이지에서 시작되는 idx
+   var endIdx       = (startIdx + 9);
+   var totalPage    = Math.ceil(resultLen / 9);
 
-    console.log("#### " + currentFocusDtlPage + "페이지는 " + startIdx + "번째 데이터에서 시작 " + endIdx + "번째 데이터에서 종료");
+   console.log("## 전체 페이지 수 : " + totalPage);
 
-    // 시작 인덱스가 총 길이(종료 인덱스)보다 크거나 같을 경우
-    if(startIdx >= endIdx) {
-        nextPageYN = false; // 다음 페이지 없음
-    }
+   $('#pageNavi').empty().append("<B>" + Number(currentFocusDtlPage+1) + "</b> / " + totalPage);
 
-    var pageSet = resultSet.slice(startIdx, endIdx);
-    var empty_len   = 9 - pageSet.length;
+   // 마지막 페이지 일 때 (마지막 인덱스가 전체데이터 갯수보다 많을 때)
+   if(resultLen < endIdx) {
+        nextPageYN = false;        // 다음 페이지 없음
+        $('#arrow_bottom').hide(); // 다음 페이지 방향키 감춤
+        endIdx = resultLen;         // 마지막 인덱스를 최대길이로 변경
+   // 마지막 페이지 아닐 때 (마지막 인덱스가 전체데이터 갯수보다 적을 때)
+   } else {
+        nextPageYN = true;          // 다음 페이지 있음
+        $('#arrow_bottom').show();  // 다음 페이지 방향키
+   }
 
-    $('ul[name="ul_discount"]').empty();
+   var pageSet  = resultSet.slice(startIdx, endIdx); // 전체 데이터에서 페이지 갯수만큼의 데이터를 추출
+   var emptyLen = 9 - pageSet.length;                // 빈 공간 갯수
+   currentPageCnt = pageSet.length;                  // 현재 페이지 상품 cnt
 
-    // 결과값이 9보다 작으면 결과값 만큼만 상품 리스트를 뿌리고 빈 값으로 나머지를 채워준다.
-    for(var i=0 ; i < result_len ; i++) {
+   console.log("####### 빈 페이지 개수 : " + emptyLen);
+   console.log("####### 시작 idx : " + startIdx);
+   console.log("####### 종료 idx : " + endIdx);
+
+   $('ul[name="ul_discount"]').empty();
+
+   // 결과값이 9보다 작으면 결과값 만큼만 상품 리스트를 뿌리고 빈 값으로 나머지를 채워준다.
+    for(var i=0 ; i < pageSet.length ; i++) {
+        console.log("not empty ? : " + i);
         makeProduct();
     }
-    if(empty_len > 0) {
-        for(var i=0 ; i < empty_len ; i++) {
+    if(emptyLen > 0) {
+        for(var i=0 ; i < emptyLen ; i++) {
             makeEmptyProduct();
+            console.log("empty ? : " + i);
         }
     }
 
     // 데이터를 넣는다.
     $.each(pageSet, function(index, entry) {
-        if(index < result_len) {
+        if(index < resultLen) {
             console.log("다음꺼 " + entry['img']);
             $('li[name="li_img"]').eq(index).append('<img src="' + cmsServerIp + entry['img'] + '" />');
             $('li[name="li_name"]').eq(index).append(entry['name']);
             $('li[name="li_cost"]').eq(index).append(cn_toPrice(entry['cost']) + "원");
         }
     });
-
-    console.log("### 페이지 : " + currentFocusDtlPage + " 현재 위치 : " + currentFocusDtl);
-    console.log("### 가로위치 : " + horizonFocus + " 세로위치 : " + verticalFocus);
 
     // 우측정보 갱신 
     updateProductInfo;
@@ -386,11 +405,17 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                                 // 전 페이지 조회
                                 console.log("### 상세카테고리 : 전 페이지 조회");
                                 currentFocusDtlPage = currentFocusDtlPage - 1;
-                                if(currentFocusDtlPage <= 0) prevPageYN = false; // 현재 페이지가 0이면 이전 페이지 없음 처리
-                                updateSubCategoryList(); // 페이지 변경
-                                verticalFocus   = verticalFocus - 2;    // 행 감소
+
+                                if(currentFocusDtlPage <= 0) {
+                                    // 현재 페이지가 0이면 이전 페이지 없음 처리
+                                    prevPageYN = false;
+                                    // $('#arrow_top').hide();
+                                } 
+                                updateSubCategoryList();                // 페이지 변경
+                                verticalFocus   = verticalFocus + 2;    // 행 증가(전페이지의 마지막으로 위치)
                                 horizonFocus    = horizonFocus;         // 열 증감 없음
-                                currentFocusDtl = currentFocusDtl - 6;  // 위치 변경
+                                currentFocusDtl = currentFocusDtl + 6;  // 위치 변경
+                                updateProductInfo();                    // 우측 상품 정보 갱신
 
                                 $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
                                 $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
@@ -436,6 +461,16 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                    if(currentFocusList == 0) {
                         // 첫번째, 두번째 행 일때
                         if(verticalFocus >= 0 && verticalFocus < 2) {
+                            // 총 갯수에서 3을 뺀 수가 포커스보다 작을 때 아래로 이동 불가 
+                            console.log("### 아래 이동 시 전체 갯수 : " + currentPageCnt + " 현재 포커스 위치 : " + currentFocusDtl);
+
+                            if(currentPageCnt - 3 <= currentFocusDtl) {
+                                console.log("###### 아래로 이동 불가");
+                                return;
+                            } else {
+                                console.log("###### 아래로 이동 가능");
+                            }
+
                             $('li[name="li_discount"]').eq(currentFocusDtl).removeClass('focus');
                             $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').empty();
 
@@ -453,11 +488,17 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                             if(nextPageYN == true) {
                                 // 다음 페이지 조회
                                 console.log("내가 늘 사는 상품 지금 얼마? : 다음 페이지 조회");
+                                
+                                // 페이지 이동했으므로 전 페이지 존재
+                                prevPageYN = true;
+                                $('#arrow_top').show();
+
                                 currentFocusDtlPage = currentFocusDtlPage + 1;
                                 updateSubCategoryList();    // 페이지 변경
                                 verticalFocus   = verticalFocus - 2;    // 행 감소
                                 horizonFocus    = horizonFocus;         // 열 증감 없음
                                 currentFocusDtl = currentFocusDtl - 6;  // 위치 변경
+                                updateProductInfo();                    // 우측 상품 정보 갱신
 
                                 console.log("이동 후");
                                 console.log("### 페이지 : " + currentFocusDtlPage + " 현재 위치 : " + currentFocusDtl);
@@ -529,6 +570,17 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 if(keyCode === global.VK_RIGHT) {
                     // 상품 목록 일때
                     if(currentFocusList == 0) {
+
+                        // 총 갯수에서 1을 뺀 수가 포커스보다 작을 때 오른쪽으로 이동 불가 
+                        console.log("### 우측 이동 시 전체 갯수 : " + currentPageCnt + " 현재 포커스 위치 : " + currentFocusDtl);
+
+                        if(currentPageCnt - 1 <= currentFocusDtl) {
+                            console.log("###### 우측으로 이동 불가");
+                            return;
+                        } else {
+                            console.log("###### 우측으로 이동 가능");
+                        }
+
                         // 상품 목록 첫번째, 두번째 열일 때
                         if(horizonFocus >= 0 && horizonFocus < 2) {
                             $('li[name="li_discount"]').eq(currentFocusDtl).removeClass('focus');
@@ -720,33 +772,40 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 console.log("######## 상품목록 결과 : " + JSON.stringify(result));
 
                 resultSet = result;
+                var resultLen  = result.length;
+                var totalPage    = Math.ceil(resultLen / 9);
+                // $('#arrow_top').hide(); // 첫 페이지에서는 전 페이지 X
 
-                var result_len  = result.length;
                 // 결과값이 9보다 크면 다음 페이지 존재
-                if(result_len > 9) { 
+                if(resultLen > 9) { 
                     nextPageYN = true;
-                    result_len = 9;
+                    $('#arrow_bottom').show();
+                    resultLen = 9;
+                    currentPageCnt = 9;
                 }
-                var empty_len   = 9 - result.length;
+                var emptyLen   = 9 - resultLen;
 
                 // 결과값이 9보다 작으면 결과값 만큼만 상품 리스트를 뿌리고 빈 값으로 나머지를 채워준다.
-                for(var i=0 ; i < result_len ; i++) {
+                for(var i=0 ; i < resultLen ; i++) {
                     makeProduct();
+                    currentPageCnt = resultLen;
                 }
-                if(empty_len > 0) {
-                    for(var i=0 ; i < empty_len ; i++) {
+                if(emptyLen > 0) {
+                    for(var i=0 ; i < emptyLen ; i++) {
                         makeEmptyProduct();
                     }
                 }
 
-                console.log("결과 값과 빈값의 길이 : 결과값 " + result_len + " 빈값 " + empty_len + "합친값 " + Number(result_len + empty_len));
+                $('#pageNavi').empty().append("<B>" + Number(currentFocusDtlPage+1) + "</b> / " + totalPage);
+
+                console.log("결과 값과 빈값의 길이 : 결과값 " + resultLen + " 빈값 " + emptyLen + "합친값 " + Number(resultLen + emptyLen));
 
                 
                 
                 // 결과값을 넣는다.
                 $.each(result, function(index, entry) {
                     // 처음에 뿌려주는 9개만 넣는다.
-                    if(index < result_len) {
+                    if(index < resultLen) {
                         $('li[name="li_img"]').eq(index).append('<img src="' + cmsServerIp + entry['img'] + '" />');
                         $('li[name="li_name"]').eq(index).append(entry['name']);
                         $('li[name="li_cost"]').eq(index).append(cn_toPrice(entry['cost']) + "원");
