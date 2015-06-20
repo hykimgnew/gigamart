@@ -345,10 +345,10 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             // * 확인 KEY
             // **************************************************
             if (keyCode === global.VK_ENTER) {
-                if(currentFocusList == 0) {
-                    /** 전체 카테고리로 이동 */
+                /*if(currentFocusList == 0) {
+                    //전체 카테고리로 이동 
                     location.href = "category.html";
-                }
+                }*/
 
                 if(currentFocusList == 2) {
                     /** 전체 영상보기 팝업 */
@@ -768,9 +768,14 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         if(currentFocusMenu == 0) {
                             //videoPlayer.stop();
 
-                            $('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
-                            currentFocusList = 0;
-                            $('#pj_left').addClass('focus');
+                            //전체 카테고리로 이동 
+                            //$('#span_videoDiv').append('<img src="../images/sample_02.jpg" style="width : 610px; height : 343px;"/>');
+                            videoPlayer.stop();
+                            $('#span_videoDiv').append('<img src="../images/sample_02.jpg" style="width : 610px; height : 343px;"/>');
+                            location.href = "category.html";
+                            //$('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
+                            //currentFocusList = 0;
+                            //$('#pj_left').addClass('focus');
 
                         // 지금 이상품 이가격(하단)-> 지금 이상품 이가격(하단)
                         } 
@@ -867,7 +872,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     if(currentFocusList == 0) {
                         // this.videoStop();
 
-                        $('#pj_left').removeClass('focus');
+                        /*$('#pj_left').removeClass('focus');
                         currentFocusList = 2;
                         currentFocusMenu = 0;
                         fvCode = currentFocusMenu; // TODO : 차후에 상품 코드 넣어야함
@@ -875,7 +880,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                         var url = $('li[name="sl_menu"]').eq(currentFocusMenu).children('.tv_video').val();
                         console.log("전체 카테고리 -> 지금 이상품 이가격 (하단) 영상 재생 url"+url);
-                        this.videoPlay(url, Number(currentFocusMenu+2), 1);
+                        this.videoPlay(url, Number(currentFocusMenu+2), 1);*/
                     }
 
                     // 지금 이상품 이가격 -> 저렴한 상품 추천
