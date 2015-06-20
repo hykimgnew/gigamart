@@ -69,3 +69,12 @@
 
 #content .selDepth .sd_first .discount_list .dlm_tit { height:18px; overflow: hidden; }
 
+#content .con_wrap .rel_project li.focus{
+	border : 1px solid #2b9330; 
+}
+#content .pj_right div.sc_project div.scp_right .discount_list .dl_menu{
+	margin-bottom :0px!important;
+}
+.li_discount1:nth-child(1){
+	margin-bottom : 14px!important;
+}

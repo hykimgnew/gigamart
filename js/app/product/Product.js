@@ -6,7 +6,7 @@
 var global = window;
 
 //*************************************************
-// * 상세카테고리 코드 (포커스 보전용)
+// * 상세정보 코드 (포커스 보전용)
 //*************************************************
 //var requestCategoryDtlCode  = request.getParameter("categoryDtlCode");
 //var requestCategoryCode     = request.getParameter("categoryCode");
@@ -16,6 +16,16 @@ var requestCurrentFocusList = request.getParameter("currentFocusList");
 var requestCurrentFocusMenu = request.getParameter("currentFocusMenu");
 var requestCurrentFocusMenul = request.getParameter("currentFocusMenul");
 //currentFocusList="+currentFocusList+"&currentFocusMenu="+currentFocusMenu;
+
+
+
+//*************************************************
+// * 넘어온 전체카테고리, 상세카테고리 코드 (포커스 보전용)
+//*************************************************
+var requestCategoryCode     = request.getParameter("categoryCode");
+var requestCategoryDtlCode  = request.getParameter("categoryDtlCode");
+var requestCategoryDtlPage  = request.getParameter("categoryDtlPage");
+
 
 
 
@@ -141,7 +151,7 @@ var productView = 1;
 
 //*************************************************
 // *  관련 기획전 위치
-// *  1  0
+// *  0  1
 // *  2  3
 //*************************************************
 var giFocus = 0;
