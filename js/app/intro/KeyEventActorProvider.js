@@ -83,7 +83,7 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
                     //alert("로그인에 실패하였습니다.");
                     // return;
                 }
-
+                
                 else {
                     console.log("############ 셋탑박스를 확인해주시거나 고객센터로 문의해주세요.");
                     location.href = "view/exhb.html";  // 메인 화면으로 이동
@@ -91,8 +91,6 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
                     //alert("셋탑박스를 확인해주시거나 고객센터로 문의해주세요.");
                     // return;
                 }
-                
-
             }
         });
     }
