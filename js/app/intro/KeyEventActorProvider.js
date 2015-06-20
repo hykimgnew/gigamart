@@ -8,7 +8,6 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
     	var me = this;
 
     	me.actors = [];
-
     },
 
     getKeyEventActor: function (keyCode) {
@@ -62,9 +61,9 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
             dataType    : "json",
             data        : param,
             async       : true,
-            xhrFields   : {
+            /*xhrFields   : {
                             withCredentials: true
-            },
+            },*/
             success     : function(result) {
                 console.log("############ 로그인 결과 : " + JSON.stringify(result));
 

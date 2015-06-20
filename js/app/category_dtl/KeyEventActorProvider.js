@@ -41,9 +41,26 @@ function makeProduct() {
     $('ul[name="ul_discount"]').append(appendHtml);
 }
 
+// 빈 리스트 레이아웃 생성
+function makeEmptyProduct() {
+
+    var appendHtml =  '<li name="li_empty" class="dl_menu mg_r5">';
+        appendHtml += '    <span></span>';
+        appendHtml += '    <span></span>';
+        appendHtml += '    <span class="dm_bdr"></span>';
+        appendHtml += '    <ul>';
+        appendHtml += '       <li name="li_img" class="dlm_img"></li>';
+        appendHtml += '       <li name="li_name" class="dlm_tit"></li>';
+        appendHtml += '       <li name="li_cost" class="dlm_price"></li>';
+        appendHtml += '    </ul>';
+        appendHtml += '</li>';
+
+    $('ul[name="ul_discount"]').append(appendHtml);
+}
+
 // 우측 상품정보 갱신
 function updateProductInfo() {
-    var idx = currentFocusDtl + (9 * currentFocusDtlPage);
+    var idx = currentFocusDtl + (resultSet.length * currentFocusDtlPage);
         
     console.log("############ 동영상 : " + cmsServerIp + resultSet[idx]["video"]);
     console.log("############ 이미지 : " + cmsServerIp + resultSet[idx]["img"]);
@@ -274,7 +291,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 console.log("currentFocusBtn"+currentFocusBtn);
                 
                 /**********test용****************/
-                location.href ="product1.html";
+                //location.href ="product1.html";
                 /*******************************/
 
                 // 상세 카테고리 일때
@@ -308,9 +325,10 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                         if(verticalFocus == 0) { 
                             if(prevPageYN == true) {
                                 // 전 페이지 조회
-                                console.log("상세카테고리 : 전 페이지 조회");
+                                console.log("### 상세카테고리 : 전 페이지 조회");
+                                this.selectProductSubPage(currentFocusDtlPage - 1); // 전 페이지 조회
                             }
-                            else if(prevPageYN == false) {
+                            else if(prevPageYN == false && currentFocusDtlPage <= 0) {
                                 // 전 페이지 없음
                                 console.log("상세카테고리 : 전 페이지 없음");
                             }
@@ -621,31 +639,34 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
                 resultSet = result;
 
-                // 결과값이 9보다 크면 ul > li 9개만 세팅
-                if(result.length > 9) {
-                    for(var i=0 ; i < 9 ; i++) {
-                        makeProduct();
-                    }
-                } 
-                // 결과값이 9보다 작으면 result 갯수만큼 뿌려줌
-                else {
-                    for(var i=0 ; i < result.length ; i++) {
-                        makeProduct();
+                
+                var result_len  = result.length;
+                var empty_len   = 9 - result.length;
+
+                // 결과값이 9보다 작으면 결과값 만큼만 상품 리스트를 뿌리고 빈 값으로 나머지를 채워준다.
+                for(var i=0 ; i < result_len ; i++) {
+                    makeProduct();
+                }
+                if(empty_len > 0) {
+                    for(var i=0 ; i < empty_len ; i++) {
+                        makeEmptyProduct();
                     }
                 }
 
+                // 결과값이 9보다 크면 다음 페이지 존재
+                if(result_len > 9) {
+                    nextPageYN = true;
+                }
+                
                 // 결과값을 넣는다.
                 $.each(result, function(index, entry) {
                     // 처음에 뿌려주는 9개만 넣는다.
-                    if(index < 9) {
+                    if(index < result_len) {
                         $('li[name="li_img"]').eq(index).append('<img src="' + cmsServerIp + entry['img'] + '" />');
                         $('li[name="li_name"]').eq(index).append(entry['name']);
                         $('li[name="li_cost"]').eq(index).append(cn_toPrice(entry['cost']) + "원");
                     }
                 });
-
-                // 리스트에 뿌려주는건 9개씩 따로 해줌
-
             },
             error : function(){
                     console.log("에러");
@@ -662,7 +683,13 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
             }
         });
+    },
+
+    // 상세카테고리 페이지 변경
+    selectProductSubPage: function() {
+        resultSet;
     }
+
 
 
 });

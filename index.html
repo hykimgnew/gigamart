@@ -35,5 +35,15 @@
 
 	<!-- Extends Library -->
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript">
+	$(window).load(function() {  
+		//setTimeout(go_login, 13000);
+		go_login();
+	});
+
+	function go_login() {
+		setTimeout(Gigamart.app.intro.KeyEventActorProvider.login, 10000);
+	}
+	</script>
 </body>
 </html>

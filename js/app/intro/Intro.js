@@ -31,7 +31,12 @@ App.defineClass('Gigamart.app.intro.Intro', {
         var me = this;
         global.stbService = Gigamart.app.intro.STBService.create(EventBus);
 
+        //javascript:sleep(3000);Gigamart.app.intro.KeyEventActorProvider.login();
         // 시간이 지나면 자동으로 페이지 이동
-        // setTimeout(location.href = "view/exhb.html", 300000);
+        //sleep(3000);
+        //clearTimeout();
+
+        //setTimeout(Gigamart.app.intro.KeyEventActorProvider.login(), 1000);
+        
     }
 });
