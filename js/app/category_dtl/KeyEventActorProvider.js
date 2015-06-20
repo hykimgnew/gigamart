@@ -296,9 +296,22 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
                 // 상세 카테고리 일때
                 if(currentFocusList == 0) {
-                    console.log("############ VK_ENTER 2222");
-                    location.href ="product1.html";
+
+                    var idx = currentFocusDtl + (resultSet.length * currentFocusDtlPage);
+
+                    console.log("### 상품 배열 " + idx + "번째");
+
+                    // this.transCategoryCode(); // 코드를 숫자로 전환
+                    var url = "?categoryCode=" + requestCategoryCode
+                            + "&categoryDtlCode=" + requestCategoryDtlCode
+                            + "&categoryDtlPage=" + requestCategoryDtlPage
+                            + "&id=" + resultSet[idx]["id"];
+
+                    console.log("### 상품 정보로 넘어가는 값들 :  " + url);                            
+
+                    location.href ="product1.html" + url;
                 }
+
                 else if(currentFocusList == 3){
                     console.log("아래쪽버튼 focus일때");
                     //아래쪽버튼 focus일때
@@ -636,11 +649,13 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
             success     : function(result) {
                 console.log("######## 상세카테고리 파라미터 : " + requestCategoryDtlCode);
                 console.log("######## 상품목록 결과 개수 : " + result.length);
+                console.log("######## 상품목록 결과 : " + JSON.stringify(result));
 
                 resultSet = result;
 
                 
                 var result_len  = result.length;
+                if(result_len > 9) result_len = 9;
                 var empty_len   = 9 - result.length;
 
                 // 결과값이 9보다 작으면 결과값 만큼만 상품 리스트를 뿌리고 빈 값으로 나머지를 채워준다.
@@ -652,6 +667,8 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                         makeEmptyProduct();
                     }
                 }
+
+                console.log("결과 값과 빈값의 길이 : 결과값 " + result_len + " 빈값 " + empty_len + "합친값 " + Number(result_len + empty_len));
 
                 // 결과값이 9보다 크면 다음 페이지 존재
                 if(result_len > 9) {
