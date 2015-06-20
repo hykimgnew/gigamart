@@ -60,7 +60,7 @@ function makeEmptyProduct() {
 
 // 우측 상품정보 갱신
 function updateProductInfo() {
-    var idx = currentFocusDtl + (resultSet.length * currentFocusDtlPage);
+    var idx = currentFocusDtl + (9 * currentFocusDtlPage);
         
     console.log("############ 동영상 : " + cmsServerIp + resultSet[idx]["video"]);
     console.log("############ 이미지 : " + cmsServerIp + resultSet[idx]["img"]);
@@ -153,6 +153,19 @@ function updateSubCategoryTitle() {
     }
 }
 
+// 페이징 변경 좌측 항목 업데이트
+function updateSubCategoryList() {
+    var startIdx = 9 * currentFocusDtlPage;
+    var idx = startIdx + currentFocusDtl;
+
+    console.log("#### " + currentFocusDtlPage + "페이지는 " + startIdx + "번째 데이터에서 시작");
+
+
+
+    // 우측정보 갱신 
+    // updateProductInfo();
+}
+
 
 
 /**
@@ -164,10 +177,8 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
     	me.actors = [];
 
+        // 상품 목록 조회
         this.selectProductSubCategory();
-
-        // 메뉴명 표기
-        
 
 
         // 당일 판매현장 시각
@@ -297,7 +308,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 // 상세 카테고리 일때
                 if(currentFocusList == 0) {
 
-                    var idx = currentFocusDtl + (resultSet.length * currentFocusDtlPage);
+                    var idx = currentFocusDtl + (9 * currentFocusDtlPage);
 
                     console.log("### 상품 배열 " + idx + "번째");
 
@@ -339,7 +350,9 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                             if(prevPageYN == true) {
                                 // 전 페이지 조회
                                 console.log("### 상세카테고리 : 전 페이지 조회");
-                                this.selectProductSubPage(currentFocusDtlPage - 1); // 전 페이지 조회
+                                currentFocusDtlPage = currentFocusDtlPage - 1;
+                                if(currentFocusDtlPage <= 0) prevPageYN = false; // 현재 페이지가 0이면 이전 페이지 없음 처리
+                                updateSubCategoryList(); // 페이지 변경
                             }
                             else if(prevPageYN == false && currentFocusDtlPage <= 0) {
                                 // 전 페이지 없음
@@ -399,6 +412,8 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                             if(nextPageYN == true) {
                                 // 다음 페이지 조회
                                 console.log("내가 늘 사는 상품 지금 얼마? : 다음 페이지 조회");
+                                currentFocusDtlPage = currentFocusDtlPage + 1;
+                                updateSubCategoryList();    // 페이지 변경
                             }
                             else if(nextPageYN == false) {
                                 // 다음 페이지 없음
@@ -493,7 +508,9 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 // 전체 카테고리로 이동
                 this.transCategoryCode(); // 한글코드를 숫자코드로 변환 후 페이지 이동
 
-                location.href = "category.html?categoryCode=" + requestCategoryCode + "&categoryDtlCode=" + requestCategoryDtlCode + "&categoryDtlPage=" + requestCategoryDtlPage;
+                location.href = "category.html?categoryCode=" + requestCategoryCode 
+                              + "&categoryDtlCode=" + requestCategoryDtlCode 
+                              + "&categoryDtlPage=" + requestCategoryDtlPage;
             } else if (keyCode === global.VK_ESCAPE) {
                 
             } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
@@ -653,9 +670,12 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
                 resultSet = result;
 
-                
                 var result_len  = result.length;
-                if(result_len > 9) result_len = 9;
+                // 결과값이 9보다 크면 다음 페이지 존재
+                if(result_len > 9) { 
+                    nextPageYN = true;
+                    result_len = 9;
+                }
                 var empty_len   = 9 - result.length;
 
                 // 결과값이 9보다 작으면 결과값 만큼만 상품 리스트를 뿌리고 빈 값으로 나머지를 채워준다.
@@ -670,10 +690,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
                 console.log("결과 값과 빈값의 길이 : 결과값 " + result_len + " 빈값 " + empty_len + "합친값 " + Number(result_len + empty_len));
 
-                // 결과값이 9보다 크면 다음 페이지 존재
-                if(result_len > 9) {
-                    nextPageYN = true;
-                }
+                
                 
                 // 결과값을 넣는다.
                 $.each(result, function(index, entry) {

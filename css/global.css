@@ -4,6 +4,7 @@
 @import "etc.css";
 @import "effect.css";
 
+
 /* CSS Document */
 
 /* 기본사항 ***************************************************************************************/
@@ -163,9 +164,9 @@ a:hover, a:active{text-decoration:none;}
 #content .content_left .top_icon li:nth-child(2) {margin:0px 36px;}
 #content .content_left .top_icon li.sel {float:left; text-align:center; width:46px; height:46px; margin:0px 8px; padding:0px;background:rgba(43,147,48,0.5); border-radius:6px;}
 #content .content_left .top_icon p.alarm {clear:both; position:absolute; left:30px; top:-2px; color:#FFF;}
-#content .content_left .top_icon p.alarm span {position:relative; height:35px;}
-#content .content_left .top_icon p.alarm span img {position:relative; top:-1px;}
-#content .content_left .top_icon p.alarm span.alarm_num {background:url(../images/bottom_cart_bg_center.png); display:inline-block; line-height:32px; font-size:14px;}
+#content .content_left .top_icon p.alarm span {display:block; float:left; height:35px;}
+#content .content_left .top_icon p.alarm span.alarm_num {background:url(../images/bottom_cart_bg_center.png);}
+#content .content_left .top_icon p.alarm span.alarm_num b {font-size:14px; line-height:32px;}
 
 
 #content .content_left .category {clear:both; margin-top:64px; position:absolute; left:-18px;}
@@ -197,7 +198,7 @@ a:hover, a:active{text-decoration:none;}
 
 
 /*	장바구니 홈 메뉴 카테고리	*/
-#common {clear:both; position:absolute; bottom:30px; right:40px; width:1200px; margin:0 auto; text-align:right; color:#ffffff; }
+#common {clear:both; position:absolute; bottom:25px; right:36px; width:1200px; margin:0 auto; text-align:right; color:#ffffff;}
 #common li {display:inline-block;}
 #common li.cm_cart {position:relative; padding:0px; margin:0px;}
 #common li.cm_cart span.cmc {position:relative; left:-15px; z-index:100; top:-10px; }
@@ -205,6 +206,21 @@ a:hover, a:active{text-decoration:none;}
 #common li.cm_cart span.cmc span.cmc_num {background:url(../images/bottom_cart_bg_center.png); top:2px; height:32px; line-height:32px; display:inline-block;}
 #common li.cm_cart span.cmc_price {position:relative; top:12px; left:-5px;  font-weight:normal;}
 #common li.cm_cart span.cmc_price_black {position:relative; top:12px; left:-5px;  font-weight:normal; color:#404040;}
+
+
+
+/*	장바구니 홈 메뉴 카테고리 2015년6월20일수정 	*/
+#bottom {clear:both; position:absolute; bottom:25px; right:36px; width:1200px; margin:0 auto; text-align:right; color:#ffffff;}
+#bottom .b_menu {float:right;}
+#bottom .b_home {float:right; padding-right:17px; }
+#bottom .b_price {float:right; line-height:32px; font-size:20px; padding-right:5px;}
+#bottom .b_price_black {float:right; line-height:32px; font-size:20px; padding-right:5px; color:#404040;}
+#bottom .b_cart {float:right; position:relative; z-index:1200; top:-10px;}
+#bottom .b_cart li {float:left;}
+#bottom .b_cart li.cart_num {height:32px; background:url(../images/bottom_cart_bg_center.png) repeat-x; }
+#bottom .b_cart li.cart_num span {line-height:32px; }
+#bottom .b_carticon {float:right; position:relative; right:-15px; top:-2px;}
+#bottom .b_carttxt {float:right; position:relative; right:-13px; top:-2px;}
 
 
 
@@ -232,9 +248,12 @@ a:hover, a:active{text-decoration:none;}
 #content .pj_right div.sc_project div.scp_left .timesale ul li.scene {width:608px; height:343px; position:relative; }
 #content .pj_right div.sc_project div.scp_left .timesale ul li.scene .scn_bdr {position:absolute; top:0px; z-index:1200; width:598px; height:333px; border:5px solid #2b9330;}
 #content .pj_right div.sc_project div.scp_left .timesale ul li.scene a.s_scale {position:absolute; top:5px; right:5px; }
-#content .pj_right div.sc_project div.scp_left .timesale ul li.scene span.timesale {position:absolute; left:5px; top:225px;}
-#content .pj_right div.sc_project div.scp_left .timesale ul li.scene span.timesale span {display:inline-block;}
-#content .pj_right div.sc_project div.scp_left .timesale ul li.scene span.timesale span.timesale_won {	position:relative;	top:11px;	line-height:64px;	height:64px; 	background:url(../images/ts_center.png) repeat-x;	font-weight:bold; 	font-size:36px; 	color:#000;	}
+#content .pj_right div.sc_project div.scp_left .timesale ul li.scene span.ts_price {position:absolute; left:5px; top:225px;}
+#content .pj_right div.sc_project div.scp_left .timesale ul li.scene span.ts_price span {display:block; float:left; }
+#content .pj_right div.sc_project div.scp_left .timesale ul li.scene span.ts_price span:nth-child(1) {height:64px; }
+#content .pj_right div.sc_project div.scp_left .timesale ul li.scene span.ts_price span.tspGroup {height:64px;	background:url(../images/ts_center.png) repeat-x;}
+#content .pj_right div.sc_project div.scp_left .timesale ul li.scene span.ts_price span:nth-child(3) {height:64px; }
+#content .pj_right div.sc_project div.scp_left .timesale ul li.scene span.ts_price b.timesale_won { font-weight:bold; color:#000; font-size:36px; position:relative; top:5px;}
 #content .pj_right div.sc_project div.scp_left .timesale ul li.scene span.ts_time {	background:url(../images/watch_bg.png) no-repeat; 	width:204px; 	height:104px;	display:inline-block; 	position:absolute; 	bottom:-20px; 	right:0px; 	text-align:center;	padding-top:20px;	z-index:1100;	}
 #content .pj_right div.sc_project div.scp_left .timesale ul li.scene span.ts_time i {font-style:normal; font-size:20px; color:#fff; text-shadow: 0 1px 2px #000;}
 #content .pj_right div.sc_project div.scp_left .timesale ul li.scene span.ts_time b {font-style:normal; font-size:40px; color:#fff;}
@@ -276,13 +295,13 @@ a:hover, a:active{text-decoration:none;}
 #content .pj_right div.sc_project div.scp_right .discount_list .polygon_l {z-index:1000; position:absolute; top:0px; right:0px; background:url(../images/polygon_l.png) no-repeat; width:71px; height:21px; display:inline-block; text-align:center; color:#fff; line-height:21px; font-size:12px;}
 #content .pj_right div.sc_project div.scp_right .discount_list .dl_bdr {position:absolute; border-top:4px solid #2b9330; border-left:4px solid #2b9330; border-right:4px solid #2b9330; width:154px; height:158px; }
 #content .pj_right div.sc_project div.scp_right .discount_list .dlm_img img {width:162px; height:162px;}
-/*#content .pj_right div.sc_project div.scp_right .discount_list .dlm_tit {font-size:16px; width:154px; color:#747474; padding:0 4px;}*/
+#content .pj_right div.sc_project div.scp_right .discount_list .dlm_tit {font-size:16px; width:154px; color:#747474; padding:0 4px;}
 #content .pj_right div.sc_project div.scp_right .discount_list .dlm_tit.focus {font-size:16px; width:154px; color:#747474; color:#FFFFFF; padding:0 4px;}
 #content .pj_right div.sc_project div.scp_right .discount_list .dlm_price {display:inline-block; font-size:22px; text-align:right; width:154px; height:30px; padding:0 4px; line-height:20px; } 
 #content .pj_right div.sc_project div.scp_right .discount_list  a.dlm_rank {position:absolute; top:0px; left:0px; width:44px; height:52px; padding-top:14px; display:inline-block; text-align:center; background:url(../images/polygon_b_gr.png) no-repeat; color:#ffffff; font-size:11px; }
 #content .pj_right div.sc_project div.scp_right .discount_list  a.dlm_rank b {font-size:20px;}
 #content .pj_right div.sc_project div.scp_right .discount_list .dm_bdr {position:absolute; display:inline-block; width:162px; top:130px; left:4px;}
-/* #content .pj_right div.sc_project div.scp_right .discount_list .dl_menu_custom {position:absolute; width:162px; float:left; margin-bottom:4px;  top:5px; right:0px;} */
+#content .pj_right div.sc_project div.scp_right .discount_list .dl_menu_custom {position:absolute; width:162px; float:left; margin-bottom:4px;  top:5px; right:0px;}
 #content .pj_right div.sc_project div.scp_right .discount_list .dl_menu_custom .shooperImg {height:132px; text-align:center; padding-top:5px; }
 #content .pj_right div.sc_project div.scp_right .discount_list .dl_menu_custom .shooperImg.focus {background:url(../images/img_border.png)no-repeat center center ;}
 #content .pj_right div.sc_project div.scp_right .discount_list .dl_menu_custom .custom { text-align:center; }
@@ -474,7 +493,7 @@ z-index:10; position:absolute; width:419px; height:431px; top:0px; left:0px; bor
 
 #content .content_right div.shopper_history .sh_list {}
 #content .content_right div.shopper_history .sh_list .shl_left {float:left; width:574px; padding-right:10px; border-right:1px solid #b2b2b2; }
-#content .content_right div.shopper_history .sh_list .shl_right {float:right; position:relative; width:223px; height:435px; padding:0 10px;}
+#content .content_right div.shopper_history .sh_list .shl_right {float:right; position:relative; width:223px; height:435px; paddin:0 10px;}
 
 #content .content_right div.shopper_history .sh_list .shl_left li.shl_tb_a{width:100%; border-top:1px solid #b2b2b2;}
 #content .content_right div.shopper_history .sh_list .shl_left li.shl_tb_a tr {border-bottom:1px solid #b2b2b2;}
@@ -502,8 +521,8 @@ z-index:10; position:absolute; width:419px; height:431px; top:0px; left:0px; bor
 #content .content_right div.shopper_history .sh_list .shl_right .shlr_on.focus {position:absolute; bottom:55px; width:219px; height:44px; border:2px solid #2b9330; color:#FFFFFF; background:#2b9330; border-radius:10px; margin-top:100px;}
 #content .content_right div.shopper_history .sh_list .shl_right b {position:relative; display:inline-block; top:0px; left:0px; width:80px; height:44px; line-height:38px; text-align:right; color:#e71828; font-size:40px; font-weight:bold; }
 #content .content_right div.shopper_history .sh_list .shl_right span {position:relative; display:inline-block; top:-2px; right:0px; width:110px; line-height:18px; text-align:left; height:42px; }
-#content .content_right div.shopper_history .sh_list .shl_right .shlr_close {position:absolute; bottom:0px; width:219px; height:44px; line-height:42px;  border:2px solid #6c6c6c; background:#6c6c6c; color:#FFFFFF; border-radius:10px; margin-top:10px; text-align:center; }
-#content .content_right div.shopper_history .sh_list .shl_right .shlr_close.focus {position:absolute; bottom:0px; width:219px; height:44px; line-height:42px; border:2px solid #2b9330; background:#2b9330; color:#FFFFFF; border-radius:10px; margin-top:10px; text-align:center; }
+#content .content_right div.shopper_history .sh_list .shl_right .shlr_close {position:absolute; bottom:0px; width:219px; height:44px; line-height:42px;  border:2px solid #2b9330; background:#2b9330; color:#FFFFFF; border-radius:10px; margin-top:10px; text-align:center; }
+#content .content_right div.shopper_history .sh_list .shl_right .shlr_close.focus {position:absolute; bottom:0px; width:219px; height:44px; line-height:42px; border:2px solid #6c6c6c; background:#6c6c6c; color:#FFFFFF; border-radius:10px; margin-top:10px; text-align:center; }
 
 
 
@@ -676,7 +695,7 @@ position:relative;width:162px; float:left; margin-bottom:4px; color:#ffffff;back
 #content .con_wrap .cw_right {float:right; width:555px;  }
 
 #content .con_wrap .cw_left .cl_photo {width:555px; height:302px; overflow:hidden; position:relative; margin-bottom:29px; }
-#content .con_wrap .cw_left .cl_photo a.s_scale {position:absolute; top:7px; right:7px;}
+#content .con_wrap .cw_left .cl_photo a.s_scale {position:absolute; top:7px; right:7px;}}
 #content .con_wrap .cw_left .cl_product {}
 
 #content .con_wrap .cw_right .cr_infoArea {width:555px; height:302px; overflow:hidden; position:relative; margin-bottom:29px; }
@@ -694,10 +713,10 @@ position:relative;width:162px; float:left; margin-bottom:4px; color:#ffffff;back
 #content .con_wrap .cw_right .cr_infoArea .ci_btn li {}
 /*숫자 버튼*/
 #content .con_wrap .cw_right .cr_infoArea .ci_btn li.pr_num {position:absolute; bottom:0px; left:0px;}
-#content .con_wrap .cw_right .cr_infoArea .ci_btn li.pr_num span {display:inline-block; text-align:center;}
+#content .con_wrap .cw_right .cr_infoArea .ci_btn li.pr_num span {display:block; text-align:center; float:left; line-height:44px;}
 #content .con_wrap .cw_right .cr_infoArea .ci_btn li.pr_num span.pr_num_minus {width:42px; height:42px; border-radius:6px 0 0 10px; border:2px solid #6c6c6c; background:#6c6c6c; color:#FFFFFF; font-size:24px;}
 #content .con_wrap .cw_right .cr_infoArea .ci_btn li.pr_num span.pr_num_minus.focus {width:42px; height:42px; border-radius:6px 0 0 10px; border:2px solid #2b9330; background:#2b9330; color:#FFFFFF; font-size:24px;}
-#content .con_wrap .cw_right .cr_infoArea .ci_btn li.pr_num span.pr_num_num {position:relative; top:3px; width:82px; height:42px; line-height:38px; font-size:24px; font-weight:bold; border-top:2px solid #6c6c6c; border-bottom:2px solid #6c6c6c; }
+#content .con_wrap .cw_right .cr_infoArea .ci_btn li.pr_num span.pr_num_num {width:82px; height:42px; font-size:24px; font-weight:bold; border-top:2px solid #6c6c6c; border-bottom:2px solid #6c6c6c; }
 #content .con_wrap .cw_right .cr_infoArea .ci_btn li.pr_num span.pr_num_plus {width:42px; height:42px; border-radius:0 10px 10px 0; border:2px solid #6c6c6c;  background:#6c6c6c; color:#FFFFFF; font-size:24px;}
 #content .con_wrap .cw_right .cr_infoArea .ci_btn li.pr_num span.pr_num_plus.focus {width:42px; height:42px; border-radius:0 10px 10px 0; border:2px solid #2b9330; background:#2b9330; color:#FFFFFF; font-size:24px;}
 /*장바구니담기 버튼*/
@@ -764,7 +783,7 @@ position:relative;width:162px; float:left; margin-bottom:4px; color:#ffffff;back
 
 /**간편장바구니**/
 
-#common .cm_cart span.cmc_arrow {width:100%; height:80px; display:inline-block; top:-40px; position:absolute; background:url(../images/icon_cart_arrow.png)  0px 0px no-repeat;}
+#bottom .b_carticon span.cmc_arrow {width:100px; height:80px; display:inline-block; top:-45px; z-index:1000; position:absolute; background:url(../images/icon_cart_arrow.png)  0px 0px no-repeat;}
 #content .content_right .easycart {width:595px; height:525px; margin-top:7px; margin-left:345px; padding:10px; border-radius:10px; background:#ffffff; box-shadow: 0px 0px 40px #505050;}
 #content .content_right .easycart .ec_tit {position:relative; border-bottom:2px solid #2b9330; height:33px; line-height:20px; color:#2b9330; font-size:26px;}
 #content .content_right .easycart .ec_tit span {border-radius:20px; border:2px solid #2b9330; font-size:12px; font-weight:bold; position:absolute; right:0px; top:1px; width:123px; height:22px; text-align:center;}
