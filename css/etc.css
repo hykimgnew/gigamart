@@ -78,3 +78,4 @@
 .li_discount1:nth-child(1){
 	margin-bottom : 14px!important;
 }
+#content .con_wrap .cw_right .cr_infoArea li.ci_txt span {text-decoration:none!important; color:black!important;}
