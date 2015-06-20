@@ -213,7 +213,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
         var param = '';
         
         $.ajax({
-            url         : cmsServerIp + "/ShopperTask/Select/Popular/",
+            url         : cmsServerIp + "/TVShopperBag/popular",
             type        : "post",
             dataType    : "json",
             data        : param,
@@ -222,11 +222,12 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                             withCredentials: true
             },
             success     : function(result) {
-                // console.log("##### shopper List json " + JSON.stringify(result));
+                 console.log("##### 쇼퍼 List (인기순) List json " + JSON.stringify(result));
 
-                $.each(result['resultArr'], function(index, entry) { 
+                $.each(result['shopper'], function(index, entry) { 
+                 console.log("##### 조회3333333333333 : " + entry['shopper_id']);
                     // *** 쇼퍼 별점 ***
-                    var shopperRating   = Number(entry['score']);       // 쇼퍼 평점
+                    var shopperRating   = Number(entry['rating']);       // 쇼퍼 평점
                     var shopperStar     = "";                           // 쇼퍼 별점 HTML
 
                     if(shopperRating >= 20) shopperStar += '<img src="../images/icon_star.png" />';

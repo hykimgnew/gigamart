@@ -1243,6 +1243,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         $('span[name="slp_flag"]').eq(index).empty().html(entry['flag']);
                         $('li[name="slp_title"]').eq(index).empty().html(entry['title']);
                         $('input[name="tv_video"]').eq(index).val(entry['tv_video']);
+                        $('li[name="sl_img"]').eq(index).empty().html('<img src="'+cmsServerIp + entry['img']+'"/>');
 
                         video[index] = entry['tv_video'];
                         console.log("###################################################################################### video success url : " + video[1]);
@@ -1250,7 +1251,8 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         appendHtml = {
                                         "flag" : entry['flag'],
                                         "title" : entry['title'],
-                                        "tv_video" : entry['tv_video']
+                                        "tv_video" : entry['tv_video'],
+                                        "img" : entry['img']
                                      };
                     cnt                 = Math.floor(index / maxOrderedPageView2);
                     var str             = appendHtml;
@@ -1353,6 +1355,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             $('span[name="slp_flag"]').eq(i).empty().html(productList3[Number((page*4)+i)].flag);
             $('li[name="slp_title"]').eq(i).empty().html(productList3[Number((page*4)+i)].title);
             $('input[name="tv_video"]').eq(i).val(productList3[Number((page*4)+i)].tv_video);
+            $('li[name="sl_img"]').eq(i).empty().html('<img src="'+cmsServerIp + productList3[Number((page*4)+i)].img+'"/>');
             //$('input[name="tv_video"]').eq(index).val(entry['tv_video']);
         }
         //fn_videoPlay(video[0], Number(currentFocusMenu+2), 1);

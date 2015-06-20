@@ -25,7 +25,10 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         this.videoPlay("test", currentFocusMenu);
 
         console.log("############# requestCategoryCode : " + requestCategoryCode);
-
+        //쇼퍼 list
+        this.selectShopperList();
+        //마트는지금
+        this.selectTweetList();
         // 전체카테고리 포커스
         /*if(requestCategoryCode != null && requestCategoryCode != '' && requestCategoryCode != 'undefined') {
 
@@ -501,6 +504,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 
                 
             } else if (keyCode === global.VK_BACK) {
+                location.href ="exhb.html";
                 
             } else if (keyCode === global.VK_ESCAPE) {
                 
@@ -822,7 +826,106 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                     });
                 }
         });
-    }
+    },
+    // 조회 : 쇼퍼 List (인기순)
+    selectShopperList: function() {
+        var param = '';
+        
+        $.ajax({
+            url         : cmsServerIp + "/TVShopperBag/popular",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                 console.log("#####%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% shopper List json " + JSON.stringify(result));
+
+                $.each(result['shopper'], function(index, entry) { 
+                    console.log("========rating===========================================" + entry['rating']);
+                    console.log("========img===========================================" + entry['img']);
+                    console.log("========shopper_id===========================================" + entry['shopper_id']);
+                    console.log("========shopping_main===========================================" + entry['shopping_main']);
+                    // *** 쇼퍼 별점 ***
+                    var shopperRating   = Number(entry['rating']);       // 쇼퍼 평점
+                    var shopperStar     = "";                           // 쇼퍼 별점 HTML
+
+                    if(shopperRating >= 20) shopperStar += '<img src="../images/icon_star.png" />';
+                    else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+                    if(shopperRating >= 40) shopperStar += '<img src="../images/icon_star.png" />';
+                    else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+                    if(shopperRating >= 60) shopperStar += '<img src="../images/icon_star.png" />';
+                    else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+                    if(shopperRating >= 80) shopperStar += '<img src="../images/icon_star.png" />';
+                    else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+                    if(shopperRating >= 100)shopperStar += '<img src="../images/icon_star.png" />';
+                    else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+
+                    $('span[name="shopper_rating"]').empty().append(shopperStar);
+
+                    // *** 쇼퍼 이미지 ***/
+                    $('li[name="shopper_img"]').empty().append("<img src=" + cmsServerIp + entry['img'] + " width='160' height='120' />");
+
+                    // *** 쇼퍼 ID ***/
+                    $('span[name="shopper_name"]').empty().append(entry['shopper_id']);
+
+                    // *** 쇼퍼 후기 ***/
+                    //$('span[name="epilogue"]').empty().append("(후기 : " + "API누락" + ")");
+
+                    // *** 쇼퍼 설명 ***/
+                    //$('p[name="description"]').empty().append(entry['description']);
+
+                    // *** 인기주문 ***/
+                    //$('span[name="popular_order"]').empty().append("인기 주문 :  " + "API 누락" + "");
+
+                    // *** 쇼핑 주종목 ***/
+                    $('span[name="shopper_cate"]').empty().append(entry['shopping_main']);
+                });
+
+            }
+        });
+    },
+    // 조회 : 마트는 지금?
+    selectTweetList: function() {
+        var param = '';
+        
+        $.ajax({
+            url         : cmsServerIp + "/mart_now/tv_api",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+
+                //console.log("##### mart List json " + JSON.stringify(result));  
+
+                //console.log("################## " + result['tweet'].length);
+
+                /*for(var i=0 ; i < result['tweet'].length ; i++) {
+                    makeTweetList();
+                }*/
+
+                $.each(result['tweet'], function(index, entry) {
+
+                    // *** 쇼퍼 이미지 ***/
+                    $('li[name="shopper_img"]').empty().append("<img src=" + cmsServerIp + entry['shopper_img'] + " width='60' height='68' />");
+                    // *** 쇼퍼 ID ***/
+                    $('li[name="shopper_id"]').empty().append(entry['shopper_id']);
+                    // *** 트윗 일시 ***/
+                    $('li[name="tweet_date"]').empty().append(entry['tweet_date']);
+                    // *** 트윗 내용 ***/
+                    $('li[name="tweet"]').empty().append(entry['tweet']);
+                    // *** 제품 이미지 ***/
+                    $('li[name="product_img"]').empty().append("<img src=" + cmsServerIp + entry['product_img'] + " width='393' height='180' />");
+                });
+            }
+        });
+    } 
 
 
 });
