@@ -65,6 +65,8 @@ function updateProductInfo() {
     console.log("############ 동영상 : " + cmsServerIp + resultSet[idx]["video"]);
     console.log("############ 이미지 : " + cmsServerIp + resultSet[idx]["img"]);
 
+    //resultSet[idx]["video"];
+
     $('#cif_vod').empty().append('<img src="' + cmsServerIp + resultSet[idx]["img"] + '" width="448" height="253" />');
     $('#cif_exp').empty().append(resultSet[idx]["name"]);
     $('#cif_exp_txt').empty().append(resultSet[idx]["description"]);
@@ -386,7 +388,9 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                                 currentFocusDtlPage = currentFocusDtlPage - 1;
                                 if(currentFocusDtlPage <= 0) prevPageYN = false; // 현재 페이지가 0이면 이전 페이지 없음 처리
                                 updateSubCategoryList(); // 페이지 변경
-                                currentFocusDtl = (currentFocusDtlPage * 9) + horizonFocus - verticalFocus;
+                                verticalFocus   = verticalFocus - 2;    // 행 감소
+                                horizonFocus    = horizonFocus;         // 열 증감 없음
+                                currentFocusDtl = currentFocusDtl - 6;  // 위치 변경
 
                                 $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
                                 $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);

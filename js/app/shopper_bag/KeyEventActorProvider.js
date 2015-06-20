@@ -224,8 +224,15 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             success     : function(result) {
                  console.log("##### 쇼퍼 List (인기순) List json " + JSON.stringify(result));
 
-                $.each(result['shopper'], function(index, entry) { 
-                 console.log("##### 조회3333333333333 : " + entry['shopper_id']);
+                 console.log("#~~~~ : " + JSON.stringify(result['shopper']));
+
+                 $('p[name="shopper_img"]').eq(0).empty().append("<img src=" + cmsServerIp + result['shopper']['img'] + " width='160' height='120' />");
+                 $('span[name="shopper_name"]').eq(0).empty().append("ID : " + result['shopper']['shopper_id']);
+                 $('span[name="epilogue"]').eq(0).empty().append("(후기 : " + result['shopper']['reply_cnt'] + ")");
+                 $('p[name="description"]').eq(0).empty().append(result['shopper']['description']);
+                 $('span[name="popular_order"]').eq(0).empty().append("인기 주문 :  " + result['shopper']['shopping_main'] + "");
+
+                /*$.each(result['shopper'], function(index, entry) { 
                     // *** 쇼퍼 별점 ***
                     var shopperRating   = Number(entry['rating']);       // 쇼퍼 평점
                     var shopperStar     = "";                           // 쇼퍼 별점 HTML
@@ -243,21 +250,21 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
 
                     $('span[name="shopper_rating"]').eq(index).empty().append(shopperStar);
 
-                    // *** 쇼퍼 이미지 ***/
-                    $('p[name="shopper_img"]').eq(index).empty().append("<img src=" + cmsServerIp + entry['img'] + " width='160' height='120' />");
-
-                    // *** 쇼퍼 ID ***/
-                    $('span[name="shopper_name"]').eq(index).empty().append("ID : " + entry['shopper_id']);
-
-                    // *** 쇼퍼 후기 ***/
+                    // *** 쇼퍼 이미지 ***
+                    //$('p[name="shopper_img"]').eq(index).empty().append("<img src=" + cmsServerIp + entry['img'] + " width='160' height='120' />");
+                    
+                    // *** 쇼퍼 ID ***
+                    //$('span[name="shopper_name"]').eq(index).empty().append("ID : " + entry['shopper_id']);
+                    
+                    // *** 쇼퍼 후기 ***
                     $('span[name="epilogue"]').eq(index).empty().append("(후기 : " + "API누락" + ")");
 
-                    // *** 쇼퍼 설명 ***/
-                    $('p[name="description"]').eq(index).empty().append(entry['description']);
-
-                    // *** 인기주문 ***/
+                    // *** 쇼퍼 설명 ***
+                    //$('p[name="description"]').eq(index).empty().append(entry['description']);
+                    
+                    // *** 인기주문 ***
                     $('span[name="popular_order"]').eq(index).empty().append("인기 주문 :  " + "API 누락" + "");
-                });
+                }); */
 
             }
         });
