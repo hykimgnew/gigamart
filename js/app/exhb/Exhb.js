@@ -7,11 +7,19 @@ var global = window;
 
 //*************************************************
 // * Popup
-// * isFullVideo  : 전체 영상보기
-// * isCart       : 간편 장바구니
+// * isFullVideo           : 전체 영상보기
+// * isCart                : 간편 장바구니
+// * isRealTime            : 쇼퍼 리얼 타임
+// * isRealTimeStart       : 쇼퍼 리얼 타임 시작
+// * isRealTimeEnd         : 쇼퍼 리얼 타임 종료
+// * isRealTimeEndComplete : 쇼퍼 리얼 타임 종료 완료
 //*************************************************
- var isFullVideo = false;
- var isCart = false;
+ var isFullVideo           = false;
+ var isCart                = false;
+ var isRealTime            = false;
+ var isRealTimeStart       = false;
+ var isRealTimeEnd         = false;
+ var isRealTimeEndComplete = false;
 
 //*************************************************
 // *  전체 영상보기 팝업
@@ -24,18 +32,62 @@ var global = window;
 // * fvId     : 현재 선택된 상품의 관련 id(상품정보보기에 parameter값 때문)
 //*************************************************
 var fvFocus = 1;
-var fvCode = 0; 
-var fvUrl = "";
-var fvId = "";
+var fvCode  = 0; 
+var fvUrl   = "";
+var fvId    = "";
+
 //*************************************************
 // *  간편 장바구니 팝업
-// * cartHtml = 장바구니 HTML
-// * cartFocus = 장바구니 Focus 값
-// * histPage                     = 상품페이지
+// * cartHtml           : 장바구니 HTML
+// * cartFocus          : 장바구니 Focus 값
+// * histPage           : 상품페이지
 //*************************************************
-var cartHtml = "";
+var cartHtml  = "";
 var cartFocus = 0;
-var histPage = 1;
+var histPage  = 1;
+
+
+//*************************************************
+// *  쇼퍼 리얼 타임 팝업
+// * rtHtml             : 쇼퍼 리얼 타임 HTML
+// * rtFocus            : 현재 포커스 위치
+// *  0 : 닫기
+//*************************************************
+var rtHtml    = "";
+var rtFocus   = 0;
+
+//*************************************************
+// *  쇼퍼 리얼 타임 시작 팝업
+// * rtStartHtml        : 쇼퍼 리얼 타임 시작 HTML
+// * rtStartFocus       : 현재 포커스 위치
+// *  0 : 영상요청
+// *  1 : 닫기
+//*************************************************
+var rtStartHtml    = "";
+var rtStartFocus   = 0;
+
+//*************************************************
+// *  쇼퍼 리얼 타임 종료 팝업
+// * rtEndHtml          : 쇼퍼 리얼 타임 종료 HTML
+// * rtEndocus          : 현재 포커스 위치
+// *  0 : 영상요청
+// *  1 : 닫기
+//*************************************************
+var rtEndHtml    = "";
+var rtEndFocus   = 0;
+
+//*************************************************
+// *  쇼퍼 리얼 타임 종료 완료 팝업
+// * rtEndCompleteHtml  : 쇼퍼 리얼 타임 종료 완료 HTML
+// * rtEndCompleteFocus : 현재 포커스 위치
+// *  0 : 영상요청
+// *  1 : 닫기
+//*************************************************
+var rtEndCompleteHtml    = "";
+var rtEndCompleteFocus   = 0;
+
+
+
 
 
 
@@ -181,6 +233,7 @@ App.defineClass('Gigamart.app.exhb.Exhb', {
 
         // 팝업 Load
         $('#popup_fv').load("full_video.html");
+        //$('#popup_rt').load("shopper_real_time.html");
     }
 
     

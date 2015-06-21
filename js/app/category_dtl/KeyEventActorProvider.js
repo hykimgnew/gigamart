@@ -381,8 +381,8 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                     console.log("아래쪽버튼 focus일때");
                     //아래쪽버튼 focus일때
                     if(currentFocusBtn == 0) {
-                        $('div[name="sd_first"]').hide();
-                        $('div[name="selDepth"]').addClass("animation");
+                        /*$('div[name="sd_first"]').hide();
+                        $('div[name="selDepth"]').addClass("animation");*/
                         
                     }    
                 }

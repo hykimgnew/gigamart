@@ -1,5 +1,6 @@
 'use strict';
 
+
 // 숫자 -> 금액
 function cn_toPrice(n) {
     if(isNaN(n)){return 0;}
@@ -29,10 +30,28 @@ function makeTweetList() {
  *  Exhb Js : KeyEventActorProvider (키 이벤트 처리)
  **/
 
+var rtspPlayer = window.oipfObjectFactory.createVideoMpegObject();    // 실시간 영상보기
+
+// 쇼퍼 실시간 영상재생
+function rtspPlay() {
+    var url = "rtsp://175.209.53.209:1554/11023.sdp";
+    //var url = cmsServerIp + "/video/tv/product_event/2-2기획전_문어.mp4";
+    console.log("url : " + url + " 재생함");
+    rtspPlayer.width = 970;
+    rtspPlayer.height = 545;
+    $('#rtsp_area').empty()
+    document.getElementById('rtsp_area').appendChild(rtspPlayer);
+    rtspPlayer.data = url;
+    rtspPlayer.play(1);
+}
+
+
 var videoPlayer = window.oipfObjectFactory.createVideoMpegObject();     // 기획전
 var videoPlayer2 = window.oipfObjectFactory.createVideoMpegObject();    // 전체 영상보기
+
 var video = new Array();
 var videoFlag = true;
+
 
 function fn_videoPlay(url, category, type) {
     // 지금 이상품 이가격
@@ -103,9 +122,18 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         // *****************************************************************************
         // * 전체 영상보기 팝업
         // *****************************************************************************
-        if(isFullVideo == true && isCart == false) {
+        if(isFullVideo == true && isCart == false && isRealTime == false && isRealTimeStart == false && isRealTimeEnd == false && isRealTimeEndComplete == false) {
+
             console.log("# 전체 영상보기 팝업 : " + keyCode);
             console.log("# 전체 영상보기 포커스.. : " + fvFocus);
+
+            // **************************************************
+            // * ▶ KEY (쇼퍼리얼타임 테스트)
+            // **************************************************
+            if(keyCode === global.VK_BLUE) {
+                this.shopperRealTimeStart();
+            }
+
             // **************************************************
             // * 확인 KEY
             // **************************************************
@@ -263,15 +291,23 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 }*/
                 //window.oipfObjectFactory.createApplicationManagerObject().getOwnerApplication(window.document).destroyApplication();
             } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
-                
+
             }
         }
 
         // *****************************************************************************
         // * 간편 장바구니 팝업
         // *****************************************************************************
-        else if(isFullVideo == false && isCart == true) {
+        else if(isFullVideo == false && isCart == true && isRealTime == false && isRealTimeStart == false && isRealTimeEnd == false && isRealTimeEndComplete == false) {
             console.log("# 간편 장바구니 팝업 : " + keyCode);
+
+            // **************************************************
+            // * ▶ KEY (쇼퍼리얼타임 테스트)
+            // **************************************************
+            if(keyCode === global.VK_BLUE) {
+                this.shopperRealTimeStart();
+            }
+
             // **************************************************
             // * 三 KEY (플로팅 장바구니)
             // **************************************************
@@ -329,9 +365,341 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             } else if (keyCode === global.VK_ESCAPE) {
                 
             } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
-                
+            
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // *****************************************************************************
+        // * 쇼퍼 리얼타임 팝업
+        // *****************************************************************************
+        else if(isFullVideo == false && isCart == false && isRealTime == true && isRealTimeStart == false && isRealTimeEnd == false && isRealTimeEndComplete == false) {
+            console.log("# 쇼퍼 리얼타임 팝업 : " + keyCode);
+
+            // **************************************************
+            // * 확인 KEY
+            // **************************************************
+            if (keyCode === global.VK_ENTER) {
+                // 닫기 버튼
+                if(rtFocus == 0) {
+                    console.log("@@@@@@@@@@@@@ 쇼퍼 리얼타임 종료");
+                    rtFocus              = 0;
+                    //$('#popup_rt').hide();
+
+                    // 영상 종료
+                    rtspPlayer.stop();
+
+                    this.shopperRealTimeEnd(); // 쇼퍼 리얼타임 종료 호출                    
+                }
+            } 
+
+            // **************************************************
+            // * 좌 우 위 아래 KEY
+            // **************************************************
+            else if (keyCode >= global.VK_LEFT && keyCode <= global.VK_DOWN) {
+                // **************************************************
+                // * 위 KEY
+                // **************************************************
+                if(keyCode === global.VK_UP) {
+                    
+                }
+
+                // **************************************************
+                // * 아래 KEY
+                // **************************************************
+                if(keyCode === global.VK_DOWN) {
+
+                }
+
+                // **************************************************
+                // * 좌 KEY
+                // **************************************************
+                if(keyCode === global.VK_LEFT) {
+                    
+                }
+
+                // **************************************************
+                // * 우 KEY
+                // **************************************************
+                if(keyCode === global.VK_RIGHT) {
+
+                }
+                
+            } else if (keyCode === global.VK_BACK) {
+                
+            } else if (keyCode === global.VK_ESCAPE) {
+                
+            } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
+
+            }
+        }
+
+        // *****************************************************************************
+        // * 쇼퍼 리얼타임 시작 팝업
+        // *****************************************************************************
+        else if(isFullVideo == false && isCart == false && isRealTime == false && isRealTimeStart == true && isRealTimeEnd == false && isRealTimeEndComplete == false) {
+            console.log("# 쇼퍼 리얼타임 시작 팝업 : " + keyCode);
+
+            // **************************************************
+            // * 확인 KEY
+            // **************************************************
+            if (keyCode === global.VK_ENTER) {
+                // 영상요청 버튼
+                if(rtStartFocus == 0) {
+                    console.log("@@@@@@@@@@@@@ 쇼퍼 리얼타임 호출");
+                    $('#shopper_real_time_start').remove();
+                    this.shopperRealTime(); // 쇼퍼 리얼타임 호출
+                }
+                // 닫기 버튼
+                else if(rtStartFocus == 1) {
+                    rtStartFocus = 0;
+                    isRealTimeStart = false;
+
+                    $('#wrap').html(rtStartHtml); // 백업한 html 을 다시 복구
+                    $('#shopper_real_time_start').remove();
+
+                }
+            } 
+
+            // **************************************************
+            // * 좌 우 위 아래 KEY
+            // **************************************************
+            else if (keyCode >= global.VK_LEFT && keyCode <= global.VK_DOWN) {
+                // **************************************************
+                // * 위 KEY
+                // **************************************************
+                if(keyCode === global.VK_UP) {
+                    
+                }
+
+                // **************************************************
+                // * 아래 KEY
+                // **************************************************
+                if(keyCode === global.VK_DOWN) {
+
+                }
+
+                // **************************************************
+                // * 좌 KEY
+                // **************************************************
+                if(keyCode === global.VK_LEFT) {
+                    // 닫기 -> 영상요청
+                    if(rtStartFocus == 1) {
+                        $('#rtStart_close').removeClass('focus');
+                        rtStartFocus = 0;
+                        $('#rtStart_video').addClass('focus');
+                    }
+                }
+
+                // **************************************************
+                // * 우 KEY
+                // **************************************************
+                if(keyCode === global.VK_RIGHT) {
+                    // 영상요청 -> 닫기
+                    if(rtStartFocus == 0) {
+                        $('#rtStart_video').removeClass('focus');
+                        rtStartFocus = 1;
+                        $('#rtStart_close').addClass('focus');
+                    }
+                }
+                
+            } else if (keyCode === global.VK_BACK) {
+                
+            } else if (keyCode === global.VK_ESCAPE) {
+                
+            } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
+
+            }
+        }
+
+        // *****************************************************************************
+        // * 쇼퍼 리얼타임 종료 팝업
+        // *****************************************************************************
+        else if(isFullVideo == false && isCart == false && isRealTime == false && isRealTimeStart == false && isRealTimeEnd == true && isRealTimeEndComplete == false) {
+            console.log("# 쇼퍼 리얼타임 종료 팝업 : " + keyCode);
+
+            // **************************************************
+            // * 확인 KEY
+            // **************************************************
+            if (keyCode === global.VK_ENTER) {
+                // 확인 버튼
+                if(rtEndFocus == 0) {
+                    // 쇼퍼 리얼타임 종료 확인 팝업으로
+                    console.log("@@@@@@@@@@@@@ 쇼퍼 리얼타임 종료 확인 띄움");
+                    $('#shopper_real_time_end').remove();
+
+                    rtEndFocus              = 0;
+                    this.shopperRealTimeEndComplete();
+                }
+                // 취소 버튼
+                else if(rtEndFocus == 1) {
+                    // 쇼퍼 리얼타임 화면으로 복귀
+                    rtFocus                 = 0;
+                    rtEndFocus              = 0;
+                    isRealTime              = true;
+                    isRealTimeStart         = false;
+                    isRealTimeEnd           = false;
+                    isRealTimeEndComplete   = false;
+                    $('#shopper_real_time_end').remove();
+                    $('#wrap').html(rtEndHtml); // 백업한 html 을 다시 복구
+                    
+                }
+            } 
+
+            // **************************************************
+            // * 좌 우 위 아래 KEY
+            // **************************************************
+            else if (keyCode >= global.VK_LEFT && keyCode <= global.VK_DOWN) {
+                // **************************************************
+                // * 위 KEY
+                // **************************************************
+                if(keyCode === global.VK_UP) {
+                    
+                }
+
+                // **************************************************
+                // * 아래 KEY
+                // **************************************************
+                if(keyCode === global.VK_DOWN) {
+
+                }
+
+                // **************************************************
+                // * 좌 KEY
+                // **************************************************
+                if(keyCode === global.VK_LEFT) {
+                   // 취소 -> 확인
+                   if(rtEndFocus == 1) {
+                        $('#rtEnd_cancel').removeClass('focus');
+                        rtEndFocus = 0;
+                        $('#rtEnd_submit').addClass('focus');
+                   }
+                }
+
+                // **************************************************
+                // * 우 KEY
+                // **************************************************
+                if(keyCode === global.VK_RIGHT) {
+                    // 확인 -> 취소
+                    if(rtEndFocus == 0) {
+                        $('#rtEnd_submit').removeClass('focus');
+                        rtEndFocus = 1;
+                        $('#rtEnd_cancel').addClass('focus');
+                    }
+                }
+                
+            } else if (keyCode === global.VK_BACK) {
+                
+            } else if (keyCode === global.VK_ESCAPE) {
+                
+            } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
+
+            }
+        }
+
+
+        // *****************************************************************************
+        // * 쇼퍼 리얼타임 종료 완료 팝업
+        // *****************************************************************************
+        else if(isFullVideo == false && isCart == false && isRealTime == false && isRealTimeStart == false && isRealTimeEnd == false && isRealTimeEndComplete == true) {
+            console.log("# 쇼퍼 리얼타임 종료 완료 팝업 : " + keyCode);
+
+            // **************************************************
+            // * 확인 KEY
+            // **************************************************
+            if (keyCode === global.VK_ENTER) {
+                if(rtEndCompleteFocus == 0) {
+                    // 쇼퍼 리얼타임 관련 팝업 제거
+                    isRealTime              = false;
+                    isRealTimeStart         = false;
+                    isRealTimeEnd           = false;
+                    isRealTimeEndComplete   = false;
+                    $('#shopper_real_time_end_complete').remove();
+                    $('#wrap').html(rtEndCompleteHtml); // 백업한 html 을 다시 복구
+                    
+                    var url = $('li[name="sl_menu"]').eq(currentFocusMenu).children('.tv_video').val();
+                            //url : 치킨일땐 이미지 뿌리기                           
+                    if(url == "/video/tv/product_event/2-6기획전_치킨.mp4"){
+                        console.log("지금 이상품 이가격(하단)-> 지금 이상품 이가격(하단) 치킨영상 재생 url"+url);
+                        this.videoPlay(url, Number(currentFocusMenu+2), 1);
+                    }
+                    else{
+                         console.log("지금 이상품 이가격(하단)-> 지금 이상품 이가격(하단) 영상 url"+url);   
+                         this.videoPlay(url, Number(currentFocusMenu+2), 1);
+                    }
+                }
+            } 
+
+            // **************************************************
+            // * 좌 우 위 아래 KEY
+            // **************************************************
+            else if (keyCode >= global.VK_LEFT && keyCode <= global.VK_DOWN) {
+                // **************************************************
+                // * 위 KEY
+                // **************************************************
+                if(keyCode === global.VK_UP) {
+                    
+                }
+
+                // **************************************************
+                // * 아래 KEY
+                // **************************************************
+                if(keyCode === global.VK_DOWN) {
+
+                }
+
+                // **************************************************
+                // * 좌 KEY
+                // **************************************************
+                if(keyCode === global.VK_LEFT) {
+                    
+                }
+
+                // **************************************************
+                // * 우 KEY
+                // **************************************************
+                if(keyCode === global.VK_RIGHT) {
+                    
+                }
+                
+            } else if (keyCode === global.VK_BACK) {
+                
+            } else if (keyCode === global.VK_ESCAPE) {
+                
+            } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
+
+            }
+        }
+
+
+
+
+
+
 
 
 
@@ -347,9 +715,16 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         // *****************************************************************************
         // * 팝업 없을 때
         // *****************************************************************************
-        else if(isFullVideo == false && isCart == false) {
+        else if(isFullVideo == false && isCart == false && isRealTime == false && isRealTimeStart == false && isRealTimeEnd == false && isRealTimeEndComplete == false) {
             console.log("# 팝업 X : " + keyCode);
-            console.log("# 팝업 X : " + VK_PLAY);
+            console.log("# 팝업 X : " + VK_BLUE);
+            // **************************************************
+            // * ▶ KEY (쇼퍼리얼타임 테스트)
+            // **************************************************
+            if(keyCode === global.VK_BLUE) {
+                this.shopperRealTimeStart();
+            }
+
             // **************************************************
             // * 三 KEY (플로팅 장바구니)
             // **************************************************
@@ -377,7 +752,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             // **************************************************
             // * ▶ KEY (장바구니 담기, 상품은 담고 세트는 리스트 호출?)
             // **************************************************
-            if(keyCode === global.VK_BLUE) {
+            /*if(keyCode === global.VK_BLUE) {
                 // 저렴한 상품 추천
                 if(currentFocusList == 3) {
                     console.log("저렴한 상품 추천 장바구니 담기 : " + currentFocusDtl1);
@@ -392,7 +767,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 if(currentFocusList == 5) {
                     console.log("추천세트 장바구니 담기 : " + currentFocusDtl3);
                 }
-            }
+            }*/
 
             // **************************************************
             // * PLAY KEY (메뉴/카테고리)
@@ -473,7 +848,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                     console.log("전체 영상보기 영상 재생 url : "+url);
                     console.log("전체 영상보기 영상 재생 fvId : "+fvId);
-                    this.videoPlay(url, Number(currentFocusMenu+2), 2);;
+                    this.videoPlay(url, Number(currentFocusMenu+2), 2);
                 }
                 //단골쇼퍼
                 if(currentFocusList == 5) {
@@ -1561,6 +1936,116 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     console.log("에러");
             }
         });
-    }
+    },
 
+
+
+
+
+
+
+
+
+
+
+    // 조회 : 쇼퍼 조회
+    selectShopperList: function() {
+        var param = '';
+        
+        $.ajax({
+            url         : cmsServerIp + "/TVShopperBag/popular",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                console.log("######################################## 쇼퍼 조회 : " + JSON.stringify(result));
+
+                // *** 쇼퍼 별점 ***
+                var shopperRating   = Number(result['shopper']['rating']);       // 쇼퍼 평점
+                var shopperStar     = "";                           // 쇼퍼 별점 HTML
+
+                if(shopperRating >= 20) shopperStar += '<img src="../images/icon_star.png" />';
+                else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+                if(shopperRating >= 40) shopperStar += '<img src="../images/icon_star.png" />';
+                else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+                if(shopperRating >= 60) shopperStar += '<img src="../images/icon_star.png" />';
+                else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+                if(shopperRating >= 80) shopperStar += '<img src="../images/icon_star.png" />';
+                else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+                if(shopperRating >= 100)shopperStar += '<img src="../images/icon_star.png" />';
+                else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+
+
+                $('li[name="shopper_rating"]').empty().append(shopperStar);
+                $('span[name="shopper_img"]').empty().append("<img src=" + cmsServerIp + result['shopper']['img'] + " width='160' height='120' />");
+                $('li[name="shopper_name"]').empty().append(result['shopper']['name']);
+                $('li[name="description"]').empty().append(result['shopper']['description']);
+            }
+        });
+    },
+
+
+    
+
+    // 쇼퍼 리얼 타임
+    shopperRealTime: function() {
+        console.log("######################################## 리얼 타임");
+        isRealTime             = true;
+        isRealTimeStart        = false;
+        isRealTimeEnd          = false;
+        isRealTimeEndComplete  = false;
+    
+        rtHtml = rtStartHtml;                               // 현재 화면을 <쇼퍼 리얼 타임 시작>에서 가져옴
+        $('#wrap').empty().load("shopper_real_time.html");
+        //$('#popup_rt').show();
+        $('#rt_close').addClass('focus');
+
+        this.selectShopperList();
+
+        // 영상 재생 시작
+        setTimeout(rtspPlay, 500);
+    },
+
+    // 쇼퍼 리얼 타임 시작
+    shopperRealTimeStart: function() {
+        isRealTime             = false;
+        isRealTimeStart        = true;
+        isRealTimeEnd          = false;
+        isRealTimeEndComplete  = false;
+        
+        rtStartHtml = $('#wrap').html();                    // 현재 화면
+        $('#wrap').empty().load("shopper_real_time_start.html");
+
+        $('#rtStart_video').addClass('focus');
+    },
+
+    // 쇼퍼 리얼 타임 종료
+    shopperRealTimeEnd: function() {
+        isRealTime             = false;
+        isRealTimeStart        = false;
+        isRealTimeEnd          = true;
+        isRealTimeEndComplete  = false;
+
+        rtEndHtml = $('#wrap').html();                      // <쇼퍼 리얼 타임>
+        $('#wrap').empty().load("shopper_real_time_end.html");
+
+        $('#rtEnd_submit').addClass('focus');
+    },
+
+    // 쇼퍼 리얼 타임 종료 완료
+    shopperRealTimeEndComplete: function() {
+        isRealTime             = false;
+        isRealTimeStart        = false;
+        isRealTimeEnd          = false;
+        isRealTimeEndComplete  = true;
+
+        rtEndCompleteHtml = rtHtml;                         // 현재 화면
+        $('#wrap').empty().load("shopper_real_time_end_complete.html");
+
+        $('#rtEndComplete_submit').addClass('focus');
+    }
 });
