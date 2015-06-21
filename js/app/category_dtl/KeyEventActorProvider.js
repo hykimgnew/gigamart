@@ -498,11 +498,20 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                                 verticalFocus   = verticalFocus - 2;    // 행 감소
                                 horizonFocus    = horizonFocus;         // 열 증감 없음
                                 currentFocusDtl = currentFocusDtl - 6;  // 위치 변경
+
+                                // 아래로 이동했을때 아래 위치에 상품이 없으면 (이동할 포커스가 다음 페이지 상품 수 보다 큼)
+                                if(currentPageCnt <= currentFocusDtl + 1) {
+                                    currentFocusDtl = currentPageCnt - 1;
+                                    horizonFocus = currentPageCnt - 1;
+                                }
+
                                 updateProductInfo();                    // 우측 상품 정보 갱신
 
-                                console.log("이동 후");
-                                console.log("### 페이지 : " + currentFocusDtlPage + " 현재 위치 : " + currentFocusDtl);
-                                console.log("### 가로위치 : " + horizonFocus + " 세로위치 : " + verticalFocus);
+                                console.log("### 아래 이동 시 전체 갯수 : " + currentPageCnt + " 현재 포커스 위치 : " + currentFocusDtl);
+                                
+                                
+
+                                console.log("### 아래 이동 시 전체 갯수 : " + currentPageCnt + " 현재 포커스 위치 : " + currentFocusDtl);
 
                                 $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
                                 $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
@@ -574,25 +583,30 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                         // 총 갯수에서 1을 뺀 수가 포커스보다 작을 때 오른쪽으로 이동 불가 
                         console.log("### 우측 이동 시 전체 갯수 : " + currentPageCnt + " 현재 포커스 위치 : " + currentFocusDtl);
 
-                        if(currentPageCnt - 1 <= currentFocusDtl) {
-                            console.log("###### 우측으로 이동 불가");
-                            return;
-                        } else {
-                            console.log("###### 우측으로 이동 가능");
-                        }
-
                         // 상품 목록 첫번째, 두번째 열일 때
                         if(horizonFocus >= 0 && horizonFocus < 2) {
-                            $('li[name="li_discount"]').eq(currentFocusDtl).removeClass('focus');
-                            $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').empty();
+                            // 우측에 상품이 있을때
+                            if(currentPageCnt > currentFocusDtl+1) {
+                                $('li[name="li_discount"]').eq(currentFocusDtl).removeClass('focus');
+                                $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').empty();
 
-                            verticalFocus   = verticalFocus;        // 행 증감 없음
-                            horizonFocus    = horizonFocus + 1;     // 열 증가
-                            currentFocusDtl = currentFocusDtl + 1;  // 위치 변경
-                            updateProductInfo();                    // 우측 상품 정보 갱신
+                                verticalFocus   = verticalFocus;        // 행 증감 없음
+                                horizonFocus    = horizonFocus + 1;     // 열 증가
+                                currentFocusDtl = currentFocusDtl + 1;  // 위치 변경
+                                updateProductInfo();                    // 우측 상품 정보 갱신
 
-                            $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
-                            $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                                $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
+                                $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                            // 우측에 상품이 없을 때
+                            } else if(currentPageCnt == currentFocusDtl+1) {
+                                console.log("### 우측에 상품이 없어서 back 버튼으로 이동");
+                                $('li[name="li_discount"]').eq(currentFocusDtl).removeClass('focus');
+                                $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').empty();
+
+                                currentFocusList = 3; // 화살표 버튼으로
+
+                                $('li[name="mg_backward"]').addClass('focus');
+                            }
                         }
                         
                         //상품목록 열3 -> back버튼
@@ -618,6 +632,10 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 
             } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
                 
+            //  TODO : 입력하면 안되는 키 (아래 소스 작동 X)
+            } else if (keyCode === global.VK_HOME || keyCode === global.VK_RESERVE_1) {
+                console.log("XXXXXXXXXXXXXXXXXXXXXXXX 입력 X");
+                return;
             }
         }
     },
