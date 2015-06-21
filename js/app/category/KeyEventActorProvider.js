@@ -947,7 +947,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 $.each(result['tweet'], function(index, entry) {
 
                     // *** 쇼퍼 이미지 ***/
-                    $('li[name="shopper_img"]').empty().append("<img src=" + cmsServerIp + entry['shopper_img'] + " width='60' height='68' />");
+                    $('span[name="shopper_img"]').empty().append("<img src=" + cmsServerIp + entry['shopper_img'] + " width='60' height='68' />");
                     // *** 쇼퍼 ID ***/
                     $('li[name="shopper_id"]').empty().append(entry['shopper_id']);
                     // *** 트윗 일시 ***/

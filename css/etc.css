@@ -82,3 +82,56 @@
 #content .pj_right div.sc_project div.scp_right .discount_list .dl_menu_custom {position:absolute; width:162px; float:left; padding-bottom:4px!important;  top:5px; right:0px;}
 #content .pj_right div.sc_project div.scp_left .timesale ul li.scene span.ts_price b.timesale_won {top:14px!important;}
 .sl_menu_img{width :144px ; height :92px;}
+#content .con_wrap .cw_right .cr_infoArea li.ci_first span.ci_buy {background:url(../images/icon_crown.png)no-repeat 0px 4px!important;}
+.pop li.pr_num span.pp{
+position: relative;
+top: 7px!important;
+width: 404px;
+height: 42px;
+line-height: 38px;
+font-size: 24px;
+font-weight: bold;
+border-top: 2px solid #b8b8b8;
+border-bottom: 2px solid #b8b8b8;
+}
+
+.pop li.pr_num span.minusPP {
+width: 42px;
+height: 42px;
+border-radius: 6px 0 0 10px;
+border: 2px solid #b8b8b8;
+background: #b8b8b8;
+color: #FFFFFF;
+font-size: 24px;
+margin-right: -5px!important;
+}
+.pop li.pr_num span.minusPP.focus {
+width: 42px;
+height: 42px;
+border-radius: 6px 0 0 10px;
+border: 2px solid #b8b8b8;
+background: #b8b8b8;
+color: #FFFFFF;
+font-size: 24px;
+margin-right: -5px!important;
+}
+.pop li.pr_num span.plusPP.focus {
+width: 42px;
+height: 42px;
+border-radius: 0 10px 10px 0;
+border: 2px solid #2b9330;
+background: #2b9330;
+color: #FFFFFF;
+font-size: 24px;
+margin-left: -5px!important;
+}
+.pop li.pr_num span.plusPP{
+width: 42px;
+height: 42px;
+border-radius: 0 10px 10px 0;
+border: 2px solid #2b9330;
+background: #2b9330;
+color: #FFFFFF;
+font-size: 24px;
+margin-left: -5px!important;
+}
