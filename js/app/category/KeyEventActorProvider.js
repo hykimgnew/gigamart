@@ -751,7 +751,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
 
                 $.each(result['orders'], function(index, entry) {
                     
-                    if(generalYN == false && entry['type'] == 'general') {
+                    //if(generalYN == false && result['orders']['type'] == 'general') {
                         generalYN = true;
 
                         $('#order_date').empty().html(entry['order_date']);
@@ -772,11 +772,13 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
 
                         productList = new Array(); // 구매 리스트 초기화
                         var cnt = 0;
+                        
                         $.each(entry['ordered_product'], function(pindex, pentry) {
                             cnt                 = Math.floor(pindex / maxOrderedPageView);
                             var str             = Number(pindex+1) + ". " + pentry['name']  + " " + pentry['standard'] + " " +  cn_toPrice(pentry['cost']) + "원 (수량 : " +  pentry['cnt'] + ")<br /><br />";
                             productList[cnt]    = (productList[cnt] + str).replace("undefined", "");
                         });
+
 
                         $('#shopper_rating').empty().append(shopperStar);
                         $('#ordered_product').empty().append(productList[currentOrderedProductPage]);
@@ -788,7 +790,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                         //else                                    $('#shopper_photo').empty().append('<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_이순자.jpg" />');
 
                         
-                    }
+                    //}
 
                 });
             }
@@ -804,7 +806,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
     },
 
     // 조회 : 쇼퍼's Bag
-    selectShoppersBag : function() {
+    /*selectShoppersBag : function() {
         $.ajax({
                 url         : cmsServerIp + "/BuyerOrderTask/",
                 type        : "post",
@@ -826,7 +828,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                     });
                 }
         });
-    },
+    },*/
     // 조회 : 쇼퍼 List (인기순)
     selectShopperList: function() {
         var param = '';

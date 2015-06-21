@@ -85,7 +85,7 @@
 #content .con_wrap .cw_right .cr_infoArea li.ci_first span.ci_buy {background:url(../images/icon_crown.png)no-repeat 0px 4px!important;}
 .pop li.pr_num span.pp{
 position: relative;
-top: 7px!important;
+top: -3px!important;
 width: 404px;
 height: 42px;
 line-height: 38px;
@@ -104,6 +104,7 @@ background: #b8b8b8;
 color: #FFFFFF;
 font-size: 24px;
 margin-right: -5px!important;
+line-height: 44px!important;
 }
 .pop li.pr_num span.minusPP.focus {
 width: 42px;
@@ -114,6 +115,7 @@ background: #b8b8b8;
 color: #FFFFFF;
 font-size: 24px;
 margin-right: -5px!important;
+line-height: 44px!important;
 }
 .pop li.pr_num span.plusPP.focus {
 width: 42px;
@@ -124,6 +126,7 @@ background: #2b9330;
 color: #FFFFFF;
 font-size: 24px;
 margin-left: -5px!important;
+line-height: 44px!important;
 }
 .pop li.pr_num span.plusPP{
 width: 42px;
@@ -134,4 +137,10 @@ background: #2b9330;
 color: #FFFFFF;
 font-size: 24px;
 margin-left: -5px!important;
+line-height: 44px!important;
+}
+.type_aa {
+top: 220px;
+width: 496px;
+height: 172px!important;
 }

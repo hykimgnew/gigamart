@@ -300,7 +300,10 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 }
                 //상품정보의 두번째 화면일때
                 else{
-
+                    //기획전일때->exhb.html으로 이동
+                    if(currentFocusList == 2) {
+                        location.href = "exhb.html"; 
+                    }   
                 }
             } 
 
