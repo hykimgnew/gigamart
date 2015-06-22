@@ -343,20 +343,23 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			// 웹소켓으로 push 받아오는 이벤트
-			var socket = io.connect("http://14.52.244.91:8080");
+			if(isFullVideo == false && isCart == false && isRealTime == false && isRealTimeStart == false && isRealTimeEnd == false && isRealTimeEndComplete == false) {
 
-			socket.on('start_shopping', function(buyer_id, shopper_id, order_id, status) {
-				// TT141002133 STB의 buyer_id : aa
-				if(buyer_id == "aa") {
-					if(status == 2) {
-						/* 쇼퍼 쇼핑 시작 이벤트 */
-						setTimeout(Gigamart.app.exhb.KeyEventActorProvider.shopperRealTimeStart, 500);	
-					} 
-					if(status == 3) {
-						/* 쇼퍼 구매 완료 이벤트 */
+				var socket = io.connect("http://14.52.244.91:8080");
+
+				socket.on('start_shopping', function(buyer_id, shopper_id, order_id, status) {
+					// TT141002133 STB의 buyer_id : aa
+					if(buyer_id == "aa") {
+						if(status == 2) {
+							/* 쇼퍼 쇼핑 시작 이벤트 */
+							setTimeout(Gigamart.app.exhb.KeyEventActorProvider.shopperRealTimeStart, 500);	
+						} 
+						if(status == 3) {
+							/* 쇼퍼 구매 완료 이벤트 */
+						}
 					}
-				}
-			});
+				});
+			}
 		});
 	</script>
 </body>
