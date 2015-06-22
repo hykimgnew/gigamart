@@ -31,6 +31,7 @@ var Request = function()
     }
 }
 var request = new Request();
+var buyerID		= request.getParameter("buyerID"); // 로그인 할 때 고객ID 세팅
 
 /**
  *

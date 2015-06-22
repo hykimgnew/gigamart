@@ -14,7 +14,6 @@ function cn_toPrice(n) {
     return n;
 }
 
-
 // 지금 이상품 이가격 하단 레이아웃 생성
 function makeTweetList() {
     var appendHtml =  '<li name="sl_menu" class="sl_menu pd_r10">';
@@ -116,6 +115,9 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         
         // 당일 판매현장 시각
         $('#cv_title').html("오늘 " + this.getCurrentDate() +" 현장 영상");
+
+        // 로그인 확인
+        console.log("############ 로그인 되었습니다. : 구매자 ID : " + buyerID);
 
     },
 
