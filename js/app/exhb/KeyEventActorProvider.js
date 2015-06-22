@@ -41,7 +41,8 @@ function rtspPlay() {
     // var url = cmsServerIp + "/video/tv/product_event/2-2기획전_문어.mp4";
     console.log("url : " + url + " 재생함");
     rtspPlayer.width = 970;
-    rtspPlayer.height = 526;
+    rtspPlayer.height = 545;
+    //rtspPlayer.height = 526;
     $('#rtsp_area').empty()
     document.getElementById('rtsp_area').appendChild(rtspPlayer);
     rtspPlayer.data = url;
