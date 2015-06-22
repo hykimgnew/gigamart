@@ -178,7 +178,8 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 }
                 
             } else if (keyCode === global.VK_BACK) {
-                window.oipfObjectFactory.createApplicationManagerObject().getOwnerApplication(window.document).destroyApplication();
+                location.href="category.html";
+                //window.oipfObjectFactory.createApplicationManagerObject().getOwnerApplication(window.document).destroyApplication();
             } else if (keyCode === global.VK_ESCAPE) {
                 /*if(isPopup){
                     isPopup = false;

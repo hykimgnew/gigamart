@@ -1,5 +1,8 @@
 'use strict';
-
+//저렴한 가격
+var resultSet;
+//할인율최고
+var resultSet2;
 
 // 숫자 -> 금액
 function cn_toPrice(n) {
@@ -38,7 +41,7 @@ function rtspPlay() {
     //var url = cmsServerIp + "/video/tv/product_event/2-2기획전_문어.mp4";
     console.log("url : " + url + " 재생함");
     rtspPlayer.width = 970;
-    rtspPlayer.height = 545;
+    rtspPlayer.height = 526;
     $('#rtsp_area').empty()
     document.getElementById('rtsp_area').appendChild(rtspPlayer);
     rtspPlayer.data = url;
@@ -131,7 +134,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             // * ▶ KEY (쇼퍼리얼타임 테스트)
             // **************************************************
             if(keyCode === global.VK_BLUE) {
-                this.shopperRealTimeStart();
+                //this.shopperRealTimeStart();
             }
 
             // **************************************************
@@ -305,7 +308,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             // * ▶ KEY (쇼퍼리얼타임 테스트)
             // **************************************************
             if(keyCode === global.VK_BLUE) {
-                this.shopperRealTimeStart();
+                //this.shopperRealTimeStart();
             }
 
             // **************************************************
@@ -838,17 +841,33 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         requestCategoryDtlCode = "파프리카/피망";
                         this.selectProductSubCategory(requestCategoryDtlCode,26000);
                     }
-
-
-
-
-
-
-
-
                     console.log("전체 영상보기 영상 재생 url : "+url);
                     console.log("전체 영상보기 영상 재생 fvId : "+fvId);
                     this.videoPlay(url, Number(currentFocusMenu+2), 2);
+                }
+                //저렴한 상품추천
+                else if(currentFocusList == 3){
+                    var idx = currentFocusDtl1 + (2 * currentFocusDtlPage);
+                    console.log("저렴한 상품추천############ currentFocusDtl1  : " + currentFocusDtl1);
+                    console.log("저렴한 상품추천############ currentFocusDtlPage  : " + currentFocusDtlPage);
+                    console.log("저렴한 상품추천############ resultSet  : " + resultSet);
+                    console.log("저렴한 상품추천############ idx  : " + idx);
+                    console.log("############ product_id : " + productList[idx]["product_id"]);
+                    console.log("############ subcategory: " + productList[idx]["subcategory"]);
+
+                    location.href="product1.html?id="+productList[idx]["product_id"]+"&categoryDtlCode="+productList[idx]["subcategory"];
+
+                }
+                //할인율 최고
+                else if(currentFocusList == 4){
+                    var idx = currentFocusDtl2 + (2 * currentFocusDtlPage);
+                    console.log("할인율 최고############ currentFocusDtl2   : " + currentFocusDtl2);
+                    console.log("할인율 최고############ currentFocusDtlPage   : " + currentFocusDtlPage);
+                    console.log("할인율 최고############ resultSet2   : " + resultSet2);
+                    console.log("할인율 최고############ idx  : " + idx);
+                    console.log("############ product_id  : " + productList2[idx]["product_id"]);
+                    console.log("############ subcategory : " + productList2[idx]["subcategory"]);
+                    location.href="product1.html?id="+productList2[idx]["product_id"]+"&categoryDtlCode="+productList2[idx]["subcategory"];
                 }
                 //단골쇼퍼
                 if(currentFocusList == 5) {
@@ -860,7 +879,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     //추천세트
                     else if(currentFocusDtl3 == 1){
                         /** 전체 카테고리로 이동 */
-                        location.href = "category.html";
+                        //location.href = "category.html";
                     }
 
                 }
@@ -897,6 +916,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                                 //$('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').empty();
                                 //currentFocusDtl2 = currentFocusDtl2 - 1;
                                 //$('a[name="arrow_top"]').addClass('focus'); 
+                                //currentFocusDtlPage = Number(currentFocusDtlPage)-1;
                                 this.pagingOrderedProduct2(Number(currentOrderedProductPage2-1));
 
                                 var url = $('li[name="sl_menu"]').eq(currentFocusMenu).children('.tv_video').val(); 
@@ -930,6 +950,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                                     $('li[name="li_discount1"]').eq(currentFocusDtl1).removeClass('focus');
                                     $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dm_bdr').empty();
                                     //$('a[name="arrow_top"]').addClass('focus');  
+                                    currentFocusDtlPage = Number(currentFocusDtlPage)-1;
                                     this.pagingOrderedProduct(currentOrderedProductPage-1);
 
                                     currentFocusDtl1 = currentFocusDtl1 + 1; 
@@ -983,7 +1004,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                                     console.log("##### 마지막 페이지 아닐 때..");
                                     $('li[name="li_discount2"]').eq(currentFocusDtl2).removeClass('focus');
                                     $('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').empty();
-                                    
+                                    currentFocusDtlPage = Number(currentFocusDtlPage)-1;
                                     //$('a[name="arrow_top"]').addClass('focus');  
                                     this.pagingOrderedProduct(Number(currentOrderedProductPage-1));
                                     currentFocusDtl2 = currentFocusDtl2 + 1;
@@ -1114,6 +1135,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                                     console.log("##### 마지막 페이지 아닐 때..");
                                     $('li[name="li_discount1"]').eq(currentFocusDtl1).removeClass('focus');
                                     $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dm_bdr').empty(); 
+                                    currentFocusDtlPage = Number(currentFocusDtlPage)+1;
                                     //$('a[name="arrow_bottom"]').addClass('focus'); 
                                     this.pagingOrderedProduct(Number(currentOrderedProductPage+1));
                                     currentFocusDtl1 = currentFocusDtl1 - 1; 
@@ -1173,6 +1195,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                                      $('li[name="li_discount2"]').eq(currentFocusDtl2).removeClass('focus');
                                     $('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').empty(); 
                                     this.pagingOrderedProduct(Number(currentOrderedProductPage+1));
+                                    currentFocusDtlPage = Number(currentFocusDtlPage)+1;
                                     currentFocusDtl2 = currentFocusDtl2 - 1; 
                                     $('li[name="li_discount2"]').eq(currentFocusDtl2).addClass('focus');
                                     $('li[name="li_discount2"]:eq('+ currentFocusDtl2 + ') > .dm_bdr').append(btnokfill);
@@ -1547,6 +1570,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                             withCredentials: true
             },
             success     : function(result) {
+                
                 //var val1 = jQuery.parseJSON(result);
                 var val2 = JSON.stringify(result);
                 console.log("######## 저렴한 상품추천 결과 : " + JSON.stringify(result));
@@ -1562,12 +1586,15 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                                         "sales_won" : cn_toPrice(entry['sales_won']),
                                         "img" : entry['img'],
                                         "name" : entry['name'],
-                                        "cost" : cn_toPrice(entry['cost']) + "원"
+                                        "cost" : cn_toPrice(entry['cost']) + "원",
+                                        "product_id" : entry['product_id'],
+                                        "subcategory" : entry['subcategory']
                                      };
                     cnt                 = Math.floor(index / maxOrderedPageView);
                     var str             = Number(index+1) + ". " +appendHtml;
 
                     productList[index]    = appendHtml;
+                    //resultSet = productList[index];
                     //console.log("index : " + index + " maxOrderedPageView : " + maxOrderedPageView + " cnt : " + cnt);
                 });
 
@@ -1607,6 +1634,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                             withCredentials: true
             },
             success     : function(result) {
+                resultSet2 = result;
                 console.log("######## 할인율최고 결과 : " + JSON.stringify(result));
                 productList2 = new Array(); // 구매 리스트 초기화
                 var cnt = 0;
@@ -1619,7 +1647,9 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                                         "sales_percentage" : entry['sales_percentage'],
                                         "img2" : entry['img'],
                                         "name2" : entry['name'],
-                                        "cost2" : cn_toPrice(entry['cost']) + "원"
+                                        "cost2" : cn_toPrice(entry['cost']) + "원",
+                                        "product_id" : entry['product_id'],
+                                        "subcategory" : entry['subcategory']
                                      };
                         
                     cnt                 = Math.floor(index / maxOrderedPageView);
