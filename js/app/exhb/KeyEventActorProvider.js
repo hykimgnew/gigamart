@@ -35,7 +35,7 @@ var rtspPlayer = window.oipfObjectFactory.createVideoMpegObject();    // 실시�
 // 쇼퍼 실시간 영상재생
 function rtspPlay() {
     var url = "rtsp://175.209.53.209:1554/11023.sdp";
-    //var url = cmsServerIp + "/video/tv/product_event/2-2기획전_문어.mp4";
+    // var url = cmsServerIp + "/video/tv/product_event/2-2기획전_문어.mp4";
     console.log("url : " + url + " 재생함");
     rtspPlayer.width = 970;
     rtspPlayer.height = 545;
@@ -411,7 +411,9 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     //$('#popup_rt').hide();
 
                     // 영상 종료
-                    rtspPlayer.stop();
+                    if(typeof rtspPlayer !== "undefined") {
+                        //rtspPlayer.stop();
+                    }
 
                     this.shopperRealTimeEnd(); // 쇼퍼 리얼타임 종료 호출                    
                 }
@@ -2000,7 +2002,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         isRealTimeEndComplete  = false;
     
         rtHtml = rtStartHtml;                               // 현재 화면을 <쇼퍼 리얼 타임 시작>에서 가져옴
-        $('#wrap').empty().load("shopper_real_time.html");
+        $('#wrap').load("shopper_real_time.html");
         //$('#popup_rt').show();
         $('#rt_close').addClass('focus');
 
@@ -2018,7 +2020,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         isRealTimeEndComplete  = false;
         
         rtStartHtml = $('#wrap').html();                    // 현재 화면
-        $('#wrap').empty().load("shopper_real_time_start.html");
+        $('#wrap').load("shopper_real_time_start.html");
 
         $('#rtStart_video').addClass('focus');
     },
@@ -2031,7 +2033,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         isRealTimeEndComplete  = false;
 
         rtEndHtml = $('#wrap').html();                      // <쇼퍼 리얼 타임>
-        $('#wrap').empty().load("shopper_real_time_end.html");
+        $('#wrap').load("shopper_real_time_end.html");
 
         $('#rtEnd_submit').addClass('focus');
     },
@@ -2044,7 +2046,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         isRealTimeEndComplete  = true;
 
         rtEndCompleteHtml = rtHtml;                         // 현재 화면
-        $('#wrap').empty().load("shopper_real_time_end_complete.html");
+        $('#wrap').load("shopper_real_time_end_complete.html");
 
         $('#rtEndComplete_submit').addClass('focus');
     }
