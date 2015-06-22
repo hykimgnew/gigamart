@@ -1,5 +1,4 @@
 'use strict';
-
 /**
  *  Easy_cart(공통) Js : KeyEventActorProvider (키 이벤트 처리)
  * 직접 소스에서 불러오는건 아니고 여기서 일단 복사해서 각 소스에 덮어씌울것 
