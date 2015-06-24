@@ -228,6 +228,7 @@ App.defineClass('Gigamart.app.exhb.Exhb', {
         
         //$('#pj_left').addClass("focus");
         $('li[name="sl_menu"]').eq(currentFocusMenu).addClass('focus');
+        $('li[name="sl_menu"]').eq(currentFocusMenu).children('.sl_play').addClass('focus');
 
         global.stbService = Gigamart.app.exhb.STBService.create(EventBus);
 
