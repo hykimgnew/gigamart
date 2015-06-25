@@ -87,30 +87,50 @@ var rtEndCompleteHtml    = "";
 var rtEndCompleteFocus   = 0;
 
 
+//*************************************************
+// * 지금 이상품 이가격 하단? : 페이징
+// * currentOrderedProductPage1    = 상품 리스트 현재 페이지 (default : 0)
+// * totalOrderedPage1             = 상품 리스트 전체 페이지
+// * maxOrderedPage1               = 상품 리스트 한 페이지에 표시할 최대 상품 수 (default : 4)
+//*************************************************
+var currentOrderedProductPage1 = 0;
+var totalOrderedPage1          = 0;
+var maxOrderedPageView1        = 4;
 
+/**
+ * 지금 이상품 이가격(하단)
+ *  이전/다음 페이지 true /false
+ *  true일 경우 전/다음 페이지 있음
+ **/
+ var prevPageYN1 = false;
+ var nextPageYN1 = false;
 
 
 
 //*************************************************
 // * 내가 늘 사는 상품 지금 얼마? : 페이징
-// * currentOrderedProductPage    = 상품 리스트 현재 페이지 (default : 0)
-// * totalOrderedPage             = 상품 리스트 전체 페이지
-// * maxOrderedPage               = 상품 리스트 한 페이지에 표시할 최대 상품 수 (default : 2)
-//*************************************************
-var currentOrderedProductPage = 0;
-var totalOrderedPage          = 0;
-var maxOrderedPageView        = 2;
-
-
-//*************************************************
-// * 지금 이상품 이가격 하단? : 페이징
-// * currentOrderedProductPage2    = 상품 리스트 현재 페이지 (default : 0)
+// * currentOrderedProductPage2   =상품 리스트 현재 페이지 (default : 0)
 // * totalOrderedPage2            = 상품 리스트 전체 페이지
-// * maxOrderedPage2               = 상품 리스트 한 페이지에 표시할 최대 상품 수 (default : 4)
+// * maxOrderedPage2              = 상품 리스트 한 페이지에 표시할 최대 상품 수 (default : 2)
+// 
+// * orderedPage1                 = 저렴한 상품 추천 페이지 수
+// * orderedPage2                 = 할인율 최고 페이지 수
 //*************************************************
 var currentOrderedProductPage2 = 0;
 var totalOrderedPage2          = 0;
-var maxOrderedPageView2        = 4;
+var maxOrderedPageView2        = 2;
+
+var orderedPage1               = 0;
+var orderedPage2               = 0;
+
+/**
+ * 저렴한 상품 추천 / 할인율 최고 / 추천 세트
+ *  이전/다음 페이지 true /false
+ *  true일 경우 전/다음 페이지 있음
+ **/
+ var prevPageYN2 = false;
+ var nextPageYN2 = false;
+
 
 
 
@@ -169,21 +189,7 @@ var currentFocusDtl1 = 0;
 var currentFocusDtl2 = 0;
 var currentFocusDtl3 = 0;
 
-/**
- * 지금 이상품 이가격(하단)
- *  이전/다음 페이지 true /false
- *  true일 경우 전/다음 페이지 있음
- **/
- var prevPageYN1 = false;
- var nextPageYN1 = false;
 
-/**
- * 저렴한 상품 추천 / 할인율 최고 / 추천 세트
- *  이전/다음 페이지 true /false
- *  true일 경우 전/다음 페이지 있음
- **/
- var prevPageYN2 = false;
- var nextPageYN2 = false;
 
 /** 
  * 현재 상세카테고리의 페이지

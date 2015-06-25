@@ -94,7 +94,8 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 }
                 
             } else if (keyCode === global.VK_BACK) {
-                
+                isCart = false;
+                $('#wrap').html(cartHtml); // 백업한 html 을 다시 복구
             } else if (keyCode === global.VK_ESCAPE) {
                 
             } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {

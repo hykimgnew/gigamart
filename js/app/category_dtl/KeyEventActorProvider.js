@@ -13,6 +13,15 @@ function cn_toPrice(n) {
     return n;
 }
 
+// 상세 카테고리 페이징 화살표 컨트롤
+function pageArrowUtil1() {
+    if(prevPageYN == false) $('#arrow_top').hide();
+    else                    $('#arrow_top').show();
+
+    if(nextPageYN == false) $('#arrow_bottom').hide();
+    else                    $('#arrow_bottom').show();
+}
+
 // 상품 리스트 레이아웃 생성
 function makeProduct() {
 
@@ -218,6 +227,9 @@ function updateSubCategoryList() {
 
     // 우측정보 갱신 
     updateProductInfo;
+    
+    // 페이징 화살표 컨트롤
+    pageArrowUtil1(); 
 }
 
 
@@ -257,9 +269,9 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 isCart = false;
                 $('#wrap').html(cartHtml); // 백업한 html 을 다시 복구
 
-                if(currentFocusMenu >= 4) {
+                /*if(currentFocusMenu >= 4) {
                     this.videoPlay("test", currentFocusMenu); // 영상 재생
-                }
+                }*/
 
                 /*if(videoPlayer.playState != 'undefined') {
                     if(videoPlayer.playState == 0 ) videoPlayer.play(1); // 영상 다시 재생
@@ -305,7 +317,12 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 }
                 
             } else if (keyCode === global.VK_BACK) {
-                
+                isCart = false;
+                $('#wrap').html(cartHtml); // 백업한 html 을 다시 복구
+
+                /*if(currentFocusMenu >= 4) {
+                    this.videoPlay("test", currentFocusMenu); // 영상 재생
+                }*/
             } else if (keyCode === global.VK_ESCAPE) {
                 
             } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
@@ -322,9 +339,9 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
             // **************************************************
             if(keyCode == VK_GREEN) {
 
-                if(currentFocusMenu >= 4) {
+                /*if(currentFocusMenu >= 4) {
                     this.videoStop(); // 영상 재생 중지
-                }
+                }*/
                 /*if(videoPlayer.playState != 'undefined') {
                     if(videoPlayer.playState != 0 ) this.videoStop(); // 영상 재생 중지
                 }
@@ -829,6 +846,8 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                         $('li[name="li_cost"]').eq(index).append(cn_toPrice(entry['cost']) + "원");
                     }
                 });
+
+                pageArrowUtil1(); // 페이징 화살표 컨트롤
             },
             error : function(){
                     console.log("에러");

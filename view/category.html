@@ -48,17 +48,22 @@
 				<!-- category_dtl -->
 				<div id="sub_content" class="sub_content" style="display:block;">
 					<div id="content_category" class="content_category">
-						<a id="arrow_top" href="#" class="arrow_top"></a>
+						<a id="arrow_top" href="#" class="arrow_top focus" style="display:none;"></a>
 						<ul id="cc_list" class="cc_list">	
 							<!-- 쇼퍼's bag, 혹은 서브 메뉴 -->
 						</ul>
-						<a id="arrow_bottom" href="#" class="arrow_bottom"></a>
+						<a id="arrow_bottom" href="#" class="arrow_bottom focus" style="display:none;"></a>
 					</div>
 
 					<div class="content_vod">
 						<p id="cv_title" class="cv_title"></p>
 						<div class="cv_vod" id="videoDiv">
-							<a href="#" class="btn_play"><img src="../images/btn_play.png" /></a>
+							<!-- <a href="#" class="btn_play"><img src="../images/btn_play.png" /></a> -->
+							<!-- <div class="time" id="current_position"></div> -->
+							<object type="video/mpeg" id="sub_mpeg_player" class="subvideo" style="display:none;">
+	                            <param name="zindex" value="1">
+	                            <param name="loop" value="infinite">
+	                        </object>
 							<!-- <img src="../images/sample_01.jpg" /> -->
 						</div>
 					</div>

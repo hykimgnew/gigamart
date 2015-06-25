@@ -95,7 +95,6 @@ var currentFocusDtlPage = 0;
  ***********************************/
 var shopperHistoryContent = ""; // 쇼퍼 주문 이력
 
-
 global.onload = function() {
     global.Category = Gigamart.app.category.Category.create();
     global.Category.init();

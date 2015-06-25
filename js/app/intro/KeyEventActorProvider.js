@@ -33,6 +33,12 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
     	var me = this;
 
     	me.actors = [];
+
+        var config  = window.oipfObjectFactory.createConfigurationObject();
+        config.localSystem.mute = true; // 음소거 on
+
+        $('#intro_skip').show(); // 인트로 버튼 on
+
     },
 
     getKeyEventActor: function (keyCode) {
@@ -60,7 +66,7 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
         } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
             
         }
-    },
+    },  
 
     addKeyEventActor: function (instance, conditionFunction) {
     	this.actors.push({

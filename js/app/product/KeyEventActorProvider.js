@@ -106,9 +106,9 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 isCart = false;
                 $('#wrap').html(cartHtml); // 백업한 html 을 다시 복구
 
-                if(currentFocusMenu >= 4) {
+                /*if(currentFocusMenu >= 4) {
                     this.videoPlay("test", currentFocusMenu); // 영상 재생
-                }
+                }*/
 
                 /*if(videoPlayer.playState != 'undefined') {
                     if(videoPlayer.playState == 0 ) videoPlayer.play(1); // 영상 다시 재생
@@ -154,7 +154,8 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 }
                 
             } else if (keyCode === global.VK_BACK) {
-                
+                isCart = false;
+                $('#wrap').html(cartHtml); // 백업한 html 을 다시 복구
             } else if (keyCode === global.VK_ESCAPE) {
                 
             } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {

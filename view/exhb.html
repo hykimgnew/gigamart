@@ -8,6 +8,7 @@
 
 <body>
 	<div id="wrap" class="bg_fruits">
+
 						<div id="brand">
 							<h1><img src="../images/logo_gigamart.png" /></h1>
 							<h2>쇼퍼가 하나로마트에서 직접 골라드립니다</h2>
@@ -65,13 +66,23 @@
 													</span>
 													<span class="ts_time"><i>남은시간</i><br/><b>00:32:24</b></span> 
 													<span class="ad_txt"></span>
-													<span class="photo" id="span_videoDiv"><img src="../images/sample_02.jpg"  style="width : 610px; height : 343px;"/>
+													<span class="photo" id="span_videoDiv">
+														<!-- <img src="../images/sample_02.jpg"  style="width : 610px; height : 343px;"/> -->
+														<div id="player_button" class="btn" style="display:none;"></div><!-- 열기버튼 -->
+									                    <div class="minimedia">
+									                        <object type="video/mpeg" id="sub_mpeg_player" class="subvideo" style="display:none">
+									                            <param name="zindex" value="1">
+									                            <param name="loop" value="infinity">
+									                            <!-- <param name="audio" value="true"> -->
+									                        </object>
+									                        <!-- <img src="img/sub/user_disable.png" id="sub_mpeg_player_disable"> -->
+									                    </div>
 													</span>
 												</li>
 											</ul>
 										</div>
 										<div class="sale_list">
-											<a href="#" class="arrow_top" name="arrow_top2"></a>
+											<a href="#" id="a_top1" class="arrow_top focus" style="display:none;"></a>
 											<div>
 												<ul>	
 													<li name="sl_menu" class="sl_menu pd_r10">
@@ -150,7 +161,7 @@
 
 												</ul>
 											</div>
-											<a href="#" class="arrow_bottom" name="arrow_bottom2"></a>
+											<a href="#" id="a_bot1" class="arrow_bottom focus" style="display:none;"></a>
 										</div>
 									</div>
 									<!-- content_right END -->
@@ -163,13 +174,13 @@
 										</div>
 
 										<div class="discount_top">
-											<li>자주 구매하는 상품군 내의 <br /><b>저렴한 상품 추천</b></li>
-											<li>구매 상품 중  <br /><b>할인율 최고</b></li>
-											<li>나의 단골 쇼퍼 추천<b><span name="shopper_name"></span></b></li>
+											<li><b>저렴한 상품 추천</b></li>
+											<li><b>할인율 최고</b></li>
+											<li><b><span name="shopper_name"></span></b></li>
 										</div>
 
 										<div class="discount_list">
-											<a href="#" class="arrow_top" name="arrow_top"></a>
+											<a href="#" id="a_top2" class="arrow_top focus" style="display:none;"></a>
 											<div>
 												<ul>	
 													<li name="li_discount1" class="dl_menu mg_r10">
@@ -267,7 +278,7 @@
 													</li>
 												</ul>
 											</div>
-											<a href="#" class="arrow_bottom" name="arrow_bottom" style="margin-top : 14px;"></a>
+											<a href="#" id="a_bot2" class="arrow_bottom focus" style="margin-top : 14px; display:none;"></a>
 										</div>
 									</div>
 								</div>								
@@ -308,8 +319,7 @@
 							</ul>
 						</div> -->
 
-
-
+	    <div id="loading" class="loading" style="display:none;"></div>					
 	</div>
 
 	<!-- 팝업 영역 -->
@@ -372,19 +382,22 @@
 
 		// jQuery 문서 시작
 		$(document).ready(function() {
-			// 웹소켓으로 push 받아오는 이벤트
-			if(isFullVideo == false && isCart == false && isRealTime == false && isRealTimeStart == false && isRealTimeEnd == false && isRealTimeEndComplete == false) {
 
-				var socket = io.connect("http://14.52.244.91:8080");
+			var socket = io.connect("http://14.52.244.91:8080");
 
-				socket.on('start_shopping', function(buyer_id, shopper_id, order_id, status) {
-					// TT141002133 STB의 buyer_id : aa
-					console.log("socket - buyer_id : " + buyer_id);
-					console.log("buyer_login - buyer_id : " + buyerID);
-					//console.log("buyer_login - buyer_id : " + getCookie('buyerID'));
+			socket.on('start_shopping', function(buyer_id, shopper_id, order_id, status) {
+				
+				// 웹소켓으로 push 받아오는 이벤트
+				console.log("socket - buyer_id : " + buyer_id);
+				console.log("buyer_login - buyer_id : " + buyerID);
 
-					//if(buyer_id == buyerID) {
-					if(buyer_id == "aa") {
+				// TT141002133 STB의 buyer_id : aa
+				//if(buyer_id == buyerID) {
+				if(buyer_id == "aa") {
+
+					console.log("####### 요청 들어옴 isRealTimeStart 상태 : " + isRealTimeStart);
+
+					if(isFullVideo == false && isCart == false && isRealTime == false && isRealTimeStart == false && isRealTimeEnd == false && isRealTimeEndComplete == false) {
 						if(status == 2) {
 							/* 쇼퍼 쇼핑 시작 이벤트 */
 							setTimeout(Gigamart.app.exhb.KeyEventActorProvider.shopperRealTimeStart, 500);	
@@ -393,8 +406,9 @@
 							/* 쇼퍼 구매 완료 이벤트 */
 						}
 					}
-				});
-			}
+				}
+				
+			});
 		});
 	</script>
 </body>
