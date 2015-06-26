@@ -153,7 +153,7 @@
 											<tr>
 												<td id="order_date" class="bg_grayLine"></td> <!-- 2015.05.06 14:06 -->
 												<td id="total_cost" class="bg_grayLine"></td> <!-- 56,300원 -->
-												<td>양재 하나로 마트 (API누락)</td>
+												<td>양재 하나로 마트</td>
 											</tr>
 										</table>
 									</li>
@@ -262,6 +262,36 @@
 
 		<!-- extends Library -->
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	</div>
+
+	<div id="shopper_real_time" class="shopper_real_time" style="display:none;">
+		<p id="rtsp_area" class="vod_area">
+			<img src="../images/sample_01.jpg"  style="height : 526px;"/>
+			<object type="video/mpeg" id="rtsp_player" class="subvideo">
+                <param name="zindex" value="1">
+            </object>
+		</p>
+		<div class="srt_info">
+			<p></p>
+			<ul style="height : 545px; background-color : #e5e5e5; border-radius: 0 10px 0 0;">
+				<li class="srt_tit">쇼퍼 리얼타임</li>
+				<li class="smt_contents">
+					<ul>
+						<li class="smtc_person">
+							<span name="shopper_img"></span>
+							<ul>
+								<li name="shopper_name"></li>
+								<li name="shopper_rating"></li>
+								<li>하나로마트 양재점에서 직접 골라 드립니다.</li>
+							</ul>
+						</li>
+						<li name="description" class="smtc_txt">
+						</li>
+						<li id="rt_close" class="btn_close focus">닫기</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
 	</div>
 </body>
 

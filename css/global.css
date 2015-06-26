@@ -521,8 +521,8 @@ z-index:10; position:absolute; width:419px; height:431px; top:0px; left:0px; bor
 #content .content_right div.shopper_history .sh_list .shl_right .shlr_on.focus {position:absolute; bottom:55px; width:219px; height:44px; border:2px solid #2b9330; color:#FFFFFF; background:#2b9330; border-radius:10px; margin-top:100px;}
 #content .content_right div.shopper_history .sh_list .shl_right b {position:relative; display:inline-block; top:0px; left:0px; width:80px; height:44px; line-height:38px; text-align:right; color:#e71828; font-size:40px; font-weight:bold; }
 #content .content_right div.shopper_history .sh_list .shl_right span {position:relative; display:inline-block; top:-2px; right:0px; width:110px; line-height:18px; text-align:left; height:42px; }
-#content .content_right div.shopper_history .sh_list .shl_right .shlr_close {position:absolute; bottom:0px; width:219px; height:44px; line-height:42px;  border:2px solid #2b9330; background:#2b9330; color:#FFFFFF; border-radius:10px; margin-top:10px; text-align:center; }
-#content .content_right div.shopper_history .sh_list .shl_right .shlr_close.focus {position:absolute; bottom:0px; width:219px; height:44px; line-height:42px; border:2px solid #6c6c6c; background:#6c6c6c; color:#FFFFFF; border-radius:10px; margin-top:10px; text-align:center; }
+#content .content_right div.shopper_history .sh_list .shl_right .shlr_close {position:absolute; bottom:0px; width:219px; height:44px; line-height:42px;  border:2px solid #6c6c6c; background:#6c6c6c; color:#FFFFFF; border-radius:10px; margin-top:10px; text-align:center; }
+#content .content_right div.shopper_history .sh_list .shl_right .shlr_close.focus {position:absolute; bottom:0px; width:219px; height:44px; line-height:42px; border:2px solid #2b9330; background:#2b9330; color:#FFFFFF; border-radius:10px; margin-top:10px; text-align:center; }
 
 
 

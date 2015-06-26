@@ -55,6 +55,7 @@ var productList               = new Array();
  *  1 : 상세 카테고리
  *  2 : 쇼퍼's bag
  *  3 : 쇼퍼 주문 이력
+ *  4 : 쇼퍼 리얼 타임
  **/
 var currentFocusList = 0;
 
@@ -89,6 +90,8 @@ var currentFocusDtlPage = 0;
  var prevPageYN = false;
  var nextPageYN = false;
 
+// 쇼퍼 리얼 타임
+var rtspPlayer = window.oipfObjectFactory.createVideoMpegObject();    // 실시간 영상보기
 
 /***********************************
  * CMS API 조회 데이터 

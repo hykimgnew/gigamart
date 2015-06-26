@@ -76,7 +76,7 @@ function updateProductInfo() {
 
     //resultSet[idx]["video"];
 
-    $('#cif_vod').empty().append('<img src="' + cmsServerIp + resultSet[idx]["img"] + '" width="448" height="253" />');
+    $('#cif_vod').empty().append('<img src="' + cmsServerIp + resultSet[idx]["img"] + '" height="253" />'); //width="448"
     $('#cif_exp').empty().append(resultSet[idx]["name"]);
     $('#cif_exp_txt').empty().append(resultSet[idx]["description"]);
     $('#cif_exp_price_glm').empty().append("(" + resultSet[idx]["standard"] + ")");
