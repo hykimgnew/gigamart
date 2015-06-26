@@ -235,7 +235,8 @@ App.defineClass('Gigamart.app.exhb.Exhb', {
         //$('#pj_left').addClass("focus");
         $('li[name="sl_menu"]').eq(currentFocusMenu).addClass('focus');
         $('li[name="sl_menu"]').eq(currentFocusMenu).children('.sl_play').addClass('focus');
-
+        $('li[name="sl_menu"]').eq(currentFocusMenu).children().children('.slm_txt').addClass('focus');
+        
         global.stbService = Gigamart.app.exhb.STBService.create(EventBus);
 
         // 팝업 Load
