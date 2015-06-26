@@ -234,7 +234,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                         $('#shopper_history').show();*/
 
                         this.selectShopperHistory(); // 쇼퍼 주문 이력 조회
-
+                        $('#shopper_bag').hide();
                         $('#shopper_history').show();
                         $('#shlr_on').addClass("focus");
                         currentFocusList = 3;
@@ -288,6 +288,17 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                         this.selectShopperList();
                         rtspPlay();
                     }
+
+                    // 닫기
+                    if(histFocus == 3) {
+                        $('#shlr_on').addClass("focus");
+                        $('#shlr_close').removeClass("focus");
+                        currentFocusList = 0; // 전체카테고리
+                        histFocus = 2;
+                        $('#shopper_history').hide();
+                        $('#shopper_bag').show();
+                        $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
+                    }
                 }
 
                 // 쇼퍼 리얼 타임 일때
@@ -320,7 +331,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             // 쇼퍼 주문 이력
                             if(currentFocusMenu == 2) {
                                 $('#sub_content').hide();
-                                $('#shopper_bag').hide();
+                                //$('#shopper_bag').hide();
                             }
                             // 쇼퍼's Bag
                             if(currentFocusMenu == 3) {
@@ -546,6 +557,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             this.selectShopperHistory(); // 쇼퍼 주문 이력 조회
 
                             $('#shopper_history').show();
+                            $('#shopper_bag').hide();
                             $('#shlr_on').addClass("focus");
                             currentFocusList = 3;
                             histFocus = 2;
@@ -961,7 +973,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
 
 
                 $('span[name="shopper_rating"]').empty().append(shopperStar);
-                $('li[name="shopper_img"]').empty().append("<img src=" + cmsServerIp + result['shopper']['img'] + " width='160' height='120' />");
+                $('li[name="shopper_img"]').empty().append("<img src=" + cmsServerIp + result['shopper']['img'] + " height='120' />"); //width='160'
                 $('span[name="shopper_name"]').empty().append(result['shopper']['shopper_id']);
                 $('span[name="shopper_cate"]').empty().append(result['shopper']['shopping_main']);
 

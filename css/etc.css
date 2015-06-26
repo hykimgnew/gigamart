@@ -90,6 +90,13 @@
 /* 전체 영상 보기 */
 .vod .vod_info .vi_menu .btn_common.focus {background:#2b9330 !important; border:2px solid #2b9330 !important;}
 
+/* 상세카테고리 좌측정보 */
+#content .selDepth .sd_first .discount_list .dlm_img { display:inline !important; text-align: center !important; }
+#content .selDepth .sd_first .discount_list .dlm_img img {width:auto !important; }
+/*#content .selDepth .sd_first .discount_list div ul li ul li.dlm_img { display:inline !important; margin-left:auto !important; margin-right:auto !important; }*/
+/* 상세카테고리 우측정보 */
+#content .cateInfo .ci_first .cif_con .cif_vod img {width:auto !important;}
+
 /* 로딩 */
 .loading {position:absolute !important; 
 		  top:180px !important;

@@ -4,6 +4,45 @@ var resultSet;
 //할인율최고
 var resultSet2;
 
+// 남은시간
+var viewTime; // (남은 시간 시:분:초)
+var SetTime;  // (남은 시간 초)
+var tid;      // 타이머 객체
+
+// 타이머 시작
+function TimerStart() {
+    tid=setInterval('msg_time()', 1000);
+}
+
+// 1초씩 카운트
+function msg_time() {
+
+    var hour = Math.floor(SetTime / (60 * 60));
+    var divisor_for_minutes = SetTime % (60 * 60);
+    var minute = Math.floor(divisor_for_minutes / 60);
+    var sec = (SetTime % 60) ;
+
+    if ( hour < 10)
+    hour = "0" + hour;
+    if ( minute < 10)
+    minute = "0" + minute;
+    if ( sec < 10)
+    sec = "0" + sec;
+
+    var m = hour + ":" + minute + ":" + sec;  // 남은 시간 계산
+    
+    //document.all.ViewTimer.innerHTML = msg;     // div 영역에 보여줌 
+    $('#timer').html(m);
+            
+    SetTime--;                  // 1초씩 감소
+    if (SetTime < 0) {          // 시간이 종료 되었으면..
+        clearInterval(tid);     // 타이머 해제
+        console.log("######## 타이머 종료");
+    }
+    
+}
+
+
 // 숫자 -> 금액
 function cn_toPrice(n) {
     if(isNaN(n)){return 0;}
@@ -12,6 +51,13 @@ function cn_toPrice(n) {
     while (reg.test(n))
     n = n.replace(reg, '$1' + ',' + '$2');
     return n;
+}
+
+// 남은 시간 타이머
+function fn_timer() {
+    var time = $('#timer').html();
+
+    console.log("######## 시간 : " + time);
 }
 
 // 지금 이상품 이가격 페이징 표시 on/off
@@ -55,7 +101,6 @@ function pageArrowUtil1(type) {
             $('#a_bot1').show();
         }
     }
-
 }
 
 // 저렴한 상품 추천, 할인율 최고 페이징 표시 on/off
@@ -229,6 +274,9 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         this.selectProductSubCategory2(requestCategoryDtlCode,11000);
         //지금 이상품 이가격 adName에 이름
         //this.adName();
+
+        // 남은 시간 타이머
+        
 
     },
 
@@ -1448,6 +1496,9 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         // 지금 이상품 이가격(하단)-> 지금 이상품 이가격(하단)
                         } 
                         else if(currentFocusMenu > 0) {
+                            if(currentFocusMenu == 3) {
+                                $('li[name="sl_menu"]').eq(currentFocusMenu).children().children('.slm_txt').css("color", "#000000");
+                            }
                             $('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
                             $('li[name="sl_menu"]').eq(currentFocusMenu).children('.sl_play').removeClass('focus');
                             $('li[name="sl_menu"]').eq(currentFocusMenu).children().children('.slm_txt').removeClass('focus');
@@ -1490,6 +1541,9 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                         // 저렴한 상품 (2) -> 지금 이상품 이가격(하단 오른쪽)
                         if(currentFocusDtl1 == 0 || currentFocusDtl1 == 1 ||currentFocusDtl1 == 2) {
+                            $('#scn_bdr').addClass("focus");
+                            $('li[name="sl_menu"]').eq(currentFocusMenu).children().children('.slm_txt').css("color", "#FFFFFF");
+
                             $('li[name="li_discount1"]').eq(currentFocusDtl1).removeClass('focus');
                             $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dm_bdr').empty();
                             $('li[name="li_discount1"]:eq('+ currentFocusDtl1 + ') > .dl_bdr').css("display","none");
@@ -1580,11 +1634,13 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         // 지금 이상품 이가격(하단) -> 지금 이상품 이가격(하단)
                         if(currentFocusMenu < 3) {
                             //this.videoStop();
-
                             $('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
                             $('li[name="sl_menu"]').eq(currentFocusMenu).children('.sl_play').removeClass('focus');
                             $('li[name="sl_menu"]').eq(currentFocusMenu).children().children('.slm_txt').removeClass('focus');
                             currentFocusMenu = currentFocusMenu + 1;
+                            if(currentFocusMenu == 3) {
+                                $('li[name="sl_menu"]').eq(currentFocusMenu).children().children('.slm_txt').css("color", "#FFFFFF");
+                            }
                             fvCode = currentFocusMenu; // TODO : 차후에 상품 코드 넣어야함
                             $('li[name="sl_menu"]').eq(currentFocusMenu).addClass('focus');
                             $('li[name="sl_menu"]').eq(currentFocusMenu).children('.sl_play').addClass('focus');
@@ -1601,6 +1657,8 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         else if(currentFocusMenu == 3) {
                             //this.videoStop();
                             //videoPlayer.stop();
+                            $('#scn_bdr').removeClass("focus");
+                            $('li[name="sl_menu"]').eq(currentFocusMenu).children().children('.slm_txt').css("color", "#08760D");
 
                             $('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
                             $('li[name="sl_menu"]').eq(currentFocusMenu).children('.sl_play').removeClass('focus');
@@ -1902,9 +1960,14 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         appendHtml2 += '<li class="dlm_price">24,900원</li>';
         appendHtml2 += '</ul>';
         
-        if(Math.floor(Math.random() * 2) == 0) {shopperImg = '<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_김미나.png" />'; shopperName="김미나 쇼퍼";}
+        /*if(Math.floor(Math.random() * 2) == 0) {shopperImg = '<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_김미나.png" />'; shopperName="김미나 쇼퍼";}
         else  {shopperImg ='<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_이순자.png" />'; shopperName="이순자 쇼퍼";}
         if(Math.floor(Math.random() * 2) == 0)  {shopperSet = '<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼세트_닭볶음탕.jpg" />';shopperProduct = "닭볶음탕";} 
+        else  {shopperSet ='<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼세트_소고기샤브샤브2.jpg" />'; shopperProduct = "소고기샤브샤브"; }*/
+
+        if(currentOrderedProductPage2 == 0) {shopperImg = '<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_김미나.png" />'; shopperName="김미나 쇼퍼";}
+        else  {shopperImg ='<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_이순자.png" />'; shopperName="이순자 쇼퍼";}
+        if(currentOrderedProductPage2 == 0) {shopperSet = '<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼세트_닭볶음탕.jpg" />';shopperProduct = "닭볶음탕";} 
         else  {shopperSet ='<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼세트_소고기샤브샤브2.jpg" />'; shopperProduct = "소고기샤브샤브"; }
 
         console.log("######## shopperImg->"+shopperImg);
@@ -2018,6 +2081,25 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         // 현재 페이지
         currentOrderedProductPage2 = page;
         
+        // 단골쇼퍼, 추천세트 변경 시작
+        var appendHtml = '';
+        var appendHtml2 = '';
+        var shopperImg = "";
+        var shopperSet = "";
+        var shopperName ="";
+        var shopperProduct ="";
+
+        if(currentOrderedProductPage2 == 0) {shopperImg = '<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_김미나.png" />'; shopperName="김미나 쇼퍼";}
+        else  {shopperImg ='<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_이순자.png" />'; shopperName="이순자 쇼퍼";}
+        if(currentOrderedProductPage2 == 0) {shopperSet = '<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼세트_닭볶음탕.jpg" />';shopperProduct = "닭볶음탕";} 
+        else  {shopperSet ='<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼세트_소고기샤브샤브2.jpg" />'; shopperProduct = "소고기샤브샤브"; }
+
+        $('li[name="li_discount3"]').eq(0).append(appendHtml);  //쇼퍼 
+        $('li[name="li_discount3"]').eq(1).append(appendHtml2);    
+        $('li[name="shooperImg"]').empty().append(shopperImg);
+        $('li[name="shooperImg2"]').empty().html(shopperSet);
+        // 단골쇼퍼, 추천세트 변경 끝
+
         console.log("########리스트 페이지 이동 currentOrderedProductPage2 : " + currentOrderedProductPage2);
         //console.log("######## productList[0000] : " + JSON.stringify(appendHtml));
         console.log("######## productList[0] : " + productList);
@@ -2199,6 +2281,20 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         $('b[name="timesale_won"]').empty().append(cn_toPrice(entry['cost']) + "원");
                     }
                 });
+
+                // 타이머
+                if(typeof tid !== 'undefined') clearInterval(tid);
+                
+                $('#timer').html("00:32:24");
+                viewTime = $('#timer').html();
+
+                // SetTime 초로 변환
+                var transHour   = Number(viewTime.substring(0,2)) * 3600;
+                var transMinute = Number(viewTime.substring(3,5)) * 60;
+                var transSecond = Number(viewTime.substring(6,8)) * 1;
+                SetTime = transHour + transMinute + transSecond;
+
+                TimerStart();
             },
             error : function(){
                     console.log("에러");

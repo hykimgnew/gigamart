@@ -1183,7 +1183,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                     // 처음에 뿌려주는 9개만 넣는다.
                     if(entry['id'] == requestCategoryDtlId) {
                         console.log("######## entry[id]와 request값 같은때 ########");
-                        $('li[name="cl_photo"]').append('<img src="' + cmsServerIp + entry['img'] + '"  style="height : 302px;"/>'); //width :555px;
+                        $('li[name="cl_photo"]').append('<img src="' + cmsServerIp + entry['img'] + '"  style="height : 302px; "/>'); //width :555px;
                         $('span[name="pd_name"]').append(entry['name']);
                         $('span[name="pd_cost"]').append(cn_toPrice(entry['cost']) + "원");
                         $('span[name="pd_origin"]').append(entry['origin']);
