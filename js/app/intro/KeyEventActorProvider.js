@@ -92,9 +92,9 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
             dataType    : "json",
             data        : param,
             async       : true,
-            /*xhrFields   : {
+            xhrFields   : {
                             withCredentials: true
-            },*/
+            },
             success     : function(result) {
                 console.log("############ 로그인 결과 : " + JSON.stringify(result));
 

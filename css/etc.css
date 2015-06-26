@@ -83,7 +83,9 @@
 #content .con_wrap .cw_right .cr_infoArea li.ci_first span.ci_buy {background:url(../images/icon_crown.png)no-repeat 0px 4px!important;}
 
 /* 쇼퍼 리얼 타임 */
+.shopper_real_time { z-index:1500; position:absolute; top:10px; left:100px;}
 .shopper_real_time .srt_info .smt_contents li.btn_close.focus {background:#2b9330 !important; border:2px solid #2b9330 !important;}
+
 
 /* 전체 영상 보기 */
 .vod .vod_info .vi_menu .btn_common.focus {background:#2b9330 !important; border:2px solid #2b9330 !important;}

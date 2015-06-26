@@ -179,7 +179,7 @@ function fn_videoPlay(url, category, type) {
         videoPlayer2.data = url;
         videoPlayer2.play(1);*/
 
-        var appendVideo = '<video id="sub_mpeg_player" width="970" height="545" loop src="' + url + '"></video>';
+        var appendVideo = '<video id="full_mpeg_player" width="970" height="545" loop src="' + url + '"></video>';
         //document.getElementById('p_videoDiv').appendChild(appendVideo);
         $('#p_videoDiv').empty().append(appendVideo);
 
@@ -1427,7 +1427,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                             //전체 카테고리로 이동 
                             //$('#span_videoDiv').append('<img src="../images/sample_02.jpg" style="width : 610px; height : 343px;"/>');
-                            videoPlayer.stop();
+                            //videoPlayer.stop();
                             $('#span_videoDiv').append('<img src="../images/sample_02.jpg" style="width : 610px; height : 343px;"/>');
                             location.href = "category.html";
                             //$('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
@@ -1665,7 +1665,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             else{
                 console.log("치킨아님!!!! : "+url);
             // 테스트용 영상
-            url = "http://14.52.244.91:8080" + url;
+            url = cmsServerIp + url;
                 /*videoPlayer.width = 610;
                 videoPlayer.height = 343;
                 $('#span_videoDiv').empty()
@@ -1692,14 +1692,14 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             }
             else{
             // 테스트용 영상
-            url = "http://14.52.244.91:8080" + url;
+            url = cmsServerIp + url;
             /*videoPlayer2.width = 970;
             videoPlayer2.height = 545;
             $('#p_videoDiv').empty()
             document.getElementById('p_videoDiv').appendChild(videoPlayer2);
             videoPlayer2.data = url;
             videoPlayer2.play(1);*/
-            var appendVideo = '<video id="sub_mpeg_player" width="970" height="545" loop src="' + url + '"></video>';
+            var appendVideo = '<video id="full_mpeg_player" width="970" height="545" loop src="' + url + '"></video>';
             //document.getElementById('p_videoDiv').appendChild(appendVideo);
             $('#p_videoDiv').empty().append(appendVideo);
 

@@ -326,7 +326,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     // *** 트윗 내용 ***/
                     $('li[name="tweet"]').eq(index).empty().append(entry['tweet']);
                     // *** 제품 이미지 ***/
-                    $('li[name="product_img"]').eq(index).empty().append("<img src=" + cmsServerIp + entry['product_img'] + " width='393' height='180' />");
+                    $('li[name="product_img"]').eq(index).empty().append("<img src=" + cmsServerIp + entry['product_img'] + "  height='180' />"); //width='393'
                 });
             }
         });
