@@ -584,13 +584,19 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 break;
         }
 
-        url = cmsServerIp + "/video/tv/category/" + categoryName + ".mp4";
-        var videoPlayer = document.querySelector('object');
-        videoPlayer.width = 704;
+        
+        /*videoPlayer.width = 704;
         videoPlayer.height = 396;
-        videoPlayer.loop = true;
-        $('#sub_mpeg_player').show();
         videoPlayer.data = url;
+        */
+        /*<video id="sub_mpeg_player" width="704" height="396" loop src="http://14.52.244.91:8080/video/tv/category/과일.mp4"></video>*/
+        url = cmsServerIp + "/video/tv/category/" + categoryName + ".mp4";
+        console.log("현재 재생영상 : " + url);
+
+        var appendVideo = '<video id="sub_mpeg_player" width="704" height="396" loop src="' + url + '"></video>';
+        $('#videoDiv').empty().append(appendVideo);
+
+        var videoPlayer = document.querySelector('video');
         videoPlayer.play(1);
     },
 

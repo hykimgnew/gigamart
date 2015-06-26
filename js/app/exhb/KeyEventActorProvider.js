@@ -148,30 +148,43 @@ function fn_videoPlay(url, category, type) {
     // 지금 이상품 이가격
     if(type == 1) {
         // 테스트용 영상
-        url = "http://14.52.244.91:8080" + url;
+        url = cmsServerIp + url;
         // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
-        $('#span_videoDiv').empty().append('<img src="../images/sample_02.jpg"  style="width : 610px; height : 343px;"/>');
+        /*$('#span_videoDiv').empty().append('<img src="../images/sample_02.jpg"  style="width : 610px; height : 343px;"/>');
         
         videoPlayer.width = 610;
         videoPlayer.height = 343;
         $('#span_videoDiv').empty()
         document.getElementById('span_videoDiv').appendChild(videoPlayer);
         videoPlayer.data = url;
+        videoPlayer.play(1);*/
+        var appendVideo = '<video id="sub_mpeg_player" width="610" height="343" loop src="' + url + '"></video>';
+        //document.getElementById('span_videoDiv').appendChild(appendVideo);
+        $('#span_videoDiv').empty().append(appendVideo);
+
+        var videoPlayer = document.querySelector('video');
         videoPlayer.play(1);
     }
     // 전체 영상보기
     else if(type == 2) {
         // 테스트용 영상
-        url = "http://14.52.244.91:8080" + url;
+        url = cmsServerIp + url;
         // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
-        $('#p_videoDiv').empty().append('<img src="../images/sample_02.jpg" style="width : 970px; height : 545px;"/>');
+        /*$('#p_videoDiv').empty().append('<img src="../images/sample_02.jpg" style="width : 970px; height : 545px;"/>');
         
         videoPlayer2.width = 970;
         videoPlayer2.height = 545;
         $('#p_videoDiv').empty()
         document.getElementById('p_videoDiv').appendChild(videoPlayer2);
         videoPlayer2.data = url;
-        videoPlayer2.play(1);
+        videoPlayer2.play(1);*/
+
+        var appendVideo = '<video id="sub_mpeg_player" width="970" height="545" loop src="' + url + '"></video>';
+        //document.getElementById('p_videoDiv').appendChild(appendVideo);
+        $('#p_videoDiv').empty().append(appendVideo);
+
+        var videoPlayer = document.querySelector('video');
+        videoPlayer.play(1);
     }
 }
 
@@ -1653,11 +1666,18 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 console.log("치킨아님!!!! : "+url);
             // 테스트용 영상
             url = "http://14.52.244.91:8080" + url;
-                videoPlayer.width = 610;
+                /*videoPlayer.width = 610;
                 videoPlayer.height = 343;
                 $('#span_videoDiv').empty()
                 document.getElementById('span_videoDiv').appendChild(videoPlayer);
                 videoPlayer.data = url;
+                videoPlayer.play(1);*/
+                
+                var appendVideo = '<video id="sub_mpeg_player" width="610" height="343" loop src="' + url + '"></video>';
+                //document.getElementById('span_videoDiv').appendChild(appendVideo);
+                $('#span_videoDiv').empty().append(appendVideo);
+
+                var videoPlayer = document.querySelector('video');
                 videoPlayer.play(1);
             }
 
@@ -1673,12 +1693,18 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             else{
             // 테스트용 영상
             url = "http://14.52.244.91:8080" + url;
-            videoPlayer2.width = 970;
+            /*videoPlayer2.width = 970;
             videoPlayer2.height = 545;
             $('#p_videoDiv').empty()
             document.getElementById('p_videoDiv').appendChild(videoPlayer2);
             videoPlayer2.data = url;
-            videoPlayer2.play(1);
+            videoPlayer2.play(1);*/
+            var appendVideo = '<video id="sub_mpeg_player" width="970" height="545" loop src="' + url + '"></video>';
+            //document.getElementById('p_videoDiv').appendChild(appendVideo);
+            $('#p_videoDiv').empty().append(appendVideo);
+
+            var videoPlayer = document.querySelector('video');
+            videoPlayer.play(1);
             }
             
         }
