@@ -2196,6 +2196,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     if(entry['id'] == fvId) {
                         console.log("######## entry[id]와 request값 같은때 ########");
                         $('span[name="ad_name"]').empty().append(entry['name']+entry['standard']);
+                        $('b[name="timesale_won"]').empty().append(cn_toPrice(entry['cost']) + "원");
                     }
                 });
             },

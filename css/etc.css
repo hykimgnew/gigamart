@@ -184,3 +184,16 @@ height: 172px!important;
 
 #content .pj_right div.sc_project div.scp_left .sale_list .slm_txt.focus{background: #08760d; color : #fff;}
 #content .pj_right div.sc_project div.scp_left .timesale ul li.scene .scn_bdr.focus{border : 5px solid #08760d;}
+
+.shopper_real_time{
+width : 100%;
+height : 100%;
+background-color: rgba(0, 0, 0, 0.7);
+margin-left : -80px; /*global 664 지워*/
+}
+.shopper_real_time_r {
+width: 1200px;
+height: 545px;
+margin-left: 20px;
+padding-top: 88px;
+}

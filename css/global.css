@@ -661,7 +661,7 @@ position:relative;width:162px; float:left; margin-bottom:4px; color:#ffffff;back
 
 
 /*쇼퍼리얼타임*/
-.shopper_real_time {width:1200px; height:545px; margin-left:40px; padding-top:88px; }
+/*.shopper_real_time {width:1200px; height:545px; margin-left:40px; padding-top:88px; }*/
 .shopper_real_time .vod_area {float:left; width:970px; height:545px; overflow:hidden; }
 .shopper_real_time .vod_area img {width:970px; height:545px; }
 
