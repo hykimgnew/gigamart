@@ -702,7 +702,7 @@ position:relative;width:162px; float:left; margin-bottom:4px; color:#ffffff;back
 
 #content .con_wrap .cw_right .cr_infoArea {width:555px; height:302px; overflow:hidden; position:relative; margin-bottom:29px; }
 #content .con_wrap .cw_right .cr_infoArea li.ci_first {color:#1a1a1a; font-size:30px;}
-#content .con_wrap .cw_right .cr_infoArea li.ci_first span.polygon_bb {z-index:10; position:relative; top:0px; left:0px; background:url(../images/polygon_bb.png) no-repeat; width:52px; height:49px; padding-top:10px; display:inline-block; text-align:center; color:#fff; line-height:16px; font-size:14px;}
+#content .con_wrap .cw_right .cr_infoArea li.ci_first span.polygon_bb {z-index:10; position:relative; top:0px; left:0px; /*background:url(../images/polygon_bb.png) no-repeat;*/ /*width:52px;*/ height:49px; margin-top:-12px; display:block; text-align:center; color:#fff; line-height:16px; font-size:14px;}
 #content .con_wrap .cw_right .cr_infoArea li.ci_first span.ci_buy {position:absolute; top:0px; right:0px; text-align:right; background:url(../images/icon_crown.png)no-repeat 0px 10px; padding-left:25px; color:#7d7d7d; font-size:14px; }
 #content .con_wrap .cw_right .cr_infoArea li.ci_first span.ci_buy b {color:#ff8b0f; font-size:22px; font-weight:normal;}
 #content .con_wrap .cw_right .cr_infoArea li.ci_first span.ci_buy i {font-style:normal; position:relative; top:-3px;}

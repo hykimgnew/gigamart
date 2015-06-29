@@ -219,7 +219,7 @@ function updateSubCategoryList() {
     $.each(pageSet, function(index, entry) {
         if(index < resultLen) {
             console.log("다음꺼 " + entry['img']);
-            $('li[name="li_img"]').eq(index).append('<img src="' + cmsServerIp + entry['img'] + '" />');
+            $('li[name="li_img"]').eq(index).append('<span class="dtl_img"><img src="' + cmsServerIp + entry['img'] + '" /></span>');
             $('li[name="li_name"]').eq(index).append(entry['name']);
             $('li[name="li_cost"]').eq(index).append(cn_toPrice(entry['cost']) + "원");
         }
@@ -854,7 +854,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 $.each(result, function(index, entry) {
                     // 처음에 뿌려주는 9개만 넣는다.
                     if(index < resultLen) {
-                        $('li[name="li_img"]').eq(index).append('<img src="' + cmsServerIp + entry['img'] + '" />');
+                        $('li[name="li_img"]').eq(index).append('<span class="dtl_img"><img src="' + cmsServerIp + entry['img'] + '" /></span>');
                         $('li[name="li_name"]').eq(index).append(entry['name']);
                         $('li[name="li_cost"]').eq(index).append(cn_toPrice(entry['cost']) + "원");
                     }
