@@ -208,11 +208,11 @@
 	color: #fff;
 }
 /*.vod .vod_info .vi_menu .btn_cart {color:#6c6c6c!important; border:2px solid #6c6c6c!important; }global 415줄*/
-.shopper_real_time .srt_info {
+.shopper_real_time .srt_info_real {
 	margin-right: 63px!important;
 	margin-top: 60px!important;
 }
-.shopper_real_time .vod_area {
+.shopper_real_time .vod_area_real {
 	margin-left: 15px!important;
 	margin-top: 60px!important;
 }

@@ -32,6 +32,8 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
 
         // 마트는 지금
         this.selectTweetList();
+        
+        $('li[name="sbl_list"]').eq(currentFocusMenu).addClass('focus');
 
     },
 
@@ -155,19 +157,69 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 // * 위 KEY
                 // **************************************************
                 if(keyCode === global.VK_UP) {
+                    //쇼퍼 list
+                    if(currentFocusList == 0){
+                        if(currentFocusMenu == 0){
+                            console.log("페이지 이동");
+                        }
+                        else if(currentFocusMenu == 1){
+                            //쇼퍼 list2행->1행
+                            $('li[name="sbl_list"]').eq(currentFocusMenu).removeClass('focus');
+                            currentFocusMenu = Number(currentFocusMenu)-1;
+                            $('li[name="sbl_list"]').eq(currentFocusMenu).addClass('focus');
+                        }
+                    }
+                   //쇼퍼 추천세트 list
+                    else if(currentFocusList == 1){
 
+                    }
+                   //마트는 지금?
+                    else if(currentFocusList == 2){
+
+                    }       
                 }
 
                 // **************************************************
                 // * 아래 KEY
                 // **************************************************
                 if(keyCode === global.VK_DOWN) {
-                   
+                   //쇼퍼 list
+                    if(currentFocusList == 0){
+                        if(currentFocusMenu == 0){
+                            //쇼퍼 list1행->2행
+                            $('li[name="sbl_list"]').eq(currentFocusMenu).removeClass('focus');
+                            currentFocusMenu = Number(currentFocusMenu)+1;
+                            $('li[name="sbl_list"]').eq(currentFocusMenu).addClass('focus');
+                        }
+                        else if(currentFocusMenu == 1){
+                            console.log("페이지 이동");
+                        }
+                    }
+                   //쇼퍼 추천세트 list
+                    else if(currentFocusList == 1){
+
+                    }
+                   //마트는 지금?
+                    else if(currentFocusList == 2){
+
+                    }
                 }
                 // **************************************************
                 // * 좌 KEY
                 // **************************************************
                 if(keyCode === global.VK_LEFT) {
+                    //쇼퍼 list
+                    if(currentFocusList == 0){
+                        
+                    }
+                   //쇼퍼 추천세트 list
+                    else if(currentFocusList == 1){
+
+                    }
+                   //마트는 지금?
+                    else if(currentFocusList == 2){
+
+                    }
 
                 }
 
@@ -175,6 +227,23 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 // * 우 KEY
                 // **************************************************
                 if(keyCode === global.VK_RIGHT) {
+                    //쇼퍼 list
+                    if(currentFocusList == 0){
+                        //쇼퍼list->쇼퍼 추천세트
+                        $('li[name="sbl_list"]').eq(currentFocusMenu).removeClass('focus');
+                        currentFocusList = 1;
+                        $('li[name="pl_menu"]').eq(currentFocusMenu2).addClass('focus');
+                        $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').addClass('focus');
+                        
+                    }
+                   //쇼퍼 추천세트 list
+                    else if(currentFocusList == 1){
+
+                    }
+                   //마트는 지금?
+                    else if(currentFocusList == 2){
+
+                    }
                     
                 }
                 
