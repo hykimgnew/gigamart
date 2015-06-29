@@ -436,6 +436,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
                                 $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
                                 $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                                $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');
                             }
                             else if(prevPageYN == false && currentFocusDtlPage <= 0) {
                                 // 전 페이지 없음
@@ -447,6 +448,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                         else if(verticalFocus >= 1 && verticalFocus < 3) {
                             $('li[name="li_discount"]').eq(currentFocusDtl).removeClass('focus');
                             $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').empty();
+                            $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').removeClass('focus');
                             
                             verticalFocus   = verticalFocus - 1;    // 행 감소
                             horizonFocus    = horizonFocus;         // 열 증감 없음
@@ -455,6 +457,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
                             $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
                             $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                            $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');
                         }
                     }
 
@@ -490,6 +493,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
                             $('li[name="li_discount"]').eq(currentFocusDtl).removeClass('focus');
                             $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').empty();
+                            $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').removeClass('focus');
 
                             verticalFocus   = verticalFocus + 1;    // 행 증가
                             horizonFocus    = horizonFocus;         // 열 증감 없음
@@ -498,6 +502,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
                             $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
                             $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                            $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');
                         }
 
                         // 세번째 행 일때
@@ -532,6 +537,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
                                 $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
                                 $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                                $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');
                             }
                             else if(nextPageYN == false) {
                                 // 다음 페이지 없음
@@ -563,6 +569,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                         if(horizonFocus >= 1 && horizonFocus < 3) {
                             $('li[name="li_discount"]').eq(currentFocusDtl).removeClass('focus');
                             $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').empty();
+                            $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').removeClass('focus');
 
                             verticalFocus   = verticalFocus;        // 행 증감 없음
                             horizonFocus    = horizonFocus - 1;     // 열 감소
@@ -571,6 +578,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
                             $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
                             $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                            $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');
                         }
                     }
 
@@ -587,6 +595,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
                         $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
                         $('li[name="li_discount"]:eq(' + currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                        $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');
                     }    
                 }
 
@@ -606,6 +615,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                             if(currentPageCnt > currentFocusDtl+1) {
                                 $('li[name="li_discount"]').eq(currentFocusDtl).removeClass('focus');
                                 $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').empty();
+                                $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').removeClass('focus');
 
                                 verticalFocus   = verticalFocus;        // 행 증감 없음
                                 horizonFocus    = horizonFocus + 1;     // 열 증가
@@ -614,11 +624,13 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
                                 $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
                                 $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                                $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');
                             // 우측에 상품이 없을 때
                             } else if(currentPageCnt == currentFocusDtl+1) {
                                 console.log("### 우측에 상품이 없어서 back 버튼으로 이동");
                                 $('li[name="li_discount"]').eq(currentFocusDtl).removeClass('focus');
                                 $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').empty();
+                                $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').removeClass('focus');
 
                                 currentFocusList = 3; // 화살표 버튼으로
 
@@ -630,6 +642,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                         else if(horizonFocus == 2) {
                             $('li[name="li_discount"]').eq(currentFocusDtl).removeClass('focus');
                             $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').empty();
+                            $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').removeClass('focus');
 
                             currentFocusList = 3; // 화살표 버튼으로
 
@@ -855,6 +868,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
             complete  : function(result) {
                 $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
                 $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');
 
                 // 서브카테고리 Set
                 setSubCategory();
