@@ -12,10 +12,13 @@ var tid;      // 타이머 객체
 // 타이머 시작
 function TimerStart() {
     tid=setInterval('msg_time()', 1000);
+
+    console.log("########## Set Time : " + SetTime);
 }
 
 // 1초씩 카운트
 function msg_time() {
+
 
     var hour = Math.floor(SetTime / (60 * 60));
     var divisor_for_minutes = SetTime % (60 * 60);
@@ -51,13 +54,6 @@ function cn_toPrice(n) {
     while (reg.test(n))
     n = n.replace(reg, '$1' + ',' + '$2');
     return n;
-}
-
-// 남은 시간 타이머
-function fn_timer() {
-    var time = $('#timer').html();
-
-    console.log("######## 시간 : " + time);
 }
 
 // 지금 이상품 이가격 페이징 표시 on/off
@@ -203,12 +199,19 @@ function fn_videoPlay(url, category, type) {
         document.getElementById('span_videoDiv').appendChild(videoPlayer);
         videoPlayer.data = url;
         videoPlayer.play(1);*/
-        var appendVideo = '<video id="sub_mpeg_player" width="614" height="343" style="margin-left : 0px;" loop src="' + url + '"></video>';
         //document.getElementById('span_videoDiv').appendChild(appendVideo);
+
+        // sar 2015-06-29
+        /*var appendVideo = '<video id="sub_mpeg_player" width="614" height="343" style="margin-left : 0px;" loop src="' + url + '"></video>';
         $('#span_videoDiv').empty().append(appendVideo);
 
         var videoPlayer = document.querySelector('video');
-        videoPlayer.play(1);
+        videoPlayer.play(1);*/
+
+        // khy 2015-06-29
+        $('#p_videoDiv video').remove();
+        $('#span_videoDiv video').remove();
+        $('#span_videoDiv').html('<video id="sub_mpeg_player" width="614" height="343" autoplay loop src="' + url + '"></video>');
     }
     // 전체 영상보기
     else if(type == 2) {
@@ -223,13 +226,20 @@ function fn_videoPlay(url, category, type) {
         document.getElementById('p_videoDiv').appendChild(videoPlayer2);
         videoPlayer2.data = url;
         videoPlayer2.play(1);*/
-
-        var appendVideo = '<video id="full_mpeg_player" width="970" height="545" loop src="' + url + '"></video>';
         //document.getElementById('p_videoDiv').appendChild(appendVideo);
+        
+
+        //sar 2015-06-29
+        /*var appendVideo = '<video id="full_mpeg_player" width="970" height="545" loop src="' + url + '"></video>';
         $('#p_videoDiv').empty().append(appendVideo);
 
         var videoPlayer = document.querySelector('video');
-        videoPlayer.play(1);
+        videoPlayer.play(1);*/
+
+        // khy 2015-06-29
+        $('#span_videoDiv video').remove();
+        $('#p_videoDiv video').remove();
+        $('#p_videoDiv').html('<video id="full_mpeg_player" width="970" height="545" autoplay loop src="' + url + '"></video>');
     }
 }
 
@@ -1807,13 +1817,21 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 videoPlayer.data = url;
                 videoPlayer.play(1);*/
                 
-                var appendVideo = '<video id="sub_mpeg_player" width="614" height="351" style="margin-left:-2px;" loop src="' + url + '"></video>';
                 //document.getElementById('span_videoDiv').appendChild(appendVideo);
+
+                // sar 2015-06-29
+                /*var appendVideo = '<video id="sub_mpeg_player" width="614" height="351" style="margin-left:-2px;" loop src="' + url + '"></video>';
                 $('#span_videoDiv').empty().append(appendVideo);
 
                 var videoPlayer = document.querySelector('video');
-                videoPlayer.play(1);
+                videoPlayer.play(1);*/
+
+                // khy 2015-06-29
+                $('#p_videoDiv video').remove();
+                $('#span_videoDiv video').remove();
+                $('#span_videoDiv').html('<video id="sub_mpeg_player" width="614" height="343" autoplay loop src="' + url + '"></video>');
             }
+
 
             
         }
@@ -1823,22 +1841,28 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             if(url == "/video/tv/product_event/2-6기획전_치킨.mp4"){
                 // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)]
                 $('#p_videoDiv').empty().append('<img src="'+cmsServerIp+'/video/tv/product_event/2-6기획전_치킨.png" style="width : 970px; height : 545px;"/>');
-            }
-            else{
-            // 테스트용 영상
-            url = cmsServerIp + url;
-            /*videoPlayer2.width = 970;
-            videoPlayer2.height = 545;
-            $('#p_videoDiv').empty()
-            document.getElementById('p_videoDiv').appendChild(videoPlayer2);
-            videoPlayer2.data = url;
-            videoPlayer2.play(1);*/
-            var appendVideo = '<video id="full_mpeg_player" width="970" height="545" loop src="' + url + '"></video>';
-            //document.getElementById('p_videoDiv').appendChild(appendVideo);
-            $('#p_videoDiv').empty().append(appendVideo);
+            } else {
+                // 테스트용 영상
+                url = cmsServerIp + url;
+                /*videoPlayer2.width = 970;
+                videoPlayer2.height = 545;
+                $('#p_videoDiv').empty()
+                document.getElementById('p_videoDiv').appendChild(videoPlayer2);
+                videoPlayer2.data = url;
+                videoPlayer2.play(1);*/
+                //document.getElementById('p_videoDiv').appendChild(appendVideo);
 
-            var videoPlayer = document.querySelector('video');
-            videoPlayer.play(1);
+
+                // sar 2015-06-29
+                /*var appendVideo = '<video id="full_mpeg_player" width="970" height="545" loop src="' + url + '"></video>';
+                $('#p_videoDiv').empty().append(appendVideo);
+                var videoPlayer = document.querySelector('video');
+                videoPlayer.play(1);*/
+
+                // khy 2015-06-29
+                $('#span_videoDiv video').remove();
+                $('#p_videoDiv video').remove();
+                $('#p_videoDiv').html('<video id="full_mpeg_player" width="970" height="545" autoplay loop src="' + url + '"></video>');
             }
             
         }
@@ -2084,6 +2108,12 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         $('input[name="tv_video"]').eq(index).val(entry['tv_video']);
                         $('li[name="sl_img"]').eq(index).empty().html('<img class="sl_menu_img" src="'+cmsServerIp +img2+'"/>');
                         $('input[name="sl_id"]').eq(index).val(entry['product_id']);
+
+                        // 남은 시간
+                        $('input[name="SetTime"]').eq(index).val(entry['duration_sec']);
+                        // 첫번째 남은시간
+                        if(index == 0) SetTime = entry['duration_sec'];
+
                         //$('li[name="sl_img"]').eq(index).empty().html('<img src="'+cmsServerIp + entry['img']+'"/>');
 
                         video[index] = entry['tv_video'];
@@ -2110,6 +2140,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
 
                 });
+    
 
                 pageArrowUtil1('INIT');
 
@@ -2333,21 +2364,26 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         console.log("######## entry[id]와 request값 같은때 ########");
                         $('span[name="ad_name"]').empty().append(entry['name']+entry['standard']);
                         $('b[name="timesale_won"]').empty().append(cn_toPrice(entry['cost']) + "원");
+
+                        // 남은 시간
+                        SetTime = $('input[name="SetTime"]').val();
+
                     }
                 });
 
                 // 타이머
                 if(typeof tid !== 'undefined') clearInterval(tid);
                 
-                $('#timer').html("00:32:24");
-                viewTime = $('#timer').html();
+                //$('#timer').html(entry['duration_sec']);
+                //viewTime = $('#timer').html();
 
                 // SetTime 초로 변환
-                var transHour   = Number(viewTime.substring(0,2)) * 3600;
+                /*var transHour   = Number(viewTime.substring(0,2)) * 3600;
                 var transMinute = Number(viewTime.substring(3,5)) * 60;
                 var transSecond = Number(viewTime.substring(6,8)) * 1;
-                SetTime = transHour + transMinute + transSecond;
+                SetTime = transHour + transMinute + transSecond;*/
 
+                // 남은 시간
                 TimerStart();
             },
             error : function(){

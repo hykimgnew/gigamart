@@ -98,7 +98,7 @@ function setSubCategory() {
     console.log("############## 카테고리 : " + requestCategoryCode);
 
     if(requestCategoryCode == '과일') {
-        arrSubCategory = [ "사과/배", "참외/토마토", "키위/딸기/멜론/수박", "귤/한라봉/천혜향", "바나나/오렌지/외국과일", "복분자/블루베리", "견과/견과" ];
+        arrSubCategory = [ "사과/배", "참외/토마토", "키위/딸기/멜론/수박", "귤/한라봉/천혜향", "바나나/오렌지/외국과일", "복분자/블루베리", "건과/견과" ];
     }
 
     else if(requestCategoryCode == '채소') {
@@ -139,30 +139,25 @@ function setSubCategory() {
 function updateSubCategoryTitle() {
     console.log("############ 카테고리 배열 cnt : " + arrSubCategory.length);
     for(var i=0 ; i < arrSubCategory.length ; i++) {
+        console.log("#### 카테고리순서 확인 : " + i + " : " + arrSubCategory[i] + " requestCategoryDtlCode : " + requestCategoryDtlCode);
+
         if(arrSubCategory[i] == requestCategoryDtlCode) {
-            console.log("#### 카테고리 : " + i + " : " + requestCategoryDtlCode);
+            console.log("#### 카테고리 : " + arrSubCategory[i] + " : " + requestCategoryDtlCode);
             $('div[name="sd_first_tit"]').empty().append(arrSubCategory[i]);
+
 
             // 마지막 항목이면
             if(i == arrSubCategory.length-1) {
                 console.log("#### 카테고리 마지막 ");
-                $('div[name="sd_second"]').hide(); // second 감춤
-                $('div[name="sd_third"]').hide(); // third 감춤
+
+                $('div[name="sd_second"]').empty().append(arrSubCategory[0]); // 가장 첫번째 항목 보여줌
             }
 
             // 마지막에서 두번째 항목이면
-            else if(i == arrSubCategory.length-2) {
-                console.log("#### 카테고리 마지막에서 두번째 ");
-                $('div[name="sd_third"]').hide(); // third 감춤
+            else if(i <= arrSubCategory.length-2) {
+                console.log("#### 카테고리 마지막에서 두번째보다 작으면 ");
                 $('div[name="sd_second"]').empty().append(arrSubCategory[i+1]);
             }
-
-            // 마지막에서 세번째 항목 이전이면
-            else if(i < arrSubCategory.length-2) {
-                console.log("#### 카테고리 마지막에서 세번째보다 작으면.. ");
-                $('div[name="sd_second"]').empty().append(arrSubCategory[i+1]);
-            }
-            
         }
     }
 }

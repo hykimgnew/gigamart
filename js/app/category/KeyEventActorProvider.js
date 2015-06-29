@@ -30,17 +30,24 @@ function rtspPlay() {
     var url = "rtsp://175.209.53.209:1554/11023.sdp";
     // rtspPlayer = document.querySelector('object');
     // var url = cmsServerIp + "/video/tv/product_event/2-2기획전_문어.mp4";
-    console.log("url : " + url + " 재생함");
+    /*console.log("url : " + url + " 재생함");
     rtspPlayer.width = 970;
     rtspPlayer.height = 545;
     $('#rtsp_area').empty();
     document.getElementById('rtsp_area').appendChild(rtspPlayer);
     rtspPlayer.data = url;
-    setTimeout(rtspPlayer.play(1), 500);
+    setTimeout(rtspPlayer.play(1), 500);*/
+
+    // khy 2015-06-29
+    $('#rtsp_area video').remove();
+    $('#rtsp_area').html('<video id="sub_mpeg_player" width="970" height="545" autoplay loop src="' + url + '"></video>');
 }
 
 function rtspStop() {
-    rtspPlayer.stop();
+    //rtspPlayer.stop();
+
+    // khy 2015-06-29
+    $('#rtsp_area video').remove();
 }
 
 /**
