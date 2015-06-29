@@ -129,6 +129,9 @@ function setSubCategory() {
         arrSubCategory = [ "즉석/간편식/햄/통조림", "라면/국수/면류", "생수/커피/차/음료", "조미료/향신료/장류", "과자", "사탕/초콜릿/껌", "빵/식빵/케익/잼" ];
     }
 
+    //GIGA 하나로 마트 옆에 카테고리 뿌려주기
+    $('h1[name="cate_dtl_title"]').empty().append(requestCategoryCode+"코너");
+
     updateSubCategoryTitle(); // 제목 Set
 }
 

@@ -240,10 +240,12 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                         currentFocusList = 3;
                         histFocus = 2;
                         $('li[name="category_menu"]').eq(currentFocusMenu).removeClass('focus');
+                        $('li[name="category_menu"]').eq(currentFocusMenu).addClass("sel");
                     }
 
                     // 쇼퍼's bag
                     if(currentFocusMenu == 3) {
+                        console.log("123123");
                         $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("focus");
                         $('li[name="category_menu"]').eq(currentFocusMenu).addClass("sel");
                         currentFocusList = 2; // 쇼퍼's Bag
@@ -297,6 +299,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                         histFocus = 2;
                         $('#shopper_history').hide();
                         $('#shopper_bag').show();
+                        $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("sel");
                         $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
                     }
                 }
@@ -562,6 +565,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             currentFocusList = 3;
                             histFocus = 2;
                             $('li[name="category_menu"]').eq(currentFocusMenu).removeClass('focus');
+                            $('li[name="category_menu"]').eq(currentFocusMenu).addClass("sel");
                         }
 
                         // 쇼퍼's Bag 일때
