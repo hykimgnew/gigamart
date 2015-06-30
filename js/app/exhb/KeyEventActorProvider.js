@@ -2364,10 +2364,6 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         console.log("######## entry[id]와 request값 같은때 ########");
                         $('span[name="ad_name"]').empty().append(entry['name']+entry['standard']);
                         $('b[name="timesale_won"]').empty().append(cn_toPrice(entry['cost']) + "원");
-
-                        // 남은 시간
-                        SetTime = $('input[name="SetTime"]').val();
-
                     }
                 });
 
@@ -2515,34 +2511,50 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     //requestCategoryDtlId="18000";
                     requestCategoryDtlCode = "사과/배";
                     this.selectProductSubCategory2(requestCategoryDtlCode,18000);
+                    // 남은 시간
+                    SetTime = $('input[name="SetTime"]').eq(0).val();
                 }else if(bb == "2-2기획전_문어"){
                     //requestCategoryDtlId="54009";
                     requestCategoryDtlCode = "생선/해산물";
                     this.selectProductSubCategory2(requestCategoryDtlCode,51017);
+                    // 남은 시간
+                    SetTime = $('input[name="SetTime"]').eq(1).val();
                 }else if(bb == "2-3기획전_한우"){
                     //requestCategoryDtlId="41000";
                     requestCategoryDtlCode = "소고기";
                     this.selectProductSubCategory2(requestCategoryDtlCode,41000);
+                    // 남은 시간
+                    SetTime = $('input[name="SetTime"]').eq(2).val();
                 }else if(bb == "2-4기획전_활전복"){
                     //requestCategoryDtlId="54010";
                     requestCategoryDtlCode = "생선/해산물";
                     this.selectProductSubCategory2(requestCategoryDtlCode,51018);
+                    // 남은 시간
+                    SetTime = $('input[name="SetTime"]').eq(3).val();
                 }else if(bb == "2-5기획전_해산물"){
                     //requestCategoryDtlId="51008";
                     requestCategoryDtlCode = "생선/해산물";
                     this.selectProductSubCategory2(requestCategoryDtlCode,51008);
+                    // 남은 시간
+                    SetTime = $('input[name="SetTime"]').eq(0).val();
                 }else if(bb == "2-6기획전_치킨"){
                     //requestCategoryDtlId="43007";
                     requestCategoryDtlCode = "닭/오리";
                     this.selectProductSubCategory2(requestCategoryDtlCode,43007);
+                    // 남은 시간
+                    SetTime = $('input[name="SetTime"]').eq(1).val();
                 }else if(bb == "2-7기획전_활어회"){
                     //requestCategoryDtlId="54011";
                     requestCategoryDtlCode = "생선/해산물";
                     this.selectProductSubCategory2(requestCategoryDtlCode,51019);
+                    // 남은 시간
+                    SetTime = $('input[name="SetTime"]').eq(2).val();
                 }else if(bb == "2-8기획전_파프리카"){
                     //requestCategoryDtlId="26000";
                     requestCategoryDtlCode = "파프리카/피망";
                     this.selectProductSubCategory2(requestCategoryDtlCode,26000);
+                    // 남은 시간
+                    SetTime = $('input[name="SetTime"]').eq(3).val();
                 }
 
     },
