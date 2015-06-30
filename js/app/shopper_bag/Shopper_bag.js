@@ -75,7 +75,10 @@ var currentFocusMenu2 = 0;
   **/
 var currentFocusMenu3 = 0;
 
-
+/**
+  * 쇼퍼 추천세트 : 확인/상세/담기 
+  **/
+  var btnokfill = '<img src="../images/btn_ok_fill.png"/>';
 
 
 global.onload = function() {
