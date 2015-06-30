@@ -188,8 +188,7 @@ var videoFlag = true;
 function fn_videoPlay(url, category, type) {
     // 지금 이상품 이가격
     if(type == 1) {
-        // 테스트용 영상
-        url = cmsServerIp + url;
+   
         // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
         /*$('#span_videoDiv').empty().append('<img src="../images/sample_02.jpg"  style="width : 610px; height : 343px;"/>');
         
@@ -209,14 +208,19 @@ function fn_videoPlay(url, category, type) {
         videoPlayer.play(1);*/
 
         // khy 2015-06-29
+
+        url = cmsServerIp + url;
+
+        // 테스트용 영상
+        url = cmsServerIp + "/video/tv/product_event/2-4기획전_활전복.mp4";
+
         $('#p_videoDiv video').remove();
         $('#span_videoDiv video').remove();
         $('#span_videoDiv').html('<video id="sub_mpeg_player" width="614" height="343" autoplay loop src="' + url + '"></video>');
     }
     // 전체 영상보기
     else if(type == 2) {
-        // 테스트용 영상
-        url = cmsServerIp + url;
+        
         // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
         /*$('#p_videoDiv').empty().append('<img src="../images/sample_02.jpg" style="width : 970px; height : 545px;"/>');
         
@@ -237,6 +241,12 @@ function fn_videoPlay(url, category, type) {
         videoPlayer.play(1);*/
 
         // khy 2015-06-29
+
+        url = cmsServerIp + url;
+
+        // 테스트용 영상
+        url = cmsServerIp + "/video/tv/product_event/2-4기획전_활전복.mp4";
+
         $('#span_videoDiv video').remove();
         $('#p_videoDiv video').remove();
         $('#p_videoDiv').html('<video id="full_mpeg_player" width="970" height="545" autoplay loop src="' + url + '"></video>');
@@ -1808,8 +1818,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             }
             else{
                 console.log("치킨아님!!!! : "+url);
-            // 테스트용 영상
-            url = cmsServerIp + url;
+            
                 /*videoPlayer.width = 610;
                 videoPlayer.height = 343;
                 $('#span_videoDiv').empty()
@@ -1827,6 +1836,11 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 videoPlayer.play(1);*/
 
                 // khy 2015-06-29
+                url = cmsServerIp + url;
+
+                // 테스트용 영상
+                url = cmsServerIp + "/video/tv/product_event/2-4기획전_활전복.mp4";
+
                 $('#p_videoDiv video').remove();
                 $('#span_videoDiv video').remove();
                 $('#span_videoDiv').html('<video id="sub_mpeg_player" width="614" height="343" autoplay loop src="' + url + '"></video>');
@@ -1842,8 +1856,6 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)]
                 $('#p_videoDiv').empty().append('<img src="'+cmsServerIp+'/video/tv/product_event/2-6기획전_치킨.png" style="width : 970px; height : 545px;"/>');
             } else {
-                // 테스트용 영상
-                url = cmsServerIp + url;
                 /*videoPlayer2.width = 970;
                 videoPlayer2.height = 545;
                 $('#p_videoDiv').empty()
@@ -1860,6 +1872,11 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 videoPlayer.play(1);*/
 
                 // khy 2015-06-29
+                url = cmsServerIp + url;
+                
+                // 테스트용 영상
+                url = cmsServerIp + "/video/tv/product_event/2-4기획전_활전복.mp4";
+
                 $('#span_videoDiv video').remove();
                 $('#p_videoDiv video').remove();
                 $('#p_videoDiv').html('<video id="full_mpeg_player" width="970" height="545" autoplay loop src="' + url + '"></video>');
