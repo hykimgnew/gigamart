@@ -203,7 +203,7 @@ function fn_videoPlay(url, category, type) {
         
         videoPlayer.width = 610;
         videoPlayer.height = 343;
-        $('#span_videoDiv').empty()
+        $('#span_videoDiv').empty();
         document.getElementById('span_videoDiv').appendChild(videoPlayer);
         videoPlayer.data = url;
         videoPlayer.play(1);*/
@@ -220,7 +220,7 @@ function fn_videoPlay(url, category, type) {
         url = cmsServerIp + url;
 
         // 테스트용 영상
-        url = cmsServerIp + "/video/tv/product_event/2-4기획전_활전복.mp4";
+        //url = cmsServerIp + "/video/tv/product_event/2-4기획전_활전복.mp4";
 
         appConfiguration.localSystem.mute = false; // 음소거 해제
 
@@ -255,7 +255,7 @@ function fn_videoPlay(url, category, type) {
         url = cmsServerIp + url;
 
         // 테스트용 영상
-        url = cmsServerIp + "/video/tv/product_event/2-4기획전_활전복.mp4";
+        //url = cmsServerIp + "/video/tv/product_event/2-4기획전_활전복.mp4";
 
         appConfiguration.localSystem.mute = false; // 음소거 해제
 
@@ -295,7 +295,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         //this.videoPlay("/video/tv/product_event/2-1기획전_매실.mp4", Number(currentFocusMenu+2), 1);
         
         // 당일 판매현장 시각
-        $('#cv_title').html("오늘 " + this.getCurrentDate() +" 현장 영상");
+        // $('#cv_title').html("오늘 " + this.getCurrentDate() +" 현장 영상");
 
         // 로그인 확인
         console.log("############ 로그인 되었습니다. : 구매자 ID : " + buyerID);
@@ -1907,7 +1907,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 url = cmsServerIp + url;
 
                 // 테스트용 영상
-                url = cmsServerIp + "/video/tv/product_event/2-4기획전_활전복.mp4";
+                //url = cmsServerIp + "/video/tv/product_event/2-4기획전_활전복.mp4";
 
                 appConfiguration.localSystem.mute = false; // 음소거 해제
 
@@ -1945,7 +1945,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 url = cmsServerIp + url;
 
                 // 테스트용 영상
-                url = cmsServerIp + "/video/tv/product_event/2-4기획전_활전복.mp4";
+                // url = cmsServerIp + "/video/tv/product_event/2-4기획전_활전복.mp4";
 
                 appConfiguration.localSystem.mute = false; // 음소거 해제
 
