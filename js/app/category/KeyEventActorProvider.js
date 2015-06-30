@@ -1,7 +1,7 @@
 'use strict';
 
 var videoPlayer;
-
+var appConfiguration = window.oipfObjectFactory.createConfigurationObject();
 
 // 숫자 -> 금액
 function cn_toPrice(n) {
@@ -39,6 +39,8 @@ function rtspPlay() {
     setTimeout(rtspPlayer.play(1), 500);*/
 
     // khy 2015-06-29
+    appConfiguration.localSystem.mute = false; // 음소거 해제
+
     $('#rtsp_area video').remove();
     $('#rtsp_area').html('<video id="sub_mpeg_player" width="970" height="545" autoplay loop src="' + url + '"></video>');
 }
@@ -47,6 +49,7 @@ function rtspStop() {
     //rtspPlayer.stop();
 
     // khy 2015-06-29
+    appConfiguration.localSystem.mute = true; // 음소거 설정
     $('#rtsp_area video').remove();
 }
 
@@ -222,6 +225,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             // * ◀ KEY (플로팅 Go home)
             // **************************************************
             if(keyCode === global.VK_RED) {
+                $('#videoDiv video').remove();
                 location.href ="exhb.html"; // 기획전 이동
             }
 
@@ -231,6 +235,9 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             if (keyCode === global.VK_ENTER) {
                 // 전체 카테고리 일때
                 if(currentFocusList == 0) {
+                    // My Page
+                    
+                    
                     // 쇼퍼 주문 이력
                     if(currentFocusMenu == 2) {
 
@@ -277,6 +284,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                     /*videobroadcast.style.visibility = hidden;*/
 
                     // 상세 카테고리로 이동
+                    $('#videoDiv video').remove();
                     location.href ="category_dtl.html?categoryCode="  + $('span[name="span_category_menu"]').eq(currentFocusMenu-3).html()
                                                  + "&categoryDtlCode=" + $('li[name="appendMenu"]').eq(currentFocusDtl).html()
                                                  + "&categoryDtlPage=" + currentFocusDtlPage;
@@ -285,6 +293,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 // 쇼퍼's Bag 일때
                 else if(currentFocusList == 2) {
                     // 쇼퍼's Bag으로 이동
+                    $('#videoDiv video').remove();
                     location.href = "shopper_bag.html";
                 }
 
@@ -612,6 +621,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 
                 
             } else if (keyCode === global.VK_BACK) {
+                $('#videoDiv video').remove();
                 location.href ="exhb.html";
                 
             } else if (keyCode === global.VK_ESCAPE) {
@@ -663,25 +673,20 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         videoPlayer.data = url;
         */
         /*<video id="sub_mpeg_player" width="704" height="396" loop src="http://14.52.244.91:8080/video/tv/category/과일.mp4"></video>*/
-        url = cmsServerIp + "/video/tv/category/" + categoryName + ".mp4";
         console.log("현재 재생영상 : " + url);
 
-        var appendVideo = '<video id="sub_mpeg_player" width="704" height="396" loop src="' + url + '"></video>';
-        $('#videoDiv').empty().append(appendVideo);
+        url = cmsServerIp + "/video/tv/category/" + categoryName + ".mp4";
 
-        videoPlayer = document.querySelector('video');
-        videoPlayer.play(1);
+        appConfiguration.localSystem.mute = false; // 음소거 해제
+
+        $('#videoDiv video').remove();
+        $('#videoDiv').html('<video id="full_mpeg_player" width="704" height="396" autoplay loop src="' + url + '"></video>');
     },
 
     // 영상 정지
     videoStop: function() {
-        try {
-             if(videoPlayer.playState != 0 ) {
-                  videoPlayer.stop();
-             }
-        } catch(err){
-             alert("Video stop " + err);
-        }
+        appConfiguration.localSystem.mute = true; // 음소거 설정
+        $('#videoDiv video').remove();
     },
     
     // 화면 이동 시 메뉴 갱신

@@ -1,5 +1,5 @@
 //'use strict';
-
+var appConfiguration = window.oipfObjectFactory.createConfigurationObject();
 
 // 쿠키 생성
 function setCookie(cName, cValue, cDay){
@@ -33,9 +33,6 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
     	var me = this;
 
     	me.actors = [];
-
-        var config  = window.oipfObjectFactory.createConfigurationObject();
-        config.localSystem.mute = true; // 음소거 on
 
         $('#intro_skip').show(); // 인트로 버튼 on
 
@@ -107,11 +104,13 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
                     //buyerID = result['id'];
                     //setCookie('buyerID', result['id'], 1); // 로그인 할때 ID 쿠키 저장
                     console.log("############ 로그인 되었습니다. " + buyerID);
+                    appConfiguration.localSystem.mute = true; // 음소거 설정
                     location.href = "view/exhb.html?buyerID=" + result['id'];  // 메인 화면으로 이동
                 }
 
                 else if(result['resultCode'] == '0') {
                     console.log("############ 로그인 실패하였습니다.");
+                    appConfiguration.localSystem.mute = true; // 음소거 설정
                     location.href = "view/exhb.html";  // 메인 화면으로 이동
                     
                     //alert("로그인에 실패하였습니다.");
@@ -120,6 +119,7 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
                 
                 else {
                     console.log("############ 셋탑박스를 확인해주시거나 고객센터로 문의해주세요.");
+                    appConfiguration.localSystem.mute = true; // 음소거 설정
                     location.href = "view/exhb.html";  // 메인 화면으로 이동
 
                     //alert("셋탑박스를 확인해주시거나 고객센터로 문의해주세요.");

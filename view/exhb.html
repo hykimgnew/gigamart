@@ -366,7 +366,7 @@
 
 	<!-- extends Library -->
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+	<!-- <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script> -->
 
 	<!-- socket.io 이벤트 -->
 	<script type="text/javascript">
@@ -398,9 +398,9 @@
 		// jQuery 문서 시작
 		$(document).ready(function() {
 
-			var socket = io.connect("http://14.52.244.91:8080");
+			//var socket = io.connect("http://14.52.244.91:8080");
 
-			socket.on('start_shopping', function(buyer_id, shopper_id, order_id, status) {
+			/*socket.on('start_shopping', function(buyer_id, shopper_id, order_id, status) {
 				
 				// 웹소켓으로 push 받아오는 이벤트
 				console.log("socket - buyer_id : " + buyer_id);
@@ -414,16 +414,16 @@
 
 					if(isFullVideo == false && isCart == false && isRealTime == false && isRealTimeStart == false && isRealTimeEnd == false && isRealTimeEndComplete == false) {
 						if(status == 2) {
-							/* 쇼퍼 쇼핑 시작 이벤트 */
+							//* 쇼퍼 쇼핑 시작 이벤트 
 							setTimeout(Gigamart.app.exhb.KeyEventActorProvider.shopperRealTimeStart, 500);	
 						} 
 						if(status == 3) {
-							/* 쇼퍼 구매 완료 이벤트 */
+							//* 쇼퍼 구매 완료 이벤트
 						}
 					}
 				}
 				
-			});
+			});*/
 		});
 	</script>
 </body>

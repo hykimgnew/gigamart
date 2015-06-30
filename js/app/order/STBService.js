@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- *  Category Js : STBService (셋탑박스 서비스 공통)
+ *  Order Js : STBService (셋탑박스 서비스 공통)
  **/
-App.defineClass('Gigamart.app.category_dtl.STBService', { 
+App.defineClass('Gigamart.app.order.STBService', { 
 
 	_construct: function () {
 		var me = this;
@@ -16,7 +16,7 @@ App.defineClass('Gigamart.app.category_dtl.STBService', {
 			
 		me.ownerApp = me.appManager.getOwnerApplication(window.document);
 
-		me.keyEventProvider = Gigamart.app.category_dtl.KeyEventActorProvider.create();
+		me.keyEventProvider = Gigamart.app.order.KeyEventActorProvider.create();
 
 		me._initializeKeySet();
 	},
@@ -24,7 +24,7 @@ App.defineClass('Gigamart.app.category_dtl.STBService', {
 	_initializeKeySet: function () {
 		var me = this,
 			original = me.ownerApp.privateData.keyset,
-			keySet = (original.NAVIGATION + original.VCR + original.OTHER);
+			keySet = (original.NAVIGATION + original.VCR);
 			
 	    original.setValue(original.maximumValue, [global.VK_CHANNEL_UP, global.VK_CHANNEL_DOWN]);
 

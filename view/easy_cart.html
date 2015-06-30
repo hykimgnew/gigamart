@@ -41,17 +41,17 @@
 	<!--content_right START -->
 	<div class="content_right">
 		<div class="easycart">
-			<div class="ec_tit">간편 장바구니<span>장바구니 가기</span><!--span class="focus">장바구니 가기</span--></div>
+			<div class="ec_tit">간편 장바구니<span id="go_cart">장바구니 가기</span><!--span class="focus">장바구니 가기</span--></div>
 			<ul class="ec_calcu">
-				<li class="ecc_pa">상품금액<span>0원</span></li>
+				<li class="ecc_pa">상품금액<span id="cost">0원</span></li> <!-- 0원 -->
 				<li class="ecc_plus">+</li>
-				<li class="ecc_sc">쇼퍼수수료<span>0원</span></li>
+				<li class="ecc_sc">쇼퍼수수료<span id="shopper_cost">0원</span></li> <!-- 0원 -->
 				<li class="ecc_eq">=</li>
-				<li class="ecc_pm">결제예상금액<span>0원</span></li>
-				<li class="ecc_payments">결제</li><!--li class="ecc_payments_focus">결제</li-->
+				<li class="ecc_pm">결제예상금액<span id="total_cost">0원</span></li> <!-- 0원 -->
+				<li class="ecc_payments focus" id="ecc_payments">결제</li><!--li class="ecc_payments_focus">결제</li-->
 			</ul>
 			<div class="ec_list">
-				<ul>
+				<ul id="ec_list">
 					<!-- <li class="scl_row_focus">
 						<table width="100%" cellpadding="0" cellspacing="0" border="0">
 							<tr>

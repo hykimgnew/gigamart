@@ -41,10 +41,13 @@ App.defineClass('Gigamart.app.intro.STBService', {
 		var me = this,
 			keyCode = e.keyCode,
 			keyEventActor = me.keyEventProvider.getKeyEventActor(keyCode);
-
 	},
 
 	addKeyEventActor: function (instance, conditionFunction) {
+		// 음소거 on (영상 재생시 off)
+		var appConfiguration = window.oipfObjectFactory.createConfigurationObject();
+		appConfiguration.localSystem.mute = true;
+
 		this.keyEventProvider.addKeyEventActor(instance, conditionFunction);
 	}
 });

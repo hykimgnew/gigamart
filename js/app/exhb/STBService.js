@@ -44,6 +44,10 @@ App.defineClass('Gigamart.app.exhb.STBService', {
 	},
 
 	addKeyEventActor: function (instance, conditionFunction) {
+		// 음소거 on (영상 재생시 off)
+		var appConfiguration = window.oipfObjectFactory.createConfigurationObject();
+		appConfiguration.localSystem.mute = true;
+
 		this.keyEventProvider.addKeyEventActor(instance, conditionFunction);
 	}
 });
