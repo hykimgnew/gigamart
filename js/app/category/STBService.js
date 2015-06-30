@@ -8,7 +8,7 @@ App.defineClass('Gigamart.app.category.STBService', {
 	_construct: function () {
 		var me = this;
 
-		me.channelConfig = window.oipfObjectFactory.createChannelConfig();
+		//me.channelConfig = window.oipfObjectFactory.createChannelConfig();
 
 		me.appConfiguration =  window.oipfObjectFactory.createConfigurationObject().configuration;
 
@@ -43,11 +43,7 @@ App.defineClass('Gigamart.app.category.STBService', {
 			keyEventActor = me.keyEventProvider.getKeyEventActor(keyCode);
 	},
 
-	addKeyEventActor: function (instance, conditionFunction) {
-		// 음소거 on (영상 재생시 off)
-		var appConfiguration = window.oipfObjectFactory.createConfigurationObject();
-		appConfiguration.localSystem.mute = true;
-		
+	addKeyEventActor: function (instance, conditionFunction) {		
 		this.keyEventProvider.addKeyEventActor(instance, conditionFunction);
 	}
 });

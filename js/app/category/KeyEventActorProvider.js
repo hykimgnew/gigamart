@@ -107,7 +107,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         }
         
         // 당일 판매현장 시각
-        $('#cv_title').html("당일 판매현장 " + this.getCurrentDate());
+        // $('#cv_title').html("당일 판매현장 " + this.getCurrentDate());
     },
 
     // 화면 별 키 이벤트 관련 처리
@@ -333,7 +333,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             // **************************************************
             else if (keyCode >= global.VK_LEFT && keyCode <= global.VK_DOWN) {
 
-                $('#cv_title').html("당일 판매현장 " + this.getCurrentDate());
+                //$('#cv_title').html("당일 판매현장 " + this.getCurrentDate());
 
                 // **************************************************
                 // * 위 KEY

@@ -26,6 +26,12 @@ App.defineClass('Gigamart.app.intro.Intro', {
 
     },
     init: function() {
+        // 음소거 on (영상 재생시 off)
+        var appConfiguration = window.oipfObjectFactory.createConfigurationObject();
+        appConfiguration.localSystem.mute = true;
+        var broadcastConf = window.oipfObjectFactory.createChannelConfig();
+        broadcastConf.disableAudio();
+        
         $('#intro_skip').addClass("focus");
 
         var me = this;

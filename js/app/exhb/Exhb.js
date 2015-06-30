@@ -245,6 +245,9 @@ App.defineClass('Gigamart.app.exhb.Exhb', {
         
         global.stbService = Gigamart.app.exhb.STBService.create(EventBus);
 
+        var broadcastConf = window.oipfObjectFactory.createChannelConfig();
+        broadcastConf.disableAudio();
+
         // 팝업 Load
         $('#popup_fv').load("full_video.html");
         //$('#popup_rt').load("shopper_real_time.html");
