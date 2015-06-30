@@ -1873,7 +1873,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                 // khy 2015-06-29
                 url = cmsServerIp + url;
-                
+
                 // 테스트용 영상
                 url = cmsServerIp + "/video/tv/product_event/2-4기획전_활전복.mp4";
 
@@ -1881,7 +1881,6 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 $('#p_videoDiv video').remove();
                 $('#p_videoDiv').html('<video id="full_mpeg_player" width="970" height="545" autoplay loop src="' + url + '"></video>');
             }
-            
         }
     },
 
