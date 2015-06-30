@@ -262,3 +262,26 @@ border-radius: 6px;
 #ul_tweet{
 	/*background : #08760d;*/
 }
+#content .sb_right .sblc_realTime .rt_list.focus {
+	border-radius:10px; 
+	background : #08760d;
+	color : #fff;
+	/*border : 2px solid #08760d;*/
+}
+#content .sb_right .sblc_realTime .rt_list li.smtc_person ul.focus {
+color : #fff;
+}
+.shopper_detail {
+z-index: 100000;
+}
+#wrap2 {
+position: absolute;
+width: 100%;
+height: 720px;
+top: 0;
+left: 0;
+z-index: 100000;
+}
+.shopper_detail .sd_content.focus {
+	background : #08760d;
+}

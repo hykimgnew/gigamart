@@ -31,6 +31,17 @@ var totalShopperListPage    = 0;
 var maxShopperListPage      = 2;
 var arrShopperList          = new Array();
 
+//*************************************************
+// *  마트는지금? list page
+// * currentMartListPage       = 마트는지금? LIST 현재 페이지 (default : 0)
+// * totalMartListPage         = 마트는지금? LIST 전체 페이지
+// * maxMartListPage           = 마트는지금? LIST 한 페이지에 들어갈 마트 수 (default : 1)
+// * arrMartList               = 마트는지금? LIST 배열
+//*************************************************
+var currentMartListPage  = 0;
+var totalMartListPage    = 0;
+var maxMartListPage      = 1;
+var arrMartList          = new Array();
 
 //*************************************************
 //*  팝업 없을 때
@@ -40,7 +51,7 @@ var arrShopperList          = new Array();
  *  0 : 쇼퍼 list(인기순)
  *  1 : 쇼퍼 추천세트 list(인기순)
  *  2 : 마트는 지금?
- *  3 : 
+ *  3 : 쇼퍼 list popup
  *  4 : 
  **/
 var currentFocusList = 0;
@@ -74,6 +85,14 @@ var currentFocusMenu2 = 0;
  * 1 : 
   **/
 var currentFocusMenu3 = 0;
+
+/**
+ * 쇼퍼 상세 Focus 
+ * 0 : 닫기
+ * 1 : 쇼퍼후기
+  **/
+var shpPopFocus = 0;
+
 
 /**
   * 쇼퍼 추천세트 : 확인/상세/담기 

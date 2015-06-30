@@ -91,15 +91,16 @@
 								<li class="sblc_tit">쇼퍼 추천세트 list (인기순)</li>
 								<li class="sblc_product_list">
 										<div>
-											<ul>	
-												<li class="pl_menu mg_r10" name="pl_menu">
+											<ul id="ul_tweet2">	
+												<!-- <li class="pl_menu mg_r10" name="pl_menu">
 													<a href="#" class="dlm_rank"><b>1</b>위</a>
 													<span class="polygon_l">100원 <img src="../images/icon_order.png" /></span>
-													<span class="dm_bdr"></span><!-- <span class="dm_bdr"><img src="../images/btn_ok_fill.png"/></span> -->
+													<span class="dm_bdr"></span>
+													<span class="dm_bdr"><img src="../images/btn_ok_fill.png"/></span>
 													<ul>
-														<li class="dlm_img"><img src="../images/sample_01.jpg" /></li>
-														<li class="dlm_tit">날렵한 갈치</li>
-														<li class="dlm_price">15,900원</li>
+														<li class="dlm_img" name="dl_img"><img src="../images/sample_01.jpg" /> </li>
+														<li class="dlm_tit" name="dl_setName">날렵한 갈치</li>
+														<li class="dlm_price" name="dl_cost">15,900원 </li>
 													</ul>
 												</li>
 												<li class="pl_menu" name="pl_menu">
@@ -107,9 +108,9 @@
 													<span class="polygon_l">250원 <img src="../images/icon_shift.png" /></span>
 													<span class="dm_bdr"></span>
 													<ul>
-														<li class="dlm_img"><img src="../images/sample_01.jpg" /></li>
-														<li class="dlm_tit">달달한 사과</li>
-														<li class="dlm_price">25,900원</li>
+														<li class="dlm_img" name="dl_img"><img src="../images/sample_01.jpg" /> </li>
+														<li class="dlm_tit" name="dl_setName">날렵한 갈치</li>
+														<li class="dlm_price" name="dl_cost">15,900원 </li>
 													</ul>
 												</li>
 												<li class="pl_menu mg_r10" name="pl_menu">
@@ -117,9 +118,9 @@
 													<span class="polygon_l">10,000원 <img src="../images/icon_shift.png" /></span>
 													<span class="dm_bdr"></span>
 													<ul>
-														<li class="dlm_img"><img src="../images/sample_01.jpg" /></li>
-														<li class="dlm_tit">여주 쌀</li>
-														<li class="dlm_price">154,900원</li>
+														<li class="dlm_img" name="dl_img"><img src="../images/sample_01.jpg" /> </li>
+														<li class="dlm_tit" name="dl_setName">날렵한 갈치</li>
+														<li class="dlm_price" name="dl_cost">15,900원 </li>
 													</ul>
 												</li>
 												<li class="pl_menu" name="pl_menu">
@@ -127,9 +128,9 @@
 													<span class="polygon_l">200원 <img src="../images/icon_shift.png" /></span>
 													<span class="dm_bdr"></span>
 													<ul>
-														<li class="dlm_img"><img src="../images/sample_01.jpg" /></li>
-														<li class="dlm_tit">달달한 사과</li>
-														<li class="dlm_price">24,900원</li>
+														<li class="dlm_img" name="dl_img"><img src="../images/sample_01.jpg" /> </li>
+														<li class="dlm_tit" name="dl_setName">날렵한 갈치</li>
+														<li class="dlm_price" name="dl_cost">15,900원 </li>
 													</ul>
 												</li>
 												<li class="pl_menu mg_r10" name="pl_menu">
@@ -137,9 +138,9 @@
 													<span class="polygon_l">200원 <img src="../images/icon_shift.png" /></span>
 													<span class="dm_bdr"></span>
 													<ul>
-														<li class="dlm_img"><img src="../images/sample_01.jpg" /></li>
-														<li class="dlm_tit">달달한 사과</li>
-														<li class="dlm_price">24,900원</li>
+														<li class="dlm_img" name="dl_img"><img src="../images/sample_01.jpg" /> </li>
+														<li class="dlm_tit" name="dl_setName">날렵한 갈치</li>
+														<li class="dlm_price" name="dl_cost">15,900원 </li>
 													</ul>
 												</li>
 												<li class="pl_menu" name="pl_menu">
@@ -147,11 +148,11 @@
 													<span class="polygon_l">200원 <img src="../images/icon_shift.png" /></span>
 													<span class="dm_bdr"></span>
 													<ul>
-														<li class="dlm_img"><img src="../images/sample_01.jpg" /></li>
-														<li class="dlm_tit">달달한 사과</li>
-														<li class="dlm_price">24,900원</li>
+														<li class="dlm_img" name="dl_img"><img src="../images/sample_01.jpg" /> </li>
+														<li class="dlm_tit" name="dl_setName">날렵한 갈치</li>
+														<li class="dlm_price" name="dl_cost">15,900원 </li>
 													</ul>
-												</li>
+												</li> -->
 											</ul>
 										</div>
 								</li>
@@ -169,12 +170,12 @@
 				<ul>
 					<li class="sblc_tit_s">마트는 지금?</li>
 					<li class="sblc_realTime">
-						<ul>
-							<li class="rt_list">
-								<ul id="ul_tweet">
+						<ul id="ul_tweet">
+							<!-- <li class="rt_list"> -->
+								<!-- <ul id="ul_tweet"> -->
 									<!-- 트윗 내용 -->
-								</ul>
-							</li>
+								<!-- </ul> -->
+							<!-- </li> -->
 						</ul>
 					</li>
 				</ul>
@@ -200,7 +201,65 @@
 				<li class="b_carttxt"><img src="../images/bottom_cart.png" /></li>
 			</ul>
 		</div>
+</div>	
+
+	<!-- 쇼퍼 상세 -->
+	<div id="wrap2" class="bg_alpha" name="shopper_detail" style="display : none;">
+	<div class="shopper_detail" >
+							<p class="photoArea"></p>
+							<div class="sp_profile">
+								<ul>
+									<li class="sp_id"><!-- ID : 살림짱 (후기 13) --></li>
+									<li class="sp_star">
+										<!-- <img src="../images/icon_star.png" />
+										<img src="../images/icon_star.png" />
+										<img src="../images/icon_star.png" />
+										<img src="../images/icon_star.png" />
+										<img src="../images/icon_star_blank.png" /> -->
+									</li>
+									<li class="sp_con">
+										<!-- 안녕하세요. <br>쇼퍼 살림짱입니다. 저는 15년 경력의 장보기 달인 입니다.  많이 애용해 주세요. 감사합니다.  -->
+									</li>
+									<li class="sp_spe"><!-- 쇼핑 주종목: 과일 / 쌀 --></li>
+								</ul>
+							</div>
+							<p class="sd_keyword">쇼퍼후기 총 13건 </p>
+							<div class="sd_content">
+								<ul>
+									<li>
+										<span class="sdc_id">ID : zdm********</span>
+										<span class="sdc_txt">쇼퍼님 완전 짱입니다. 제가 직접 장 본 것보다 확실히 전문가의 손길이 느껴집니다. </span>
+									</li>
+									<li>
+										<span class="sdc_id">ID : zdm***</span>
+										<span class="sdc_txt">쇼퍼님 완전 짱입니다. 제가 직접 장 본 것보다 확실히 전문가의 손길이 느껴집니다. </span>
+									</li>
+									<li>
+										<span class="sdc_id">ID : zdm***</span>
+										<span class="sdc_txt">쇼퍼님 완전 짱입니다. 제가 직접 장 본 것보다 확실히 전문가의 손길이 느껴집니다. </span>
+									</li>
+									<li>
+										<span class="sdc_id">ID : zdm***</span>
+										<span class="sdc_txt">쇼퍼님 완전 짱입니다. 제가 직접 장 본 것보다 확실히 전문가의 손길이 느껴집니다. </span>
+									</li>
+									<li>
+										<span class="sdc_id">ID : zdm***</span>
+										<span class="sdc_txt">쇼퍼님 완전 짱입니다. 제가 직접 장 본 것보다 확실히 전문가의 손길이 느껴집니다. </span>
+									</li>
+									<li>
+										<span class="sdc_id">ID : zdm***</span>
+										<span class="sdc_txt">쇼퍼님 완전 짱입니다. 제가 직접 장 본 것보다 확실히 전문가의 손길이 느껴집니다. </span>
+									</li>
+									<li>
+										<span class="sdc_id">ID : zdm***</span>
+										<span class="sdc_txt">쇼퍼님 완전 짱입니다. 제가 직접 장 본 것보다 확실히 전문가의 손길이 느껴집니다. </span>
+									</li>
+								</ul>
+							</div>
+							<div class="btn_close focus">닫기</div>
 	</div>
+	</div>
+
 
 	<!-- Common Function -->
 	<script type="text/javascript" src="../js/app.js"></script>

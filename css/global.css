@@ -893,7 +893,7 @@ position:relative;width:162px; float:left; margin-bottom:4px; color:#ffffff;back
 .shopper_detail .sd_content li {height:26px;}
 .shopper_detail .sd_content .sdc_id {width:130px; display:inline-block;}
 .shopper_detail .sd_content .sdc_txt {width:865px; display:inline-block;}
-.shopper_detail .btn_close {width:216px; height:44px; line-height:40px; background:#FFFFFF; border-radius:10px; border:2px solid #2b9330; margin:15px 420px 0; text-align:center; font-size:18px; font-weight:bold; color:#2b9330; }
+.shopper_detail .btn_close {width:216px; height:44px; line-height:40px; background:#FFFFFF; border-radius:10px; border:2px solid #6c6c6c; margin:15px 420px 0; text-align:center; font-size:18px; font-weight:bold; color:#6c6c6c; }
 .shopper_detail .btn_close.focus {width:216px; height:44px; line-height:40px; background:#2b9330; border-radius:10px; border:2px solid #2b9330; margin:15px 420px 0; text-align:center; font-size:18px; font-weight:bold; color:#FFFFFF; }
 
 
