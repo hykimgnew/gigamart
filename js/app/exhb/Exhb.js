@@ -6,6 +6,11 @@
 var global = window;
 
 //*************************************************
+// * 인트로 YN (false으로 바뀌면 기획전으로 이동)
+//*************************************************
+var INTRO_SCREEN = true;
+
+//*************************************************
 // * Popup
 // * isFullVideo           : 전체 영상보기
 // * isCart                : 간편 장바구니
@@ -246,7 +251,7 @@ App.defineClass('Gigamart.app.exhb.Exhb', {
         global.stbService = Gigamart.app.exhb.STBService.create(EventBus);
 
         // 팝업 Load
-        $('#popup_fv').load("full_video.html");
+        $('#popup_fv').load("view/full_video.html");
         //$('#popup_rt').load("shopper_real_time.html");
     }
 

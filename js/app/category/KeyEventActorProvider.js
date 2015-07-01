@@ -354,6 +354,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             }
                             // 쇼퍼's Bag
                             if(currentFocusMenu == 3) {
+                                this.videoStop();
                                 $('#sub_content').hide();
                                 $('#shopper_history').hide();
                                 $('#shopper_bag').show();
@@ -364,6 +365,8 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                                 this.menuRefresh();
                                 this.videoPlay("test", currentFocusMenu);
                             }
+
+
                         }
                     }
 
