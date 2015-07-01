@@ -32,6 +32,19 @@ var maxShopperListPage      = 2;
 var arrShopperList          = new Array();
 
 //*************************************************
+// *  쇼퍼 추천list page
+// * currentShopperRcListPage       = 쇼퍼추천 LIST 현재 페이지 (default : 0)
+// * totalShopperRcListPage         = 쇼퍼추천 LIST 전체 페이지
+// * maxShopperRcListPage           = 쇼퍼추천 LIST 한 페이지에 들어갈 쇼퍼 수 (default : 6)
+// * arrShopperRcList               = 쇼퍼추천 LIST 배열
+//*************************************************
+var currentShopperRcListPage  = 0;
+var totalShopperRcListPage    = 0;
+var maxShopperRcListPage      = 6;
+var arrShopperRcList          = new Array();
+
+
+//*************************************************
 // *  마트는지금? list page
 // * currentMartListPage       = 마트는지금? LIST 현재 페이지 (default : 0)
 // * totalMartListPage         = 마트는지금? LIST 전체 페이지
