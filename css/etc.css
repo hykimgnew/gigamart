@@ -285,3 +285,10 @@ z-index: 100000;
 .shopper_detail .sd_content.focus {
 	background : #08760d;
 }
+.mypage .mypage_num li.focus{
+border : 2px solid #08760d;
+height : 88px;
+}
+.mypage .mypage_num li {
+width: 290px!important;
+}

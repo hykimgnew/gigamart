@@ -236,10 +236,12 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 // 전체 카테고리 일때
                 if(currentFocusList == 0) {
                     // My Page
-                    
+                    if(currentFocusMenu == 0){
+                        location.href ="mypage.html"; // 마이페이지 이동
+                    }
                     
                     // 쇼퍼 주문 이력
-                    if(currentFocusMenu == 2) {
+                    else if(currentFocusMenu == 2) {
 
                         /*this.selectShopperHistory(); // 쇼퍼 주문 이력 조회
 

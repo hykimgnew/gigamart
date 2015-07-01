@@ -10,80 +10,13 @@ function cn_toPrice(n) {
     return n;
 }
 
-// 마트는 지금 레이아웃 생성
-function makeTweetList() {
-    var appendHtml =  '<li class="rt_list" name="rt_list">';
-        appendHtml += '<ul>';
-        appendHtml += '<li class="smtc_person">';
-        appendHtml += ' <span name="shopper_img"></span>';
-        appendHtml += '     <ul name="rt_f">';
-        appendHtml += '         <li name="shopper_id"></li>';
-        appendHtml += '         <li name="tweet_date"></li>';
-        appendHtml += '     </ul>';
-        appendHtml += '</li>';
-        appendHtml += '<li name="tweet" class="smtc_txt"></li>';
-        appendHtml += '<li name="product_img" class="smtc_img"></li>';
-        appendHtml += '</ul>'
-        appendHtml += '</li>'
-
-    $('#ul_tweet').append(appendHtml);
-}
-
-// 쇼퍼 추천세트 list(인기순)
-function makeShopperProduct() {
-
-    var appendHtml =  '<li class="pl_menu" name="pl_menu">';
-        appendHtml += '    <a href="#" class="dlm_rank"><b name="dlm_rankNm">1</b>위</a>';
-        appendHtml += '    <span class="polygon_l">100원 <img src="../images/icon_order.png" /></span>';
-        appendHtml += '    <span class="dm_bdr"></span>';
-        appendHtml += '    <ul>';
-        appendHtml += '       <li class="dlm_img" name="dl_img"></li>';
-        appendHtml += '       <li class="dlm_tit" name="dl_setName"></li>';
-        appendHtml += '       <li class="dlm_price" name="dl_cost"></li>';
-        appendHtml += '    </ul>';
-        appendHtml += '</li>';
-
-        /*<li class="pl_menu mg_r10" name="pl_menu">
-            <a href="#" class="dlm_rank"><b>1</b>위</a>
-            <span class="polygon_l">100원 <img src="../images/icon_order.png" /></span>
-            <span class="dm_bdr"></span><!-- <span class="dm_bdr"><img src="../images/btn_ok_fill.png"/></span> -->
-            <ul>
-                <li class="dlm_img" name="dl_img"><!-- <img src="../images/sample_01.jpg" /> --></li>
-                <li class="dlm_tit" name="dl_setName"><!-- 날렵한 갈치 --></li>
-                <li class="dlm_price" name="dl_cost"><!-- 15,900원 --></li>
-            </ul>
-        </li>*/
-
-    $('#ul_tweet2').append(appendHtml);
-}
-
 /**
  *  Shopper_bag Js : KeyEventActorProvider (키 이벤트 처리)
  **/
 App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
     _construct: function() {
     	var me = this;
-
     	me.actors = [];
-
-        // 쇼퍼 List
-        this.selectShopperList();
-
-        // 쇼퍼 추천세트List
-        this.selectShopperList2();
-
-
-        // 마트는 지금
-        this.selectTweetList();
-        
-        //쇼퍼 list 화살표 on / off
-        this.shopperArrow();
-
-        //마트는지금 list 화살표 on / off
-        this.martArrow();
-
-        $('li[name="sbl_list"]').eq(currentFocusMenu).addClass('focus');
-
     },
 
     // 화면 별 키 이벤트 관련 처리
@@ -195,23 +128,20 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             // * 확인 KEY
             // **************************************************
             if (keyCode === global.VK_ENTER) {
-                //쇼퍼list일때 팝업 show
-                if(currentFocusList == 0){
-                    $('li[name="sbl_list"]').eq(currentFocusMenu).removeClass('focus');
-                    currentFocusList = 3;
-                    $('div[name="shopper_detail"]').show();
-                    $('.btn_close').addClass('focus');  
-                }
-                //쇼퍼 상세팝업일때
-                else if(currentFocusList == 3){
-                    //닫기버튼
-                    if(shpPopFocus == 0){
-                        $('.btn_close').removeClass('focus');  
-                        $('div[name="shopper_detail"]').hide();
-                        currentFocusList = 0;
-                        $('li[name="sbl_list"]').eq(currentFocusMenu).addClass('focus');
+                //첫번째 화면-마이페이지
+                if(myView == 0){
+                    //상단메뉴
+                    if(currentFocusList == 0){
+                    }
+                    //주문내역
+                    else if(currentFocusList == 1){
+                    }
+                    //버튼
+                    else if(currentFocusList == 2){
+
                     }
                 }
+                
             } 
 
             // **************************************************
