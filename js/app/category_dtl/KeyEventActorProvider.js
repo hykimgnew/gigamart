@@ -354,13 +354,13 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
             // * ◀ KEY (플로팅 Go home)
             // **************************************************
             if(keyCode == VK_RED) {
-                location.href ="exhb.html"; // 기획전 이동
+                location.href ="../index.html?GO_EXHB=Y" ; // 기획전 이동
             }
             // **************************************************
             // * ◀|| KEY (카테고리 Go home)
             // 
             if(keyCode == VK_PLAY) {
-                location.href ="category.html"; // 기획전 이동
+                location.href ="category.html"; // 전체카테고리 이동
             }    
             // **************************************************
             // * 확인 KEY

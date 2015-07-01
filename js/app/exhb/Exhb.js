@@ -6,9 +6,11 @@
 var global = window;
 
 //*************************************************
-// * 인트로 YN (false으로 바뀌면 기획전으로 이동)
+// * INTRO_SCREEN 인트로 YN (false으로 바뀌면 기획전으로 이동)
+// * GO_EXHB 다른 화면에서 이동할 때 인트로 화면 없이 기획전을 보여주려면 이 값을 Y로
 //*************************************************
-var INTRO_SCREEN = true;
+var GO_EXHB       = request.getParameter("GO_EXHB");
+var INTRO_SCREEN  = true;
 
 //*************************************************
 // * Popup
@@ -242,7 +244,15 @@ App.defineClass('Gigamart.app.exhb.Exhb', {
     },
     init: function() {
         var me = this;
-        
+
+        console.log("########## GO_EXHB : " + GO_EXHB);
+        if(GO_EXHB == 'Y') {
+            $('div[name="screen_intro"]').hide();
+            $('div[name="screen_exhb"]').show();
+        } else {
+            go_login(); 
+        }
+
         //$('#pj_left').addClass("focus");
         $('li[name="sl_menu"]').eq(currentFocusMenu).addClass('focus');
         $('li[name="sl_menu"]').eq(currentFocusMenu).children('.sl_play').addClass('focus');
@@ -257,3 +267,8 @@ App.defineClass('Gigamart.app.exhb.Exhb', {
 
     
 });
+
+// 로그인
+function go_login() {
+    setTimeout(Gigamart.app.exhb.KeyEventActorProvider.login, 2000);
+}
