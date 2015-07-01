@@ -354,7 +354,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
             // * ◀ KEY (플로팅 Go home)
             // **************************************************
             if(keyCode == VK_RED) {
-                location.href ="../index.html?GO_EXHB=Y" ; // 기획전 이동
+                location.href ="exhb.html" ; // 기획전 이동
             }
             // **************************************************
             // * ◀|| KEY (카테고리 Go home)

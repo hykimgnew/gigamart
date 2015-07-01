@@ -113,7 +113,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             // **************************************************
             if(keyCode === global.VK_RED) {
                 /** 기획전으로 이동 */
-                location.href ="../index.html?GO_EXHB=Y";
+                location.href ="exhb.html" ; // 기획전 이동
             }
 
             // **************************************************

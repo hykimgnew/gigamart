@@ -226,7 +226,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             // **************************************************
             if(keyCode === global.VK_RED) {
                 $('#videoDiv video').remove();
-                location.href ="../index.html?GO_EXHB=Y" ; // 기획전 이동
+                location.href ="exhb.html" ; // 기획전 이동
             }
 
             // **************************************************
@@ -627,7 +627,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 
             } else if (keyCode === global.VK_BACK) {
                 $('#videoDiv video').remove();
-                location.href ="../index.html?GO_EXHB=Y" ; // 기획전 이동
+                location.href ="exhb.html" ; // 기획전 이동
                 
             } else if (keyCode === global.VK_ESCAPE) {
                 

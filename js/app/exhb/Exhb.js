@@ -261,7 +261,7 @@ App.defineClass('Gigamart.app.exhb.Exhb', {
         global.stbService = Gigamart.app.exhb.STBService.create(EventBus);
 
         // 팝업 Load
-        $('#popup_fv').load("view/full_video.html");
+        $('#popup_fv').load("../view/full_video.html");
         //$('#popup_rt').load("shopper_real_time.html");
     }
 

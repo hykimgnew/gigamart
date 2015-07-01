@@ -29,7 +29,7 @@ App.defineClass('Gigamart.app.full_video.KeyEventActorProvider', {
         // **************************************************
         if(keyCode === global.VK_RED) {
             /** 기획전으로 이동 */
-            location.href ="../index.html?GO_EXHB=Y" ; // 기획전 이동
+            location.href ="exhb.html" ; // 기획전 이동
         }
 
         // **************************************************
@@ -56,7 +56,7 @@ App.defineClass('Gigamart.app.full_video.KeyEventActorProvider', {
 
             // 닫기
             if(currentFocus == 3) {
-                location.href ="../index.html?GO_EXHB=Y" ; // 기획전 이동
+                location.href ="exhb.html" ; // 기획전 이동
             }
 
         } 
@@ -76,7 +76,7 @@ App.defineClass('Gigamart.app.full_video.KeyEventActorProvider', {
 
                 // 닫기
                 if(currentFocus == 3) {
-                    location.href ="../index.html?GO_EXHB=Y" ; // 기획전 이동
+                    location.href ="exhb.html" ; // 기획전 이동
                 }
             }
 
