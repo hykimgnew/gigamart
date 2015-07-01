@@ -434,7 +434,7 @@ z-index:10; position:absolute; width:419px; height:431px; top:0px; left:0px; bor
 #content .content_right div.shopper_Bag .sm_first .smf_txt b {color:#2b9330;}
 #content .content_right div.shopper_Bag .sb_menu_sel .sm_first .smf_txt b {color:#FFFFFF;}
 #content .content_right div.shopper_Bag .sm_first .smf_img {width:260px; height:147px; overflow:hidden;}
-#content .content_right div.shopper_Bag .sm_first .smf_img img {width:260px; height:147px; }
+#content .content_right div.shopper_Bag .sm_first .smf_img img {display:inline; width:auto; height:147px; margin : 0 auto;} /* width:260px; */
 #content .content_right div.shopper_Bag .sm_first .smf_shopper {width:260px; background:#666666; height:95px; padding-top:20px;}
 #content .content_right div.shopper_Bag .sm_first .smf_shopper li {height:25px; color:#ffffff; text-align:left; padding-left:20px; font-size:14px;  }
 
