@@ -710,6 +710,13 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                             withCredentials: true
             },
             success     : function(result) {
+                var resultLen  = result['shopper'].length;
+                // 결과값이 2보다 크면 다음 페이지 존재
+                if(resultLen > 2) { 
+                    $('a[name="arrow_top_s"]').removeClass('arrow_top');
+                    $('a[name="arrow_bottom_s"]').addClass('arrow_bottom focus');
+                }
+
                 arrShopperList = new Array(); // 구매 리스트 초기화
                 var cnt = 0;
                 console.log("##### 쇼퍼 List (인기순) List json " + JSON.stringify(result));
@@ -804,12 +811,15 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 arrShopperRcList = new Array(); // 구매 리스트 초기화
                 var cnt = 0;
                 console.log("##### 쇼퍼 추천세트List (인기순) List json " + JSON.stringify(result));
-
                 console.log("result~~~~ : " + JSON.stringify(result['set']));
-                console.log("길이~~~~ : " + result.length);
+                console.log("길이~~~~ AA: " + result['set'].length);
+
+                var resultLen  = result['set'].length;
+                for(var i=0; i<6; i++){
+                  makeShopperProduct();  
+                }
                 //for(var i=0 ; i < result['set'].length ; i++) {
                 $.each(result['set'], function(index, entry) { 
-                    makeShopperProduct();
                     $('li[name="dl_img"]').eq(index).empty().append('<img src="' + cmsServerIp + entry["img"] + '" height="92" width="162" />');
                     $('li[name="dl_setName"]').eq(index).empty().append(entry['set_name']);
                     $('li[name="dl_cost"]').eq(index).empty().append(cn_toPrice(entry['cost']) +"원");
@@ -854,6 +864,12 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                             withCredentials: true
             },
             success     : function(result) {
+                var resultLen  = result['tweet'].length;
+                // 결과값이 2보다 크면 다음 페이지 존재
+                if(resultLen > 1) { 
+                    $('a[name="arrow_top_m"]').removeClass('arrow_top');
+                    $('a[name="arrow_bottom_m"]').addClass('arrow_bottom focus');
+                }
                 console.log("##### 마트는 지금 List json " + JSON.stringify(result));
                 $.each(result['tweet'], function(index, entry) {
                     arrMartList = new Array(); // 리스트 초기화
@@ -911,17 +927,17 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             $('span[name="popular_order"]').eq(i).empty().append("인기 주문 :  " + arrShopperList[Number((page*2)+i)].shopping_main + "");
         }
         //쇼퍼추천세트list
-        // for(var i=0 ; i < 6 ; i++) {
-        //     //makeShopperProduct();
-        //     $('li[name="dl_img"]').eq(i).empty().append('<img src="' + cmsServerIp + arrShopperRcList[Number((page*6)+i)].img + '" height="92" width="162" />');
-        //     $('li[name="dl_setName"]').eq(i).empty().append(arrShopperRcList[Number((page*6)+i)].set_name);
-        //     $('li[name="dl_cost"]').eq(i).empty().append(cn_toPrice(arrShopperRcList[Number((page*6)+i)].cost) +"원");
+        for(var i=0 ; i < 6 ; i++) {
+            //makeShopperProduct();
+            $('li[name="dl_img"]').eq(i).empty().append('<img src="' + cmsServerIp + arrShopperRcList[Number((page*6)+i)].img + '" height="92" width="162" />');
+            $('li[name="dl_setName"]').eq(i).empty().append(arrShopperRcList[Number((page*6)+i)].set_name);
+            $('li[name="dl_cost"]').eq(i).empty().append(cn_toPrice(arrShopperRcList[Number((page*6)+i)].cost) +"원");
                     
-        // }
-        // //쇼퍼 추천세트 margin
-        // $('li[name="pl_menu"]').eq(0).addClass('mg_r10');
-        // $('li[name="pl_menu"]').eq(2).addClass('mg_r10');
-        // $('li[name="pl_menu"]').eq(4).addClass('mg_r10');
+        }
+        //쇼퍼 추천세트 margin
+        $('li[name="pl_menu"]').eq(0).addClass('mg_r10');
+        $('li[name="pl_menu"]').eq(2).addClass('mg_r10');
+        $('li[name="pl_menu"]').eq(4).addClass('mg_r10');
     },
     // 마트는 지금? 페이지 이동
     pagingOrderedProduct2 : function(page) {

@@ -292,3 +292,18 @@ height : 88px;
 .mypage .mypage_num li {
 width: 290px!important;
 }
+.mypage .mypage_num li .mpn_num {
+padding-top: 16px!important;
+}
+.mypage .mypage_infoArea .mpi_first {
+top: 38px!important;
+}
+.mypage .mypage_infoArea .mpi_second {
+top: 20px!important;
+}
+.mypage .mypage_infoArea .mpi_third {
+top: 60px!important;
+}
+.mypage .tb_btn {
+line-height: 27px!important;
+}
