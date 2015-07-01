@@ -26,7 +26,10 @@ var cartFocus = 0;
 //*************************************************
 // *  상품정보 위치(첫번째화면 / 두번째화면)
 // *  0 : 첫번째화면 - 마이페이지 main
-// *  1 : 두번째화면 - 
+// *  1 : 두번째화면 - 장바구니
+// *  2 : 세번째화면 - 찜한상품
+// *  3 : 네번째화면 - 최근본상품
+// *  4 : 다섯번째화면 - 취소/환불내역
 //*************************************************
 var myView = 0;
 
@@ -42,9 +45,8 @@ var myView = 0;
 var currentFocusList = 0;
 
 
-
 /** 
- *  장바구니, 최근본상품, 취소/환불내역 버튼 list Focus 위치
+ *  마이페이지메인 장바구니, 최근본상품, 취소/환불내역 버튼 list Focus 위치
  *  0 : 
  *  1 : 
  *  2 : 
@@ -53,19 +55,12 @@ var currentFocusList = 0;
 var currentFocusMenu = 0;
 
 /**
- * 주문내역 Focus 위치
- * 0 : 
- * 1 : 
- * 2 :
- * 3 :
- * 4 :
- * 5 :
- * 6 :
+ * 마이페이지메인 주문내역 Focus 위치
   **/
 var currentFocusMenu2 = 0;
 
 /**
- * 버튼 Focus 위치
+ * 마이페이지메인 버튼 Focus 위치
  * 0 : 이용안내
  * 1 : 공지사항
  * 2 : 자주묻는질문
@@ -73,11 +68,39 @@ var currentFocusMenu2 = 0;
   **/
 var currentFocusMenu3 = 0;
 
+/** 
+ *  찜한리스트 Focus 위치
+ *  0 : 전체선택
+ *  1 : 상품목록
+ *  2 : 버튼
+ *  3 : 
+ *  4 : 
+ **/
+var favFocusList = 0;
+
+//찜한리스트 상품목록 Focus 위치
+var favFocusMenu = 0;
+
+/**찜한리스트 버튼 focus위치
+*  0  : 선택삭제
+**/
+var favFocusMenu = 0;
 
 
+//*************************************************
+// *  찜한상품list page
+// * currentFavListPage       = 찜한상품list 현재 페이지 (default : 0)
+// * totalFavListPage         = 찜한상품list 전체 페이지
+// * maxFavListPage           = 찜한상품list 한 페이지에 들어갈 쇼퍼 수 (default : 8)
+// * arrFavList               = 찜한상품list 배열
+//*************************************************
+var currentFavListPage  = 0;
+var totalFavListPage    = 0;
+var maxFavListPage      = 8;
+var arrFavList          = new Array();
 
 /**
-  * 쇼퍼 추천세트 : 확인/상세/담기 
+  * 찜한상품 : 확인/상세/담기 
   **/
   var btnokfill = '<img src="../images/btn_ok_fill.png"/>';
 

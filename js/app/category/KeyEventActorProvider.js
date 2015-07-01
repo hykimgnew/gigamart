@@ -995,7 +995,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
 
 
                     $('span[name="shopper_rating"]').empty().append(shopperStar);
-                    $('li[name="shopper_img"]').empty().append("<img src=" + cmsServerIp + entry['img'] + " height='120' />"); //width='160'
+                    $('li[name="shopper_img"]').empty().append("<span class='sp_img'><img src=" + cmsServerIp + entry['img'] + " height='120' /></span>"); //width='160'
                     $('span[name="shopper_name"]').empty().append(entry['shopper_id']);
                     $('span[name="shopper_cate"]').empty().append(entry['shopping_main']);
 
@@ -1085,7 +1085,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 $.each(result['tweet'], function(index, entry) {
 
                     // *** 쇼퍼 이미지 ***/
-                    $('span[name="shopper_img"]').empty().append("<img src=" + cmsServerIp + entry['shopper_img'] + " width='60' height='68' />");
+                    $('span[name="shopper_img"]').empty().append("<span class='sp_img'><img src=" + cmsServerIp + entry['shopper_img'] + " width='60' height='68' /></span>");
                     // *** 쇼퍼 ID ***/
                     $('li[name="shopper_id"]').empty().append(entry['shopper_id']);
                     // *** 트윗 일시 ***/

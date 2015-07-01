@@ -10,6 +10,40 @@ function cn_toPrice(n) {
     return n;
 }
 
+// 마이 찜한상품
+function makeFavProduct() {
+
+    var appendHtml =  '<div class="dl_menu_area">';
+        appendHtml += '    <ul> ';
+        appendHtml += '    <li class="dl_menu mg_r5" name="fav_menu">';
+        appendHtml += '    <span class="dlm_checkbox"><img src="../images/checkbox.png" /></span>';
+        appendHtml += '    <span class="dm_bdr"></span>';
+        appendHtml += '       <ul>';
+        appendHtml += '           <li class="dlm_img" name="fav_img"></li>';
+        appendHtml += '           <li class="dlm_tit" name="fav_tit"></li>';
+        appendHtml += '           <li class="dlm_price" name="fav_price"></li>';
+        appendHtml += '      </ul>';
+        appendHtml += '    </li>';
+        appendHtml += '    </ul>';
+        appendHtml += '</div>';
+
+        // <div class="dl_menu_area">
+        //     <ul>    
+        //         <li class="dl_menu mg_r5" name="fav_menu">
+        //             <span class="dlm_checkbox"><img src="../images/checkbox_sel.png" /></span>
+        //             <span class="dm_bdr"></span>
+        //             <ul>
+        //                 <li class="dlm_img" name="fav_img"><img src="../images/sample_01.jpg" /></li>
+        //                 <li class="dlm_tit" name="fav_tit">1달달한 사과</li>
+        //                 <li class="dlm_price" name="fav_price">24,900원</li>
+        //             </ul>
+        //         </li>
+        //     </ul>
+        // </div>
+
+    $('#div_fav').append(appendHtml);
+}
+
 /**
  *  Shopper_bag Js : KeyEventActorProvider (키 이벤트 처리)
  **/
@@ -132,6 +166,36 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 if(myView == 0){
                     //상단메뉴
                     if(currentFocusList == 0){
+                        //장바구니
+                        if(currentFocusMenu == 0){
+
+                        }
+                        //찜한상품
+                        else if(currentFocusMenu == 1){
+                            $('li[name="nm_menu"]').eq(currentFocusMenu).removeClass('focus');
+                            $('div[name="view_my"]').hide();
+                            myView = 2;
+                            $('div[name="view_fav"]').show();
+                            this.myFavList();
+
+                            
+
+
+                        }
+                        //최근본상품
+                        else if(currentFocusMenu == 2){
+                            // $('li[name="nm_menu"]').eq(currentFocusMenu).removeClass('focus');
+                            // $('div[name="view_my"]').hide();
+                            // myView = 3;
+                            // $('div[name="view_new"]').show();
+                        }
+                        //취소 환불내역
+                        else if(currentFocusMenu == 3){
+                            $('li[name="nm_menu"]').eq(currentFocusMenu).removeClass('focus');
+                            $('div[name="view_my"]').hide();
+                            myView = 4;
+                            $('div[name="view_ref"]').show();  
+                        }
                     }
                     //주문내역
                     else if(currentFocusList == 1){
@@ -264,7 +328,34 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 }
                 
             } else if (keyCode === global.VK_BACK) {
-                location.href="category.html";
+                //마이페이지 메인
+                if(myView == 0){
+                    location.href="category.html";
+                }
+                //장바구니화면
+                else if(myView == 1){
+
+                }
+                //찜한상품 화면
+                else if(myView == 2){
+                    $('div[name="view_fav"]').hide();
+                    myView = 0;
+                    $('div[name="view_my"]').show();
+                    $('li[name="nm_menu"]').eq(currentFocusMenu).addClass('focus');
+                }
+                //최근본상품 화면
+                else if(myView == 3){
+
+                }
+                //취소/환불내역 화면
+                else if(myView == 4){
+                    $('div[name="view_ref"]').hide();
+                    myView = 0;
+                    $('div[name="view_my"]').show();
+                    $('li[name="nm_menu"]').eq(currentFocusMenu).addClass('focus');
+                }
+
+                
                 //window.oipfObjectFactory.createApplicationManagerObject().getOwnerApplication(window.document).destroyApplication();
             } else if (keyCode === global.VK_ESCAPE) {
                 /*if(isPopup){
@@ -292,7 +383,71 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
         window.document.removeEventListener('keydown', keyDownEventReceivedForDetail, false);
         changeWindow(WindowType.main);
         initIndexFocus();
-    }
+    },
+    // 조회 : 찜한상품
+    myFavList: function() {
+        var param = '';
+        var appendHtml = '';
+        var str = '';
+
+        $.ajax({
+            url         : cmsServerIp + "/BuyerFavoriteTask/Select",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                var resultLen  = result['favorite'].length;
+                // 결과값이 8보다 크면 다음 페이지 존재
+                if(resultLen > 8) { 
+                    for(var i=0; i<8; i++){
+                        makeFavProduct();  
+                    }
+                    $('a[name="arrow_top_fav"]').removeClass('arrow_top');
+                    $('a[name="arrow_bottom_fav"]').addClass('arrow_bottom focus');
+                }
+                // 결과값이 8보다 작은경우 다음페이지 존재x
+                else if(resultLen < 8){
+                    for(var i=0; i<resultLen; i++){
+                        makeFavProduct();  
+                    }
+                    $('a[name="arrow_top_fav"]').removeClass('arrow_top');
+                    $('a[name="arrow_bottom_fav"]').removeClass('arrow_bottom');
+                }
+                console.log("##### 찜한상품 List json " + JSON.stringify(result));
+                $.each(result['favorite'], function(index, entry) {
+                    arrFavList = new Array(); // 리스트 초기화
+                    var cnt = 0;
+                    $('li[name="fav_img"]').eq(index).empty().append('<img src="' + cmsServerIp + entry["img"] + '" height="92" width="162" />');
+                    $('li[name="fav_tit"]').eq(index).empty().append(entry['name']);
+                    $('li[name="fav_price"]').eq(index).empty().append(cn_toPrice(entry['cost']) +"원");
+                    
+                    appendHtml = {
+                                        "img" : entry['img'],
+                                        "name" : entry['name'],
+                                        "cost" : entry['cost']
+                                     };
+                    cnt                 = Math.floor(index / maxFavListPage);
+                    var str             = appendHtml;
+                    arrFavList[index]    = str;
+                    console.log("index : " + index + " maxFavListPage : " + maxFavListPage + " cnt : " + cnt);
+                    
+                    totalFavListPage = cnt;
+
+                    console.log("arrFavList[index]: " + arrFavList[index]);
+
+                });
+                console.log("#####################################");
+                console.log("찜 총페이지수: " + totalFavListPage);
+                console.log("######################################");
+                $('li[name="fav_menu"]').eq(favFocusMenu).addClass('focus');
+                $('li[name="fav_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').append(btnokfill);
+            }
+        });
+    },
 
 
 });
