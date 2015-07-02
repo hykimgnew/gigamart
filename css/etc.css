@@ -313,8 +313,46 @@ line-height: 27px!important;
 	text-align : center;
 }
 #div_fav{
-	min-height : 186px;
+	min-height : 372px;
 }
 #content .favorite .allSelect.focus {
 color: #08760d;
+}
+#content .favorite .favoriteList .fl_left .favorite_list {
+  height : 482px;
+}
+#content .favorite .favoriteList .fl_right .btn_gray_up {
+position: absolute;
+bottom: -390px;
+display: inline-block;
+width: 246px;
+height: 44px;
+border: 2px solid #6c6c6c;
+text-align: center;
+border-radius: 10px;
+background: #FFFFFF;
+font-size: 16px;
+font-weight: bold;
+color: #404040;
+line-height: 44px;
+}
+#content .favorite .favoriteList .fl_right .btn_gray_up.focus {display:inline-block; width:246px; height:44px; border:2px solid #2b9330; text-align:center; border-radius:10px; background:#2b9330; font-size:16px; font-weight:bold; color:#FFFFFF; line-height:44px;}
+
+
+
+.fl_right2 .btn_gray {position:absolute; left: 20%; display:inline-block; width:246px; height:44px; border:2px solid #6c6c6c; text-align:center; border-radius:10px; background:#FFFFFF; font-size:16px; font-weight:bold; color:#404040; line-height:44px;}
+.fl_right2 .btn_gray.focus {display:inline-block; width:246px; height:44px; border:2px solid #2b9330; text-align:center; border-radius:10px; background:#2b9330; font-size:16px; font-weight:bold; color:#FFFFFF; line-height:44px;}
+.pop2 {
+width :655px!important;
+left: 23%!important;
+position: relative;
+margin: 0 auto;
+border-radius: 10px;
+padding: 12px;
+background: #363636;
+color : #e6e6e6;
+box-shadow: 0px 0px 40px #505050;
+top : 84%!important;
+text-align : center;
+z-index : 999999;
 }

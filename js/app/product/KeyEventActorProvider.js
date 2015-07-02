@@ -8,6 +8,11 @@ function cn_toPrice(n) {
     n = n.replace(reg, '$1' + ',' + '$2');
     return n;
 }
+// 찜하기 / 토스트 팝업 닫기
+function fn_popFav() {
+    $('#pop_popfav_ok').hide();
+    fvFocus = 1;
+}
 var videoPlayer = window.oipfObjectFactory.createVideoMpegObject();
 
 /**
@@ -219,7 +224,11 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                             $('span[name="pr_num_numP"]').html(num);
                             $('span[name="pr_num_plusP"]').addClass('focus');  
                         }
-                        //상세보기 팝업
+                        //찜하기 버튼
+                        else if(btFocus == 2){
+                            this.selectFavList();
+                        }
+                        //상세보기버튼-> 팝업
                         else if(btFocus == 3){
                             currentFocusList = 5;
                             this.selectProductSubCategory();
@@ -1290,7 +1299,41 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                     console.log("에러");
             }
         });
-    }
+    },
+    //찜하기 처리
+    selectFavList: function() {
+        var param = {
+                        "product_id" : requestCategoryDtlId,
+                        "cnt" : 1
+                    };
+        $.ajax({
+            url         : cmsServerIp + "/BuyerFavoriteTask/Insert",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                /*console.log("######## 상세카테고리 파라미터 : " + requestCategoryDtlCode);*/
+                var resultCode = JSON.stringify(result);
+                console.log("######################################################################");
+                console.log("######## param  : " + JSON.stringify(param));
+                console.log("######## result  : " + JSON.stringify(result));
+                console.log("###### JSON read 1 : " + result['resultCode']);
+                console.log("###### JSON read 2 : " + resultCode);
+                console.log("###### JSON read 3 : " + result.resultCode);
+                console.log("######################################################################");
+                 $('#pop_popfav_ok').show();
+                setTimeout("fn_popFav()", 2000);
+
+            },
+            error : function(){
+                    console.log("에러");
+            }
+        });
+    },
 
 
 

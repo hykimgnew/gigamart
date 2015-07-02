@@ -34,19 +34,19 @@
 								<div class="mypage_num">
 									<ul>
 										<li name= "nm_menu" class="focus">
-											<span class="mpn_num">10</span>
+											<span class="mpn_num" name="bag_tot">10</span>
 											<span class="mpn_cart">장바구니</span>
 										</li>
 										<li name= "nm_menu">
-											<span class="mpn_num">10</span>
+											<span class="mpn_num" name="fav_tot"><!-- 10 --></span>
 											<span class="mpn_cart">찜한상품</span>
 										</li>
 										<li name= "nm_menu">
-											<span class="mpn_num">10</span>
+											<span class="mpn_num" name="new_tot">10</span>
 											<span class="mpn_cart">최근본상품</span>
 										</li>
 										<li name= "nm_menu">
-											<span class="mpn_num">10</span>
+											<span class="mpn_num" name="ref_tot">10</span>
 											<span class="mpn_cart">취소/환불내역</span>
 										</li>
 									</ul>
@@ -113,11 +113,11 @@
 									<ul>
 										<li class="b_menu"><img src="../images/bottom_menu_black.png" /></li>
 										<li class="b_home"><img src="../images/bottom_home_black.png" /></li>
-										<li class="b_price_black">74,800원</li>
+										<li class="b_price_black">0원</li>
 										<li class="b_cart">
 											<ul>
 												<li><img src="../images/bottom_cart_bg_left.png" /></li>
-												<li class="cart_num"><span>9</span></li>
+												<li class="cart_num"><span>0</span></li>
 												<li><img src="../images/bottom_cart_bg_right.png" /></li>
 											</ul>
 										</li>
@@ -137,12 +137,12 @@
 							<span style="position :absolute; top : 38px; left : 254px;display:inline-block; float:left;">
 								<h2>마이페이지 > 찜한상품</h2>
 							</span>
-							<h3><span class="bl_cancel">* 편집모드를 나가시려면 리모콘에서 이전 버튼을 누르세요.</span></h3>
+							<h3><span class="bl_cancel" name="bl_cancel" style="display : none;">* 편집모드를 나가시려면 리모콘에서 이전 버튼을 누르세요.</span></h3>
 						</div>
 						<div id="content" style="margin-top : -30px;">
 							<div class="favorite">
 								<div class="tit">찜한 상품 총 <span name="tot_fav"></span><!-- 14건 -->건 입니다</div>
-								<div class="allSelect" name="fav_allSelect"><img src="../images/checkbox.png" /> 전체선택</div>
+								<div class="allSelect" name="fav_allSelect"><img class="all_chkA" src="../images/checkbox.png" /> 전체선택</div>
 								<div class="favoriteList">
 									<ul>
 										<li class="fl_left">
@@ -264,8 +264,11 @@
 												</p>
 											</div>
 										</li>
+										<!-- <li class="fl_right">
+											<span class="btn_gray" name="fav_btn_up">편집</span>
+										</li> -->
 										<li class="fl_right">
-											<span class="btn_gray" name="fav_btn_del">선택삭제</span>
+											<span class="btn_gray" name="fav_btn_ud">편집</span><!-- 선택삭제 -->
 										</li>
 									</ul>
 								</div>
@@ -291,6 +294,22 @@
 									</ul>
 						</div>
 	</div>
+<!-- 찜한상품 삭제시 토스트 메세지 -->
+<div id="pop_popfav_del_ok" class="pop2" style="width:350px; display:none; top:40%; left:30%; position:absolute;">
+	<ul>
+		<li>해당상품을 삭제였습니다.</li>
+	</ul>
+</div>
+<!-- 찜한상품이 없을때메세지 -->
+<div id="wrap2" class="bg_alpha" name="pop_popfav_non" style="display : none;">
+<div class="pop" style="width:350px; height : 70px;  top:40%; left:30%; position:absolute;">
+	<ul>
+		<li>찜한 상품이 없습니다.</li><br />
+		<li class="fl_right2"><span class="btn_gray focus" name="fav_btn_prev">쇼핑 계속하기</span></li>
+	</ul>
+</div>
+</body>
+
 <!-- 최근본상품 -->
 
 
