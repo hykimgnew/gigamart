@@ -70,7 +70,7 @@
 												<td class="bdr_right">asdkgjlskd0020394</td>
 												<td class="bdr_right">[아침마루] 싱싱한 토마토 5입 1봉 외              … 3건</td>
 												<td class="bdr_right">배송중</td>
-												<td class="bdr_right">김이슬</td>
+												<td>김이슬</td>
 											</tr>
 											<tr>
 												<td class="bdr_right">2015.05.06 14:06</td>
@@ -141,8 +141,8 @@
 						</div>
 						<div id="content" style="margin-top : -30px;">
 							<div class="favorite">
-								<div class="tit">찜한 상품 총 14건 입니다</div>
-								<div class="allSelect"><img src="../images/checkbox.png" /> 전체선택</div>
+								<div class="tit">찜한 상품 총 <span name="tot_fav"></span><!-- 14건 -->건 입니다</div>
+								<div class="allSelect" name="fav_allSelect"><img src="../images/checkbox.png" /> 전체선택</div>
 								<div class="favoriteList">
 									<ul>
 										<li class="fl_left">
@@ -260,12 +260,12 @@
 													<a href="#" class="arrow_bottom"name="arrow_bottom_fav"></a>
 												</p>
 												<p style="height :16px; width : 100%; ">
-													<span class="page"> <b>01</b> / 04 </span>
+													<span class="page"> <b name="fav_cur_pg"><!-- 01 --></b> / <span name="fav_tot_pg"></span><!-- 04 --> </span>
 												</p>
 											</div>
 										</li>
 										<li class="fl_right">
-											<span class="btn_gray">선택삭제</span>
+											<span class="btn_gray" name="fav_btn_del">선택삭제</span>
 										</li>
 									</ul>
 								</div>
@@ -278,11 +278,11 @@
 									<ul>
 										<li class="b_menu"><img src="../images/bottom_menu_black.png" /></li>
 										<li class="b_home"><img src="../images/bottom_home_black.png" /></li>
-										<li class="b_price_black">74,800원</li>
+										<li class="b_price_black">0원</li>
 										<li class="b_cart">
 											<ul>
 												<li><img src="../images/bottom_cart_bg_left.png" /></li>
-												<li class="cart_num"><span>9</span></li>
+												<li class="cart_num"><span>0</span></li>
 												<li><img src="../images/bottom_cart_bg_right.png" /></li>
 											</ul>
 										</li>

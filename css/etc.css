@@ -315,3 +315,6 @@ line-height: 27px!important;
 #div_fav{
 	min-height : 186px;
 }
+#content .favorite .allSelect.focus {
+color: #08760d;
+}

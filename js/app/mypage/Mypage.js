@@ -76,15 +76,30 @@ var currentFocusMenu3 = 0;
  *  3 : 
  *  4 : 
  **/
-var favFocusList = 0;
+var favFocusList = 1;
 
 //찜한리스트 상품목록 Focus 위치
-var favFocusMenu = 0;
+//var favFocusMenu = 0;
 
 /**찜한리스트 버튼 focus위치
 *  0  : 선택삭제
 **/
 var favFocusMenu = 0;
+/**
+ * 찜한상품 행열의 위치 
+ * horizonFocus    = 가로 0 1 2 3
+ * verticalFocus   = 세로 0 1 2 3
+ * favFocusMenu    = 현재 위치 0123
+ *                             4567
+ * arrFavList      = 찜한상품list 배열
+ * currentPageCnt  = 현재 페이지의 상품 갯수
+ **/
+var horizonFocus  = 0;
+var verticalFocus = 0;
+var favFocusMenu = 0;
+var arrFavList          = new Array();
+var currentPageCnt = 0;
+
 
 
 //*************************************************
@@ -92,17 +107,16 @@ var favFocusMenu = 0;
 // * currentFavListPage       = 찜한상품list 현재 페이지 (default : 0)
 // * totalFavListPage         = 찜한상품list 전체 페이지
 // * maxFavListPage           = 찜한상품list 한 페이지에 들어갈 쇼퍼 수 (default : 8)
-// * arrFavList               = 찜한상품list 배열
+
 //*************************************************
 var currentFavListPage  = 0;
 var totalFavListPage    = 0;
 var maxFavListPage      = 8;
-var arrFavList          = new Array();
 
 /**
   * 찜한상품 : 확인/상세/담기 
   **/
-  var btnokfill = '<img src="../images/btn_ok_fill.png"/>';
+  var btnokfill = '<img src="../images/btn_ok_fill.png" style="width : 152px; margin-top: 7px;"/>';
 
 
 global.onload = function() {

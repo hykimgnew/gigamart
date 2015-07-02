@@ -229,6 +229,25 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
 
                         }
                     }
+                    //세번째 화면 -찜한상품
+                    else if(myView == 2){
+                        //전체선택 
+                        if(favFocusList == 0){
+                        }
+                        //상품목록
+                        else if(favFocusList == 1){
+                            //상품목록의 1행일때 전체선택으로 이동
+                            if(verticalFocus == 0){
+                                $('li[name="fav_menu"]').eq(favFocusMenu).removeClass('focus');
+                                $('li[name="fav_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').empty();
+                                favFocusList = 0;
+                                $('div[name="fav_allSelect"]').addClass('focus');
+                            }
+                        }
+                        //버튼
+                        else if(favFocusList == 2){
+                        }
+                    }
                 }
 
                 // **************************************************
@@ -247,6 +266,96 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         else if(currentFocusList == 2){
 
                         }
+                    }
+                    //세번째 화면 -찜한상품
+                    else if(myView == 2){
+                        //전체선택 
+                        if(favFocusList == 0){
+                            $('div[name="fav_allSelect"]').removeClass('focus');
+                            favFocusList = 1;
+                            $('li[name="fav_menu"]').eq(favFocusMenu).addClass('focus');
+                            $('li[name="fav_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').append(btnokfill);
+                                
+                        }
+                        //상품목록
+                        else if(favFocusList == 1){
+
+                            // 첫번째 행 일때
+                            if(verticalFocus >= 0 && verticalFocus < 1) {
+                                // 총 갯수에서 3을 뺀 수가 포커스보다 작을 때 아래로 이동 불가 
+                                console.log("### 마이페이지 찜한상품 아래 이동 시 전체 갯수 : " + currentPageCnt + " 현재 포커스 위치 : " + favFocusMenu);
+
+                                if(currentPageCnt - 4 <= favFocusMenu) {
+                                    console.log("###### 마이페이지 찜한상품 아래로 이동 불가");
+                                    return;
+                                } else {
+                                    console.log("###### 마이페이지 찜한상품 아래로 이동 가능");
+                                }
+
+                                $('li[name="fav_menu"]').eq(favFocusMenu).removeClass('focus');
+                                $('li[name="fav_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').empty();
+
+                                verticalFocus   = verticalFocus + 1;    // 행 증가
+                                horizonFocus    = horizonFocus;         // 열 증감 없음
+                                favFocusMenu    = favFocusMenu + 4;     // 위치 변경
+                                //updateProductInfo();                    // 우측 상품 정보 갱신
+
+                                $('li[name="fav_menu"]').eq(favFocusMenu).addClass('focus');
+                                $('li[name="fav_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').append(btnokfill);
+                            }
+
+                            // 두번째 행 일때
+                            else if(verticalFocus == 2) {
+                                if(nextPageYN == true) {
+                                    // 다음 페이지 조회
+                                    console.log("마이페이지 찜한상품 : 다음 페이지 조회");
+                                    
+                                    // 페이지 이동했으므로 전 페이지 존재
+                                    prevPageYN = true;
+                                    $('#arrow_top').show();
+
+                                    currentFavListPage = currentFavListPage + 1;
+                                    //updateSubCategoryList();    // 페이지 변경
+                                    verticalFocus   = verticalFocus - 2;    // 행 감소
+                                    horizonFocus    = horizonFocus;         // 열 증감 없음
+                                    favFocusMenu    = 0;  // 위치 변경
+
+                                    // 아래로 이동했을때 아래 위치에 상품이 없으면 (이동할 포커스가 다음 페이지 상품 수 보다 큼)
+                                    if(currentPageCnt <= favFocusMenu + 1) {
+                                        favFocusMenu = currentPageCnt - 1;
+                                        horizonFocus = currentPageCnt - 1;
+                                    }
+
+                                   //updateProductInfo();                    // 우측 상품 정보 갱신
+
+                                    console.log("### 아래 이동 시 전체 갯수 : " + currentPageCnt + " 현재 포커스 위치 : " + favFocusMenu);
+                                    
+                                    console.log("### 아래 이동 시 전체 갯수 : " + currentPageCnt + " 현재 포커스 위치 : " + favFocusMenu);
+
+                                    $('li[name="fav_menu"]').eq(favFocusMenu).addClass('focus');
+                                    $('li[name="fav_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').append(btnokfill);
+                                }
+                                else if(nextPageYN == false) {
+                                    // 다음 페이지 없음
+                                    console.log("마이페이지 찜한상품 : 다음 페이지 없음");
+                                }
+                            }
+
+
+                            //상품목록의 1행일때 2행으로 이동
+                            // if(verticalFocus == 0){
+                            //     $('li[name="fav_menu"]').eq(favFocusMenu).removeClass('focus');
+                            //     $('li[name="fav_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').empty();
+                            //     verticalFocus   = verticalFocus + 1;        // 행 증가
+                            //     horizonFocus    = horizonFocus;     // 열 증감 없음
+                            //     favFocusMenu    = favFocusMenu + 4;  // 위치 변경
+                            // }
+                        }
+                        //버튼
+                        else if(favFocusList == 2){
+
+                        }
+
                     }
                    
                 }
@@ -285,6 +394,38 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
 
                         }
                     }
+                    //세번째 화면-찜한상품
+                    else if(myView == 2){
+                        //전체선택 
+                        if(favFocusList == 0){
+
+                        }
+                        //상품목록
+                        else if(favFocusList == 1){
+                            // 상품 목록 두번째, 세번째, 네번째 열일 때
+                            if(horizonFocus >= 1 && horizonFocus < 4) {
+                                $('li[name="fav_menu"]').eq(favFocusMenu).removeClass('focus');
+                                $('li[name="fav_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').empty();
+
+                                verticalFocus   = verticalFocus;        // 행 증감 없음
+                                horizonFocus    = horizonFocus - 1;     // 열 감소
+                                favFocusMenu    = favFocusMenu - 1;  // 위치 변경
+                                //updateProductInfo();                    // 우측 상품 정보 갱신
+
+                                $('li[name="fav_menu"]').eq(favFocusMenu).addClass('focus');
+                                $('li[name="fav_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').append(btnokfill);
+                            }
+
+                        }
+                        //버튼->상품목록
+                        else if(favFocusList == 2){
+                            $('span[name="fav_btn_del"]').removeClass('focus');
+                            favFocusList = 1;
+                            $('li[name="fav_menu"]').eq(favFocusMenu).addClass('focus');
+                            $('li[name="fav_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').append(btnokfill);
+                        }
+
+                    }
                    
 
                 }
@@ -321,6 +462,50 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         }
                         //버튼
                         else if(currentFocusList == 2){
+
+                        }
+                    }
+                    //세번째화면 찜한상품
+                    else if(myView == 2){
+                        //전체선택 
+                        if(favFocusList == 0){
+
+                        }
+                        //상품목록
+                        else if(favFocusList == 1){
+                            console.log("fav menu 길이"+$('li[name="fav_menu"]').length);//3
+                            var favMenuLen = $('li[name="fav_menu"]').length;
+                            currentPageCnt = favMenuLen
+                            // 총 갯수에서 1을 뺀 수가 포커스보다 작을 때 오른쪽으로 이동 불가 
+                            console.log("### 우측 이동 시 전체 갯수 : " + currentPageCnt + " 현재 포커스 위치 : " + favFocusMenu);
+                            // 상품 목록 첫번째, 두번째 세번째 열일 때
+                            if(horizonFocus >= 0 && horizonFocus < 3) {
+                                // 우측에 상품이 있을때
+                                if(currentPageCnt > favFocusMenu+1) {
+                                    $('li[name="fav_menu"]').eq(favFocusMenu).removeClass('focus');
+                                    $('li[name="fav_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').empty();
+
+                                    verticalFocus   = verticalFocus;        // 행 증감 없음
+                                    horizonFocus    = horizonFocus + 1;     // 열 증가
+                                    favFocusMenu    = favFocusMenu + 1;  // 위치 변경
+                                    //updateProductInfo();                    // 우측 상품 정보 갱신
+
+                                    $('li[name="fav_menu"]').eq(favFocusMenu).addClass('focus');
+                                    $('li[name="fav_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').append(btnokfill);
+                                // 우측에 상품이 없을 때
+                                } else if(currentPageCnt == favFocusMenu+1) {
+                                    console.log("### 우측에 상품이 없어서 삭제 버튼으로 이동");
+                                    $('li[name="fav_menu"]').eq(favFocusMenu).removeClass('focus');
+                                    $('li[name="fav_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').empty();
+
+                                    favFocusList = 2; // 화살표 버튼으로
+
+                                    $('span[name="fav_btn_del"]').addClass('focus');
+                                }
+                            }                   
+                        }
+                        //버튼
+                        else if(favFocusList == 2){
 
                         }
                     }
@@ -445,6 +630,15 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 console.log("######################################");
                 $('li[name="fav_menu"]').eq(favFocusMenu).addClass('focus');
                 $('li[name="fav_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').append(btnokfill);
+
+                //찜한상품 페이지표시
+                var totalFavListPage_html = totalFavListPage+1;
+                if(totalFavListPage_html < 10){
+                   totalFavListPage_html = "0"+totalFavListPage_html; 
+                }
+                $('b[name="fav_cur_pg"]').empty().html("01");
+                $('span[name="fav_tot_pg"]').empty().html(totalFavListPage_html);
+                $('span[name="tot_fav"]').empty().html(resultLen); //상단 찜한 상품 총 갯수
             }
         });
     },

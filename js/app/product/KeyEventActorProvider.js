@@ -207,6 +207,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
             if (keyCode === global.VK_ENTER) {
                 //상품정보의 첫번째 화면일때
                 if(productView ==1){
+                    //상세보기, 찜하기, 장바구니담기 버튼들..
                     if(currentFocusList == 0) {
                         if(btFocus == 0) { //+/-일때 popup
                             var num = Number($('span[name="pr_num_num"]').html());
@@ -216,29 +217,13 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                             popFocus = 1;
                             $('div[name="wrap_chVolume"]').show();
                             $('span[name="pr_num_numP"]').html(num);
-                            $('span[name="pr_num_plusP"]').addClass('focus'); 
-
-
-                            /*// -에 포커스일때
-                            if(pFocus == 0){
-                                currentFocusList = 4;
-                                popFocus = 0;
-                                $('span[name="pr_num_minus"]').removeClass('focus'); 
-                                $('div[name="wrap_chVolume"]').show();
-                                $('span[name="pr_num_numP"]').html(num);
-                                $('span[name="pr_num_minusP"]').addClass('focus'); 
-                            }
-                            // +에 포커스일때
-                            else{
-                                currentFocusList = 4;
-                                popFocus = 1;
-                                $('span[name="pr_num_plus"]').removeClass('focus'); 
-                                $('div[name="wrap_chVolume"]').show();
-                                $('span[name="pr_num_numP"]').html(num);
-                                $('span[name="pr_num_plusP"]').addClass('focus'); 
-                                
-                            } */  
-                           
+                            $('span[name="pr_num_plusP"]').addClass('focus');  
+                        }
+                        //상세보기 팝업
+                        else if(btFocus == 3){
+                            currentFocusList = 5;
+                            this.selectProductSubCategory();
+                            $('div[name="product_pop"]').show();
                         }
                     }
                     else if(currentFocusList == 1){
@@ -250,7 +235,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                     else if(currentFocusList == 3){
 
                     }
-                    //팝업
+                    //+ - 팝업
                     else if(currentFocusList == 4) {
                         //-에 포커스일때
                         if(popFocus == 0){
@@ -314,6 +299,12 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                             
                             $('div[name="wrap_chVolume"]').hide();
                         }
+                    }
+                    //상품상세팝업
+                    else if(currentFocusList == 5){
+                        currentFocusList = 0;
+                        $('div[name="product_pop"]').hide();
+                        //this.selectProductSubCategory();
                     }
                 }
                 //상품정보의 두번째 화면일때
@@ -1268,12 +1259,27 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                     if(entry['id'] == requestCategoryDtlId) {
                         console.log("######## entry[id]와 request값 같은때 ########");
                         console.log("######## result  : " + JSON.stringify(result));
-                        $('li[name="cl_photo"]').append('<img src="' + cmsServerIp + entry['img'] + '"  style="height : 302px; display : block; margin : 0 auto; "/>'); //width :555px;
-                        $('span[name="pd_name"]').append(entry['name']);
-                        $('span[name="pd_cost"]').append(cn_toPrice(entry['cost']) + "원");
-                        $('span[name="pd_origin"]').append(entry['origin']);
-                        $('span[name="pd_company"]').append(entry['company']);
-                        $('span[name="pd_standard"]').append(entry['standard']);
+                        //상품정보 팝업화면일때
+                        if(currentFocusList == 5){
+                            $('p[name="pop_cl_photo"]').empty().append('<img src="' + cmsServerIp + entry['img'] + '"  style="height : 302px; display : block; margin : 0 auto; "/>'); //width :555px;
+                            $('h1[name="pop_pd_name"]').empty().append(entry['name']);
+                            $('span[name="pop_pd_cost"]').empty().append(cn_toPrice(entry['cost']) + "원");
+                            $('span[name="pop_pd_origin"]').empty().append(entry['origin']);
+                            $('span[name="pop_pd_company"]').empty().append(entry['company']);
+                            $('span[name="pop_pd_standard"]').empty().append(entry['standard']);
+                        }
+                        //팝업이 아닐때
+                        else{
+                            $('li[name="cl_photo"]').empty().append('<img src="' + cmsServerIp + entry['img'] + '"  style="height : 302px; display : block; margin : 0 auto; "/>'); //width :555px;
+                            $('span[name="pd_name"]').empty().append(entry['name']);
+                            $('span[name="pd_cost"]').empty().append(cn_toPrice(entry['cost']) + "원");
+                            $('span[name="pd_origin"]').empty().append(entry['origin']);
+                            $('span[name="pd_company"]').empty().append(entry['company']);
+                            $('span[name="pd_standard"]').empty().append(entry['standard']);
+                        }
+                        
+
+
                     }
                 });
 
