@@ -5,12 +5,16 @@
  **/
 var global = window;
 
+// 인트로 화면(index.html)일때는 스크립트상 경로에 ../ 이 존재하고
+// 일반 기획전 화면(view/exhb.html)일때는 스크립트상 경로에 ../ 이 존재하지 않음
+var EXHB_PATH = "";
+
 //*************************************************
 // * INTRO_SCREEN 인트로 YN (false으로 바뀌면 기획전으로 이동)
 // * GO_EXHB 다른 화면에서 이동할 때 인트로 화면 없이 기획전을 보여주려면 이 값을 Y로
 //*************************************************
 var GO_EXHB       = request.getParameter("GO_EXHB");
-var INTRO_SCREEN  = true;
+var INTRO_SCREEN  = false;
 
 //*************************************************
 // * Popup
@@ -245,13 +249,12 @@ App.defineClass('Gigamart.app.exhb.Exhb', {
     init: function() {
         var me = this;
 
-        console.log("########## GO_EXHB : " + GO_EXHB);
-        if(GO_EXHB == 'Y') {
+        /*if(GO_EXHB == 'Y') {
             $('div[name="screen_intro"]').hide();
             $('div[name="screen_exhb"]').show();
         } else {
             go_login(); 
-        }
+        }*/
 
         //$('#pj_left').addClass("focus");
         $('li[name="sl_menu"]').eq(currentFocusMenu).addClass('focus');
@@ -262,7 +265,6 @@ App.defineClass('Gigamart.app.exhb.Exhb', {
 
         // 팝업 Load
         $('#popup_fv').load("../view/full_video.html");
-        //$('#popup_rt').load("shopper_real_time.html");
     }
 
     

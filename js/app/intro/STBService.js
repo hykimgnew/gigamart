@@ -16,7 +16,7 @@ App.defineClass('Gigamart.app.intro.STBService', {
 			
 		me.ownerApp = me.appManager.getOwnerApplication(window.document);
 
-		me.keyEventProvider = Gigamart.app.intro.KeyEventActorProvider.create();
+		me.keyEventProvider = Gigamart.app.exhb.KeyEventActorProvider.create();
 
 		me._initializeKeySet();
 	},

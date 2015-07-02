@@ -1,5 +1,11 @@
 'use strict';
 
+//##############################################################################
+
+// index.html과 exhb.html은 공통적으로 js/exhb/KeyEventActorProvider.js를 사용함
+
+//##############################################################################
+
 /**
  *  Exhb Js : KeyEventActorProvider (키 이벤트 처리)
  **/
@@ -219,6 +225,9 @@ function fn_videoPlay(url, category, type) {
 
 App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
     _construct: function() {
+
+        console.log("############# EXHB_PATH : " + EXHB_PATH );
+
         var config  = window.oipfObjectFactory.createConfigurationObject();
         config.localSystem.mute = false; // 음소거 off
 
@@ -416,7 +425,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     $('#p_videoDiv video').remove();
                     $('#span_videoDiv video').remove();
                     appConfiguration.localSystem.mute = true; // 음소거 설정
-                    location.href="../view/product1.html?id="+requestCategoryDtlId+"&categoryDtlCode="+requestCategoryDtlCode;
+                    location.href = EXHB_PATH + "product1.html?id="+requestCategoryDtlId+"&categoryDtlCode="+requestCategoryDtlCode;
                         
 
                     //지금 이상품 이가격 하단 페이징 첫페이지일때
@@ -560,7 +569,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     $('#p_videoDiv video').remove();
                     $('#span_videoDiv video').remove();
                     appConfiguration.localSystem.mute = true; // 음소거 설정
-                    location.href = '../view/order.html';
+                    location.href = EXHB_PATH + 'order.html';
                 }
                 
                 // 결제
@@ -992,7 +1001,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 cartPage    = 0;    // 첫 페이지로
                 cartHtml    = $('#wrap').html(); // 간편 장바구니에 들어갈 부분의 html 백업 (간편 장바구니 해제 후에 다시 돌려두어야함)
                 
-                $('#wrap').load("view/easy_cart.html");
+                $('#wrap').load(EXHB_PATH + "view/easy_cart.html");
                 $('#ecc_payments').addClass('focus'); // 첫 포커스는 ecc_payments
 
                 /*if(currentFocusList == 0) $('#pj_left').removeClass('focus');
@@ -1038,7 +1047,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 $('#p_videoDiv video').remove();
                 $('#span_videoDiv video').remove();
                 appConfiguration.localSystem.mute = true; // 음소거 설정
-                location.href = "../view/category.html";
+                location.href = EXHB_PATH + "category.html";
             }
 
             // **************************************************
@@ -1118,7 +1127,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     $('#p_videoDiv video').remove();
                     $('#span_videoDiv video').remove();
                     appConfiguration.localSystem.mute = true; // 음소거 설정
-                    location.href="../view/product1.html?id="+productList[idx]["product_id"]+"&categoryDtlCode="+productList[idx]["subcategory"];
+                    location.href = EXHB_PATH + "product1.html?id="+productList[idx]["product_id"]+"&categoryDtlCode="+productList[idx]["subcategory"];
 
                 }
                 //할인율 최고
@@ -1134,7 +1143,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     $('#p_videoDiv video').remove();
                     $('#span_videoDiv video').remove();
                     appConfiguration.localSystem.mute = true; // 음소거 설정
-                    location.href="../view/product1.html?id="+productList2[idx]["product_id"]+"&categoryDtlCode="+productList2[idx]["subcategory"];
+                    location.href = EXHB_PATH + "view/product1.html?id="+productList2[idx]["product_id"]+"&categoryDtlCode="+productList2[idx]["subcategory"];
                 }
                 //단골쇼퍼
                 if(currentFocusList == 5) {
@@ -1144,7 +1153,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         $('#p_videoDiv video').remove();
                         $('#span_videoDiv video').remove();
                         appConfiguration.localSystem.mute = true; // 음소거 설정
-                        location.href = "../view/shopper_bag.html";        
+                        location.href = EXHB_PATH + "view/shopper_bag.html";        
                     }
                     //추천세트
                     else if(currentFocusDtl3 == 1){
@@ -1627,7 +1636,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                             $('#p_videoDiv video').remove();
                             $('#span_videoDiv video').remove();
                             appConfiguration.localSystem.mute = true; // 음소거 설정
-                            location.href = "../view/category.html";
+                            location.href = EXHB_PATH + "category.html";
                             //$('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
                             //currentFocusList = 0;
                             //$('#pj_left').addClass('focus');
@@ -2529,7 +2538,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         isRealTimeEndComplete  = false;
     
         rtHtml = rtStartHtml;                               // 현재 화면을 <쇼퍼 리얼 타임 시작>에서 가져옴
-        $('#wrap').load("shopper_real_time.html");
+        $('#wrap').load(EXHB_PATH + "shopper_real_time.html");
         //$('#popup_rt').show();
         $('#rt_close').addClass('focus');
 
@@ -2547,7 +2556,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         isRealTimeEndComplete  = false;
         
         rtStartHtml = $('#wrap').html();                    // 현재 화면
-        $('#wrap').load("shopper_real_time_start.html");
+        $('#wrap').load(EXHB_PATH + "shopper_real_time_start.html");
 
         $('#rtStart_video').addClass('focus');
     },
@@ -2560,7 +2569,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         isRealTimeEndComplete  = false;
 
         rtEndHtml = $('#wrap').html();                      // <쇼퍼 리얼 타임>
-        $('#wrap').load("shopper_real_time_end.html");
+        $('#wrap').load(EXHB_PATH + "shopper_real_time_end.html");
 
         $('#rtEnd_submit').addClass('focus');
     },
@@ -2573,7 +2582,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         isRealTimeEndComplete  = true;
 
         rtEndCompleteHtml = rtHtml;                         // 현재 화면
-        $('#wrap').load("shopper_real_time_end_complete.html");
+        $('#wrap').load(EXHB_PATH + "shopper_real_time_end_complete.html");
 
         $('#rtEndComplete_submit').addClass('focus');
     },

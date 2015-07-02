@@ -1,4 +1,12 @@
 //'use strict';
+
+
+//##############################################################################
+
+// 사용 안하는 스크립트
+// index.html과 exhb.html은 공통적으로 js/exhb/KeyEventActorProvider.js를 사용함
+
+//##############################################################################
 var appConfiguration = window.oipfObjectFactory.createConfigurationObject();
 
 // 쿠키 생성

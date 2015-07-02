@@ -135,32 +135,82 @@ function setSubCategory() {
     updateSubCategoryTitle(); // 제목 Set
 }
 
+// 상세카테고리 화살표 위 아래 버튼 누르면 변경된 값으로 갱신 (배열 참조)
+function fn_chgCategoryDtl(flag) {
+
+    // 위 화살표
+    if(flag == 'UP') {
+        // 현재 카테고리가 어디에 위치하는지 찾는다.
+        for(var i=0 ; i < arrSubCategory.length ; i++) {
+            // 일치하는 값 검색
+            if(arrSubCategory[i] == requestCategoryDtlCode) {
+                console.log("arrSubCategory-1 : " + arrSubCategory[i-1]);
+                console.log("arrSubCategory  : " + arrSubCategory[i]);
+                console.log("requestCategoryDtlCode : " + requestCategoryDtlCode);
+
+                // 첫번째 항목이면
+                if(i == 0) {
+                    requestCategoryDtlCode = arrSubCategory[arrSubCategory.length-1]; // 마지막 카테고리로
+                    console.log("###### 위 - 첫번째 항목이면 : " + requestCategoryDtlCode);
+                    break;
+                } 
+                // 첫번째 항목이 아니면
+                else if(i >= 1) {
+
+                    requestCategoryDtlCode = arrSubCategory[i-1];
+                    console.log("###### 위 - 첫번째 항목이 아니면 : " + requestCategoryDtlCode);
+                    break;
+                }
+            }
+        }
+    }
+
+    // 아래 화살표
+    if(flag == 'DOWN') {
+        // 현재 카테고리가 어디에 위치하는지 찾는다.
+        for(var i=0 ; i < arrSubCategory.length ; i++) {
+            // 일치하는 값 검색
+            if(arrSubCategory[i] == requestCategoryDtlCode) {
+
+                // 마지막 항목이면
+                if(i == arrSubCategory.length-1) {
+                    requestCategoryDtlCode = arrSubCategory[0]; // 첫번째 카테고리로
+                    console.log("###### 아래 - 마지막 항목이면 : " + requestCategoryDtlCode);
+                    break;
+                } 
+                // 마지막 항목이 아니면
+                else if(i <= arrSubCategory.length-2) {
+                    requestCategoryDtlCode = arrSubCategory[i+1];
+                    console.log("###### 아래 - 마지막 항목이 아니면 : " + requestCategoryDtlCode);
+                    break;
+                }
+            }
+        }
+    }
+}
+
 // 서브카테고리 제목 Set
+// 위의 fn_chgCategoryDtl(flag) function 이 먼저 선행된다. 
 function updateSubCategoryTitle() {
-    console.log("############ 카테고리 배열 cnt : " + arrSubCategory.length);
     for(var i=0 ; i < arrSubCategory.length ; i++) {
-        console.log("#### 카테고리순서 확인 : " + i + " : " + arrSubCategory[i] + " requestCategoryDtlCode : " + requestCategoryDtlCode);
 
         if(arrSubCategory[i] == requestCategoryDtlCode) {
-            console.log("#### 카테고리 : " + arrSubCategory[i] + " : " + requestCategoryDtlCode);
             $('div[name="sd_first_tit"]').empty().append(arrSubCategory[i]);
-
 
             // 마지막 항목이면
             if(i == arrSubCategory.length-1) {
-                console.log("#### 카테고리 마지막 ");
-
                 $('div[name="sd_second"]').empty().append(arrSubCategory[0]); // 가장 첫번째 항목 보여줌
             }
 
-            // 마지막에서 두번째 항목이면
+            // 마지막 항목이 아니면
             else if(i <= arrSubCategory.length-2) {
-                console.log("#### 카테고리 마지막에서 두번째보다 작으면 ");
                 $('div[name="sd_second"]').empty().append(arrSubCategory[i+1]);
             }
         }
     }
 }
+
+
 
 // 페이징 변경 좌측 항목 업데이트
 function updateSubCategoryList() {
@@ -242,7 +292,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
     	me.actors = [];
 
         // 상품 목록 조회
-        this.selectProductSubCategory();
+        this.selectProductSubCategory("NORMAL");
 
 
         // 당일 판매현장 시각
@@ -393,13 +443,32 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 }
 
                 else if(currentFocusList == 3){
-                    console.log("아래쪽버튼 focus일때");
-                    //아래쪽버튼 focus일때
+                    
+                    // 아래 버튼 Focus
                     if(currentFocusBtn == 0) {
+                        console.log("아래쪽버튼 focus일때");
                         /*$('div[name="sd_first"]').hide();
                         $('div[name="selDepth"]').addClass("animation");*/
+
+                        // 상세카테고리 변경
+                        fn_chgCategoryDtl('DOWN');
                         
-                    }    
+                        // 상품 목록 조회
+                        this.selectProductSubCategory("ARROW");
+
+                        
+                    } 
+                    // 위 버튼 Focus
+                    else if(currentFocusBtn == 1) {
+                        console.log("위쪽버튼 focus일때");
+
+                        // 상세카테고리 변경
+                        fn_chgCategoryDtl('UP');
+                        
+                        // 상품 목록 조회
+                        this.selectProductSubCategory("ARROW");
+
+                    }
                 }
             } 
 
@@ -799,7 +868,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
 
     // 조회 : 상세카테고리별 상품정보
-    selectProductSubCategory: function() {
+    selectProductSubCategory: function(flag) {
         var param = {
                         "subcategory" : requestCategoryDtlCode
                     };
@@ -816,6 +885,9 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 console.log("######## 상세카테고리 파라미터 : " + requestCategoryDtlCode);
                 console.log("######## 상품목록 결과 개수 : " + result.length);
                 console.log("######## 상품목록 결과 : " + JSON.stringify(result));
+
+                // 첫 조회 시 ul_discount 비움
+                $('ul[name="ul_discount"]').empty();
 
                 resultSet = result;
                 var resultLen  = result.length;
@@ -864,9 +936,12 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                     console.log("에러");
             },
             complete  : function(result) {
-                $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
-                $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
-                $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');
+                // 화살표로 이동한 상태 아니면
+                if(flag != "ARROW") {
+                    $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
+                    $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                    $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');    
+                }
 
                 // 서브카테고리 Set
                 setSubCategory();
