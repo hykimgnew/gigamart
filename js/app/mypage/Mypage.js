@@ -73,7 +73,7 @@ var currentFocusMenu3 = 0;
  *  0 : 전체선택
  *  1 : 상품목록
  *  2 : 버튼
- *  3 : 
+ *  3 : 상품이 없을때의 팝업
  *  4 : 
  **/
 var favFocusList = 1;
@@ -100,8 +100,19 @@ var favFocusMenu = 0;
 var arrFavList          = new Array();
 var currentPageCnt = 0;
 
+/**
+ * 찜한상품 버튼위치 
+ * 0   = 편집
+ * 1   = 선택삭제
+ **/
+var favBtnFocus = 0;
 
-
+/**
+ * 찜한상품 편집모드 
+ * false  = 편집모드 X
+ * true   = 편집모드 O
+ **/
+var favUpdateMode = false;
 //*************************************************
 // *  찜한상품list page
 // * currentFavListPage       = 찜한상품list 현재 페이지 (default : 0)
@@ -112,6 +123,15 @@ var currentPageCnt = 0;
 var currentFavListPage  = 0;
 var totalFavListPage    = 0;
 var maxFavListPage      = 8;
+
+/**
+ * 찜한상품이전/다음 페이지 true /false
+ *  true일 경우 전/다음 페이지 있음
+ **/
+ var prevPageYN = false;
+ var nextPageYN = false;
+
+
 
 /**
   * 찜한상품 : 확인/상세/담기 
