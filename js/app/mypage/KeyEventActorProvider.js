@@ -31,6 +31,11 @@ function fn_popFavDel() {
     //fvFocus = 1;
     Gigamart.app.shopper_bag.KeyEventActorProvider.myFavList();
 }
+//주문내역 없습니다. 토스트 팝업닫기
+function fn_popOrderNon() {
+    $('#pop_order_non').hide();
+}
+
 
 // 마이 찜한상품
 function makeFavProduct() {
@@ -1170,6 +1175,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
     // 조회 : 주문내역
     selectOrderList: function() {
         var appendHtml = '';
+        var appendHtml2 = '';
         var str = '';
         var param = {
                         "interval" : 1
@@ -1184,8 +1190,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                             withCredentials: true
             },
             success     : function(result) {
-                var resultLen  = result['arr_order'].length;
-                //하단에 페이징갯수뿌려주기
+                
                 var obj = result;
                 var obj_length = Object.keys(obj).length;
                 console.log("obj_length---->"+obj_length);
@@ -1197,78 +1202,88 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 }
                 //결과값 있을때
                 else{
+                    //하단에 페이징 뿌려줌
                     var resultLen = result['arr_order'].length;
+                    console.log("resultLen========>"+resultLen);
+                    console.log("resultLen % 2========>"+resultLen % 2);
+                    //갯수가 짝수개이면 그냥 뿌려주고
+                    if(resultLen % 2 == 0){
+                        resultLen = resultLen/2;
+                    }
+                    //홀수개면 + 1 해서 / 2
+                    else{
+                        resultLen = (resultLen+1)/2;
+                    }
                     if(resultLen < 10){
                         resultLen = "0"+resultLen; 
                     }
-                    $('span[name="ord_tot"]').empty().html(resultLen);
-                }
+                    $('b[name="order_cur_pg"]').empty().html("01");//현재페이지
+                    $('span[name="order_tot_pg"]').empty().html(resultLen);//총페이지
+                
+                    // 결과값이 2보다 크면 다음 페이지 존재
+                    if(resultLen > 2) { 
+                        $('a[name="arrow_top_order"]').removeClass('arrow_top');
+                        $('a[name="arrow_bottom_order"]').addClass('arrow_bottom focus');
+                        nextOrderPageYN = true;
+                    }
 
+                    arrOrderList = new Array(); // 구매 리스트 초기화
+                    var cnt = 0;
+                    //console.log("##### 주문내역 List json " + JSON.stringify(result));
 
+                    $.each(result['arr_order'], function(index, entry) { 
+                        $('td[name="order_date"]').eq(index).empty().append(entry['order_date']);
+                        $('td[name="order_num"]').eq(index).empty().append(entry['order_id']);
+                        $('td[name="order_cost"]').eq(index).empty().append(cn_toPrice(entry['ordered_cost'])+"원");
+                        $('td[name="order_state"]').eq(index).empty().append(entry['status']);
+                        $('td[name="order_name"]').eq(index).empty().append(entry['shopper_id']);
 
-
-
-
-                // 결과값이 2보다 크면 다음 페이지 존재
-                if(resultLen > 2) { 
-                    $('a[name="arrow_top_order"]').removeClass('arrow_top');
-                    $('a[name="arrow_bottom_order"]').addClass('arrow_bottom focus');
-                    nextOrderPageYN = true;
-                }
-
-                arrOrderList = new Array(); // 구매 리스트 초기화
-                var cnt = 0;
-                console.log("##### 주문내역 List json " + JSON.stringify(result));
-
-                $.each(result['arr_order'], function(index, entry) { 
-                    $('td[name="order_date"]').eq(index).empty().append(entry['order_date']);
-                    $('td[name="order_num"]').eq(index).empty().append(entry['order_id']);
-                    $('td[name="order_cost"]').eq(index).empty().append(cn_toPrice(entry['ordered_cost'])+"원");
-                    $('td[name="order_state"]').eq(index).empty().append(entry['status']);
-                    $('td[name="order_name"]').eq(index).empty().append(entry['shopper_id']);
-
-                    
-                    $.each(entry['ordered_product'], function(pindex, pentry) {
-                        var obj = entry['ordered_product'];
-                        var obj_length = Object.keys(obj).length;
-                        console.log("obj_length---->"+obj_length);
-                        if(pindex == 0){
-                            $('td[name="order_info"]').eq(index).empty().append(pentry['name'] +"외 ……"+obj_length+"건");
-                        }   
                         
-                        //cnt                 = Math.floor(pindex / maxOrderedPageView);
-                        //var str             = Number(pindex+1) + ". " + pentry['name']  + " " + pentry['standard'] + " " +  cn_toPrice(pentry['cost']) + "원 (수량 : " +  pentry['cnt'] + ")<br /><br />";
-                        //productList[cnt]    = (productList[cnt] + str).replace("undefined", "");
+                        $.each(entry['ordered_product'], function(pindex, pentry) {
+                            var obj = entry['ordered_product'];
+                            var obj_length = Object.keys(obj).length;
+                            //console.log("obj_length---->"+obj_length);
+                            if(pindex == 0){
+                                $('td[name="order_info"]').eq(index).empty().append(pentry['name'] +"외 ……"+obj_length+"건");
+                                appendHtml = {
+                                            "order_date" : entry['order_date'],
+                                            "order_id" : entry['order_id'],
+                                            "ordered_cost" : entry['ordered_cost'],
+                                            "ordered_product" : entry['ordered_product'],
+                                            "status" : entry['status'],
+                                            "shopper_id" : entry['shopper_id'],
+                                            "name" : pentry['name'],
+                                            "length" : obj_length
+                                         }; 
+                            console.log("appendHtml111111 : "+appendHtml);
+                            }   
+                            //cnt                 = Math.floor(pindex / maxOrderedPageView);
+                            //var str             = Number(pindex+1) + ". " + pentry['name']  + " " + pentry['standard'] + " " +  cn_toPrice(pentry['cost']) + "원 (수량 : " +  pentry['cnt'] + ")<br /><br />";
+                            //productList[cnt]    = (productList[cnt] + str).replace("undefined", "");
+                        });
+
+                        // $.each(result2['ordered_product'], function(index2, entry2) { 
+                        //     var obj = result2;
+                        //     var obj_length = Object.keys(obj).length;
+                        //     console.log("obj_length---->"+obj_length);
+                        //     $('td[name="order_info"]').eq(index).empty().append(entry2['name'] +"외 ……"+obj_length+"건");
+                        // });
+
+
+                        
+                        cnt                 = Math.floor(index / maxOrderListPage);
+                        var str             = appendHtml;
+                        arrOrderList[index]    = str;
+                        console.log("index : " + index + " maxOrderListPage : " + maxOrderListPage + " cnt : " + cnt);
+                        console.log("appendHtml22222 : "+JSON.stringify(appendHtml));
+                        totalOrderListPage = cnt;
+
+
                     });
-
-                    // $.each(result2['ordered_product'], function(index2, entry2) { 
-                    //     var obj = result2;
-                    //     var obj_length = Object.keys(obj).length;
-                    //     console.log("obj_length---->"+obj_length);
-                    //     $('td[name="order_info"]').eq(index).empty().append(entry2['name'] +"외 ……"+obj_length+"건");
-                    // });
-
-
-                    appendHtml = {
-                                        "order_date" : entry['order_date'],
-                                        "order_id" : entry['order_id'],
-                                        "ordered_cost" : entry['ordered_cost'],
-                                        "ordered_product" : entry['ordered_product'],
-                                        "status" : entry['status'],
-                                        "shopper_id" : entry['shopper_id'] 
-                                     };
-                    cnt                 = Math.floor(index / maxOrderListPage);
-                    var str             = appendHtml;
-                    arrOrderList[index]    = str;
-                    console.log("index : " + index + " maxOrderListPage : " + maxOrderListPage + " cnt : " + cnt);
-                    
-                    totalOrderListPage = cnt;
-
-
-                });
-                console.log("#####################################");
-                console.log("총페이지수: " + totalOrderListPage);
-                console.log("######################################");
+                    console.log("#####################################");
+                    console.log("총페이지수: " + totalOrderListPage);
+                    console.log("######################################");
+                }
             }
         });
     },

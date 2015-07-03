@@ -192,17 +192,18 @@
 	<div id="wrap2" class="bg_alpha" name="product_pop" style="display : none; top : 0; position : absolute; z-index:100000;" >
 		<div class="product_view " >
 			<p class="pv_tit">상품상세</p>
-			<div class="pv_content">
-				<p name="pop_cl_photo"><!-- <img src="../images/bg_intro.jpg" /> --></p>
-				<ul name="pop_content">
-					<li class="ci_txt"><h1 name="pop_pd_name"><!-- 1,980원 --></h1></li>
+			<p><h1 name="pop_pd_name" id="product_img_name" style="margin-bottom : 10px;"></h1></p>
+			<div class="pv_content" id="product_img_wp" style="height : 440px;">
+				<p name="pop_cl_photo" class="pop_cl_photo" style="height : 430px; " id="product_img"><!-- <img src="../images/bg_intro.jpg" /> --></p>
+				<ul name="pop_content" style="margin-top : 10px;" id="product_content">
+					<!-- <li class="ci_txt"><h1 name="pop_pd_name"></h1></li> -->
 					<li class="ci_txt">판매가 : <span name="pop_pd_cost"><!-- 1,980원 --></span></li>
 					<li class="ci_txt">원산지 : <span name="pop_pd_origin"></span></li>
 					<li class="ci_txt">업체정보 : <span name="pop_pd_company"></span></li>
-					<li class="ci_txt">규격 : <span name="pop_pd_standard"></span></li>
+					<li class="ci_txt" style="margin-bottom : 5px;">규격 : <span name="pop_pd_standard"></span></li>
 				</ul>
 			</div>
-			<div class="btn_close focus">닫기</div>
+			<div class="btn_close" name="product_pop_btn">닫기</div>
 		</div>
 	</div>
 <!-- 찜하기 토스트메세지 -->

@@ -311,8 +311,15 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                     }
                     //상품상세팝업
                     else if(currentFocusList == 5){
-                        currentFocusList = 0;
-                        $('div[name="product_pop"]').hide();
+                        //닫기 포커스일때
+                        if(popProductFocus == 2){
+                            $('div[name="product_pop_btn"]').removeClass('focus');
+                            location.href="#product_img"
+                            currentFocusList = 0;
+                            popProductFocus = 0;
+                            $('div[name="product_pop"]').hide();
+                        }
+                        
                         //this.selectProductSubCategory();
                     }
                 }
@@ -404,6 +411,22 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                                 $('span[id="btn_close"]').removeClass('focus'); 
                                 popFocus = 1;
                                 $('span[name="pr_num_plusP"]').addClass('focus');
+                            }
+                        }
+                        //상세정보 팝업
+                        else if(currentFocusList == 5){
+                            //상세정보 content->상세정보 img
+                            if(popProductFocus == 1){
+                                console.log("상세정보 content->상세정보 img");
+                                popProductFocus = 0;
+                                location.href="#product_img"
+                            }
+                            //닫기 -> 상세정보 content
+                            else if(popProductFocus == 2){
+                                console.log("닫기 -> 상세정보 content");
+                                $('div[name="product_pop_btn"]').removeClass('focus'); 
+                                popProductFocus = 1;
+                                location.href="#product_content"
                             }
                         }
 
@@ -589,6 +612,23 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                                     popFocus = 3;
                                     $('span[id="btn_close"]').addClass('focus'); 
                                     console.log("+에 focus일때->취소->"+popFocus);
+                                }
+                            }
+                            //상세정보 팝업
+                            else if(currentFocusList == 5){
+                                //상세정보 img -> 상세정보 content
+                                if(popProductFocus == 0){
+                                    console.log("상세정보 img -> 상세정보 content");
+                                    //$('p[name="pop_cl_photo"]').hide();  
+                                    popProductFocus = 1;
+                                    location.href="#product_content"
+                                }
+                                //상세정보 content -> 닫기
+                                else if(popProductFocus == 1){
+                                    console.log("상세정보 content -> 닫기");
+                                    //location.href="#product_content"
+                                    popProductFocus = 2;
+                                    $('div[name="product_pop_btn"]').addClass('focus'); 
                                 }
                             }
                     }   
@@ -1270,7 +1310,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                         console.log("######## result  : " + JSON.stringify(result));
                         //상품정보 팝업화면일때
                         if(currentFocusList == 5){
-                            $('p[name="pop_cl_photo"]').empty().append('<img src="' + cmsServerIp + entry['img'] + '"  style="height : 302px; display : block; margin : 0 auto; "/>'); //width :555px;
+                            $('p[name="pop_cl_photo"]').empty().append('<img src="' + cmsServerIp + entry['img'] + '"  style="width : auto; height : 100%; display : block; margin : 0 auto; "/>'); //width :555px;
                             $('h1[name="pop_pd_name"]').empty().append(entry['name']);
                             $('span[name="pop_pd_cost"]').empty().append(cn_toPrice(entry['cost']) + "원");
                             $('span[name="pop_pd_origin"]').empty().append(entry['origin']);
