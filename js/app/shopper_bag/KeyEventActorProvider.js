@@ -83,7 +83,6 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
         this.martArrow();
 
         $('li[name="sbl_list"]').eq(currentFocusMenu).addClass('focus');
-
     },
 
     // 화면 별 키 이벤트 관련 처리
@@ -844,6 +843,21 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 $('li[name="pl_menu"]').eq(2).addClass('mg_r10');
                 $('li[name="pl_menu"]').eq(4).addClass('mg_r10');
 
+            }, 
+            complete    : function(result) {
+                console.log("닭볶음탕??? : " + requestSetMenu);
+                if(requestSetMenu == '닭볶음탕') {
+
+                    console.log("보끔탕?");
+                    $('li[name="sbl_list"]').eq(currentFocusMenu).removeClass('focus');
+
+                    currentFocusList = 1;
+                    currentFocusMenu2 = 1;
+
+                    $('li[name="pl_menu"]').eq(currentFocusMenu2).addClass('focus');
+                    $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').append(btnokfill);
+                    $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').addClass('focus');
+                }
             }
         });
     },

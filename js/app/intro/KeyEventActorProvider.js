@@ -42,7 +42,7 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
 
     	me.actors = [];
 
-        $('#intro_skip').show(); // 인트로 버튼 on
+        //$('#intro_skip').show(); // 인트로 버튼 on
 
     },
 

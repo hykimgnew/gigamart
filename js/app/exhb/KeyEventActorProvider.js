@@ -231,8 +231,8 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         var config  = window.oipfObjectFactory.createConfigurationObject();
         config.localSystem.mute = false; // 음소거 off
 
-        $('#intro_skip').show(); // 인트로 버튼 on
-        $('#intro_skip').addClass("focus");
+        //$('#intro_skip').show(); // 인트로 버튼 on
+        //$('#intro_skip').addClass("focus");
 
     	var me = this;
         // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
@@ -1151,8 +1151,8 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     }
                     //추천세트
                     else if(currentFocusDtl3 == 1){
-                        /** 전체 카테고리로 이동 */
-                        //location.href = "category.html";
+                        /** 쇼퍼's Bag 이동 */
+                        location.href = "shopper_bag.html?setName=닭볶음탕";
                     }
 
                 }
@@ -2592,14 +2592,6 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         var b = aa.split(".");
         var bb = b[0]
         console.log("bb="+bb);
-
-        for(var i=0 ; i < 8 ; i++) {
-            console.log("######### input hidden 전체 시간 : " + $('input[name="SetTime"]').eq(i).val());
-        }
-
-        for(var i=0 ; i < 8 ; i++) {
-            console.log("######### productList3 전체 시간 : " + productList3[i].duration_sec);
-        }
 
         if(bb == "2-1기획전_매실"){
             //requestCategoryDtlId="18000";

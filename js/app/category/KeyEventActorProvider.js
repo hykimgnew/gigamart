@@ -514,6 +514,10 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                     if(currentFocusList == 0) {
                         // MyMart나 쇼퍼 주문이력 사이일 때
                         if(currentFocusMenu > 0 && currentFocusMenu <= 2) {
+                            if(currentFocusMenu == 2) {
+                                $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("sel");    
+                            }
+
                             $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("focus");
                             currentFocusMenu = currentFocusMenu - 1; // 현재 카테고리 Focus 위치 감소
                             $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
@@ -546,6 +550,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             $('#th_product_list').removeClass("focus");
                             currentFocusList = 0;
                             histFocus = 0;
+                            $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("sel");
                             $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
                         }
                         // 쇼퍼 리얼 타임 영상 연결 일때
