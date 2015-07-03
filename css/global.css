@@ -803,7 +803,7 @@ position:relative;width:162px; float:left; margin-bottom:4px; color:#ffffff;back
 .easycart .ec_calcu .ecc_pm span {display:block; font-size:20px; }
 .easycart .ec_calcu .ecc_payments {margin:10px 0 10px 10px; background:#e71828; width:120px; height:78px; border-radius:10px; line-height:70px; color:#FFFFFF; font-size:20px; }
 .easycart .ec_calcu .ecc_payments.focus {margin:10px 0 10px 10px; background:#2b9330; width:120px; height:78px; border-radius:10px; line-height:70px; color:#FFFFFF; font-size:20px;}
-.easycart .ec_list {clear:both; width:100%; height:391px; position:relative; overflow-y: hidden; overflow-x:hidden; border-top:1px solid #c2c2c2; }
+.easycart .ec_list {clear:both; width:100%; height:391px; position:relative; overflow-y: scroll; overflow-x:hidden; border-top:1px solid #c2c2c2; }
 .easycart .ec_list .scl_row {height:98px; border-bottom:1px solid #e9e9e9; color:#737373;}
 .easycart .ec_list .scl_row.focus {height:98px; border-bottom:1px solid #c2c2c2; color:#FFFFFF; background:url(../images/icon_ok_b.png) 530px 33px no-repeat #2b9330; }
 .easycart .ec_list .scl_row td {padding:10px; }

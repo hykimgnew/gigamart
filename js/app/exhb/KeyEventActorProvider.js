@@ -553,13 +553,6 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             if(keyCode === global.VK_GREEN) {
                 isCart = false;
                 $('#popup_cart').hide();
-                //$('#wrap').html(cartHtml); // 백업한 html 을 다시 복구
-                
-                /*if(currentFocusList == 0) $('#pj_left').addClass('focus');
-                if(currentFocusList == 2) $('li[name="sl_menu"]').eq(currentFocusMenu).addClass('focus');
-                if(currentFocusList == 3) $('li[name="li_discount1"]').eq(currentFocusDtl1).addClass('focus');
-                if(currentFocusList == 4) $('li[name="li_discount2"]').eq(currentFocusDtl2).addClass('focus');
-                if(currentFocusList == 5) $('li[name="li_discount3"]').eq(currentFocusDtl3).addClass('focus');*/
             }
             // **************************************************
             // * 확인 KEY
