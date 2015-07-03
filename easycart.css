@@ -1,0 +1,31 @@
+/**간편장바구니**/
+
+#bottom .b_carticon span.cmc_arrow {width:100px; height:80px; display:inline-block; top:-45px; z-index:1000; position:absolute; background:url(../images/icon_cart_arrow.png)  0px 0px no-repeat;}
+.Easycart {position:absolute; z-index:10000; right:0px; top:65px; width:595px; height:525px; margin-top:7px; margin-left:345px; padding:10px; border-radius:10px; background:#ffffff; box-shadow: 0px 0px 7px #505050;}
+.Easycart .ec_tit {position:relative; border-bottom:2px solid #2b9330; height:33px; line-height:20px; color:#2b9330; font-size:26px;}
+.Easycart .ec_tit span {border-radius:20px; border:2px solid #2b9330; font-size:12px; font-weight:bold; position:absolute; right:0px; top:1px; width:123px; height:22px; text-align:center;}
+.Easycart .ec_tit span.focus {border-radius:20px; border:2px solid #2b9330; font-size:12px; font-weight:bold; position:absolute; right:0px; top:1px;  width:123px; height:22px; text-align:center; background:#2b9330; color:#FFFFFF;}
+.Easycart .ec_tit span b {color:#2b9330; font-size:11px; display:inline-block; padding-left:5px;}
+.Easycart .ec_tit span b.focus {color:#FFFFFF; font-size:11px; display:inline-block; padding-left:5px;}
+.Easycart .ec_calcu {position:relative; height:96px; margin:0px; }
+.Easycart .ec_calcu li {text-align:center; float:left; }
+.Easycart .ec_calcu .ecc_pa {width:125px; padding-top:20px; height:76px; color:#737373; font-size:16px;}
+.Easycart .ec_calcu .ecc_pa span {display:block; color:#404040; font-size:20px; }
+.Easycart .ec_calcu .ecc_plus {width:40px; height:86px; color:#737373; font-size:40px; font-weight:bold; padding-top:10px; }
+.Easycart .ec_calcu .ecc_sc {width:125px; padding-top:20px; height:76px; color:#737373; font-size:16px; }
+.Easycart .ec_calcu .ecc_sc span {display:block; color:#404040; font-size:20px; }
+.Easycart .ec_calcu .ecc_eq {width:40px; height:86px; color:#3d3d3d; font-size:40px; font-weight:bold; padding-top:10px;}
+.Easycart .ec_calcu .ecc_pm {width:135px; padding-top:20px; height:76px; color:#2b9330; font-size:16px; }
+.Easycart .ec_calcu .ecc_pm span {display:block; font-size:20px; }
+.Easycart .ec_calcu .ecc_payments {margin:10px 0 10px 10px; background:#e71828; width:120px; height:78px; border-radius:10px; line-height:70px; color:#FFFFFF; font-size:20px; }
+.Easycart .ec_calcu .ecc_payments.focus {margin:10px 0 10px 10px; background:#2b9330; width:120px; height:78px; border-radius:10px; line-height:70px; color:#FFFFFF; font-size:20px;}
+.Easycart .ec_list {clear:both; width:100%; height:391px; position:relative; overflow-y: scroll; overflow-x:hidden; border-top:1px solid #c2c2c2; }
+.Easycart .ec_list .scl_row {height:98px; border-bottom:1px solid #e9e9e9; color:#737373;}
+.Easycart .ec_list .scl_row.focus {height:98px; border-bottom:1px solid #c2c2c2; color:#FFFFFF; background:url(../images/icon_ok_b.png) 530px 33px no-repeat #2b9330; }
+.Easycart .ec_list .scl_row td {padding:10px; }
+.Easycart .ec_list .scl_row .bdr_side {border-left:1px solid #dedede; border-right:1px solid #dedede;}
+.Easycart .ec_list .sr_img {width:78px; height:78px; overflow:hidden;}
+.Easycart .ec_list .sr_txt {vertical-align:middle; width:276px; height:78px; font-size:14px; }
+.Easycart .ec_list .sr_qty {width:60px; text-align:center; font-size:14px; }
+.Easycart .ec_list .sr_price {width:110px; text-align:left; font-size:14px; padding-left:20px;}
+.ec_arrow {width:1140px; text-align:right; display:inline-block; top:616px; z-index:100000; position:absolute;}
