@@ -236,5 +236,7 @@ App.defineClass('Gigamart.app.shopper_bag.Shopper_bag', {
 
         $('li[name="nm_menu"]').eq(currentFocusMenu).addClass('focus');
         global.stbService = Gigamart.app.shopper_bag.STBService.create(EventBus);
+
+        $('#popup_cart').load("easy_cart.html");
     }
 });

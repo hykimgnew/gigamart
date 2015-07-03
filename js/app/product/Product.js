@@ -216,7 +216,7 @@ App.defineClass('Gigamart.app.product.Product', {
         
         global.stbService = Gigamart.app.product.STBService.create(EventBus);
 
-
+        $('#popup_cart').load("easy_cart.html");
         //me.videoObject = document.querySelector('#cate_bag');
         //global.playerPanel = Gigamart.components.player.PlayerPanel.create();
 

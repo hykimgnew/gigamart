@@ -45,5 +45,7 @@ App.defineClass('Gigamart.app.order.Order', {
         var me = this;
         global.stbService = Gigamart.app.order.STBService.create(EventBus);
 
+        $('#popup_cart').load("easy_cart.html");
+
     }
 });
