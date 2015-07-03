@@ -42,11 +42,18 @@ var requestCategoryDtlId  = request.getParameter("id");
 
 //*************************************************
 // *  간편 장바구니 팝업
-// * cartHtml = 장바구니 HTML
-// * cartFocus = 장바구니 Focus 값
+// * cartHtml           : 간편 장바구니 HTML
+// * cartFocus          : 간편 장바구니 Focus 값
+// *  0                 : 장바구니 가기
+// *  1                 : 간편 장바구니 결제
+// *  2                 : 간편 장바구니 리스트
+// *  3                 : 간편 장바구니 리스트 페이지
+// * histPage           : 상품페이지
 //*************************************************
-var cartHtml = "";
+var cartHtml  = "";
 var cartFocus = 0;
+var cartPage  = 0;
+var histPage  = 1;
 
 
 //*************************************************
