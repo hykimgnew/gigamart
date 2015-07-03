@@ -356,3 +356,6 @@ top : 84%!important;
 text-align : center;
 z-index : 999999;
 }
+.mypage .mypage_btnArea {
+margin-top: 10px!important;
+}
