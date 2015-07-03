@@ -135,5 +135,7 @@ App.defineClass('Gigamart.app.shopper_bag.Shopper_bag', {
     init: function() {
         var me = this;
         global.stbService = Gigamart.app.shopper_bag.STBService.create(EventBus);
+
+        $('#popup_cart').load("easy_cart.html");
     }
 });

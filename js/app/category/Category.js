@@ -123,6 +123,8 @@ App.defineClass('Gigamart.app.category.Category', {
         var me = this;
         global.stbService = Gigamart.app.category.STBService.create(EventBus);
 
+        $('#popup_cart').load("easy_cart.html");
+
     }
         
        

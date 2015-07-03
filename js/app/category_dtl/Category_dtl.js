@@ -109,5 +109,7 @@ App.defineClass('Gigamart.app.category_dtl.Category_dtl', {
     init: function() {
         var me = this;
         global.stbService = Gigamart.app.category_dtl.STBService.create(EventBus);
+
+        $('#popup_cart').load("easy_cart.html");
     }
 });

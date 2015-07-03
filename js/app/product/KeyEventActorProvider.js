@@ -113,7 +113,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
             // **************************************************
             if(keyCode == VK_GREEN) {
                 isCart = false;
-                $('#wrap').html(cartHtml); // 백업한 html 을 다시 복구
+                $('#popup_cart').hide();
 
                 /*if(currentFocusMenu >= 4) {
                     this.videoPlay("test", currentFocusMenu); // 영상 재생
@@ -164,7 +164,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 
             } else if (keyCode === global.VK_BACK) {
                 isCart = false;
-                $('#wrap').html(cartHtml); // 백업한 html 을 다시 복구
+                $('#popup_cart').hide();
             } else if (keyCode === global.VK_ESCAPE) {
                 
             } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
@@ -184,14 +184,12 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 if(currentFocusMenu >= 4) {
                     this.videoStop(); // 영상 재생 중지
                 }
-                /*if(videoPlayer.playState != 'undefined') {
-                    if(videoPlayer.playState != 0 ) this.videoStop(); // 영상 재생 중지
-                }
-*/
-                isCart = true;
-                cartHtml = $('#wrap').html(); // 간편 장바구니에 들어갈 부분의 html 백업 (간편 장바구니 해제 후에 다시 돌려두어야함)
-                $('#wrap').load("easy_cart.html");
-                $('#ecc_payments').addClass('focus');
+
+                isCart      = true;
+                cartFocus   = 1;    // 결제 버튼 Focus
+                cartPage    = 0;    // 첫 페이지로
+                $('#popup_cart').show();
+                $('#ecc_payments').addClass('focus'); // 첫 포커스-결제버튼
             }
 
             // **************************************************
