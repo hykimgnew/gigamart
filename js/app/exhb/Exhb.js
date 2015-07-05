@@ -52,17 +52,21 @@ var fvId    = "";
 // *  간편 장바구니 팝업
 // * cartHtml           : 간편 장바구니 HTML
 // * cartFocus          : 간편 장바구니 Focus 값
-// *  0                 : 장바구니 가기
-// *  1                 : 간편 장바구니 결제
-// *  2                 : 간편 장바구니 리스트
-// *  3                 : 간편 장바구니 리스트 페이지
+// *   0                : 장바구니 가기
+// *   1                : 간편 장바구니 결제
+// *   2~n              : 간편 장바구니 리스트 내 상품 Focus
+// *  chgVolumeFocus    : 수량 변경 팝업
+// *   0                : 팝업 off
+// *   1                : Minus
+// *   2                : Plus
+// *   3                : 확인
+// *   4                : 취소
 // * histPage           : 상품페이지
 //*************************************************
-var cartHtml  = "";
-var cartFocus = 0;
-var cartPage  = 0;
-var histPage  = 1;
-
+var cartHtml        = "";
+var cartFocus       = 0;
+var chgVolumeFocus  = 0;
+var histPage        = 1;
 
 //*************************************************
 // *  쇼퍼 리얼 타임 팝업

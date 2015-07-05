@@ -31,7 +31,83 @@ var Request = function()
     }
 }
 var request = new Request();
-var buyerID		= request.getParameter("buyerID"); // 로그인 할 때 고객ID 세팅
+var buyerID		= request.getParameter("buyerID");
+
+/**
+ * 간편 장바구니 조회
+ **/
+var retrieveEasyCart = function()
+{
+	var resultList;
+
+    $.ajax({
+        url         : cmsServerIp + "/BuyerCartTask/Select",
+        type        : "post",
+        dataType    : "json",
+        async       : true,
+        xhrFields   : {
+                        withCredentials: true
+        },
+        success     : function(result) {
+        	var appendHtml = "";
+        	console.log("#간편 장바구니 조회 : " + JSON.stringify(result));
+
+			var ec_cost = 0;	// 상품 금액
+			var ec_comm = 0;	// 쇼퍼 수수료
+			var ec_total = 0;	// 총 금액
+
+			$.each(result['cart'], function(index, entry) {
+				appendHtml += '<li name="ec_li_list" class="scl_row">';
+				appendHtml += '	<table width="100%" cellpadding="0" cellspacing="0" border="0">';
+				appendHtml += '		<tr>';
+				appendHtml += ' 		<td class="sr_img"><img src="' + cmsServerIp + entry["img"] + '" width="78px" height="78px" />';
+				appendHtml += '<input type="hidden" name="ec_cost" value="' + entry["cost"] + '"/>';
+				appendHtml += '<input type="hidden" name="ec_cnt" value="' + entry["cnt"] + '"/>';
+				appendHtml += '<input type="hidden" name="ec_id" value="' + entry["product_id"] + '"/>';
+				appendHtml += '			</td>';
+				appendHtml += '			<td class="sr_txt" name="sr_txt">' + entry["name"] + '</td>';
+				appendHtml += ' 		<td class="sr_qty" name="sr_cnt">' + entry["cnt"] + '</td>';
+				appendHtml += '			<td class="sr_price" name="sr_cost">' + cn_toPrice(entry["cost"]) + '원</td>';
+				appendHtml += '		</tr>';
+				appendHtml += ' </table>';
+				appendHtml += '</li>';
+
+				ec_cost    += Number(entry["cost"]);
+				ec_comm	   += Number(entry["cost"]) * 5 / 100;
+			});
+
+			ec_total = ec_cost + ec_comm;
+
+			console.log("총 금액 : " + ec_total);
+
+			$('#ec_list').empty().append(appendHtml);
+			$('#cost').html(cn_toPrice(ec_cost) + "원");
+			$('#shopper_cost').html(cn_toPrice(ec_comm) + "원");
+			$('#total_cost').html(cn_toPrice(ec_total) + "원");
+        }
+    });
+
+    return resultList;
+}
+
+/**
+ * 장바구니 삭제 
+ **/
+/*var deleteEasyCart = function(type, productArr) 
+{
+	$.ajax({
+        url         : cmsServerIp + "/BuyerCartTask/Select",
+        type        : "post",
+        dataType    : "json",
+        async       : true,
+        xhrFields   : {
+                        withCredentials: true
+        },
+        success     : function(result) {
+        }
+    });
+}*/
+
 
 /**
  *

@@ -534,6 +534,23 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             }
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // *****************************************************************************
         // * 간편 장바구니 팝업
         // *****************************************************************************
@@ -558,17 +575,98 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             // * 확인 KEY
             // **************************************************
             if (keyCode === global.VK_ENTER) {
-                // 장바구니 가기
-                if(cartFocus == 0) {
-                    $('#p_videoDiv video').remove();
-                    $('#span_videoDiv video').remove();
-                    appConfiguration.localSystem.mute = true; // 음소거 설정
-                    location.href = EXHB_PATH + 'order.html';
-                }
-                
-                // 결제
-                if(cartFocus == 1) {
+
+                // 수량 변경 팝업 OFF 상태
+                if(chgVolumeFocus == 0) {
+                    // 장바구니 가기
+                    if(cartFocus == 0) {
+                        $('#p_videoDiv video').remove();
+                        $('#span_videoDiv video').remove();
+                        appConfiguration.localSystem.mute = true; // 음소거 설정
+                        location.href = EXHB_PATH + 'order.html';
+                    }
                     
+                    // 결제
+                    if(cartFocus == 1) {
+                        
+                    }
+
+                    // 장바구니 리스트
+                    if(cartFocus <= 2) {
+                        // 수량변경 팝업 off -> on
+                        $('#wrap_chVolume').show();
+
+                        // 현재 선택된 상품의 수량을 수량변경팝업에 적용
+                        $('span[name="pr_num_numP"]').html($('input[name="ec_cnt"]').eq(cartFocus-2).val());
+
+                        // + (수량증가)에 포커스
+                        chgVolumeFocus = 2;
+                        $('span[name="pr_num_plusP"]').addClass('focus');
+                    }
+                }
+
+                // 수량 변경 팝업 ON 상태
+                else if(chgVolumeFocus > 0) {
+                    // - (수량 감소)
+                    if(chgVolumeFocus == 1) {
+                        var cnt = Number($('span[name="pr_num_numP"]').html());
+                        if(cnt <= 1) return;
+                        cnt--;
+                        $('span[name="pr_num_numP"]').html(cnt);
+                    }
+
+                    // + (수량 증가)
+                    else if(chgVolumeFocus == 2) {
+                        var cnt = Number($('span[name="pr_num_numP"]').html());
+                        cnt++;
+                        $('span[name="pr_num_numP"]').html(cnt);
+                    }
+
+                    // 확인
+                    else if(chgVolumeFocus == 3) {
+                        // 상품 1개의 금액을 구한다.
+                        var c_cost = Number($('input[name="ec_cost"]').val()) / Number($('input[name="ec_cnt"]').val());
+
+                        // 변경된 갯수에 따른 금액을 구한다.
+                        var n_cost = c_cost * Number($('span[name="pr_num_numP"]').html());
+
+                        // 변경된 수량을 적용한다.
+                        $('input[name="ec_cnt"]').eq(cartFocus-2).val($('span[name="pr_num_numP"]').html());
+                        $('td[name="sr_cnt"]').eq(cartFocus-2).html($('span[name="pr_num_numP"]').html());
+
+                        // 변경된 금액을 적용한다.
+                        $('input[name="ec_cost"]').eq(cartFocus-2).val(n_cost);
+                        $('td[name="sr_cost"]').eq(cartFocus-2).html(cn_toPrice(n_cost) + "원");
+
+                        // 총 금액과 쇼퍼 수수료를 적용한다.
+                        var ec_cost = 0, ec_comm = 0, ec_total = 0;
+
+                        for(var i=0 ; i < $('input[name="ec_cost"]').length ; i++) {
+                            ec_cost    += Number($('input[name="ec_cost"]').eq(i).val());
+                            ec_comm    += Math.ceil(Number($('input[name="ec_cost"]').eq(i).val()) * 5 / 100);
+                        }
+
+                        ec_total = ec_cost + ec_comm;
+                        $('#cost').html(cn_toPrice(ec_cost) + "원");
+                        $('#shopper_cost').html(cn_toPrice(ec_comm) + "원");
+                        $('#total_cost').html(cn_toPrice(ec_total) + "원");
+
+                        // 수량변경 팝업 on -> off
+                        $('#btn_volume_ok').removeClass('focus');
+                        $('#wrap_chVolume').hide();
+                        chgVolumeFocus = 0;
+                    }
+
+                    // 취소
+                    else if(chgVolumeFocus == 4) {
+                        // 변경된 수량과 금액을 적용하지 않는다.
+
+                        // 수량변경 팝업 on -> off
+                        $('#btn_volume_close').removeClass('focus');
+                        $('#wrap_chVolume').hide();
+                        chgVolumeFocus = 0;
+
+                    }
                 }
             } 
 
@@ -580,49 +678,199 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 // * 위 KEY
                 // **************************************************
                 if(keyCode === global.VK_UP) {
-                    // 장바구니 가기
-                    if(cartFocus == 0) {
-                        // 동작 없음
+                    // 수량 변경 팝업 OFF 상태
+                    if(chgVolumeFocus == 0) {
+                        // 장바구니 가기
+                        if(cartFocus == 0) {
+                            // 동작 없음
+                        }
+                        // 결제
+                        else if(cartFocus == 1) {
+                            $('#ecc_payments').removeClass('focus');
+                            cartFocus = 0;
+                            $('#go_cart').addClass('focus');
+                        }
+
+                        // 간편 장바구니 리스트 최상단
+                        else if(cartFocus == 2) {
+                            $('li[name="ec_li_list"]').eq(cartFocus-2).removeClass('focus');
+                            cartFocus = 1;
+                            $('#ecc_payments').addClass('focus');
+                        }
+
+                        // 간편 장바구니 리스트
+                        else if(cartFocus > 2 || cartFocus < $('li[name="ec_li_list"]').length - 2) {
+                            $('li[name="ec_li_list"]').eq(cartFocus-2).removeClass('focus');
+                            cartFocus--;
+                            $('li[name="ec_li_list"]').eq(cartFocus-2).addClass('focus');
+                        }
                     }
-                    // 결제
-                    else if(cartFocus == 1) {
-                        $('#ecc_payments').removeClass('focus');
-                        cartFocus = 0;
-                        $('#go_cart').addClass('focus');
+                
+
+                     // 수량 변경 팝업 ON 상태
+                    else if(chgVolumeFocus > 0) {
+                        // - (수량 감소)
+                        if(chgVolumeFocus == 1) {
+                            
+                        }
+
+                        // + (수량 증가)
+                        else if(chgVolumeFocus == 2) {
+                            
+                        }
+
+                        // 확인
+                        else if(chgVolumeFocus == 3) {
+                            $('#btn_volume_ok').removeClass('focus');
+                            chgVolumeFocus = 1;
+                            $('span[name="pr_num_minusP"]').addClass('focus');
+                        }
+
+                        // 취소
+                        else if(chgVolumeFocus == 4) {
+                            $('#btn_volume_close').removeClass('focus');
+                            chgVolumeFocus = 2;
+                            $('span[name="pr_num_plusP"]').addClass('focus');
+                        }
                     }
-                    
                 }
 
                 // **************************************************
                 // * 아래 KEY
                 // **************************************************
                 if(keyCode === global.VK_DOWN) {
-                    // 장바구니 가기 
-                    if(cartFocus == 0) {
-                        $('#go_cart').removeClass('focus');
-                        cartFocus = 1;
-                        $('#ecc_payments').addClass('focus');
+                    // 수량 변경 팝업 OFF 상태
+                    if(chgVolumeFocus == 0) {
+                        // 장바구니 가기 
+                        if(cartFocus == 0) {
+                            $('#go_cart').removeClass('focus');
+                            cartFocus = 1;
+                            $('#ecc_payments').addClass('focus');
+                        }
+
+                        // 결제
+                        else if(cartFocus == 1) {
+                            // 간편 장바구니 리스트로 이동
+                            $('#ecc_payments').removeClass('focus');
+                            cartFocus = 2;
+                            $('li[name="ec_li_list"]').eq(cartFocus-2).addClass('focus');
+                        }
+
+                        // 간편 장바구니 리스트
+                        else if(cartFocus >= 2 && cartFocus-2 < $('li[name="ec_li_list"]').length-1) {
+                            $('li[name="ec_li_list"]').eq(cartFocus-2).removeClass('focus');
+                            cartFocus++;
+                            $('li[name="ec_li_list"]').eq(cartFocus-2).addClass('focus');
+                        }
+
+                        // 리스트 최대 수치 넘어가면
+                        else if(cartFocus-2 >= $('li[name="ec_li_list"]').length-1) {
+                            console.log("장바구니 리스트의 끝입니다.");
+                        }
                     }
 
-                    // 결제
-                    else if(cartFocus == 1) {
-                        // 간편 장바구니 리스트로 이동
-                    }
+                    // 수량 변경 팝업 ON 상태
+                    else if(chgVolumeFocus > 0) {
+                        // - (수량 감소)
+                        if(chgVolumeFocus == 1) {
+                            $('span[name="pr_num_minusP"]').removeClass('focus');
+                            chgVolumeFocus = 3;
+                            $('#btn_volume_ok').addClass('focus');
+                            
+                        }
 
+                        // + (수량 증가)
+                        else if(chgVolumeFocus == 2) {
+                            $('span[name="pr_num_plusP"]').removeClass('focus');
+                            chgVolumeFocus = 4;
+                            $('#btn_volume_close').addClass('focus');
+                        }
+
+                        // 확인
+                        else if(chgVolumeFocus == 3) {
+                            
+                        }
+
+                        // 취소
+                        else if(chgVolumeFocus == 4) {
+
+                        }
+                    }
                 }
 
                 // **************************************************
                 // * 좌 KEY
                 // **************************************************
                 if(keyCode === global.VK_LEFT) {
-                    
+                    // 수량 변경 팝업 OFF 상태
+                    if(chgVolumeFocus == 0) {
+
+                    }
+
+                    // 수량 변경 팝업 ON 상태
+                    else if(chgVolumeFocus > 0) {
+                        // - (수량 감소)
+                        if(chgVolumeFocus == 1) {
+                            
+                        }
+
+                        // + (수량 증가)
+                        else if(chgVolumeFocus == 2) {
+                            $('span[name="pr_num_plusP"]').removeClass('focus');
+                            chgVolumeFocus = 1;
+                            $('span[name="pr_num_minusP"]').addClass('focus');
+                        }
+
+                        // 확인
+                        else if(chgVolumeFocus == 3) {
+                            
+                        }
+
+                        // 취소
+                        else if(chgVolumeFocus == 4) {
+                            $('#btn_volume_close').removeClass('focus');
+                            chgVolumeFocus = 3;
+                            $('#btn_volume_ok').addClass('focus');
+                        }
+                    }
+
                 }
 
                 // **************************************************
                 // * 우 KEY
                 // **************************************************
                 if(keyCode === global.VK_RIGHT) {
+                                        // 수량 변경 팝업 OFF 상태
+                    if(chgVolumeFocus == 0) {
 
+                    }
+
+                    // 수량 변경 팝업 ON 상태
+                    else if(chgVolumeFocus > 0) {
+                        // - (수량 감소)
+                        if(chgVolumeFocus == 1) {
+                            $('span[name="pr_num_minusP"]').removeClass('focus');
+                            chgVolumeFocus = 2;
+                            $('span[name="pr_num_plusP"]').addClass('focus');
+                        }
+
+                        // + (수량 증가)
+                        else if(chgVolumeFocus == 2) {
+                            
+                        }
+
+                        // 확인
+                        else if(chgVolumeFocus == 3) {
+                            $('#btn_volume_ok').removeClass('focus');
+                            chgVolumeFocus = 4;
+                            $('#btn_volume_close').addClass('focus');
+                        }
+
+                        // 취소
+                        else if(chgVolumeFocus == 4) {
+
+                        }
+                    }
                 }
                 
             } else if (keyCode === global.VK_BACK) {
@@ -993,8 +1241,10 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             if(keyCode === global.VK_GREEN) {
                 isCart      = true;
                 cartFocus   = 1;    // 결제 버튼 Focus
-                cartPage    = 0;    // 첫 페이지로
                 // cartHtml    = $('#wrap').html(); // 간편 장바구니에 들어갈 부분의 html 백업 (간편 장바구니 해제 후에 다시 돌려두어야함)
+
+                retrieveEasyCart(); // 간편 장바구니 조회
+
                 $('#popup_cart').show();
                 $('#ecc_payments').addClass('focus'); // 첫 포커스는 ecc_payments
 

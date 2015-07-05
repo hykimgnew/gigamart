@@ -124,7 +124,7 @@ a:hover, a:active{text-decoration:none;}
 .bg_intro {background:url(../images/bg_intro.jpg) no-repeat;}
 .bg_fruits {background:url(../images/bg_category.jpg) no-repeat;}
 .bg_cart {background:url(../images/bg_cart.jpg) no-repeat;}
-.bg_alpha {background:rgba(0,0,0,0.5); width:1280px; height:720px;}
+.bg_alpha {background:rgba(0,0,0,0.5); width:1280px; height:720px; z-index:100000;}
 .bg_gray {background:#F4F4F4;}
 
 
@@ -785,7 +785,7 @@ position:relative;width:162px; float:left; margin-bottom:4px; color:#ffffff;back
 
 /**간편장바구니**/
 #bottom .b_carticon span.cmc_arrow {width:100px; height:80px; display:inline-block; top:-45px; z-index:1000; position:absolute; background:url(../images/icon_cart_arrow.png)  0px 0px no-repeat;}
-.easycart {width:595px; height:525px; margin-top:7px; margin-left:345px; padding:10px; border-radius:10px; background:#ffffff; box-shadow: 0px 0px 40px #505050; position:absolute; top:80px; left:280px; z-index:100000;}
+.easycart {width:595px; height:525px; margin-top:7px; margin-left:345px; padding:10px; border-radius:10px; background:#ffffff; box-shadow: 0px 0px 40px #505050; position:absolute; top:80px; left:280px; z-index:11000;}
 .easycart .ec_tit {position:relative; border-bottom:2px solid #2b9330; height:33px; line-height:20px; color:#2b9330; font-size:26px;}
 .easycart .ec_tit span {border-radius:20px; border:2px solid #2b9330; font-size:12px; font-weight:bold; position:absolute; right:0px; top:1px; width:123px; height:22px; text-align:center;}
 .easycart .ec_tit span.focus {border-radius:20px; border:2px solid #2b9330; font-size:12px; font-weight:bold; position:absolute; right:0px; top:1px;  width:123px; height:22px; text-align:center; background:#2b9330; color:#FFFFFF;}
