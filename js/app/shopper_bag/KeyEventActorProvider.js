@@ -886,8 +886,10 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     $('a[name="arrow_bottom_m"]').addClass('arrow_bottom focus');
                 }
                 console.log("##### 마트는 지금 List json " + JSON.stringify(result));
+
+                arrMartList = new Array(); // 리스트 초기화
+
                 $.each(result['tweet'], function(index, entry) {
-                    arrMartList = new Array(); // 리스트 초기화
                     var cnt = 0;
                     makeTweetList();
                     // *** 쇼퍼 이미지 ***/
@@ -909,17 +911,20 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                         "tweet_img" : entry['tweet_img'] 
                                      };
                     cnt                 = Math.floor(index / maxMartListPage);
-                    var str             = appendHtml;
-                    arrMartList[index]    = str;
-                    console.log("index : " + index + " maxMartListPage : " + maxMartListPage + " cnt : " + cnt);
-                    
-                    totalMartListPage = cnt;
 
-                    console.log("arrMartList[index]: " + arrMartList[index]);
+                    var str             = appendHtml;
+                    arrMartList[index]  = str;
+                    console.log("index : " + index + " maxMartListPage : " + maxMartListPage + " cnt : " + cnt);
+
+                    totalMartListPage = cnt;
 
                 });
                 console.log("#####################################");
                 console.log("총페이지수: " + totalMartListPage);
+                console.log("마트는 지금 리스트 : " + JSON.stringify(arrMartList));
+                for(var i=0 ; i < arrMartList.length ; i++) {
+                    console.log("arrMartList[index]: " + JSON.stringify(arrMartList[i]));
+                }
                 console.log("######################################");
             }
         });
@@ -971,7 +976,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             console.log("########마트는지금(첫페이지는 아님)");
             console.log("i : "+i);
             console.log("page : "+page);
-            console.log("##### 마트는 지금 List json 페이지이동 " + arrMartList);
+            console.log("##### 마트는 지금 List json 페이지이동 " + JSON.stringify(arrMartList));
             console.log("arrMartList[Number(page)+Number(i)] : "+arrMartList[0].tweet_date);
             console.log("arrMartList[Number(page)+Number(i)] : "+arrMartList[1].tweet_date);
             //console.log("00@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+arrMartList.shopper_id);

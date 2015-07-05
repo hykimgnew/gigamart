@@ -497,6 +497,22 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                             else if(prevPageYN == false && currentFocusDtlPage <= 0) {
                                 // 전 페이지 없음
                                 console.log("상세카테고리 : 전 페이지 없음");
+                                
+                                /*// 상세카테고리 변경
+                                fn_chgCategoryDtl('UP');
+                                //updateSubCategoryList();                // 페이지 변경
+                                currentFocusDtlPage = 0;
+                                currentFocusDtl = 0;
+                                verticalFocus   = 0;
+                                horizonFocus    = 0;
+
+                                // 상품 목록 조회
+                                this.selectProductSubCategory("NORMAL");
+
+                                console.log("이동후 가로축 : " + horizonFocus);
+                                console.log("이동후 세로축 : " + verticalFocus);
+                                console.log("이동후 위치 : " + currentFocusDtl);
+                                console.log("이동후 페이지 : " + currentFocusDtlPage);*/
                             }
                         }
 
@@ -538,11 +554,32 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                         // 첫번째, 두번째 행 일때
                         if(verticalFocus >= 0 && verticalFocus < 2) {
                             // 총 갯수에서 3을 뺀 수가 포커스보다 작을 때 아래로 이동 불가 
-                            console.log("### 아래 이동 시 전체 갯수 : " + currentPageCnt + " 현재 포커스 위치 : " + currentFocusDtl);
-
                             if(currentPageCnt - 3 <= currentFocusDtl) {
-                                console.log("###### 아래로 이동 불가");
-                                return;
+                                if(nextPageYN == true) {
+                                    console.log("###### 아래로 이동 불가");
+                                    return;
+                                } else {
+                                    // 다음 페이지 없음
+                                    console.log("내가 늘 사는 상품 지금 얼마? : 다음 페이지 없음");
+                                    
+                                    /*// 상세카테고리 변경
+                                    fn_chgCategoryDtl('DOWN');
+                                    //updateSubCategoryList();                // 페이지 변경
+                                    currentFocusDtlPage = 0;
+                                    currentFocusDtl = 0;
+                                    verticalFocus   = 0;
+                                    horizonFocus    = 0;
+
+                                    // 상품 목록 조회
+                                    this.selectProductSubCategory("NORMAL");
+
+                                    console.log("이동후 가로축 : " + horizonFocus);
+                                    console.log("이동후 세로축 : " + verticalFocus);
+                                    console.log("이동후 위치 : " + currentFocusDtl);
+                                    console.log("이동후 페이지 : " + currentFocusDtlPage);*/
+                                    console.log("####### 아래로 이동 불가");
+                                    return;
+                                }
                             } else {
                                 console.log("###### 아래로 이동 가능");
                             }
@@ -559,6 +596,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                             $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
                             $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
                             $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');
+                            
                         }
 
                         // 세번째 행 일때
@@ -598,6 +636,22 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                             else if(nextPageYN == false) {
                                 // 다음 페이지 없음
                                 console.log("내가 늘 사는 상품 지금 얼마? : 다음 페이지 없음");
+                                
+                                /*// 상세카테고리 변경
+                                fn_chgCategoryDtl('DOWN');
+                                //updateSubCategoryList();                // 페이지 변경
+                                currentFocusDtlPage = 0;
+                                currentFocusDtl = 0;
+                                verticalFocus   = 0;
+                                horizonFocus    = 0;
+
+                                // 상품 목록 조회
+                                this.selectProductSubCategory("NORMAL");
+
+                                console.log("이동후 가로축 : " + horizonFocus);
+                                console.log("이동후 세로축 : " + verticalFocus);
+                                console.log("이동후 위치 : " + currentFocusDtl);
+                                console.log("이동후 페이지 : " + currentFocusDtlPage);*/
                             }
                         }
                    }
