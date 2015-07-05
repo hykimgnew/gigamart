@@ -50,23 +50,25 @@ var fvId    = "";
 
 //*************************************************
 // *  간편 장바구니 팝업
-// * cartHtml           : 간편 장바구니 HTML
-// * cartFocus          : 간편 장바구니 Focus 값
+// * cartHtml           - 간편 장바구니 HTML
+// * cartFocus          - 간편 장바구니 Focus 값
 // *   0                : 장바구니 가기
 // *   1                : 간편 장바구니 결제
 // *   2~n              : 간편 장바구니 리스트 내 상품 Focus
-// *  chgVolumeFocus    : 수량 변경 팝업
+// *  chgVolumeFocus    - 수량 변경 팝업
 // *   0                : 팝업 off
 // *   1                : Minus
 // *   2                : Plus
 // *   3                : 확인
 // *   4                : 취소
-// * histPage           : 상품페이지
+// * histPage           - 상품페이지
+// * anchorFocus        - 앵커 위치 (0~3)
 //*************************************************
 var cartHtml        = "";
 var cartFocus       = 0;
 var chgVolumeFocus  = 0;
 var histPage        = 1;
+var anchorFocus     = 0;
 
 //*************************************************
 // *  쇼퍼 리얼 타임 팝업
@@ -267,6 +269,10 @@ App.defineClass('Gigamart.app.exhb.Exhb', {
         
         global.stbService = Gigamart.app.exhb.STBService.create(EventBus);
 
+        // 음소거 on (영상 재생시 off)
+        var appConfiguration = window.oipfObjectFactory.createConfigurationObject();
+        appConfiguration.localSystem.mute = true;
+    
         // 팝업 Load
         $('#popup_fv').load("full_video.html");
         $('#popup_cart').load("easy_cart.html");

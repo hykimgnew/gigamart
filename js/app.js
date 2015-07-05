@@ -33,6 +33,53 @@ var Request = function()
 var request = new Request();
 var buyerID		= request.getParameter("buyerID");
 
+
+/**
+ * 간편 장바구니 토스트 메시지
+ **/
+var fn_popEasyCart = function() {
+    $('#wrap_cart').hide();
+    $('#cart_message').html(""); // 팝업 내용 비움
+}
+
+/**
+ * 간편 장바구니 플로팅 메뉴 SET
+ **/
+var fltEasyCart = function()
+{
+	var resultList;
+
+    $.ajax({
+        url         : cmsServerIp + "/BuyerCartTask/Select",
+        type        : "post",
+        dataType    : "json",
+        async       : true,
+        xhrFields   : {
+                        withCredentials: true
+        },
+        success     : function(result) {
+        	var appendHtml = "";
+        	console.log("#간편 장바구니 조회 : " + JSON.stringify(result));
+
+			var ec_cost = 0;	// 상품 금액
+			var ec_comm = 0;	// 쇼퍼 수수료
+			var ec_total = 0;	// 총 금액
+
+			$.each(result['cart'], function(index, entry) {
+				ec_cost    += Number(entry["cost"]) * Number(entry["cnt"]);
+				ec_comm    += Math.floor((Number(entry['cost'] * Number(entry["cnt"])) * 5 / 100) / 10) * 10;
+			});
+
+			ec_total = ec_cost + ec_comm;
+
+			$('#flt_cnt').html(result['cart'].length);
+			$('#flt_cost').html(cn_toPrice(ec_total) + "원");
+        }
+    });
+
+    return resultList;
+}
+
 /**
  * 간편 장바구니 조회
  **/
@@ -57,7 +104,7 @@ var retrieveEasyCart = function()
 			var ec_total = 0;	// 총 금액
 
 			$.each(result['cart'], function(index, entry) {
-				appendHtml += '<li name="ec_li_list" class="scl_row">';
+				appendHtml += '<li id="ec_li_list' + index + '" name="ec_li_list" class="scl_row">';
 				appendHtml += '	<table width="100%" cellpadding="0" cellspacing="0" border="0">';
 				appendHtml += '		<tr>';
 				appendHtml += ' 		<td class="sr_img"><img src="' + cmsServerIp + entry["img"] + '" width="78px" height="78px" />';
@@ -72,8 +119,8 @@ var retrieveEasyCart = function()
 				appendHtml += ' </table>';
 				appendHtml += '</li>';
 
-				ec_cost    += Number(entry["cost"]);
-				ec_comm	   += Number(entry["cost"]) * 5 / 100;
+				ec_cost    += Number(entry["cost"]) * Number(entry["cnt"]);
+				ec_comm    += Math.floor((Number(entry['cost'] * Number(entry["cnt"])) * 5 / 100) / 10) * 10;
 			});
 
 			ec_total = ec_cost + ec_comm;
@@ -84,29 +131,139 @@ var retrieveEasyCart = function()
 			$('#cost').html(cn_toPrice(ec_cost) + "원");
 			$('#shopper_cost').html(cn_toPrice(ec_comm) + "원");
 			$('#total_cost').html(cn_toPrice(ec_total) + "원");
+        },
+        complete 	: function(result) {
+        	// 값 초기화
+        	anchorFocus     = 0;
+            chgVolumeFocus  = 0;
+            cartFocus       = 1;
+            $('#ecc_payments').addClass('focus');
+        	// 플로팅 메뉴 장바구니 SET
+        	fltEasyCart();
         }
     });
 
     return resultList;
 }
 
+
 /**
- * 장바구니 삭제 
- **/
-/*var deleteEasyCart = function(type, productArr) 
-{
+ * 장바구니 담기
+ **/ 
+var appendEasyCart = function(cnt, product_id) {
+	var resultCode;
+
+	var param = { 
+				   "product_id" : product_id,
+				   "cnt"		: cnt
+				};
+
 	$.ajax({
-        url         : cmsServerIp + "/BuyerCartTask/Select",
+        url         : cmsServerIp + "/BuyerCartTask/Insert",
         type        : "post",
-        dataType    : "json",
-        async       : true,
+        data 		: param ,
+        dataType    : "json" ,
+        async       : true ,
         xhrFields   : {
                         withCredentials: true
         },
         success     : function(result) {
+        	console.log("## 장바구니 담기 시도 : " + JSON.stringify(result));
+
+        	if(result['resultCode'] == 1) {
+        		console.log("### 장바구니 담기 성공");
+        	} 
+        	else if(result['resultCode'] == -1) {
+        		console.log("### 로그인 안됨");
+        	}
+        },
+        complete	: function(result) {
+        	retrieveEasyCart("KEEP"); // 장바구니 조회
+        }
+    });	
+}
+
+/**
+ * 장바구니 삭제 
+ **/
+var deleteEasyCart = function(type, product_id) 
+{
+	var resultCode;
+	var param = "";
+
+	// 전체 삭제
+	if(type == "ALL") {
+		param = "";
+	}
+
+	// 상품 1 항목 삭제
+	if(type == "PRODUCT") {
+		param = { "product_id" : product_id };
+	}
+
+	$.ajax({
+        url         : cmsServerIp + "/BuyerCartTask/Delete",
+        type        : "post",
+        data 		: param ,
+        dataType    : "json" ,
+        async       : true ,
+        xhrFields   : {
+                        withCredentials: true
+        },
+        success     : function(result) {
+        	console.log("## 장바구니 삭제 시도 : " + JSON.stringify(result));
+
+        	if(result['resultCode'] == 1) {
+        		console.log("### 장바구니 삭제 성공");
+        	} 
+        	else if(result['resultCode'] == -1) {
+        		console.log("### 로그인 안됨");
+        	}
+
+        },
+        complete	: function(result) {
+        	retrieveEasyCart(); // 장바구니 조회
         }
     });
-}*/
+
+    return resultCode;
+}
+
+/**
+ * 장바구니 수정
+ **/
+var updateEasyCart = function(cnt, product_id) 
+{
+	var resultCode;
+	var param = { "product_id" : product_id };
+
+	$.ajax({
+        url         : cmsServerIp + "/BuyerCartTask/Update",
+        type        : "post",
+        data 		: param ,
+        dataType    : "json" ,
+        async       : true ,
+        xhrFields   : {
+                        withCredentials: true
+        },
+        success     : function(result) {
+        	console.log("## 장바구니 수정 시도 : " + JSON.stringify(result));
+
+        	if(result['resultCode'] == 1) {
+        		console.log("### 장바구니 수정 성공");
+        	} 
+        	else if(result['resultCode'] == -1) {
+        		console.log("### 로그인 안됨");
+        	}
+
+        },
+        complete	: function(result) {
+        	retrieveEasyCart(); // 장바구니 조회
+        }
+    });
+
+    return resultCode;
+}
 
 
 /**

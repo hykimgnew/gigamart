@@ -7,6 +7,15 @@
 </head>
 
 <body>
+
+	<div id="wrap_cart" class="bg_alpha" style="display : none;">
+		<div id="pop_easy_cart" class="pop" style="width:500px; top:80%; left:32%; position:absolute;">
+			<ul>
+				<li id="cart_message"></li>
+			</ul>
+		</div>
+	</div>
+		
 	<div id="wrap" class="bg_fruits">
 		<div id="brand">
 				<span style="position :absolute; top : 38px; display:inline-block; float:left;"><h1><img src="../images/logo_gigamart_w.png" /></h1></span>
@@ -161,7 +170,7 @@
 											</tr>
 											<tr>
 												<td id="order_date" class="bg_grayLine"></td> <!-- 2015.05.06 14:06 -->
-												<td id="total_cost" class="bg_grayLine"></td> <!-- 56,300원 -->
+												<td id="total_order_cost" class="bg_grayLine"></td> <!-- 56,300원 -->
 												<td>양재 하나로 마트</td>
 											</tr>
 										</table>
@@ -222,11 +231,11 @@
 			<ul>
 				<!-- <li class="b_menu"><img src="../images/bottom_menu.png" /></li> -->
 				<li class="b_home"><img src="../images/bottom_home.png" /></li>
-				<li class="b_price">0원</li>
+				<li id="flt_cost" class="b_price"></li>
 				<li class="b_cart">
 					<ul>
 						<li><img src="../images/bottom_cart_bg_left.png" /></li>
-						<li class="cart_num"><span>0</span></li>
+						<li class="cart_num"><span id="flt_cnt"></span></li>
 						<li><img src="../images/bottom_cart_bg_right.png" /></li>
 					</ul>
 				</li>

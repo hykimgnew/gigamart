@@ -4,6 +4,7 @@
  *  Product Js : Main
  **/
 var global = window;
+var EXHB_PATH = "";
 
 //*************************************************
 // * 상세정보 코드 (포커스 보전용)
@@ -42,18 +43,25 @@ var requestCategoryDtlId  = request.getParameter("id");
 
 //*************************************************
 // *  간편 장바구니 팝업
-// * cartHtml           : 간편 장바구니 HTML
-// * cartFocus          : 간편 장바구니 Focus 값
-// *  0                 : 장바구니 가기
-// *  1                 : 간편 장바구니 결제
-// *  2                 : 간편 장바구니 리스트
-// *  3                 : 간편 장바구니 리스트 페이지
-// * histPage           : 상품페이지
+// * cartHtml           - 간편 장바구니 HTML
+// * cartFocus          - 간편 장바구니 Focus 값
+// *   0                : 장바구니 가기
+// *   1                : 간편 장바구니 결제
+// *   2~n              : 간편 장바구니 리스트 내 상품 Focus
+// *  chgVolumeFocus    - 수량 변경 팝업
+// *   0                : 팝업 off
+// *   1                : Minus
+// *   2                : Plus
+// *   3                : 확인
+// *   4                : 취소
+// * histPage           - 상품페이지
+// * anchorFocus        - 앵커 위치 (0~3)
 //*************************************************
-var cartHtml  = "";
-var cartFocus = 0;
-var cartPage  = 0;
-var histPage  = 1;
+var cartHtml        = "";
+var cartFocus       = 0;
+var chgVolumeFocus  = 0;
+var histPage        = 1;
+var anchorFocus     = 0;
 
 
 //*************************************************
@@ -232,8 +240,12 @@ App.defineClass('Gigamart.app.product.Product', {
         }
         
         global.stbService = Gigamart.app.product.STBService.create(EventBus);
-
+        // 음소거 on (영상 재생시 off)
+        var appConfiguration = window.oipfObjectFactory.createConfigurationObject();
+        appConfiguration.localSystem.mute = true;
+        
         $('#popup_cart').load("easy_cart.html");
+
         //me.videoObject = document.querySelector('#cate_bag');
         //global.playerPanel = Gigamart.components.player.PlayerPanel.create();
 

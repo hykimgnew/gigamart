@@ -1214,7 +1214,7 @@ position:relative;width:152px; border-top:4px solid #2b9330; border-right:4px so
 .loading {position:relative; top:260px; width:140px; height:188px; margin:0 auto; background:url(../images/loading.png) center center no-repeat;}
 
 /*팝업*/
-.pop {position:relative; margin:0 auto; border-radius:10px; padding:20px; background:#ffffff; box-shadow: 0px 0px 40px #505050; }
+.pop {position:relative; margin:0 auto; border-radius:10px; padding:20px; background:#ffffff; box-shadow: 0px 0px 40px #505050; z-index:1100000; }
 .type_a {top:220px; width:496px; height:242px;}
 .type_b {top:245px; width:496px; height:192px;}
 .type_c {top:400px; width:496px; height:50px;}
