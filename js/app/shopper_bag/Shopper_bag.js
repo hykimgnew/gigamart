@@ -68,7 +68,7 @@ var arrShopperRcList          = new Array();
 //*************************************************
 var currentMartListPage  = 0;
 var totalMartListPage    = 0;
-var maxMartListPage      = 1;
+var maxMartListPage      = 2;
 var arrMartList          = new Array();
 
 //*************************************************

@@ -721,8 +721,8 @@
 											</ul>
 										</div>
 										<div class="orderList_con">
-										<p style="width : 100%;">
-											<a href="#" class="arrow_top" name="arrow_top_order"></a>
+										<p style="width : 100%; height : 22px;">
+											<span href="#" class="arrow_top" name="arrow_top_order"></span>
 										</p>
 											<ul>
 												<li name="order_menu">
@@ -774,8 +774,10 @@
 													</table>
 												</li>
 											</ul>
-											<span class="arrow_bottom" name="arrow_top_order"></span>
-											<span class="page"> 
+											<p style="width : 100%; height : 22px;">
+												<span class="arrow_bottom" name="arrow_bottom_order"></span>
+											</p>
+											<span class="page" style="margin-top : 25px;"> 
 												<b name="order_cur_pg"></b> / <span name="order_tot_pg"></span>
 												<!-- <b>01</b> / 04  -->
 											</span>
@@ -846,12 +848,12 @@
 									<div>
 										<table width="100%" cellpadding="0" cellspacing="0" border="0" class="mpol_table">
 											<tr>
-												<th>구매일자</th><td class="cnr">2015.05.06 14:06</td>
-												<th>주문번호</th><td>adfsafsdfsdfsdf20</td>
+												<th>구매일자</th><td class="cnr" name="order_dt_date"><!-- 2015.05.06 14:06 --></td>
+												<th>주문번호</th><td name="order_dt_num"><!-- adfsafsdfsdfsdf20 --></td>
 											</tr>
 											<tr>
-												<th>상태</th><td>배송완료</td>
-												<th>shopper</th><td>김이슬 <span class="tb_btn focus">평점주기</span></td>
+												<th>상태</th><td name="order_dt_state"><!-- 배송완료 --></td>
+												<th>shopper</th><td name="order_dt_name"><!-- 김이슬  --><span class="tb_btn focus">평점주기</span></td>
 											</tr>
 										</table>
 									</div>
@@ -861,17 +863,11 @@
 								<div class="mypage_btnArea_right">전체영상보기</div>
 
 								
-
-
-
-
-
-
 								<div class="mypage_orderDetail_con">
 									<ul>
 										<li>
 											<table>
-												<tr class="mod_row_tit">
+												<tr class="mod_row_tit" id="mod_row_tit">
 													<th class="moh_proInfo" colspan="2">상품정보</th>
 													<th class="moh_price ">판매가</th>
 													<th class="moh_discount ">할인</th>
@@ -881,16 +877,18 @@
 													<th class="moh_order">주문금액</th>
 													<th class="moh_btn">쇼핑영상</th>
 												</tr>
-												<tr class="mod_row">
-													<td class="mod_img"><img src="../images/sample_03.jpg" width="100px" height="100px" /></td>
-													<td class="mod_txt ">[아침마루] 바로 먹는 사과5-6입 / 봉</td>
-													<td class="mod_price">8,800원ssssssss</td>
-													<td class="mod_discount">300원</td>
-													<td class="mod_amount">1</td>
-													<td class="mod_delivery">1,000원</td>
-													<td class="mod_store">이마트 용산</td>
-													<td class="mod_order">32,000원</td>
-													<td class="mod_btn"><span class="tb_btn">재생</span></td>
+												<!-- <tr class="mod_row">
+													<td class="mod_img" name="dt_img">
+														<img src="../images/sample_03.jpg" width="100px" height="100px" /> 
+													</td>
+													<td class="mod_txt" name="dt_name">[아침마루] 바로 먹는 사과5-6입 / 봉</td>
+													<td class="mod_price" name="dt_cost">8,800원ssssssss</td>
+													<td class="mod_discount" name="dt_discount">300원</td>
+													<td class="mod_amount" name="dt_cnt">1</td>
+													<td class="mod_delivery" name="dt_delivery">1,000원</td>
+													<td class="mod_store" name="dt_store">이마트 용산</td>
+													<td class="mod_order" name="dt_order">32,000원</td>
+													<td class="mod_btn" name="dt_btn"><span class="tb_btn">영상없음</span></td>
 												</tr>
 												<tr class="mod_row">
 													<td class="mod_img"><img src="../images/sample_03.jpg" width="100px" height="100px" /></td>
@@ -902,11 +900,11 @@
 													<td class="mod_store">이마트 용산</td>
 													<td class="mod_order">32,000원</td>
 													<td class="mod_btn">영상없음</td>
-												</tr>
+												</tr> -->
 											</table>
 										</li>
 									</ul>
-									<span class="arrow_bottom"></span>
+									<span class="arrow_bottom" name="arrow_bottom_order_dt1"></span>
 								</div>
 
 								

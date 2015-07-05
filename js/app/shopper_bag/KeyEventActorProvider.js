@@ -256,30 +256,66 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         //쇼퍼 추천세트 1행1열->이전페이지
                         if(currentFocusMenu2 == 0){
 
-                            //1행1열->이동X
-                            if($('li[name="pl_menu"]').length == 1){
-
-                            }else{
-                                console.log("이전페이지");
+                            //첫페이지일때
+                            if(currentShopperListPage == 0){
+                                    console.log("##### 첫페이지임 ..");
+                                    this.shopperArrow();
+                            }
+                            // 마지막 페이지 아닐 때
+                            else{
+                                console.log("#####이전 페이지 이동");
                                 $('li[name="pl_menu"]').eq(currentFocusMenu2).removeClass('focus');
                                 $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').empty();
                                 $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').removeClass('focus');
+                                this.pagingOrderedProduct(Number(currentShopperListPage)-1);
                                 currentFocusMenu2 = 4;
                                 $('li[name="pl_menu"]').eq(currentFocusMenu2).addClass('focus');
                                 $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').append(btnokfill);
                                 $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').addClass('focus');
+                                this.shopperArrow();
                             }
+                            //1행1열->이동X
+                            // if($('li[name="pl_menu"]').length == 1){
+
+                            // }else{
+                            //     console.log("이전페이지");
+                            //     $('li[name="pl_menu"]').eq(currentFocusMenu2).removeClass('focus');
+                            //     $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').empty();
+                            //     $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').removeClass('focus');
+                            //     currentFocusMenu2 = 4;
+                            //     $('li[name="pl_menu"]').eq(currentFocusMenu2).addClass('focus');
+                            //     $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').append(btnokfill);
+                            //     $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').addClass('focus');
+                            // }
                         }
                         //쇼퍼 추천세트1행2열->이전페이지
                         else if(currentFocusMenu2 == 1){
-                            console.log("이전페이지");
-                            $('li[name="pl_menu"]').eq(currentFocusMenu2).removeClass('focus');
-                            $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').empty();
-                            $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').removeClass('focus');
-                            currentFocusMenu2 = 5;
-                            $('li[name="pl_menu"]').eq(currentFocusMenu2).addClass('focus');
-                            $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').append(btnokfill);
-                            $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').addClass('focus');
+                            //첫페이지일때
+                            if(currentShopperListPage == 0){
+                                    console.log("##### 첫페이지임 ..");
+                                    this.shopperArrow();
+                            }
+                            // 마지막 페이지 아닐 때
+                            else{
+                                console.log("#####이전 페이지 이동");
+                                $('li[name="pl_menu"]').eq(currentFocusMenu2).removeClass('focus');
+                                $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').empty();
+                                $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').removeClass('focus');
+                                this.pagingOrderedProduct(Number(currentShopperListPage)-1);
+                                currentFocusMenu2 = 5;
+                                $('li[name="pl_menu"]').eq(currentFocusMenu2).addClass('focus');
+                                $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').append(btnokfill);
+                                $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').addClass('focus');
+                                this.shopperArrow();
+                            }
+                            // console.log("이전페이지");
+                            // $('li[name="pl_menu"]').eq(currentFocusMenu2).removeClass('focus');
+                            // $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').empty();
+                            // $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').removeClass('focus');
+                            // currentFocusMenu2 = 5;
+                            // $('li[name="pl_menu"]').eq(currentFocusMenu2).addClass('focus');
+                            // $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').append(btnokfill);
+                            // $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').addClass('focus');
                         }
                         //쇼퍼 추천세트 2행1열->1행1열
                         else if(currentFocusMenu2 == 2){
@@ -440,25 +476,60 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         }
                         //쇼퍼 추천세트3행1열->다음페이지
                         else if(currentFocusMenu2 == 4){
-                            console.log("다음페이지");
-                            $('li[name="pl_menu"]').eq(currentFocusMenu2).removeClass('focus');
-                            $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').empty();
-                            $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').removeClass('focus');
-                            currentFocusMenu2 = 0;
-                            $('li[name="pl_menu"]').eq(currentFocusMenu2).addClass('focus');
-                            $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').append(btnokfill);
-                            $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').addClass('focus');
+                            // 현재 페이지가 마지막 페이지 일 때
+                            if(currentShopperListPage == totalShopperListPage){
+                                console.log("##### 더 이상 이동할 페이지 없음..");
+                                console.log("currentShopperRcListPage : "+currentShopperRcListPage);
+                                console.log("totalShopperRcListPage : "+totalShopperRcListPage);
+                                this.shopperArrow();
+                            }
+                            // 마지막 페이지 아닐 때
+                            else {
+                                console.log("##### 다음페이지 이동..");
+                                $('li[name="pl_menu"]').eq(currentFocusMenu2).removeClass('focus');
+                                $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').empty();
+                                $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').removeClass('focus');
+                                this.pagingOrderedProduct(Number(currentShopperListPage)+1);
+                                currentFocusMenu2 = 0;
+                                $('li[name="pl_menu"]').eq(currentFocusMenu2).addClass('focus');
+                                $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').append(btnokfill);
+                                $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').addClass('focus');
+                                this.shopperArrow();
+                            } 
+                            // console.log("다음페이지");
+                            // $('li[name="pl_menu"]').eq(currentFocusMenu2).removeClass('focus');
+                            // $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').empty();
+                            // $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').removeClass('focus');
+                            // currentFocusMenu2 = 0;
+                            // $('li[name="pl_menu"]').eq(currentFocusMenu2).addClass('focus');
+                            // $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').append(btnokfill);
+                            // $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').addClass('focus');
                         }
                         //쇼퍼 추천세트3행2열->다음페이지
                         else if(currentFocusMenu2 == 5){
-                            console.log("다음페이지");
-                            $('li[name="pl_menu"]').eq(currentFocusMenu2).removeClass('focus');
-                            $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').empty();
-                            $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').removeClass('focus');
-                            currentFocusMenu2 = 1;
-                            $('li[name="pl_menu"]').eq(currentFocusMenu2).addClass('focus');
-                            $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').append(btnokfill);
-                            $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').addClass('focus');
+                            if(currentShopperListPage == totalShopperListPage){
+                                console.log("##### 더 이상 이동할 페이지 없음..");
+                                console.log("currentShopperRcListPage : "+currentShopperRcListPage);
+                                console.log("totalShopperRcListPage : "+totalShopperRcListPage);
+                                this.shopperArrow();
+                            }
+                            // 마지막 페이지 아닐 때
+                            else {
+                                console.log("##### 다음페이지 이동..");
+                                $('li[name="pl_menu"]').eq(currentFocusMenu2).removeClass('focus');
+                                this.pagingOrderedProduct(Number(currentShopperListPage)+1);
+                                currentFocusMenu2 = 1;
+                                $('li[name="pl_menu"]').eq(currentFocusMenu2).addClass('focus');
+                                this.shopperArrow();
+                            }
+                            // console.log("다음페이지");
+                            // $('li[name="pl_menu"]').eq(currentFocusMenu2).removeClass('focus');
+                            // $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').empty();
+                            // $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').removeClass('focus');
+                            // currentFocusMenu2 = 1;
+                            // $('li[name="pl_menu"]').eq(currentFocusMenu2).addClass('focus');
+                            // $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').append(btnokfill);
+                            // $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').addClass('focus');
                         }
 
                     }
@@ -915,8 +986,8 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     var str             = appendHtml;
                     arrMartList[index]  = str;
                     console.log("index : " + index + " maxMartListPage : " + maxMartListPage + " cnt : " + cnt);
-
                     totalMartListPage = cnt;
+
 
                 });
                 console.log("#####################################");
@@ -964,7 +1035,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
         // 현재 페이지
         currentMartListPage = page;
         console.log("########마트는지금리스트 페이지 이동 currentMartListPage   : " + currentMartListPage);
-        console.log("########arrShopperList.length : " + arrShopperList.length);
+        console.log("########arrShopperList.length : " + JSON.stringify(arrMartList));
         //이전페이지(첫페이지로 이동할때)
         if(currentMartListPage == 0){
             console.log("########마트는지금(첫페이지로 이동할때)");
@@ -972,7 +1043,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
         }
         //이전페이지(첫페이지는 아님)
         else{
-           for(var i=0 ; i < 1 ; i++) {
+           for(var i=0 ; i < 2 ; i++) {
             console.log("########마트는지금(첫페이지는 아님)");
             console.log("i : "+i);
             console.log("page : "+page);
@@ -981,18 +1052,18 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             console.log("arrMartList[Number(page)+Number(i)] : "+arrMartList[1].tweet_date);
             //console.log("00@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+arrMartList.shopper_id);
             //console.log("arrMartList[currentMartListPage].shopper_id : "+arrMartList[currentMartListPage].shopper_id);
-            console.log("쇼퍼아이디@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+arrMartList[Number(page+i)].shopper_id);
+            console.log("쇼퍼아이디@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+arrMartList[Number((page+i)].shopper_id);
             makeTweetList();
             // *** 쇼퍼 이미지 ***/
-            $('span[name="shopper_img"]').eq(i).empty().append("<img src=" + cmsServerIp + arrMartList[Number(page+i)].shopper_img + " width='60' height='68' />");
+            $('span[name="shopper_img"]').eq(i).empty().append("<img src=" + cmsServerIp + arrMartList[Number((page+i)].shopper_img + " width='60' height='68' />");
             // *** 쇼퍼 ID ***/
-            $('li[name="shopper_id"]').eq(i).empty().append(arrMartList[Number(page+i)].shopper_id);
+            $('li[name="shopper_id"]').eq(i).empty().append(arrMartList[Number((page+i)].shopper_id);
             // *** 트윗 일시 ***/
-            $('li[name="tweet_date"]').eq(i).empty().append(arrMartList[Number(page+i)].tweet_date);
+            $('li[name="tweet_date"]').eq(i).empty().append(arrMartList[Number((page+i)].tweet_date);
             // *** 트윗 내용 ***/
-            $('li[name="tweet"]').eq(i).empty().append(arrMartList[Number(page+i)].tweet);
+            $('li[name="tweet"]').eq(i).empty().append(arrMartList[Number((page+i)].tweet);
             // *** 제품 이미지 ***/
-            $('li[name="product_img"]').eq(i).empty().append("<img src=" + cmsServerIp + arrMartList[Number(page+i)].tweet_img + "  height='180' />"); //width='393'
+            $('li[name="product_img"]').eq(i).empty().append("<img src=" + cmsServerIp + arrMartList[Number((page+i)].tweet_img + "  height='180' />"); //width='393'
             } 
         }
         
