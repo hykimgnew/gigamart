@@ -359,3 +359,6 @@ z-index : 999999;
 .mypage .mypage_btnArea {
 margin-top: 10px!important;
 }
+.mypage .mypage_orderDetail table.mpol_table td {
+  width: 382px!important;
+}
