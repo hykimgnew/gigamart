@@ -138,10 +138,6 @@ App.defineClass('Gigamart.app.category.Category', {
         var me = this;
         global.stbService = Gigamart.app.category.STBService.create(EventBus);
 
-        // 음소거 on (영상 재생시 off)
-        var appConfiguration = window.oipfObjectFactory.createConfigurationObject();
-        appConfiguration.localSystem.mute = true;
-
         $('#popup_cart').load("easy_cart.html");
 
     }

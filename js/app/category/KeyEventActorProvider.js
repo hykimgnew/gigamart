@@ -25,7 +25,7 @@ function pageArrowUtil1() {
 
 
 // 쇼퍼 실시간 영상재생
-//var rtspPlayer;
+var rtspPlayer;
 function rtspPlay() {
     var url = "rtsp://175.209.53.209:1554/11023.sdp";
     // rtspPlayer = document.querySelector('object');
@@ -39,10 +39,23 @@ function rtspPlay() {
     setTimeout(rtspPlayer.play(1), 500);*/
 
     // khy 2015-06-29
-    appConfiguration.localSystem.mute = false; // 음소거 해제
+    /*appConfiguration.localSystem.mute = false; // 음소거 해제
 
     $('#rtsp_area video').remove();
-    $('#rtsp_area').html('<video id="sub_mpeg_player" width="970" height="545" autoplay loop src="' + url + '"></video>');
+    $('#rtsp_area').html('<video id="sub_mpeg_player" width="970" height="545" autoplay loop src="' + url + '"></video>'); */
+
+    // khy 2015-07-06
+    appConfiguration.localSystem.mute = false; // 음소거 해제
+    
+    //$('#rtsp_area').html('<object type="video/mpeg" id="rtsp_player" class="subvideo"><param name="zindex" value="1"/></object>');
+    rtspPlayer = document.querySelector('object');
+    $('#rtsp_area').empty();
+    rtspPlayer.width = 970;
+    rtspPlayer.height = 545;
+    document.getElementById('rtsp_area').appendChild(rtspPlayer);
+    rtspPlayer.data = url;
+    rtspPlayer.play(1);
+    setTimeout(rtspPlayer.play(1), 500);
 }
 
 function rtspStop() {
@@ -50,7 +63,9 @@ function rtspStop() {
 
     // khy 2015-06-29
     appConfiguration.localSystem.mute = true; // 음소거 설정
-    $('#rtsp_area video').remove();
+    //$('#rtsp_area video').remove();
+    //$('#rtsp_area object').remove();
+    rtspPlayer.stop();
 }
 
 /**
@@ -63,9 +78,11 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
     	me.actors = [];
 
         // 플로팅 메뉴 장바구니 SET
-        fltEasyCart();
+        
+        appConfiguration.localSystem.mute = false; // 음소거 설정
         
         // 영상 재생
+        fltEasyCart();
         this.videoPlay("test", currentFocusMenu);
         
         console.log("############# requestCategoryCode : " + requestCategoryCode);
@@ -594,6 +611,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
 
                 // 상세 카테고리 일때
                 else if(currentFocusList == 1) {
+
                     $('#sub_mpeg_player').remove(); // 영상 재생 중지
                     /*if(videoPlayer.playstate != 'undefined') {
                         if(videoPlayer.playstate != 0 ) videoPlayer.stop(); // 영상 재생 중지
@@ -671,6 +689,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             }
                             // 쇼퍼's Bag
                             if(currentFocusMenu == 3) {
+                                appConfiguration.localSystem.mute = true; // 음소거 설정
                                 this.videoStop();
                                 $('#sub_content').hide();
                                 $('#shopper_history').hide();
@@ -680,6 +699,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             // 과일~가공식품
                             if(currentFocusMenu >= 4) {
                                 this.menuRefresh();
+                                appConfiguration.localSystem.mute = false; // 음소거 설정
                                 this.videoPlay("test", currentFocusMenu);
                             }
 
@@ -778,6 +798,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                                     $('#sub_content').show();
                                 } 
                                 this.menuRefresh();
+                                appConfiguration.localSystem.mute = false; // 음소거 설정
                                 this.videoPlay("test", currentFocusMenu);    
                             }
                         }
