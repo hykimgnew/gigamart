@@ -2915,7 +2915,8 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
         var requestCategoryDtlCode = "";
         var a = fvUrl.split("/");
-        var aa = a[4];
+        var aa = a[7];
+        console.log("aa="+aa);
         var b = aa.split(".");
         var bb = b[0]
         console.log("bb="+bb);
@@ -2923,6 +2924,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         if(bb == "2-1기획전_매실"){
             //requestCategoryDtlId="18000";
             requestCategoryDtlCode = "사과/배";
+            console.log("bbb--->>"+bb);
             this.selectProductSubCategory2(requestCategoryDtlCode,18000);
             // 남은 시간
             // SetTime = $('input[name="SetTime"]').eq(0).val();
@@ -2930,6 +2932,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         }else if(bb == "2-2기획전_문어"){
             //requestCategoryDtlId="54009";
             requestCategoryDtlCode = "생선/해산물";
+            console.log("bbb--->>"+bb);
             this.selectProductSubCategory2(requestCategoryDtlCode,51017);
             // 남은 시간
             // SetTime = $('input[name="SetTime"]').eq(1).val();
