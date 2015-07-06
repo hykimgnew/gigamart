@@ -1296,7 +1296,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     //주문내역 상세1
                     else if(myView == 8){   
                         if(orderDtFocusList == 0){
-
+                            console.log("total페이지이므로 버튼으로 이동해야됨");
                         }
                         //주문내역 list일때
                         else if(orderDtFocusList == 1){
@@ -1385,7 +1385,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                             if(orderDt2FocusMenu == 0){
                                 //리스트갯수 0개일때
                                 if($('tr[name="order_dt_menu2"]').length == 0){
-
+                                    console.log("total페이지이므로 버튼으로 이동해야됨");
                                 }
                                 //리스트갯수 1개일때
                                 else if($('tr[name="order_dt_menu2"]').length == 1){
@@ -1890,6 +1890,8 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     else if(myViewOrderPrev == 1){
                         $('tr[name="order_dt_menu"]').remove();
                         $('div[name="view_order_dt1"]').hide();
+                        orderDt2FocusMenu = 0;
+                        orderDtFocusMenu = 0;
                         myView = 7;
                         $('div[name="view_order"]').show();
                     }
@@ -2665,6 +2667,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
         currentOrderDtListPage = page;
         console.log("########주문내역 상세2222list리스트 페이지 이동 currentOrderDtListPage   : " + currentOrderDtListPage);
         console.log("totalOrderDtListPage  : " + totalOrderDtListPage);
+        console.log("currentOrderListPage  : " + Number(currentOrderListPage+1));
         //console.log("########arrOrderList.length : " + arrOrderList.length);
         //console.log("##### 쇼퍼 List json 페이지이동 " + JSON.stringify(arrOrderList));
 
@@ -2693,7 +2696,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 }else{
                     console.log("undefined아닙니다요 : ");
                     var obj2 = arrOrderDtList[1];
-                    console.log("obj2 json : "+JSON.stringify(obj2));
+                    //console.log("obj2 json : "+JSON.stringify(obj2));
                     var obj3 = arrOrderDtList[1].ordered_product[(Number(currentOrderDtListPage*3)+i)-1];
                     console.log("obj3 json : "+JSON.stringify(obj3));
 
