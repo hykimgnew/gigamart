@@ -1641,21 +1641,31 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                         console.log("######## result  : " + JSON.stringify(result));
                         //상품정보 팝업화면일때
                         if(currentFocusList == 5){
-                            $('p[name="pop_cl_photo"]').empty().append('<img src="' + cmsServerIp + entry['img'] + '"  style="width : auto; height : 100%; display : block; margin : 0 auto; "/>'); //width :555px;
+                            $('p[name="pop_cl_photo"]').empty().append('<img src="' + entry['img'] + '"  style="width : auto; height : 100%; display : block; margin : 0 auto; "/>'); //width :555px;
                             $('h1[name="pop_pd_name"]').empty().append(entry['name']);
                             $('span[name="pop_pd_cost"]').empty().append(cn_toPrice(entry['cost']) + "원");
                             $('span[name="pop_pd_origin"]').empty().append(entry['origin']);
                             $('span[name="pop_pd_company"]').empty().append(entry['company']);
                             $('span[name="pop_pd_standard"]').empty().append(entry['standard']);
+                            if(entry['sweet'] != null || entry['sweet'] != '') {
+                                $('span[name="pop_pd_sweet"]').empty().append(entry['sweet']);  
+                            } else {
+                                $('li[name="pop_pd_sweet"]').hide();
+                            }
                         }
                         //팝업이 아닐때
                         else{
-                            $('li[name="cl_photo"]').empty().append('<img src="' + cmsServerIp + entry['img'] + '"  style="height : 302px; display : block; margin : 0 auto; "/>'); //width :555px;
+                            $('li[name="cl_photo"]').empty().append('<img src="' + entry['img'] + '"  style="height : 302px; display : block; margin : 0 auto; "/>'); //width :555px;
                             $('span[name="pd_name"]').empty().append(entry['name']);
                             $('span[name="pd_cost"]').empty().append(cn_toPrice(entry['cost']) + "원");
                             $('span[name="pd_origin"]').empty().append(entry['origin']);
                             $('span[name="pd_company"]').empty().append(entry['company']);
                             $('span[name="pd_standard"]').empty().append(entry['standard']);
+                            if(entry['sweet'] != null || entry['sweet'] != '') {
+                                $('span[name="pd_sweet"]').empty().append(entry['sweet']);  
+                            } else {
+                                $('li[name="pd_sweet"]').hide();
+                            }
                         }
                         
 

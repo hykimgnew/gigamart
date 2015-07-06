@@ -1000,12 +1000,14 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         /*<video id="sub_mpeg_player" width="704" height="396" loop src="http://14.52.244.91:8080/video/tv/category/과일.mp4"></video>*/
         console.log("현재 재생영상 : " + url);
 
-        url = cmsServerIp + "/video/tv/category/" + categoryName + ".mp4";
+        url = videoServerIp + "/gigamart_video/video/tv/category/" + categoryName + ".mp4";
+
+        console.log("현재 재생영상 : " + url);
 
         appConfiguration.localSystem.mute = false; // 음소거 해제
 
         $('#videoDiv video').remove();
-        $('#videoDiv').html('<video id="full_mpeg_player" width="704" height="396" autoplay loop src="' + url + '"></video>');
+        $('#videoDiv').html('<video id="full_mpeg_player" width="750" height="430" autoplay loop src="' + url + '"></video>');
     },
 
     // 영상 정지
@@ -1031,6 +1033,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             appendHtml += "<li name='appendMenu'>바나나/오렌지/외국과일</li>";
             appendHtml += "<li name='appendMenu'>복분자/블루베리</li>";
             appendHtml += "<li name='appendMenu'>건과/견과</li>";
+            appendHtml += "<li name='appendMenu'>기타</li>";
             $('#cc_list').empty().append(appendHtml);
             prevPageYN = false; // 이전페이지 없음
             nextPageYN = false; // 하위페이지 없음
@@ -1044,13 +1047,14 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             appendHtml += "<li name='appendMenu'>쌈 채소/기타</li>";
             appendHtml += "<li name='appendMenu'>파프리카/피망</li>";
             appendHtml += "<li name='appendMenu'>표고/송이/버섯류</li>";
+            appendHtml += "<li name='appendMenu'>나물류/새순</li>";
             $('#cc_list').empty().append(appendHtml);
             prevPageYN = false; // 이전페이지 없음
-            nextPageYN = true; // 하위페이지 있음
+            nextPageYN = false; // 하위페이지 있음
         }
 
         if(currentFocusMenu == '5' && currentFocusDtlPage == '1') {
-            appendHtml += "<li name='appendMenu'>나물류/새순</li>";
+            appendHtml += "<li>&nbsp;</li>";
             appendHtml += "<li>&nbsp;</li>";
             appendHtml += "<li>&nbsp;</li>";
             appendHtml += "<li>&nbsp;</li>";
@@ -1315,7 +1319,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
 
 
                     $('span[name="shopper_rating"]').empty().append(shopperStar);
-                    $('li[name="shopper_img"]').empty().append("<span class='sp_img'><img src=" + cmsServerIp + entry['img'] + " height='120' /></span>"); //width='160'
+                    $('li[name="shopper_img"]').empty().append("<span class='sp_img'><img src=" + entry['img'] + " height='120' /></span>"); //width='160'
                     $('span[name="shopper_name"]').empty().append(entry['shopper_id']);
                     $('span[name="shopper_cate"]').empty().append(entry['shopping_main']);
 
