@@ -228,9 +228,6 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
         console.log("############# EXHB_PATH : " + EXHB_PATH );
 
-        var config  = window.oipfObjectFactory.createConfigurationObject();
-        config.localSystem.mute = false; // 음소거 off
-
         // 플로팅 메뉴 장바구니 SET
         fltEasyCart();
 
@@ -255,7 +252,8 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         // 지금 이상품 이가격 하단
         this.selectProductEvent();
 
-        //처름 지금이상품 이가격 하단에 focus되므로 video재생
+        //지금 이 상품 이 가격 하단에 focus되므로 video재생
+        appConfiguration.localSystem.mute = false; // 음소거 off
         var url = $('li[name="sl_menu"]').eq(currentFocusMenu).children('.tv_video').val();
         console.log("###################################################################################### url : " + url);
         console.log("###################################################################################### video url : " + video[1]);
@@ -308,7 +306,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                 if(result['resultCode'] == '1') {
                     console.log("############ 로그인 되었습니다. " + buyerID);
-                    appConfiguration.localSystem.mute = true; // 음소거 설정
+                    //appConfiguration.localSystem.mute = true; // 음소거 설정
 
                     INTRO_SCREEN = false;
                     $('div[name="screen_intro"]').hide();
@@ -319,7 +317,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                 else if(result['resultCode'] == '0') {
                     console.log("############ 로그인 실패하였습니다.");
-                    appConfiguration.localSystem.mute = true; // 음소거 설정
+                    //appConfiguration.localSystem.mute = true; // 음소거 설정
                     // location.href = "view/exhb.html";  // 메인 화면으로 이동
                     
                     //alert("로그인에 실패하였습니다.");
@@ -328,7 +326,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 
                 else {
                     console.log("############ 셋탑박스를 확인해주시거나 고객센터로 문의해주세요.");
-                    appConfiguration.localSystem.mute = true; // 음소거 설정
+                    //appConfiguration.localSystem.mute = true; // 음소거 설정
                     // location.href = "view/exhb.html";  // 메인 화면으로 이동
 
                     //alert("셋탑박스를 확인해주시거나 고객센터로 문의해주세요.");

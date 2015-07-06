@@ -108,7 +108,7 @@ var retrieveEasyCart = function()
 				appendHtml += '<li id="ec_li_list' + index + '" name="ec_li_list" class="scl_row">';
 				appendHtml += '	<table width="100%" cellpadding="0" cellspacing="0" border="0">';
 				appendHtml += '		<tr>';
-				appendHtml += ' 		<td class="sr_img"><img src="' + cmsServerIp + entry["img"] + '" width="78px" height="78px" />';
+				appendHtml += ' 		<td class="sr_img"><img src="' + entry["img"] + '" width="78px" height="78px" />';
 				appendHtml += '<input type="hidden" name="ec_cost" value="' + entry["cost"] + '"/>';
 				appendHtml += '<input type="hidden" name="ec_cnt" value="' + entry["cnt"] + '"/>';
 				appendHtml += '<input type="hidden" name="ec_id" value="' + entry["product_id"] + '"/>';
