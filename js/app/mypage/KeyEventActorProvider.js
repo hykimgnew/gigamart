@@ -644,7 +644,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                             $('div[name="view_my"]').hide();
                             myView = 7;
                             $('div[name="view_order"]').show(); 
-                            this.selectOrderList();
+                            this.selectOrderList(1);
                             $('li[name="order_menu"]').eq(orderFocusMenu).addClass('focus');  
                         }
                         //주문내역 list 각각의 click
@@ -655,7 +655,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                             $('div[name="view_my"]').hide();
                             myView = 8;
                             myViewOrderPrev = 0; // 어디에서주문상세로 이동했는지(마이페이지/주문내역  지금은 마이페이지에서 주문상세로 이동)
-                            this.selectOrderDtList(id);
+                            this.selectOrderDtList(id,1);
                             $('div[name="view_order_dt1"]').show();  
                             console.log("orderDtFocusMenu : "+orderDtFocusMenu);
 
@@ -777,7 +777,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     $('div[name="view_order"]').hide();
                     myView = 8;
                     myViewOrderPrev = 1;
-                    this.selectOrderDtList(id);
+                    this.selectOrderDtList(id,1);
                     $('div[name="view_order_dt1"]').show();
                     $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).addClass('focus');
                     //$('li[name="order_menu"]').eq(orderFocusMenu).removeClass('focus');
@@ -960,6 +960,24 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     else if(myView == 7){
                         //조회기간 list
                         if(orderFocusList == 0){
+                            //2개월->1개월
+                            if(orderFocusMenu2 == 1){
+                                $('li[name="order_year"]').eq(orderFocusMenu2).removeClass('focus');
+                                orderFocusMenu2 = Number(orderFocusMenu2)-1;
+                                $('li[name="order_year"]').eq(orderFocusMenu2).addClass('focus');
+                                orderFocusMenu = 0;
+                                currentOrderListPage = 0;
+                                this.selectOrderList(1);
+                            }
+                            //3개월->2개월
+                            else if(orderFocusMenu2 == 2){
+                                $('li[name="order_year"]').eq(orderFocusMenu2).removeClass('focus');
+                                orderFocusMenu2 = Number(orderFocusMenu2)-1;
+                                $('li[name="order_year"]').eq(orderFocusMenu2).addClass('focus');
+                                orderFocusMenu = 0;
+                                currentOrderListPage = 0;
+                                this.selectOrderList(2);
+                            }
                         }
                         //주문내역 list
                         else if(orderFocusList == 1){
@@ -1280,6 +1298,24 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     else if(myView == 7){
                         //조회기간 list
                         if(orderFocusList == 0){
+                            //1개월->2개월
+                            if(orderFocusMenu2 == 0){
+                                $('li[name="order_year"]').eq(orderFocusMenu2).removeClass('focus');
+                                orderFocusMenu2 = Number(orderFocusMenu2)+1;
+                                $('li[name="order_year"]').eq(orderFocusMenu2).addClass('focus');
+                                orderFocusMenu = 0;
+                                currentOrderListPage = 0;
+                                this.selectOrderList(2);
+                            }
+                            //2개월->3개월
+                            else if(orderFocusMenu2 == 1){
+                                $('li[name="order_year"]').eq(orderFocusMenu2).removeClass('focus');
+                                orderFocusMenu2 = Number(orderFocusMenu2)+1;
+                                $('li[name="order_year"]').eq(orderFocusMenu2).addClass('focus');
+                                orderFocusMenu = 0;
+                                currentOrderListPage = 0;
+                                this.selectOrderList(3);
+                            }
                         }
                         //주문내역 list
                         else if(orderFocusList == 1){
@@ -1663,6 +1699,12 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     }
                     //주문내역
                     else if(myView == 7){
+                        //주문내역 list영역->조회기간 영역
+                        if(orderFocusList == 1){
+                            $('li[name="order_menu"]').eq(orderFocusMenu).removeClass('focus');
+                            orderFocusList =0;
+                            $('li[name="order_year"]').eq(orderFocusMenu2).addClass('focus');
+                        }
 
                     }
                     //주문내역 상세1
@@ -1841,7 +1883,13 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     }
                     //주문내역
                     else if(myView == 7){
-
+                        //기간 영역
+                        if(orderFocusList == 0){
+                            $('li[name="order_year"]').eq(orderFocusMenu2).removeClass('focus');
+                            //orderFocusMenu2 = 0;
+                            orderFocusList = 1;
+                            $('li[name="order_menu"]').eq(orderFocusMenu).addClass('focus');
+                        }
                     }
                     //주문내역 상세1
                     else if(myView == 8){
@@ -1921,7 +1969,9 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 }
                 //주문내역 -> 마이페이지(주문내역 더보기 버튼 focus)
                 else if(myView == 7){
+                    $('li[name="order_menu"]').eq(orderFocusMenu).removeClass('focus');
                     $('div[name="view_order"]').hide();
+                    orderFocusMenu = 0;
                     myView = 0;
                     $('div[name="view_my"]').show();
                     ordBtnFocus = true;
@@ -2391,12 +2441,15 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
     //     });
     // },
     // 조회 : 주문내역
-    selectOrderList: function() {
+    selectOrderList: function(inter_num) {
+        console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+        console.log("inter_num : "+inter_num);
+        console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
         var appendHtml = '';
         var appendHtml2 = '';
         var str = '';
         var param = {
-                        "interval" : 1
+                        "interval" : inter_num
                     };
         $.ajax({
             url         : cmsServerIp + "/BuyerOrderTask/Select",
@@ -2603,12 +2656,12 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
         }
     },
     // 조회 : 주문상세_1
-    selectOrderDtList: function(id) {
+    selectOrderDtList: function(id,inter_num) {
         var appendHtml = '';
         var appendHtml2 = '';
         var str = '';
         var param = {
-                        "interval" : 1
+                        "interval" : inter_num
                     };
         $.ajax({
             url         : cmsServerIp + "/BuyerOrderTask/Select",
@@ -2780,7 +2833,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             $('div[name="view_order_dt1"]').show();
             $('div[name="view_order_dt2"]').hide();
             orderDtFocusMenu = 1;
-            this.selectOrderDtList();
+            //this.selectOrderDtList();
             $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).addClass('focus');
             return;
         }

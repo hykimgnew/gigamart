@@ -721,6 +721,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 $('#wrap_cart').show();
                 // 플로팅 메뉴 장바구니 SET
                 fltEasyCart();
+                //$('#wrap_cart').show();
                 setTimeout("fn_popEasyCart()", 1000);  
             }
 
