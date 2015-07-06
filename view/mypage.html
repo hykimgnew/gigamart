@@ -51,7 +51,7 @@
 											<span class="mpn_cart">자주 구매한 상품</span>
 										</li>
 										<li name= "nm_menu">
-											<span class="mpn_num" name="ref_tot">0<!-- 10 --></span>
+											<span class="mpn_num" name="ref_tot"><!-- 10 --></span>
 											<span class="mpn_cart">취소/환불내역</span>
 										</li>
 									</ul>
@@ -439,8 +439,8 @@
 											</ul>
 										</div>
 										<div class="orderList_con">
-											<ul>
-												<li>
+											<ul id="ref_product">
+												<!-- <li name="ref_menu">
 													<table width="100%" cellpadding="0" cellspacing="0" border="0" >
 														<tr>
 															<th>구매일자</th>
@@ -484,13 +484,18 @@
 															<th>상태</th>
 															<td>배송중</td>
 															<th>쇼퍼</th>
-															<td>김이슬  <img src="../images/icon_ok_b.png" /></td>
+															<td>김이슬 </td>
 														</tr>
 													</table>
-												</li>
+												</li> -->
 											</ul>
-											<span class="arrow_bottom"></span>
-											<span class="page"> <b>01</b> / 04 </span>
+											<p style="width : 100%; height : 22px;">
+												<span class="arrow_bottom" name="arrow_bottom_ref"></span>
+											</p>
+											<span class="page" style="margin-top : 25px;">
+												<b name="ref_cur_pg"></b> / <span name="ref_tot_pg"></span> 
+												<!-- <b>01</b> / 04  -->
+											</span>
 										</div>
 										
 
@@ -776,7 +781,12 @@
 	</div>
 <!-- 취소/환불내역 상세2 END-->
 
-
+<!-- 취소/환불내역 none 토스트메세지 START-->
+<div id="pop_ref_non" class="pop2" style="width:375px; display:none; top:40%; left:30%; position:absolute;">
+	<ul>
+		<li>취소/환불내역이 없습니다.</li>
+	</ul>
+</div>
 
 <!-- 주문내역 START-->
 	<div id="wrap" class="bg_gray" style="display : none;" name="view_order">
@@ -1177,6 +1187,8 @@
 	</div>
 <!-- 주문내역 상세2 END-->
 
+
+	<div id="popup_cart" class="popup_cart" style="display: none;"></div>
 
 	<!-- Common Function -->
 	<script type="text/javascript" src="../js/app.js"></script>

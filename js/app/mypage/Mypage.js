@@ -427,7 +427,7 @@ var refFocusMenu = 0;
  *  2 : 2개월
  *  3 : 3개월
  **/    
-var refFocusMenu2 = 1;
+var refFocusMenu2 = 0;
 
 
 /**
