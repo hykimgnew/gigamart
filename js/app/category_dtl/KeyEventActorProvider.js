@@ -72,12 +72,12 @@ function makeEmptyProduct() {
 function updateProductInfo() {
     var idx = currentFocusDtl + (9 * currentFocusDtlPage);
         
-    console.log("############ 동영상 : " + cmsServerIp + resultSet[idx]["video"]);
-    console.log("############ 이미지 : " + cmsServerIp + resultSet[idx]["img"]);
+    console.log("############ 동영상 : " + resultSet[idx]["video"]);
+    console.log("############ 이미지 : " + resultSet[idx]["img"]);
 
     //resultSet[idx]["video"];
 
-    $('#cif_vod').empty().append('<img src="' + cmsServerIp + resultSet[idx]["img"] + '" height="253" />'); //width="448"
+    $('#cif_vod').empty().append('<img src="' + resultSet[idx]["img"] + '" height="253" />'); //width="448"
     $('#cif_exp').empty().append(resultSet[idx]["name"]);
     $('#cif_exp_txt').empty().append(resultSet[idx]["description"]);
     $('#cif_exp_price_glm').empty().append("(" + resultSet[idx]["standard"] + ")");
@@ -99,7 +99,7 @@ function setSubCategory() {
     console.log("############## 카테고리 : " + requestCategoryCode);
 
     if(requestCategoryCode == '과일') {
-        arrSubCategory = [ "사과/배", "참외/토마토", "키위/딸기/멜론/수박", "귤/한라봉/천혜향", "바나나/오렌지/외국과일", "복분자/블루베리", "건과/견과" ];
+        arrSubCategory = [ "사과/배", "참외/토마토", "키위/딸기/멜론/수박", "귤/한라봉/천혜향", "바나나/오렌지/외국과일", "복분자/블루베리", "건과/견과", "기타" ];
     }
 
     else if(requestCategoryCode == '채소') {
@@ -268,7 +268,7 @@ function updateSubCategoryList() {
     $.each(pageSet, function(index, entry) {
         if(index < resultLen) {
             console.log("다음꺼 " + entry['img']);
-            $('li[name="li_img"]').eq(index).append('<span class="dtl_img"><img src="' + cmsServerIp + entry['img'] + '" /></span>');
+            $('li[name="li_img"]').eq(index).append('<span class="dtl_img"><img src="' + entry['img'] + '" /></span>');
             $('li[name="li_name"]').eq(index).append(entry['name']);
             $('li[name="li_cost"]').eq(index).append(cn_toPrice(entry['cost']) + "원");
         }
@@ -1187,6 +1187,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
         if(requestCategoryCode == 4 && requestCategoryDtlCode == '바나나/오렌지/외국과일')  requestCategoryDtlCode = 4;
         if(requestCategoryCode == 4 && requestCategoryDtlCode == '복분자/블루베리')         requestCategoryDtlCode = 5;
         if(requestCategoryCode == 4 && requestCategoryDtlCode == '견과/견과')               requestCategoryDtlCode = 6;
+        if(requestCategoryCode == 4 && requestCategoryDtlCode == '기타')                    requestCategoryDtlCode = 7;
         
         // 채소
         if(requestCategoryCode == 5 && requestCategoryDtlCode == '고구마/감자/호박')        requestCategoryDtlCode = 0;
@@ -1196,10 +1197,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
         if(requestCategoryCode == 5 && requestCategoryDtlCode == '쌈 채소/기타')            requestCategoryDtlCode = 4;
         if(requestCategoryCode == 5 && requestCategoryDtlCode == '파프리카/피망')           requestCategoryDtlCode = 5;
         if(requestCategoryCode == 5 && requestCategoryDtlCode == '표고/송이/버섯류')        requestCategoryDtlCode = 6;
-        if(requestCategoryCode == 5 && requestCategoryDtlCode == '나물류/새순') {
-            requestCategoryDtlCode = 0;
-            requestCategoryDtlPage = 1;
-        }
+        if(requestCategoryCode == 5 && requestCategoryDtlCode == '나물류/새순')             requestCategoryDtlCode = 7;
 
         // 유제품/두부/계란
         if(requestCategoryCode == 6 && requestCategoryDtlCode == '우유')                    requestCategoryDtlCode = 0;
@@ -1302,7 +1300,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 $.each(result, function(index, entry) {
                     // 처음에 뿌려주는 9개만 넣는다.
                     if(index < resultLen) {
-                        $('li[name="li_img"]').eq(index).append('<span class="dtl_img"><img src="' + cmsServerIp + entry['img'] + '" /></span>');
+                        $('li[name="li_img"]').eq(index).append('<span class="dtl_img"><img src="' + entry['img'] + '" /></span>');
                         $('li[name="li_name"]').eq(index).append(entry['name']);
                         $('li[name="li_cost"]').eq(index).append(cn_toPrice(entry['cost']) + "원");
                     }

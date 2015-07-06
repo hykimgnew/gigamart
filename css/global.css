@@ -184,12 +184,12 @@ a:hover, a:active{text-decoration:none;}
 #content .content_right div.sub_content .content_category a.arrow_bottom {height:17px; width:100%; display:inline-block; background:url(../images/arrow_bottom.png) center center no-repeat ;}
 #content .content_right div.sub_content .content_category a.arrow_bottom.focus {height:17px; width:100%; display:inline-block; background:url(../images/arrow_bottom_over.png) center center no-repeat ;}
 #content .content_right div.sub_content .content_category ul.cc_list {}
-#content .content_right div.sub_content .content_category ul.cc_list li {border-radius:0 10px 10px 0; padding-left:28px; width:184px; height:54px; line-height:54px; margin-bottom:6px; color:#1a1a1a; }
+#content .content_right div.sub_content .content_category ul.cc_list li {border-radius:0 10px 10px 0; padding-left:28px; width:150px; height:54px; line-height:54px; margin-bottom:6px; color:#1a1a1a; }
 #content .content_right div.sub_content .content_category ul.cc_list li.focus {background:#2b9330; color:#ffffff;}
 
 
 /*전체영상보기*/
-#content .content_right div.sub_content .content_vod {float:left; width:704px; margin:0 14px 0 15px;}
+#content .content_right div.sub_content .content_vod {float:left; width:702px; margin:0 14px 0 15px;}
 #content .content_right div.sub_content .content_vod p.cv_title {text-align:center; height:53px; line-height:53px; width:100%; color:#2b9330; font-size:24px; }
 #content .content_right div.sub_content .content_vod .cv_vod {position:relative;}
 #content .content_right div.sub_content .content_vod .cv_vod a.btn_play {z-index:1; position:absolute; top:148px; left:302px;}

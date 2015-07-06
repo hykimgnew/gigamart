@@ -1123,7 +1123,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
 
                 console.log("#쇼퍼 List (인기순) result : " + JSON.stringify(result['shopper']));
                 $.each(result['shopper'], function(index, entry) { 
-                    $('p[name="shopper_img"]').eq(index).empty().append("<img src=" + cmsServerIp + entry['img'] + " width='160' height='120' />");
+                    $('p[name="shopper_img"]').eq(index).empty().append("<img src=" + entry['img'] + " width='160' height='120' />");
                     $('span[name="shopper_name"]').eq(index).empty().append("ID : " + entry['shopper_id']);
                     $('span[name="epilogue"]').eq(index).empty().append("(후기 : " + entry['reply_cnt'] + ")");
                     $('p[name="description"]').eq(index).empty().append(entry['description']);
@@ -1220,7 +1220,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 }
                 //for(var i=0 ; i < result['set'].length ; i++) {
                 $.each(result['set'], function(index, entry) { 
-                    $('li[name="dl_img"]').eq(index).empty().append('<img src="' + cmsServerIp + entry["img"] + '" height="92" width="162" />');
+                    $('li[name="dl_img"]').eq(index).empty().append('<img src="' + entry["img"] + '" height="92" width="162" />');
                     $('li[name="dl_setName"]').eq(index).empty().append(entry['set_name']);
                     $('li[name="dl_cost"]').eq(index).empty().append(cn_toPrice(entry['cost']) +"원");
                     
@@ -1340,7 +1340,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
 
         //쇼퍼list
         for(var i=0 ; i < 2 ; i++) {
-            $('p[name="shopper_img"]').eq(i).empty().append("<img src=" + cmsServerIp + arrShopperList[Number((page*2)+i)].img + " width='160' height='120' />");
+            $('p[name="shopper_img"]').eq(i).empty().append("<img src=" + arrShopperList[Number((page*2)+i)].img + " width='160' height='120' />");
             $('span[name="shopper_name"]').eq(i).empty().append("ID : " + arrShopperList[Number((page*2)+i)].shopper_id);
             $('span[name="epilogue"]').eq(i).empty().append("(후기 : " + arrShopperList[Number((page*2)+i)].reply_cnt + ")");
             $('p[name="description"]').eq(i).empty().append(arrShopperList[Number((page*2)+i)].description);
@@ -1349,7 +1349,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
         //쇼퍼추천세트list
         for(var i=0 ; i < 6 ; i++) {
             //makeShopperProduct();
-            $('li[name="dl_img"]').eq(i).empty().append('<img src="' + cmsServerIp + arrShopperRcList[Number((page*6)+i)].img + '" height="92" width="162" />');
+            $('li[name="dl_img"]').eq(i).empty().append('<img src="' + arrShopperRcList[Number((page*6)+i)].img + '" height="92" width="162" />');
             $('li[name="dl_setName"]').eq(i).empty().append(arrShopperRcList[Number((page*6)+i)].set_name);
             $('li[name="dl_cost"]').eq(i).empty().append(cn_toPrice(arrShopperRcList[Number((page*6)+i)].cost) +"원");
                     
@@ -1381,18 +1381,17 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             console.log("arrMartList[Number(page)+Number(i)] : "+arrMartList[1].tweet_date);
             //console.log("00@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+arrMartList.shopper_id);
             //console.log("arrMartList[currentMartListPage].shopper_id : "+arrMartList[currentMartListPage].shopper_id);
-            console.log("쇼퍼아이디@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+arrMartList[Number((page+i)].shopper_id);
             makeTweetList();
             // *** 쇼퍼 이미지 ***/
-            $('span[name="shopper_img"]').eq(i).empty().append("<img src=" + cmsServerIp + arrMartList[Number((page+i)].shopper_img + " width='60' height='68' />");
+            $('span[name="shopper_img"]').eq(i).empty().append("<img src=" + arrMartList[Number(page+i)].shopper_img + " width='60' height='68' />");
             // *** 쇼퍼 ID ***/
-            $('li[name="shopper_id"]').eq(i).empty().append(arrMartList[Number((page+i)].shopper_id);
+            $('li[name="shopper_id"]').eq(i).empty().append(arrMartList[Number(page+i)].shopper_id);
             // *** 트윗 일시 ***/
-            $('li[name="tweet_date"]').eq(i).empty().append(arrMartList[Number((page+i)].tweet_date);
+            $('li[name="tweet_date"]').eq(i).empty().append(arrMartList[Number(page+i)].tweet_date);
             // *** 트윗 내용 ***/
-            $('li[name="tweet"]').eq(i).empty().append(arrMartList[Number((page+i)].tweet);
+            $('li[name="tweet"]').eq(i).empty().append(arrMartList[Number(page+i)].tweet);
             // *** 제품 이미지 ***/
-            $('li[name="product_img"]').eq(i).empty().append("<img src=" + cmsServerIp + arrMartList[Number((page+i)].tweet_img + "  height='180' />"); //width='393'
+            $('li[name="product_img"]').eq(i).empty().append("<img src=" + arrMartList[Number(page+i)].tweet_img + "  height='180' />"); //width='393'
             } 
         }
         

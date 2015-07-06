@@ -3,6 +3,7 @@
 var App = App || {};
 
 var cmsServerIp = "http://14.52.244.91:8080";
+var videoServerIp = "http://175.209.53.205";
 
 /**
  * Request.getParameter("args")
@@ -232,10 +233,13 @@ var deleteEasyCart = function(type, product_id)
 /**
  * 장바구니 수정
  **/
-var updateEasyCart = function(cnt, product_id) 
+var updateEasyCart = function(product_id, cnt) 
 {
 	var resultCode;
-	var param = { "product_id" : product_id };
+	var param = { 
+					"product_id" : product_id,
+					"cnt"	     : cnt
+	 	        };
 
 	$.ajax({
         url         : cmsServerIp + "/BuyerCartTask/Update",
