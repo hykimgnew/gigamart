@@ -272,6 +272,13 @@ var orderFocusList = 1;
  *  1 : 
  **/    
 var orderFocusMenu = 0;
+/** 
+ *  주문내역 조회기간list Focus 위치 
+ *  0 : 1개월
+ *  1 : 2개월
+ *  2 : 3개월
+ **/    
+var orderFocusMenu2 = 0;
 /**
  * 주문내역 이전/다음 페이지 true /false
  *  true일 경우 전/다음 페이지 있음
@@ -305,8 +312,8 @@ var arrOrderDtList          = new Array();
 var arrOrderDtTotalList     = new Array();
 
 /** 
- *  현재 주문내역 리스트 Focus 위치
- *  0 : 조회기간
+ *  현재 주문내역상세 리스트 Focus 위치
+ *  0 : 
  *  1 : 주문내역 list
  *  2 : 
  *  3 : 
@@ -318,6 +325,8 @@ var orderDtFocusList = 1;
  *  1 : 
  **/    
 var orderDtFocusMenu = 0;
+
+
 /**
  * 주문내역 이전/다음 페이지 true /false
  *  true일 경우 전/다음 페이지 있음
@@ -399,7 +408,7 @@ var arrRefList          = new Array();
 
 /** 
  *  현재 취소/환불내역 리스트 Focus 위치
- *  0 : 조회기간
+ *  0 : 조회기간(1,2,3개월)
  *  1 : 취소/환불내역 list
  *  2 : 
  *  3 : 
@@ -411,6 +420,16 @@ var refFocusList = 1;
  *  1 : 
  **/    
 var refFocusMenu = 0;
+
+/** 
+ *  취소/환불내역 조회기간list Focus 위치 
+ *  1 : 1개월
+ *  2 : 2개월
+ *  3 : 3개월
+ **/    
+var refFocusMenu2 = 1;
+
+
 /**
  * 취소/환불내역 이전/다음 페이지 true /false
  *  true일 경우 전/다음 페이지 있음
@@ -445,7 +464,7 @@ var arrOrderDtTotalList   = new Array();
 
 /** 
  *  현재 취소/환불내역 리스트 Focus 위치
- *  0 : 조회기간
+ *  0 : 
  *  1 : 취소/환불내역 list
  *  2 : 
  *  3 : 

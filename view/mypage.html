@@ -10,7 +10,7 @@
 
 <body>
 <!-- 간편 장바구니 메시지 -->
-	<div id="wrap_cart" class="bg_alpha" style="display : none;">
+	<div id="wrap_cart" class="bg_alpha" style="display : none; position : absolute; top : 0;">
 		<div id="pop_easy_cart" class="pop2" style="width:500px; top:80%; left:32%; position:absolute;">
 			<ul>
 				<li id="cart_message"></li>
@@ -51,7 +51,7 @@
 											<span class="mpn_cart">자주 구매한 상품</span>
 										</li>
 										<li name= "nm_menu">
-											<span class="mpn_num" name="ref_tot"><!-- 10 --></span>
+											<span class="mpn_num" name="ref_tot">0<!-- 10 --></span>
 											<span class="mpn_cart">취소/환불내역</span>
 										</li>
 									</ul>
@@ -433,9 +433,9 @@
 										<div class="viewsTerm">
 											<ul>
 												<li>· 조회기간 </li>
-												<li class="focus">1개월</li>
-												<li>2개월</li>
-												<li>3개월</li>
+												<li name="ref_year">1개월</li>
+												<li name="ref_year">2개월</li>
+												<li name="ref_year">3개월</li>
 											</ul>
 										</div>
 										<div class="orderList_con">
@@ -797,9 +797,9 @@
 										<div class="viewsTerm">
 											<ul>
 												<li>· 조회기간 </li>
-												<li class="focus">1개월</li>
-												<li>2개월</li>
-												<li>3개월</li>
+												<li name="order_year">1개월</li>
+												<li name="order_year">2개월</li>
+												<li name="order_year">3개월</li>
 											</ul>
 										</div>
 										<div class="orderList_con">
