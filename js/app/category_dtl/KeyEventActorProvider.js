@@ -188,6 +188,15 @@ function fn_chgCategoryDtl(flag) {
             }
         }
     }
+
+    // 해당 상세 카테고리의 첫번째 페이지로 이동하므로 전 페이지 없음
+    prevPageYN = false;
+
+    // 해당 상세 카테고리의 (0,0)으로 이동
+    horizonFocus = 0;
+    verticalFocus = 0;
+    currentFocusDtl = 0;
+    currentFocusDtlPage = 0;
 }
 
 // 서브카테고리 제목 Set
@@ -300,7 +309,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
 
         // 당일 판매현장 시각
-        $('#ci_title').html("당일 판매현장 " + this.getCurrentDate());
+        //$('#ci_title').html("당일 판매현장 " + this.getCurrentDate());
     },
 
     // 화면 별 키 이벤트 관련 처리
@@ -426,7 +435,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                         $('#total_cost').html(cn_toPrice(ec_total) + "원");
 
                         // 장바구니 수정
-                        updateEasyCart($('input[name="ec_cnt"]').eq(cartFocus-2).val(), $('input[name="ec_id"]').eq(cartFocus-2).val());
+                        updateEasyCart($('input[name="ec_id"]').eq(cartFocus-2).val(), Number($('input[name="ec_cnt"]').eq(cartFocus-2).val()));
 
                         // 수량변경 팝업 on -> off
                         $('#btn_volume_ok').removeClass('focus');
@@ -767,33 +776,9 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                     location.href ="product1.html" + url;
                 }
 
+                // 화살표 일때는 위아래로 입력 받게 변경됨 (2015-07-06)
                 else if(currentFocusList == 3){
                     
-                    // 아래 버튼 Focus
-                    if(currentFocusBtn == 0) {
-                        console.log("아래쪽버튼 focus일때");
-                        /*$('div[name="sd_first"]').hide();
-                        $('div[name="selDepth"]').addClass("animation");*/
-
-                        // 상세카테고리 변경
-                        fn_chgCategoryDtl('DOWN');
-                        
-                        // 상품 목록 조회
-                        this.selectProductSubCategory("ARROW");
-
-                        
-                    } 
-                    // 위 버튼 Focus
-                    else if(currentFocusBtn == 1) {
-                        console.log("위쪽버튼 focus일때");
-
-                        // 상세카테고리 변경
-                        fn_chgCategoryDtl('UP');
-                        
-                        // 상품 목록 조회
-                        this.selectProductSubCategory("ARROW");
-
-                    }
                 }
             } 
 
@@ -872,11 +857,20 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                     //상세카테고리 화살표 버튼
                     else if(currentFocusList == 3) {
                         //아래쪽버튼 focus일때
-                        if(currentFocusBtn == 0) {
+                        /*if(currentFocusBtn == 0) {
                             $('li[name="mg_backward"]').removeClass('focus');  
                             $('li[name="mg_forward"]').addClass('focus');  
                             currentFocusBtn = 1;      
-                        }
+                        }*/
+                    
+                        /*$('div[name="sd_first"]').hide();
+                        $('div[name="selDepth"]').addClass("animation");*/
+
+                        // 상세카테고리 변경
+                        fn_chgCategoryDtl('DOWN');
+                        
+                        // 상품 목록 조회
+                        this.selectProductSubCategory("ARROW");
                     }    
                 }
 
@@ -995,11 +989,17 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                     //상세카테고리 화살표 버튼
                     else if(currentFocusList == 3) {
                         //아래쪽버튼 focus일때
-                        if(currentFocusBtn == 1) {
+                        /*if(currentFocusBtn == 1) {
                             $('li[name="mg_forward"]').removeClass('focus');  
                             $('li[name="mg_backward"]').addClass('focus');  
                             currentFocusBtn = 0;      
-                        }
+                        }*/
+
+                        // 상세카테고리 변경
+                        fn_chgCategoryDtl('UP');
+                        
+                        // 상품 목록 조회
+                        this.selectProductSubCategory("ARROW");
                     }    
 
 
@@ -1030,12 +1030,16 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
                     // 상세카테고리 화살표 버튼
                     if(currentFocusList == 3) {
-                        if(currentFocusBtn == 1) {
+                        /*if(currentFocusBtn == 1) {
                             $('li[name="mg_forward"]').removeClass('focus');  
                             currentFocusBtn = 0;      
                         } else {
                             $('li[name="mg_backward"]').removeClass('focus'); 
-                        }
+                        }*/
+
+                        // 통합
+                        $('li[name="mg_forward"]').removeClass('focus');
+                        $('li[name="mg_backward"]').removeClass('focus');
 
                         currentFocusList = 0; // 상품 목록으로
 
@@ -1092,7 +1096,9 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
                             currentFocusList = 3; // 화살표 버튼으로
 
-                            $('li[name="mg_backward"]').addClass('focus');   
+                            // 통합
+                            $('li[name="mg_backward"]').addClass('focus');
+                            $('li[name="mg_forward"]').addClass('focus');
                         }
                     }
                 }                
@@ -1277,6 +1283,8 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                     $('#arrow_bottom').show();
                     resultLen = 9;
                     currentPageCnt = 9;
+                } else {
+                    nextPageYN = false;
                 }
                 var emptyLen   = 9 - resultLen;
 
@@ -1307,6 +1315,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                     }
                 });
 
+                console.log("#이거 뜨나 : " + nextPageYN);
                 pageArrowUtil1(); // 페이징 화살표 컨트롤
             },
             error : function(){

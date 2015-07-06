@@ -37,11 +37,11 @@
 
 		<div id="content" style="margin-top:-40px;">
 			<div class="cartArea">
-				<a href="#" class="arrow_top"></a>
-				<a href="#" class="arrow_bottom"></a>
+				<a href="#" id="cart_arrow_top" class="arrow_top focus" style="display:none;"></a>
+				<a href="#" id="cart_arrow_bottom" class="arrow_bottom focus" style="display:none;"></a>
 				<div class="ctc_th">
 					<ul>
-						<li class="sr_chebox"><img src="../images/checkbox.png" /><!--img src="../images/checkbox.png" /--></li>
+						<li class="sr_chebox" id="li_cart_all_chkbox"><img src="../images/checkbox.png" /><!--img src="../images/checkbox.png" /--></li>
 						<li class="sr_proInfo">상품정보</li>
 						<li class="sr_price">판매가</li>
 						<li class="sr_discount">할인</li>
@@ -54,26 +54,10 @@
 				<div class="ct_con">
 					<ul id="ul_cart_list">
 						<!--포커스시 bdr_green class가 사용-->
-						<li class="ctc_row focus">
+						<!-- <li class="ctc_row focus">
 							<table width="100%" cellpadding="0" cellspacing="0" border="0">
 								<tr>
-									<td class="ctc_chebox"><img src="../images/checkbox.png" /><!--img src="../images/checkbox.png" /--></td>
-									<td class="ctc_img"><img src="../images/sample_03.jpg" width="100px" height="100px" /></td>
-									<td class="ctc_txt bdr_green">[아침마루] 바로 먹는 사과5-6입 / 봉</td>
-									<td class="ctc_price bdr_green">8,800원</td>
-									<td class="ctc_discount bdr_green">300원</td>
-									<td class="ctc_amount bdr_green">1</td>
-									<td class="ctc_delivery bdr_green">1,000원</td>
-									<td class="ctc_store bdr_green">이마트 용산</td>
-									<td class="ctc_order">32,000원</td>
-									<td class="ctc_ok"><img src="../images/icon_ok_b.png" /></td>
-								</tr>
-							</table>
-						</li>
-						<li class="ctc_row">
-							<table width="100%" cellpadding="0" cellspacing="0" border="0">
-								<tr>
-									<td class="ctc_chebox"><img src="../images/checkbox.png" /><!--img src="../images/checkbox.png" /--></td>
+									<td class="ctc_chebox"><img src="../images/checkbox.png" />--img src="../images/checkbox.png" /--</td>
 									<td class="ctc_img"><img src="../images/sample_03.jpg" width="100px" height="100px" /></td>
 									<td class="ctc_txt bdr_gray">[아침마루] 바로 먹는 사과5-6입 / 봉</td>
 									<td class="ctc_price bdr_gray">8,800원</td>
@@ -89,7 +73,7 @@
 						<li class="ctc_row">
 							<table width="100%" cellpadding="0" cellspacing="0" border="0">
 								<tr>
-									<td class="ctc_chebox"><img src="../images/checkbox.png" /><!--img src="../images/checkbox.png" /--></td>
+									<td class="ctc_chebox"><img src="../images/checkbox.png" />--img src="../images/checkbox.png" /--</td>
 									<td class="ctc_img"><img src="../images/sample_03.jpg" width="100px" height="100px" /></td>
 									<td class="ctc_txt bdr_gray">[아침마루] 바로 먹는 사과5-6입 / 봉</td>
 									<td class="ctc_price bdr_gray">8,800원</td>
@@ -101,13 +85,13 @@
 									<td class="ctc_ok"></td>
 								</tr>
 							</table>
-						</li>
+						</li> -->
 					</ul>
 				</div>
 				<div class="ctc_btn">
-					<span class="btn_gray">선택상품 삭제</span>
-					<span class="btn_gray">전체 삭제</span>
-					<span class="btn_gray btn_r">선택상품 찜하기</span>
+					<span id="order_cart_delete" class="btn_gray">선택상품 삭제</span>
+					<span id="order_cart_all_delete" class="btn_gray">전체 삭제</span>
+					<span id="order_cart_favorite" class="btn_gray btn_r">선택상품 찜하기</span>
 				</div>
 			</div>
 			<!-- cartArea 끝 -->
@@ -116,36 +100,36 @@
 				<div class="sbr_con">
 					<div class="sbr_address">
 						기본 배송지 : 서울시 서초구 태봉로 151 KT연구소
-						<span>다른 주소 선택</span>
+						<span id="order_cart_address">다른 주소 선택</span>
 					</div>
 					<div class="price_list">
 						<ul>
-							<li class="pl_num">장바구니 상품 총 개수 <span>02</span></li>
+							<li class="pl_num">장바구니 상품 총 개수 <span></span></li>
 							<li class="pl_txt">
 								<span class="pl_txt_left">총 판매금액</span>
-								<span class="pl_txt_right">100,000원</span>
+								<span class="pl_txt_right" id="order_cost"></span>
 							</li>
-							<li class="pl_txt">
+							<!-- <li class="pl_txt">
 								<span class="pl_txt_left">총 할인금액</span>
-								<span class="pl_txt_right">100,000원</span>
+								<span class="pl_txt_right" id="order_discount_cost"></span>
 							</li>
 							<li class="pl_txt">
 								<span class="pl_txt_left">배송비</span>
-								<span class="pl_txt_right">100,000원</span>
-							</li>
+								<span class="pl_txt_right" id="order_delivery_cost"></span>
+							</li> -->
 							<li class="pl_txt">
 								<span class="pl_txt_left">쇼퍼비</span>
-								<span class="pl_txt_right">100,000원</span>
+								<span class="pl_txt_right" id="order_shopper_cost"></span>
 							</li>
 							<li class="pl_price">
 								총결제예상금액
-								<span>1,000,000원</span>
+								<span id="order_total_cost"></span>
 							</li>
 						</ul>
 					</div>
 					<div class="sbr_btn">
 						<ul>
-							<li class="btn_red">주문하기</li>
+							<li class="btn_red" id="order_cart_submit">주문하기</li>
 						</ul>
 					</div>
 				</div>

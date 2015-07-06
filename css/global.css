@@ -913,6 +913,7 @@ position:relative;width:162px; float:left; margin-bottom:4px; color:#ffffff;back
 #content .ctc_th {background:#e3e3e3; height:50px; line-height:48px; margin-bottom:40px;}
 #content .ctc_th li {float:left; text-align:center; font-size:14px; color:#404040; font-weight:bold;}
 #content .ctc_th .sr_chebox {width:34px; }
+#content .ctc_th .sr_chebox img.focus {border:2px solid #2b9330;}
 #content .ctc_th .sr_proInfo {width:304px;}
 #content .ctc_th .sr_price {width:89px; border-left:1px solid #cfcfcf;}
 #content .ctc_th .sr_discount {width:79px; border-left:1px solid #cfcfcf;}

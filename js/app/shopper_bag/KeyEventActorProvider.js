@@ -214,7 +214,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         $('#total_cost').html(cn_toPrice(ec_total) + "원");
 
                         // 장바구니 수정
-                        updateEasyCart($('input[name="ec_cnt"]').eq(cartFocus-2).val(), $('input[name="ec_id"]').eq(cartFocus-2).val());
+                        updateEasyCart($('input[name="ec_id"]').eq(cartFocus-2).val(), Number($('input[name="ec_cnt"]').eq(cartFocus-2).val()));
 
                         // 수량변경 팝업 on -> off
                         $('#btn_volume_ok').removeClass('focus');
