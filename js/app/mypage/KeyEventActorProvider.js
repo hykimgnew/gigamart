@@ -2083,6 +2083,12 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     $('span[name="fav_tot_pg"]').empty().html(totalFavListPage_html);
                     $('span[name="tot_fav"]').empty().html(resultLen); //상단 찜한 상품 총 갯수
                 }
+                    var cnt = $('#flt_cnt').eq(0).html();
+                    var cnt2 = $('#flt_cost').eq(0).html();
+
+                    $('#flt_cnt').html(cnt);
+                    $('#flt_cost').html(cnt2);
+
             }
         });
     },
