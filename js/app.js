@@ -5,6 +5,9 @@ var App = App || {};
 var cmsServerIp = "http://14.52.244.91:8080";
 var videoServerIp = "http://175.209.53.205";
 
+// * 쇼퍼 구매 상태
+var SHOPPER_STATUS = 3; // default : 쇼퍼가 구매중이 아님 
+
 /**
  * Request.getParameter("args")
  *
@@ -32,7 +35,7 @@ var Request = function()
     }
 }
 var request = new Request();
-var buyerID		= request.getParameter("buyerID");
+var buyerID	= request.getParameter("buyerID");
 
 
 /**

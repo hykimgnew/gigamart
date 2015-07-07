@@ -9,13 +9,18 @@
 </head>
 
 <body>
+<<<<<<< HEAD
 	<div id="wrap_cart" class="bg_alpha" style="display : none; position : absolute; top : 0;">
 		<div id="pop_easy_cart" class="pop2" style="width:500px; top:80%; left:32%; position:absolute;">
+=======
+	<!-- <div id="wrap_cart" class="bg_alpha" style="display : none;"> -->
+		<div id="wrap_cart" class="pop2" style="width:500px; top:80%; left:32%; position:absolute; display:none;">
+>>>>>>> 0571101081d7b028547ad9031c265075fc71eec0
 			<ul>
 				<li id="cart_message"></li>
 			</ul>
 		</div>
-	</div>
+	<!-- </div> -->
 	
 	<div id="wrap" class="bg_gray">
 		<div id="brand_line">
@@ -28,7 +33,7 @@
 			<h3>
 				<span><img src="../images/s_bg_left.png" /></span>
 				<span class="sbg">
-					<span style="margin-top : -1px;">당일배송</span> &nbsp;
+					<span id="common_shopper_status" style="margin-top : -1px;">당일배송</span> &nbsp;
 					<img src="../images/s_icon_car.png" style="margin-top : -3px;"/></span>
 				<span>
 				<img src="../images/s_bg_right.png" /></span>
@@ -289,9 +294,61 @@
 
 	<!-- extends Library -->
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+	
+	<script type="text/javascript">
+		/**
+		 * 상태 체크
+		 **/
+		$(document).ready(function() {
+
+			var socket = io.connect("http://14.52.244.91:8080");
+
+
+			socket.on('start_shopping', function(buyer_id, shopper_id, order_id, status) {
+				// TT141002133 STB의 buyer_id : aa
+				//if(buyer_id == buyerID) {
+				if(buyer_id == "aa") {
+
+					SHOPPER_STATUS = status;
+
+					if(status == 2) {
+						// 쇼퍼 구매 시작
+						$('#common_shopper_message').html("쇼퍼가 쇼핑을 시작하였습니다.");
+						$('#common_shopper_status').html("쇼퍼가 쇼핑중");
+						viewShopperMsg();
+
+					} 
+					if(status == 3) {
+						// 쇼퍼 구매 완료
+						$('#common_shopper_message').html("현재 리얼타임 방송이 없습니다.");
+						$('#common_shopper_status').html("당일배송");
+						viewShopperMsg();
+					}
+					
+				}
+				
+			});
+		});
+
+		// 쇼퍼 메시지 출력 후 5초 후 사라짐
+		var viewShopperMsg = function() {
+			$('#wrap_shopper_status').show();
+			setTimeout($('#wrap_shopper_status').hide(), 5000);
+		}
+
+	</script>
 
 	<!-- 팝업 영역 -->	
 	<div id="popup_cart" class="popup_cart" style="display: none;"></div>
+
+	<!-- 팝업 영역 -->	
+	<!-- <div id="wrap_shopper_status" class="bg_alpha" style="display : none; position : absolute; top : 0;"> -->
+		<div id="wrap_shopper_status" class="pop2" style="width:500px; top:80%; left:32%; position:absolute; display:none;">
+			<ul><li id="common_shopper_message"></li></ul>
+		</div>
+	<!-- </div> -->
+
 </body>
 
 </html>
