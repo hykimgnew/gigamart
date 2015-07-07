@@ -3397,11 +3397,12 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
     },
     // 조회 :취소,환불내역
     totRef: function(inter_num) {
+        //취소먼저
         var param = {
                         "interval" : inter_num
                     };
         $.ajax({
-            url         : cmsServerIp + "/BuyerOrderTask/Select",
+            url         : cmsServerIp + "/BuyerOrderTask/CancelList/interval",
             type        : "post",
             dataType    : "json",
             data        : param,
@@ -3412,28 +3413,69 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             success     : function(result) {
                 var obj = result;
                 var obj_length = Object.keys(obj).length;
-                console.log("obj_length---->"+obj_length);
+                console.log("취소내역 : obj_length---->"+obj_length);
                 //결과값 없을때 0
-                if(obj_length == 1){
-                    console.log("123");
-                    $('span[name="ref_tot"]').empty().html("0");
-                    return;
-                }
+                // if(obj_length == 1){
+                    // console.log("123");
+                    // $('span[name="ref_tot"]').empty().html("0");
+                    // return;
+                // }
                 //결과값 있을때
-                else{
+                //else{
+                    var obj2 = result['arr_order'];
                     var resultLen = result['arr_order'].length;
+                    console.log("취소내역 resultLen : ---->"+resultLen);
+                    console.log("취소내역 obj2 : ---->"+JSON.stringify(obj2));
                     totalCount = resultLen;
-                    if(resultLen < 10){
-                        resultLen = "0"+resultLen; 
-                    }
-                    $('span[name="ref_tot"]').empty().html(resultLen);
-                }
+                    //환불
+                    var param2 = {
+                        "interval" : inter_num
+                    };
+                        $.ajax({
+                            url         : cmsServerIp + "/BuyerOrderTask/RefundList/interval",
+                            type        : "post",
+                            dataType    : "json",
+                            data        : param2,
+                            async       : true,
+                            xhrFields   : {
+                                            withCredentials: true
+                            },
+                            success     : function(result) {
+                                var obj = result;
+                                var obj_length = Object.keys(obj).length;
+                                console.log("환불내역 obj_length---->"+obj_length);
+                                //결과값 없을때 0
+                                if(obj_length == 1){
+                                    console.log("123");
+                                    $('span[name="ref_tot"]').empty().html(totalCount);
+                                    return;
+                                }
+                                //결과값 있을때
+                                else{
+                                    var resultLen = result['arr_order'].length;
+                                    var obj3 = result['arr_order'];
+                                    console.log("환불내역 resultLen : ---->"+resultLen);
+                                    console.log("환불내역 obj3 : ---->"+JSON.stringify(obj3));
+                                    totalCount2 = resultLen+totalCount;
+                                    console.log("totalCount2 : ---->"+totalCount2);
+                                    if(totalCount2 < 10){
+                                        totalCount2 = "0"+totalCount2; 
+                                    }
+                                    $('span[name="ref_tot"]').empty().html(totalCount2);
+                                }
+                            }
+                        }); 
+                    // if(resultLen < 10){
+                    //     resultLen = "0"+resultLen; 
+                    // }
+                    // $('span[name="ref_tot"]').empty().html(resultLen);
+                //}
             }
         });
     },
     // 조회 : 환불/취소내역
     selectRefList: function(inter_num) {
-        console.log("###############################################환불/취소내역###############################################")
+        console.log("###############################################취소내역###############################################")
         var appendHtml = '';
         var appendHtml2 = '';
         var str = '';
@@ -3441,7 +3483,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         "interval" : inter_num
                     };
         $.ajax({
-            url         : cmsServerIp + "/BuyerOrderTask/Select",
+            url         : cmsServerIp + "/BuyerOrderTask/CancelList/interval",
             type        : "post",
             dataType    : "json",
             data        : param,
@@ -3457,13 +3499,384 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 //결과값 없을때 0
                 if(obj_length == 1){
                     //환불/취소내역 없습니다. 토스트메세지
+                    //$('#pop_ref_non').show();
+                    //setTimeout("fn_popRefNon()", 2000);
+                    //환불내역조회
+                    this.selectRefList2(1);
+                }
+                //결과값 있을때
+                else{
+                    $.each(result['arr_order'], function(index, entry) {
+                        arrTotRefList[index] = result['arr_order'] ;
+                    });
+                    // arrTotList1 = result['arr_order'];
+                    //console.log("arrTotList1 : "+JSON.stringify(arrTotList1));
+                    //환불내역조회
+                    //this.selectRefList2(1);
+                    Gigamart.app.shopper_bag.KeyEventActorProvider.selectRefList2(1);
+                }
+                    //하단에 페이징 뿌려줌
+                //     var resultLen = result['arr_order'].length;
+                //     페이징을 위해 갯수 담아놓기
+                //     totalCount = resultLen;
+                //     // 결과값이 2보다 크면 다음 페이지 존재
+                //     if(resultLen > 2 || resultLen == 2) { 
+                //         $('li[name="ref_menu"]').remove();
+                //         console.log("결과값이 2보다 크면 다음 페이지 존재");
+                //         $('span[name="arrow_top_ref"]').removeClass('arrow_top');
+                //         $('span[name="arrow_bottom_ref"]').addClass('focus');
+                //         nextOrderPageYN = true;
+                //         //결과값이 2보다 크면 2개씩 뿌려줌
+                //         var cnt = 0;
+                //         for(var i=0; i<2; i++){
+                //             makeRefProduct();
+                //             var obj2 = result['arr_order'];
+                //             var obj_length = Object.keys(obj2).length;
+                //             console.log("obj2.order_id[i] : "+obj2[i].order_id);
+                //             $('td[name="ref_date"]').eq(i).empty().append(obj2[i].order_date);
+                //             $('td[name="ref_num"]').eq(i).empty().append(obj2[i].order_id);
+                //             $('td[name="ref_cost"]').eq(i).empty().append(cn_toPrice(obj2[i].ordered_cost)+"원");
+                //             $('td[name="ref_state"]').eq(i).empty().append(obj2[i].status);
+                //             $('td[name="ref_name"]').eq(i).empty().append(obj2[i].shopper_id);
+                        
+                //             $.each(['ordered_product'], function(pindex, pentry) {
+                //             var obj3 = obj2[i].ordered_product;
+                //             var obj_length3 = Object.keys(obj3).length;
+                //             console.log("obj_length333---->"+JSON.stringify(obj3));
+                //             console.log("obj3[0].name---->"+obj3[0].name);
+                //             console.log("obj_length3---->"+obj_length3);
+                //             if(pindex == 0){
+                //                 $('td[name="ref_info"]').eq(i).empty().append(obj3[0].name +"외 ……"+obj_length3+"건");
+                //                 }
+                //             });
+                //         }
+
+                //         $.each(result['arr_order'], function(index, entry) { 
+                //             appendHtml = {
+                //                             "order_date" : entry['order_date'],
+                //                             "order_id" : entry['order_id'],
+                //                             "ordered_cost" : entry['ordered_cost'],
+                //                             "ordered_product" : entry['ordered_product'],
+                //                             "status" : entry['status'],
+                //                             "shopper_id" : entry['shopper_id'],
+                //                             "name" : entry['ordered_product'],
+                //                             "obj_length" : obj_length
+                //                          }; 
+
+                //                     cnt                 = Math.floor(index / maxRefListPage);
+                //                     var str             = appendHtml;
+                //                     arrRefList[index]    = str;
+                //                     console.log("index : " + index + " maxRefListPage : " + maxRefListPage + " cnt : " + cnt);
+                //                     console.log("arrRefList : "+JSON.stringify(arrRefList));
+                //                     totalRefListPage = cnt;
+                //         });
+                //     }else{
+                //      console.log("결과값이 2보다 작을때=>1개만뿌리고 환불내역 +");
+                //         for(var i=0 ; i < 1 ; i++) {
+                //             makeRefProduct();
+                //             var obj2 = result['arr_order'];
+                //             var obj_length = Object.keys(obj2).length;
+                //             console.log("obj2.order_id[i] : "+obj2[i].order_id);
+                //             $('td[name="ref_date"]').eq(i).empty().append(obj2[i].order_date);
+                //             $('td[name="ref_num"]').eq(i).empty().append(obj2[i].order_id);
+                //             $('td[name="ref_cost"]').eq(i).empty().append(cn_toPrice(obj2[i].ordered_cost)+"원");
+                //             $('td[name="ref_state"]').eq(i).empty().append(obj2[i].status);
+                //             $('td[name="ref_name"]').eq(i).empty().append(obj2[i].shopper_id);
+                        
+                //             $.each(['ordered_product'], function(pindex, pentry) {
+                //             var obj3 = obj2[i].ordered_product;
+                //             var obj_length3 = Object.keys(obj3).length;
+                //             console.log("obj_length333---->"+JSON.stringify(obj3));
+                //             console.log("obj3[0].name---->"+obj3[0].name);
+                //             console.log("obj_length3---->"+obj_length3);
+                //             if(pindex == 0){
+                //                 $('td[name="ref_info"]').eq(i).empty().append(obj3[0].name +"외 ……"+obj_length3+"건");
+                //                 }
+                //             });
+                //             //두번째 리스트 삭제
+                //             $('li[name="ref_menu"]').eq(1).remove();
+                //             //환불조회 이동
+                //             this.selectRefList2(1);
+                //         }
+                     
+                //     }
+                //     console.log("#####################################");
+                //     console.log("총페이지수: " + totalRefListPage);
+                //     console.log("######################################");
+                //     $('li[name="ref_menu"]').eq(1).addClass('mg_t30');
+                //     //조회목록에 있을때
+                //     if(refFocusList == 1){
+                //         $('li[name="ref_menu"]').eq(refFocusMenu).addClass('focus');
+                //     }
+                //     //기간영역에 있을때
+                //     else{
+                //         $('li[name="ref_menu"]').eq(refFocusMenu).removeClass('focus');
+                //     }
+                // }
+            }
+        });
+    },
+    // 조회 : 환불/취소내역
+    selectRefList2: function(inter_num) {
+        console.log("###############################################환불내역###############################################")
+        var appendHtml = '';
+        var appendHtml2 = '';
+        var str = '';
+        var param = {
+                        "interval" : inter_num
+                    };
+        $.ajax({
+            url         : cmsServerIp + "/BuyerOrderTask/RefundList/interval",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                var obj = arrTotRefList;
+                var obj_length = Object.keys(obj).length;
+                console.log("취소 : " + JSON.stringify(obj));
+
+                var obj2 = result['arr_order'];
+                var obj_length2 = Object.keys(obj2).length;
+                console.log("obj_length2---->"+obj_length2);
+                
+                var totCnt = obj_length;// 취소1 담은 것갯수
+                var totCnt2 = obj_length2 + totCnt; // 취소 + 환불갯수
+
+                //console.log("취소 : " + JSON.stringify(obj));
+                console.log("취소1 담은 것갯수 totCnt---->"+totCnt);
+                console.log("취소 + 환불갯수 totCnt2---->"+totCnt2);
+                for(var i=totCnt; i < totCnt2; i++) {
+                    appendHtml = {
+                       "arrTotList" :  result['arr_order']
+                    }
+                    arrTotRefList[i] = appendHtml;
+                    //arrTotRefList[i] = result['arr_order'];
+                }
+                //총합 go
+                Gigamart.app.shopper_bag.KeyEventActorProvider.selectRefListTotal();
+
+                //console.log("######## arrTotRefList : " + JSON.stringify(arrTotRefList));
+                
+                //console.log("obj_length---->"+obj_length);
+                //결과값 없을때 0
+                // if(obj_length == 1){
+                //     //환불/취소내역 없습니다. 토스트메세지
+                //     //$('#pop_ref_non').show();
+                //     //setTimeout("fn_popRefNon()", 2000);
+                // }
+                // //결과값 있을때
+                // else{
+                //     arrTotList2 = result['arr_order']; 
+                //     // appendHtml = {
+                //     //                          "arrTotList1" : arrTotList1,
+                //     //                          "arrTotList2" : arrTotList2
+                //     //                       }; 
+                //     arrTotRefList = arrTotList1+arrTotList2;
+                //     console.log("arrTotRefList : "+JSON.stringify(arrTotRefList));
+                //     //console.log("appendHtml : "+JSON.stringify(appendHtml));
+                //     //하단에 페이징 뿌려줌
+                //     // var resultLen = result['arr_order'].length;
+                //     // 페이징을 위해 갯수 담아놓기
+                //     // totalCount2 = totalCount + ;
+                //     // // //갯수가 짝수개이면 그냥 뿌려주고
+                //     // // if(resultLen % 2 == 0){
+                //     // //     resultLen = resultLen/2;
+                //     // // }
+                //     // // //홀수개면 + 1 해서 / 2
+                //     // // else{
+                //     // //     resultLen = (resultLen+1)/2;
+                //     // // }
+                //     // // if(resultLen < 10){
+                //     // //     resultLen = "0"+resultLen; 
+                //     // // }
+                //     // // $('b[name="ref_cur_pg"]').empty().html("01");//현재페이지
+                //     // // $('span[name="ref_tot_pg"]').empty().html(resultLen);//총페이지
+                
+                //     // // 결과값이 2보다 크면 다음 페이지 존재
+                //     // if(resultLen > 2 || resultLen == 2) { 
+                //     //     $('li[name="ref_menu"]').remove();
+                //     //     console.log("결과값이 2보다 크면 다음 페이지 존재");
+                //     //     $('span[name="arrow_top_ref"]').removeClass('arrow_top');
+                //     //     $('span[name="arrow_bottom_ref"]').addClass('focus');
+                //     //     nextOrderPageYN = true;
+                //     //     //결과값이 2보다 크면 2개씩 뿌려줌
+                //     //     var cnt = 0;
+                //     //     for(var i=0; i<2; i++){
+                //     //         makeRefProduct();
+                //     //         var obj2 = result['arr_order'];
+                //     //         var obj_length = Object.keys(obj2).length;
+                //     //         console.log("obj2.order_id[i] : "+obj2[i].order_id);
+                //     //         $('td[name="ref_date"]').eq(i).empty().append(obj2[i].order_date);
+                //     //         $('td[name="ref_num"]').eq(i).empty().append(obj2[i].order_id);
+                //     //         $('td[name="ref_cost"]').eq(i).empty().append(cn_toPrice(obj2[i].ordered_cost)+"원");
+                //     //         $('td[name="ref_state"]').eq(i).empty().append(obj2[i].status);
+                //     //         $('td[name="ref_name"]').eq(i).empty().append(obj2[i].shopper_id);
+                        
+                //     //         $.each(['ordered_product'], function(pindex, pentry) {
+                //     //         var obj3 = obj2[i].ordered_product;
+                //     //         var obj_length3 = Object.keys(obj3).length;
+                //     //         console.log("obj_length333---->"+JSON.stringify(obj3));
+                //     //         console.log("obj3[0].name---->"+obj3[0].name);
+                //     //         console.log("obj_length3---->"+obj_length3);
+                //     //         if(pindex == 0){
+                //     //             $('td[name="ref_info"]').eq(i).empty().append(obj3[0].name +"외 ……"+obj_length3+"건");
+                //     //             }
+                //     //         });
+                //     //     }
+
+                //     //     $.each(result['arr_order'], function(index, entry) { 
+                //     //         appendHtml = {
+                //     //                         "order_date" : entry['order_date'],
+                //     //                         "order_id" : entry['order_id'],
+                //     //                         "ordered_cost" : entry['ordered_cost'],
+                //     //                         "ordered_product" : entry['ordered_product'],
+                //     //                         "status" : entry['status'],
+                //     //                         "shopper_id" : entry['shopper_id'],
+                //     //                         "name" : entry['ordered_product'],
+                //     //                         "obj_length" : obj_length
+                //     //                      }; 
+
+                //     //                 cnt                 = Math.floor(index / maxRefListPage);
+                //     //                 var str             = appendHtml;
+                //     //                 arrRefList[index]    = str;
+                //     //                 console.log("index : " + index + " maxRefListPage : " + maxRefListPage + " cnt : " + cnt);
+                //     //                 console.log("arrRefList : "+JSON.stringify(arrRefList));
+                //     //                 totalRefListPage = cnt;
+                //     //     });
+                //     // }else{
+                //     //  console.log("결과값이 2보다 작을때=>1개만뿌리고 환불내역 +");
+                //     //     for(var i=0 ; i < 1 ; i++) {
+                //     //         makeRefProduct();
+                //     //         var obj2 = result['arr_order'];
+                //     //         var obj_length = Object.keys(obj2).length;
+                //     //         console.log("obj2.order_id[i] : "+obj2[i].order_id);
+                //     //         $('td[name="ref_date"]').eq(i).empty().append(obj2[i].order_date);
+                //     //         $('td[name="ref_num"]').eq(i).empty().append(obj2[i].order_id);
+                //     //         $('td[name="ref_cost"]').eq(i).empty().append(cn_toPrice(obj2[i].ordered_cost)+"원");
+                //     //         $('td[name="ref_state"]').eq(i).empty().append(obj2[i].status);
+                //     //         $('td[name="ref_name"]').eq(i).empty().append(obj2[i].shopper_id);
+                        
+                //     //         $.each(['ordered_product'], function(pindex, pentry) {
+                //     //         var obj3 = obj2[i].ordered_product;
+                //     //         var obj_length3 = Object.keys(obj3).length;
+                //     //         console.log("obj_length333---->"+JSON.stringify(obj3));
+                //     //         console.log("obj3[0].name---->"+obj3[0].name);
+                //     //         console.log("obj_length3---->"+obj_length3);
+                //     //         if(pindex == 0){
+                //     //             $('td[name="ref_info"]').eq(i).empty().append(obj3[0].name +"외 ……"+obj_length3+"건");
+                //     //             }
+                //     //         });
+                //     //         //두번째 리스트 삭제
+                //     //         $('li[name="ref_menu"]').eq(1).remove();
+                //     //         //환불조회 이동
+                //     //         this.selectRefList2(1);
+                //     //     }
+                     
+                //     // }
+                //     // console.log("#####################################");
+                //     // console.log("총페이지수: " + totalRefListPage);
+                //     // console.log("######################################");
+                //     // $('li[name="ref_menu"]').eq(1).addClass('mg_t30');
+                //     // //조회목록에 있을때
+                //     // if(refFocusList == 1){
+                //     //     $('li[name="ref_menu"]').eq(refFocusMenu).addClass('focus');
+                //     // }
+                //     // //기간영역에 있을때
+                //     // else{
+                //     //     $('li[name="ref_menu"]').eq(refFocusMenu).removeClass('focus');
+                //     // }
+                // }
+            }
+        });
+    },
+    //취소/환불내역 총합
+    selectRefListTotal : function(){
+        console.log("###############################################취소/환불내역 총합###############################################")
+        var obj = arrTotRefList;
+        var obj_length = Object.keys(obj).length;
+        console.log("총합 : " + JSON.stringify(obj));
+        console.log("길이 : " + JSON.stringify(obj_length));
+
+        //결과값 없을때 0
+                if(obj_length == 0){
+                    //환불/취소내역 없습니다. 토스트메세지
                     $('#pop_ref_non').show();
                     setTimeout("fn_popRefNon()", 2000);
                 }
                 //결과값 있을때
                 else{
                     //하단에 페이징 뿌려줌
-                    var resultLen = result['arr_order'].length;
+                    var resultLen = obj_length;
+                    
+                    // 결과값이 2보다 크면 다음 페이지 존재
+                    if(resultLen > 2 || resultLen == 2) { 
+                        $('li[name="ref_menu"]').remove();
+                            if(resultLen > 2){
+                                console.log("결과값이 2보다 크면 다음 페이지 존재");
+                                $('span[name="arrow_top_ref"]').removeClass('arrow_top');
+                                $('span[name="arrow_bottom_ref"]').addClass('focus');
+                                nextRefPageYN = true;    
+                            }
+                        //결과값이 2보다 크면 2개씩 뿌려줌
+                        var cnt = 0;
+                        for(var i=0; i<2; i++){
+                            makeRefProduct();
+                            var obj2 = obj[i];
+                            console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                            console.log(typeof obj);
+                            console.log(typeof obj2);
+                            console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                            var obj_length = Object.keys(obj2).length;
+                            //console.log("obj2.order_id[i] : "+obj2[i].order_id);
+                            $('td[name="ref_date"]').eq(i).empty().append(obj2[i].order_date);
+                            $('td[name="ref_num"]').eq(i).empty().append(obj2[i].order_id);
+                            $('td[name="ref_cost"]').eq(i).empty().append(cn_toPrice(obj2[i].ordered_cost)+"원");
+                            $('td[name="ref_state"]').eq(i).empty().append(obj2[i].status);
+                            $('td[name="ref_name"]').eq(i).empty().append(obj2[i].shopper_id);
+                            console.log("i : "+i+" ,obj[i]---->"+JSON.stringify(obj2[i]));
+                            console.log("i : "+i+" ,obj2.order_id---->"+obj2[i].order_id);
+                            //$.each(['ordered_product'], function(pindex, pentry) {
+                            var obj3 = obj2[i].ordered_product;
+                            var obj_length3 = Object.keys(obj3).length;
+                            console.log("obj3---->"+obj3);
+                            console.log("obj3[0].name---->"+obj3[0].name);
+                            console.log("obj_length3---->"+obj_length3);
+                            //if(pindex == 0){
+                            $('td[name="ref_info"]').eq(i).empty().append(obj3[0].name +"외 ……"+obj_length3+"건");
+                                //}
+                            //});
+                        }
+
+                        // $.each(result['arr_order'], function(index, entry) { 
+                        //     appendHtml = {
+                        //                     "order_date" : entry['order_date'],
+                        //                     "order_id" : entry['order_id'],
+                        //                     "ordered_cost" : entry['ordered_cost'],
+                        //                     "ordered_product" : entry['ordered_product'],
+                        //                     "status" : entry['status'],
+                        //                     "shopper_id" : entry['shopper_id'],
+                        //                     "name" : entry['ordered_product'],
+                        //                     "obj_length" : obj_length
+                        //                  }; 
+
+                        //             cnt                 = Math.floor(index / maxRefListPage);
+                        //             var str             = appendHtml;
+                        //             arrRefList[index]    = str;
+                        //             console.log("index : " + index + " maxRefListPage : " + maxRefListPage + " cnt : " + cnt);
+                        //             console.log("arrRefList : "+JSON.stringify(arrRefList));
+                        //             totalRefListPage = cnt;
+                        // });
+                    }else{
+                     console.log("결과값이 2보다 작을때=>1개만뿌려");
+                     
+                    }
+                    console.log("#####################################");
+                    console.log("총페이지수: " + totalRefListPage);
+                    console.log("######################################");
                     //갯수가 짝수개이면 그냥 뿌려주고
                     if(resultLen % 2 == 0){
                         resultLen = resultLen/2;
@@ -3478,118 +3891,8 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     $('b[name="ref_cur_pg"]').empty().html("01");//현재페이지
                     $('span[name="ref_tot_pg"]').empty().html(resultLen);//총페이지
                 
-                    // 결과값이 2보다 크면 다음 페이지 존재
-                    if(resultLen > 2 || resultLen == 2) { 
-                        $('li[name="ref_menu"]').remove();
-                        console.log("결과값이 2보다 크면 다음 페이지 존재");
-                        $('span[name="arrow_top_ref"]').removeClass('arrow_top');
-                        $('span[name="arrow_bottom_ref"]').addClass('focus');
-                        nextOrderPageYN = true;
-                        //결과값이 2보다 크면 2개씩 뿌려줌
-                        var cnt = 0;
-                        for(var i=0; i<2; i++){
-                            makeRefProduct();
-                            var obj2 = result['arr_order'];
-                            var obj_length = Object.keys(obj2).length;
-                            console.log("obj2.order_id[i] : "+obj2[i].order_id);
-                            $('td[name="ref_date"]').eq(i).empty().append(obj2[i].order_date);
-                            $('td[name="ref_num"]').eq(i).empty().append(obj2[i].order_id);
-                            $('td[name="ref_cost"]').eq(i).empty().append(cn_toPrice(obj2[i].ordered_cost)+"원");
-                            $('td[name="ref_state"]').eq(i).empty().append(obj2[i].status);
-                            $('td[name="ref_name"]').eq(i).empty().append(obj2[i].shopper_id);
-                        
-                            $.each(['ordered_product'], function(pindex, pentry) {
-                            var obj3 = obj2[i].ordered_product;
-                            var obj_length3 = Object.keys(obj3).length;
-                            console.log("obj_length333---->"+JSON.stringify(obj3));
-                            console.log("obj3[0].name---->"+obj3[0].name);
-                            console.log("obj_length3---->"+obj_length3);
-                            if(pindex == 0){
-                                $('td[name="ref_info"]').eq(i).empty().append(obj3[0].name +"외 ……"+obj_length3+"건");
-                                }
-                            });
-                            // cnt                 = Math.floor(obj_length / maxRefListPage);
-                            // var str             = appendHtml;
-                            // arrRefList[i]    = str;
-                            // //console.log("obj_length : " + obj_length + " maxRefListPage : " + maxRefListPage + " cnt : " + cnt);
-                            // console.log("arrRefList : "+JSON.stringify(arrRefList));
-                            // totalRefListPage = cnt; 
-                        }
-
-                        $.each(result['arr_order'], function(index, entry) { 
-                            appendHtml = {
-                                            "order_date" : entry['order_date'],
-                                            "order_id" : entry['order_id'],
-                                            "ordered_cost" : entry['ordered_cost'],
-                                            "ordered_product" : entry['ordered_product'],
-                                            "status" : entry['status'],
-                                            "shopper_id" : entry['shopper_id'],
-                                            "name" : entry['ordered_product'],
-                                            "obj_length" : obj_length
-                                         }; 
-
-                                    cnt                 = Math.floor(index / maxRefListPage);
-                                    var str             = appendHtml;
-                                    arrRefList[index]    = str;
-                                    console.log("index : " + index + " maxRefListPage : " + maxRefListPage + " cnt : " + cnt);
-                                    console.log("arrRefList : "+JSON.stringify(arrRefList));
-                                    totalRefListPage = cnt;
-
-                        });
 
 
-                    }else{
-                     console.log("결과값이 2보다 작을때=>1개만뿌려");
-                     //$('li[name="ref_menu"]').remove();   
-                    }
-
-                    //arrOrderList = new Array(); // 구매 리스트 초기화
-                    //var cnt = 0;
-                    //console.log("##### 주문내역 List json " + JSON.stringify(result));
-
-                    // $.each(result['arr_order'], function(index, entry) { 
-                    //     $('td[name="ref_date"]').eq(index).empty().append(entry['order_date']);
-                    //     $('td[name="ref_num"]').eq(index).empty().append(entry['order_id']);
-                    //     $('td[name="ref_cost"]').eq(index).empty().append(cn_toPrice(entry['ordered_cost'])+"원");
-                    //     $('td[name="ref_state"]').eq(index).empty().append(entry['status']);
-                    //     $('td[name="ref_name"]').eq(index).empty().append(entry['shopper_id']);
-
-                        
-                    //     $.each(entry['ordered_product'], function(pindex, pentry) {
-                    //         var obj = entry['ordered_product'];
-                    //         var obj_length = Object.keys(obj).length;
-                    //         //console.log("obj_length---->"+obj_length);
-                    //         if(pindex == 0){
-                    //             $('td[name="ref_info"]').eq(index).empty().append(pentry['name'] +"외 ……"+obj_length+"건");
-                    //             }
-                    //             });
-
-                    
-                    //     appendHtml = {
-                    //                         "order_date" : entry['order_date'],
-                    //                         "order_id" : entry['order_id'],
-                    //                         "ordered_cost" : entry['ordered_cost'],
-                    //                         "ordered_product" : entry['ordered_product'],
-                    //                         "status" : entry['status'],
-                    //                         "shopper_id" : entry['shopper_id'],
-                    //                         "name" : entry['ordered_product'],
-                    //                         "obj_length" : obj_length
-                    //                      }; 
-            
-
-                        
-                    //     cnt                 = Math.floor(index / maxRefListPage);
-                    //     var str             = appendHtml;
-                    //     arrRefList[index]    = str;
-                    //     console.log("index : " + index + " maxRefListPage : " + maxRefListPage + " cnt : " + cnt);
-                    //     console.log("appendHtml22222 : "+JSON.stringify(appendHtml));
-                    //     totalRefListPage = cnt;
-
-
-                    // });
-                    console.log("#####################################");
-                    console.log("총페이지수: " + totalRefListPage);
-                    console.log("######################################");
                     $('li[name="ref_menu"]').eq(1).addClass('mg_t30');
                     //조회목록에 있을때
                     if(refFocusList == 1){
@@ -3599,11 +3902,23 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     else{
                         $('li[name="ref_menu"]').eq(refFocusMenu).removeClass('focus');
                     }
-                    //$('li[name="ref_menu"]').eq(refFocusMenu).addClass('focus');
+
+
+
+
+
+
+
+
                 }
-            }
-        });
+
+
+
+
+
+
     },
+
      // 취소/환불내역 페이징
     pagingRefProduct : function(page) {
 
