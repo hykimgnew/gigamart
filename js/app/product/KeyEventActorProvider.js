@@ -27,6 +27,9 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
 
     	me.actors = [];
 
+        // 공통 실행
+        common_init();
+
         // 플로팅 메뉴 장바구니 SET
         fltEasyCart();
 
@@ -146,7 +149,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                         $('#p_videoDiv video').remove();
                         $('#span_videoDiv video').remove();
                         appConfiguration.localSystem.mute = true; // 음소거 설정
-                        location.href = EXHB_PATH + 'order.html';
+                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS;
                     }
                     
                     // 결제
@@ -514,13 +517,13 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
             // * ◀ KEY (플로팅 Go home)
             // **************************************************
             if(keyCode == VK_RED) {
-                location.href ="exhb.html" ; // 기획전 이동
+                location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS; // 기획전 이동
             }
             // **************************************************
             // * ◀|| KEY (카테고리 Go home)
             // 
             if(keyCode == VK_PLAY) {
-                location.href ="category.html"; // 기획전 이동
+                location.href ="category.html?SHOPPER_STATUS=" + SHOPPER_STATUS; // 기획전 이동
             }    
             // **************************************************
             // * 확인 KEY
@@ -645,7 +648,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                         //닫기 포커스일때
                         if(popProductFocus == 2){
                             $('div[name="product_pop_btn"]').removeClass('focus');
-                            location.href="#product_img"
+                            location.href="#product_img";
                             currentFocusList = 0;
                             popProductFocus = 0;
                             $('div[name="product_pop"]').hide();
@@ -658,7 +661,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 else{
                     //기획전일때->exhb.html으로 이동
                     if(currentFocusList == 2) {
-                        location.href ="exhb.html" ; // 기획전 이동
+                        location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS; // 기획전 이동
                     }   
                 }
             } 
@@ -750,14 +753,14 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                             if(popProductFocus == 1){
                                 console.log("상세정보 content->상세정보 img");
                                 popProductFocus = 0;
-                                location.href="#product_img"
+                                location.href="#product_img";
                             }
                             //닫기 -> 상세정보 content
                             else if(popProductFocus == 2){
                                 console.log("닫기 -> 상세정보 content");
                                 $('div[name="product_pop_btn"]').removeClass('focus'); 
                                 popProductFocus = 1;
-                                location.href="#product_content"
+                                location.href="#product_content";
                             }
                         }
 
@@ -776,7 +779,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                             + "&categoryDtlCode=" + requestCategoryDtlCode
                             + "&categoryDtlPage=" + requestCategoryDtlPage
                             + "&id=" + requestCategoryDtlId;
-                            location.href="product1.html?productView="+productView+"&currentFocusList="+currentFocusList+"&currentFocusMenul="+currentFocusMenul+url;
+                            location.href="product1.html?productView="+productView+"&currentFocusList="+currentFocusList+"&currentFocusMenul="+currentFocusMenul+url+"&SHOPPER_STATUS=" + SHOPPER_STATUS;
                         }
                         // 같은종류 추천상품->첫번째페이지
                         else if(currentFocusList == 1){
@@ -790,7 +793,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                             + "&categoryDtlCode=" + requestCategoryDtlCode
                             + "&categoryDtlPage=" + requestCategoryDtlPage
                             + "&id=" + requestCategoryDtlId;
-                            location.href="product1.html?productView="+productView+"&currentFocusList="+currentFocusList+"&currentFocusMenu="+currentFocusMenu+url;
+                            location.href="product1.html?productView="+productView+"&currentFocusList="+currentFocusList+"&currentFocusMenu="+currentFocusMenu+url+"&SHOPPER_STATUS=" + SHOPPER_STATUS;
                         }
                         //관련기획전->같은종류 추천상퓸/다른사람이 구매한 연관상품
                         else if(currentFocusList == 2){
@@ -906,7 +909,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                                 + "&categoryDtlCode=" + requestCategoryDtlCode
                                 + "&categoryDtlPage=" + requestCategoryDtlPage
                                 + "&id=" + requestCategoryDtlId;
-                                location.href="product2.html?productView="+productView+"&currentFocusList="+currentFocusList+"&currentFocusMenu="+currentFocusMenu+url;
+                                location.href="product2.html?productView="+productView+"&currentFocusList="+currentFocusList+"&currentFocusMenu="+currentFocusMenu+url+"&SHOPPER_STATUS=" + SHOPPER_STATUS;
                                 
                             }
 
@@ -926,7 +929,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                                 + "&categoryDtlCode=" + requestCategoryDtlCode
                                 + "&categoryDtlPage=" + requestCategoryDtlPage
                                 + "&id=" + requestCategoryDtlId;
-                                location.href="product2.html?productView="+productView+"&currentFocusList="+currentFocusList+"&currentFocusMenul="+currentFocusMenul+url;
+                                location.href="product2.html?productView="+productView+"&currentFocusList="+currentFocusList+"&currentFocusMenul="+currentFocusMenul+url+"&SHOPPER_STATUS=" + SHOPPER_STATUS;
                             }
                             //팝업
                             else if(currentFocusList == 4) {
@@ -952,7 +955,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                                     console.log("상세정보 img -> 상세정보 content");
                                     //$('p[name="pop_cl_photo"]').hide();  
                                     popProductFocus = 1;
-                                    location.href="#product_content"
+                                    location.href="#product_content?SHOPPER_STATUS=" + SHOPPER_STATUS;
                                 }
                                 //상세정보 content -> 닫기
                                 else if(popProductFocus == 1){
@@ -1421,12 +1424,12 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
             } else if (keyCode === global.VK_BACK) {
                 if(requestCategoryCode  == null || requestCategoryCode  == '' || requestCategoryCode  == 'undefined') {
                     console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%기획전으로 이동");
-                    location.href ="exhb.html" ; // 기획전 이동
+                    location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS; // 기획전 이동
                 }else{
                     console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%전체 카테고리로 이동");
                     // 전체 카테고리로 이동
                     //this.transCategoryCode(); // 한글코드를 숫자코드로 변환 후 페이지 이동
-                    location.href = "category_dtl.html?categoryCode=" + requestCategoryCode + "&categoryDtlCode=" + requestCategoryDtlCode + "&categoryDtlPage=" + requestCategoryDtlPage;
+                    location.href = "category_dtl.html?categoryCode=" + requestCategoryCode + "&categoryDtlCode=" + requestCategoryDtlCode + "&categoryDtlPage=" + requestCategoryDtlPage + "&SHOPPER_STATUS=" + SHOPPER_STATUS;
                 
                 }
                 

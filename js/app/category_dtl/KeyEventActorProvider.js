@@ -301,6 +301,9 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
     	me.actors = [];
 
+        // 공통 실행
+        common_init();
+        
         // 플로팅 메뉴 장바구니 SET
         fltEasyCart();
 
@@ -355,7 +358,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                         $('#p_videoDiv video').remove();
                         $('#span_videoDiv video').remove();
                         appConfiguration.localSystem.mute = true; // 음소거 설정
-                        location.href = EXHB_PATH + 'order.html';
+                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS;
                     }
                     
                     // 결제
@@ -738,13 +741,13 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
             // * ◀ KEY (플로팅 Go home)
             // **************************************************
             if(keyCode == VK_RED) {
-                location.href ="exhb.html" ; // 기획전 이동
+                location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS; // 기획전 이동
             }
             // **************************************************
             // * ◀|| KEY (카테고리 Go home)
             // 
             if(keyCode == VK_PLAY) {
-                location.href ="category.html"; // 전체카테고리 이동
+                location.href ="category.html?SHOPPER_STATUS=" + SHOPPER_STATUS; // 전체카테고리 이동
             }
             // **************************************************
             // * 확인 KEY
@@ -773,7 +776,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
                     console.log("### 상품 정보로 넘어가는 값들 :  " + url);                            
 
-                    location.href ="product1.html" + url;
+                    location.href ="product1.html" + url + "&SHOPPER_STATUS=" + SHOPPER_STATUS;
                 }
 
                 // 화살표 일때는 위아래로 입력 받게 변경됨 (2015-07-06)
@@ -1109,7 +1112,8 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
                 location.href = "category.html?categoryCode=" + requestCategoryCode 
                               + "&categoryDtlCode=" + requestCategoryDtlCode 
-                              + "&categoryDtlPage=" + requestCategoryDtlPage;
+                              + "&categoryDtlPage=" + requestCategoryDtlPage
+                              + "&SHOPPER_STATUS=" + SHOPPER_STATUS;
             } else if (keyCode === global.VK_ESCAPE) {
                 
             } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
@@ -1269,6 +1273,8 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
             },
             success     : function(result) {
 
+                console.log("##### 상품 정보 : " + JSON.stringify(result));
+
                 // 첫 조회 시 ul_discount 비움
                 $('ul[name="ul_discount"]').empty();
 
@@ -1313,10 +1319,9 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                     }
                 });
 
-                console.log("#이거 뜨나 : " + nextPageYN);
                 pageArrowUtil1(); // 페이징 화살표 컨트롤
             },
-            error : function(){
+            error : function() {
                     console.log("에러");
             },
             complete  : function(result) {
@@ -1341,7 +1346,4 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
     selectProductSubPage: function() {
         resultSet;
     }
-
-
-
 });

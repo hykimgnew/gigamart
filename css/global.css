@@ -900,9 +900,6 @@ position:relative;width:162px; float:left; margin-bottom:4px; color:#ffffff;back
 
 
 
-
-
-
 /*장바구니*/
 #content .cartArea {width:846px; padding-top:10px; position:relative;  float:left; }
 
@@ -915,7 +912,7 @@ position:relative;width:162px; float:left; margin-bottom:4px; color:#ffffff;back
 #content .ctc_th {background:#e3e3e3; height:50px; line-height:48px; margin-bottom:40px;}
 #content .ctc_th li {float:left; text-align:center; font-size:14px; color:#404040; font-weight:bold;}
 #content .ctc_th .sr_chebox {width:34px; }
-#content .ctc_th .sr_chebox img.focus {border:2px solid #2b9330;}
+#content .ctc_th .sr_chebox img.focus {border:3px solid #2b9330;}
 #content .ctc_th .sr_proInfo {width:304px;}
 #content .ctc_th .sr_price {width:89px; border-left:1px solid #cfcfcf;}
 #content .ctc_th .sr_discount {width:79px; border-left:1px solid #cfcfcf;}
@@ -924,12 +921,13 @@ position:relative;width:162px; float:left; margin-bottom:4px; color:#ffffff;back
 #content .ctc_th .sr_store {width:89px; border-left:1px solid #cfcfcf;}
 #content .ctc_th .sr_order {width:117px;border-left:1px solid #cfcfcf; }
 
-
 #content .cartArea .ct_con { position:relative; width:846px; border-top:1px solid #aaaaaa; }
 #content .cartArea .ct_con .ctc_row {border-bottom:1px solid #aaaaaa; color:#1a1a1a;}
-#content .cartArea .ct_con .ctc_row.focus {border-bottom:1px solid #e9e9e9; color:#FFFFFF; background:#2b9330;}
+#content .cartArea .ct_con .ctc_row.focus { border-bottom:1px solid #aaaaaa; color:#FFFFFF; background:url(../images/icon_ok_b.png) 805px 43px no-repeat #2b9330;}
+#content .cartArea .ct_con .ctc_row.focus table td { border-left:0px; border-right:0px; }
 #content .cartArea .ct_con td {font-size:14px; height:100px; }
 #content .cartArea .ct_con .ctc_chebox {width:34px; padding:10px 0 0 0; text-align:center; vertical-align:top;}
+#content .cartArea .ct_con .ctc_chebox img.focus {border:3px solid #2b9330;}
 #content .cartArea .ct_con .ctc_img {width:100px; padding:10px; }
 #content .cartArea .ct_con .ctc_txt {width:204px; padding:10px 10px 10px 0; vertical-align:middle;}
 #content .cartArea .ct_con .ctc_price {width:70px; padding:10px; vertical-align:middle;}

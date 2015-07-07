@@ -64,6 +64,7 @@ var orderScreen = 0;
 //*  orderCartListFocus - 장바구니 상품 목록의 화면 상 선택 위치
 //*         -1 : 전체 체크박스, 0 : 첫번째 항목, 1 : 두번째 항목, 2 : 세번째 항목, 3 : 선택상품 삭제, 4 : 전체 삭제, 5 : 선택 상품 찜하기
 //*
+//*  orderCartCheckYN    - true면 체크박스에 포커스 위치 false면 상품 리스트에 포커스 위치
 //*  orderCartPrevPageYN - 장바구니 상품 목록 이전페이지 유무
 //*  orderCartNextPageYN - 장바구니 상품 목록 다음페이지 유무
 //*         true: 있음, false: 없음
@@ -72,8 +73,9 @@ var orderCartFocus          = 1;
 var orderCartPage           = 0;
 var orderCartMaxPage        = 0;
 var orderCartListFocus      = 0;
-var orderCartPrevPageYN     = 0;
-var orderCartNextPageYN     = 0;
+var orderCartCheckYN        = false;
+var orderCartPrevPageYN     = false;
+var orderCartNextPageYN     = false;
 
 
 

@@ -81,6 +81,18 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         
         appConfiguration.localSystem.mute = false; // 음소거 설정
         
+        // 공통 실행
+        common_init();
+
+        // 상태 관련 버튼 변경
+        if(SHOPPER_STATUS == '2') {
+            $('#shlr_on').removeClass("shlr_off");
+            $('#shlr_on').addClass("shlr_on");    
+        } else if(SHOPPER_STATUS == '3') {
+            $('#shlr_on').removeClass("shlr_on");
+            $('#shlr_on').addClass("shlr_off");    
+        }
+        
         // 영상 재생
         fltEasyCart();
         this.videoPlay("test", currentFocusMenu);
@@ -173,7 +185,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                         $('#p_videoDiv video').remove();
                         $('#span_videoDiv video').remove();
                         appConfiguration.localSystem.mute = true; // 음소거 설정
-                        location.href = EXHB_PATH + 'order.html';
+                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS;
                     }
                     
                     // 결제
@@ -558,7 +570,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             // **************************************************
             if(keyCode === global.VK_RED) {
                 $('#videoDiv video').remove();
-                location.href ="exhb.html" ; // 기획전 이동
+                location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS; // 기획전 이동
             }
 
             // **************************************************
@@ -569,7 +581,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 if(currentFocusList == 0) {
                     // My Page
                     if(currentFocusMenu == 0){
-                        location.href ="mypage.html"; // 마이페이지 이동
+                        location.href ="mypage.html?SHOPPER_STATUS=" + SHOPPER_STATUS; // 마이페이지 이동
                     }
                     
                     // 쇼퍼 주문 이력
@@ -622,14 +634,14 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                     $('#videoDiv video').remove();
                     location.href ="category_dtl.html?categoryCode="  + $('span[name="span_category_menu"]').eq(currentFocusMenu-3).html()
                                                  + "&categoryDtlCode=" + $('li[name="appendMenu"]').eq(currentFocusDtl).html()
-                                                 + "&categoryDtlPage=" + currentFocusDtlPage;
+                                                 + "&categoryDtlPage=" + currentFocusDtlPage + "&SHOPPER_STATUS=" + SHOPPER_STATUS;
                 }
 
                 // 쇼퍼's Bag 일때
                 else if(currentFocusList == 2) {
                     // 쇼퍼's Bag으로 이동
                     $('#videoDiv video').remove();
-                    location.href = "shopper_bag.html";
+                    location.href = "shopper_bag.html?SHOPPER_STATUS=" + SHOPPER_STATUS;
                 }
 
                 // 쇼퍼 주문이력 일때
@@ -978,7 +990,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 
             } else if (keyCode === global.VK_BACK) {
                 $('#videoDiv video').remove();
-                location.href ="exhb.html" ; // 기획전 이동
+                location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS; // 기획전 이동
                 
             } else if (keyCode === global.VK_ESCAPE) {
                 

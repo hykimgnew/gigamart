@@ -5,9 +5,6 @@ var App = App || {};
 var cmsServerIp = "http://14.52.244.91:8080";
 var videoServerIp = "http://175.209.53.205";
 
-// * 쇼퍼 구매 상태
-var SHOPPER_STATUS = 3; // default : 쇼퍼가 구매중이 아님 
-
 /**
  * Request.getParameter("args")
  *
@@ -35,7 +32,35 @@ var Request = function()
     }
 }
 var request = new Request();
+
+// * 구매자 ID
 var buyerID	= request.getParameter("buyerID");
+
+// * 쇼퍼 구매 상태
+var requestShopperStatus = request.getParameter("SHOPPER_STATUS");
+var SHOPPER_STATUS = 0;
+
+/***************************
+ *	모든 화면에서 공통적으로 호출되는 기능
+ ***************************/
+var common_init = function() {
+	// 상태 메시지 관련
+	
+	if(typeof requestShopperStatus === 'undefined' || requestShopperStatus == '') {
+		requestShopperStatus = 3;
+	}
+
+	SHOPPER_STATUS = requestShopperStatus;
+
+	console.log("## 시작 시 상태 : " + requestShopperStatus);
+
+	if(requestShopperStatus == 2) {
+		$('#common_shopper_status').html("쇼퍼가 쇼핑중");
+	} else if(requestShopperStatus == 3) {
+		$('#common_shopper_status').html("당일배송");
+	}
+	
+}
 
 
 /**
