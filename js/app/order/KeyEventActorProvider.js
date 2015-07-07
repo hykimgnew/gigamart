@@ -775,13 +775,12 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                                 }
                             }
 
-                            // 장바구니 목록의 항목이 선택상품 삭제, 전체 삭제, 선택상품 찜하기 일 경우
-                            else if(orderCartListFocus == 3 || orderCartListFocus == 4 || orderCartListFocus == 5) {
+                            // 장바구니 목록의 항목이 선택상품 삭제 선택상품 찜하기 일 경우
+                            else if(orderCartListFocus == 3 || orderCartListFocus == 4) {
                                 $('#order_cart_delete').removeClass("focus");       // 선택상품 삭제 포커스 제거
-                                $('#order_cart_all_delete').removeClass("focus");   // 전체 삭제 포커스 제거
                                 $('#order_cart_favorite').removeClass("focus");     // 선택상품 찜하기 포커스 제거
 
-                                orderCartListFocus      = orderCartResultLen - 1; // 화면 상 마지막 상품으로
+                                orderCartListFocus      = orderCartResultLen - 1;   // 화면 상 마지막 상품으로
 
                                 if(orderCartCheckYN == false) {
                                     $('li[name="li_cart_list"]').eq(orderCartListFocus).addClass("focus");
@@ -811,8 +810,8 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                         //##########################
                         if(orderCartFocus == 1) {
 
-                            // 선택상품 삭제, 전체 삭제, 선택상품 찜하기에서는 아래 키를 누르면 다음 페이지로 이동한다.
-                            if(orderCartListFocus == 3 || orderCartListFocus == 4 || orderCartListFocus == 5) {
+                            // 선택상품 삭제, 선택상품 찜하기에서는 아래 키를 누르면 다음 페이지로 이동한다.
+                            if(orderCartListFocus == 3 || orderCartListFocus == 4) {
                                 
                             }
                             // 장바구니 목록의 2번째 항목이거나 장바구니 목록의 마지막 데이터일 때
@@ -832,7 +831,6 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                                 else if(orderCartNextPageYN == true) {
                                     // 페이지 있음, 다음 페이지로 이동
                                     $('#order_cart_delete').removeClass("focus");       // 선택상품 삭제 포커스 제거
-                                    $('#order_cart_all_delete').removeClass("focus");   // 전체 삭제 포커스 제거
                                     $('#order_cart_favorite').removeClass("focus");     // 선택상품 찜하기 포커스 제거
 
                                     orderCartPage      = orderCartPage + 1; // 페이지 증가
@@ -912,20 +910,12 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                                 console.log("LEFT : 상품 리스트에서 체크박스로 " + orderCartCheckYN);
                             }
 
-                            // 전체 삭제일 때 
-                            else if(orderCartListFocus == 4) {
-                                // 선택상품 삭제로 이동
-                                $('#order_cart_all_delete').removeClass("focus");
-                                orderCartListFocus = 3;
-                                $('#order_cart_delete').addClass("focus");
-                            }
-
                             // 선택상품 찜하기일 때
-                            else if(orderCartListFocus == 5) {
+                            else if(orderCartListFocus == 4) {
                                 // 전체 삭제로 이동
                                 $('#order_cart_favorite').removeClass("focus");   
-                                orderCartListFocus = 4;
-                                $('#order_cart_all_delete').addClass("focus");
+                                orderCartListFocus = 3;
+                                $('#order_cart_delete').addClass("focus");
                             }
 
                         }
@@ -953,7 +943,7 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                             }
 
                             // 이전 포커스가 선택상품 찜하기 일때
-                            else if(orderCartListFocus == 5) {
+                            else if(orderCartListFocus == 4) {
                                 $('#order_cart_favorite').addClass("focus"); 
                             }
                         }
@@ -977,7 +967,7 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                         if(orderCartFocus == 1) {
                             
                             // 전체 체크 박스, 상품 리스트, 선택상품 찜하기일 때
-                            if((orderCartListFocus >= -1 && orderCartListFocus <= 2) || orderCartListFocus == 5) {
+                            if((orderCartListFocus >= -1 && orderCartListFocus <= 2) || orderCartListFocus == 4) {
 
                                 // 전체 체크 박스
                                 if(orderCartListFocus == -1) {
@@ -986,7 +976,7 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                                     $('#order_cart_submit').addClass("focus");
                                 }
                                 // 선택상품 찜하기
-                                else if(orderCartListFocus == 5) {
+                                else if(orderCartListFocus == 4) {
                                     $('#order_cart_favorite').removeClass("focus");     // 선택상품 찜하기 포커스 제거
                                     orderCartFocus = 6;
                                     $('#order_cart_submit').addClass("focus");
@@ -1016,15 +1006,7 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                                 // 전체 삭제로 이동
                                 $('#order_cart_delete').removeClass("focus");     // 선택상품 삭제 포커스 제거
                                 orderCartListFocus = 4;
-                                $('#order_cart_all_delete').addClass("focus");
-                            }
-
-                            // 전체 삭제일 때
-                            else if(orderCartListFocus == 4) {
-                                // 선택 상품 찜하기로 이동
-                                $('#order_cart_all_delete').removeClass("focus");
-                                orderCartListFocus = 5;
-                                $('#order_cart_favorite').addClass("focus");   
+                                $('#order_cart_favorite').addClass("focus");
                             }
                         }
                     }
