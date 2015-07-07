@@ -14,7 +14,7 @@ var EXHB_PATH = "";
 // * GO_EXHB 다른 화면에서 이동할 때 인트로 화면 없이 기획전을 보여주려면 이 값을 Y로
 //*************************************************
 var GO_EXHB       = request.getParameter("GO_EXHB");
-var INTRO_SCREEN  = false;
+var INTRO_SCREEN  = true;
 
 //*************************************************
 // * Popup

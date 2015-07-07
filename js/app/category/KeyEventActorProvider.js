@@ -636,10 +636,20 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 else if(currentFocusList == 3) {
                     // 쇼퍼 리얼 타임
                     if(histFocus == 2) {
-                        currentFocusList = 4; // 쇼퍼 리얼 타임 팝업
-                        $('#shopper_real_time').show();
-                        this.selectShopperList();
-                        rtspPlay();
+                        // 쇼퍼가 구매중일 때
+                        if(SHOPPER_STATUS == 2) {
+                            currentFocusList = 4; // 쇼퍼 리얼 타임 팝업
+                            $('#shopper_real_time').show();
+                            this.selectShopperList();
+                            rtspPlay();
+                        }
+
+                        // 쇼퍼가 구매중이 아닐 때
+                        else if(SHOPPER_STATUS == 3) {
+                            console.log("~~~");
+                            $('#common_shopper_message').html("현재 리얼타임 방송이 없습니다.");
+                            viewShopperMsg();
+                        }
                     }
 
                     // 닫기
@@ -1051,7 +1061,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             appendHtml += "<li name='appendMenu'>참외/토마토</li>";
             appendHtml += "<li name='appendMenu'>키위/딸기/멜론</li>";
             appendHtml += "<li name='appendMenu'>귤/한라봉/천혜향</li>";
-            appendHtml += "<li name='appendMenu'>바나나/오렌지/외국과일</li>";
+            appendHtml += "<li name='appendMenu'>바나나/오렌지</li>";
             appendHtml += "<li name='appendMenu'>복분자/블루베리</li>";
             appendHtml += "<li name='appendMenu'>건과/견과</li>";
             appendHtml += "<li name='appendMenu'>기타</li>";
@@ -1063,7 +1073,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         if(currentFocusMenu == '5' && currentFocusDtlPage == '0') {
             appendHtml += "<li name='appendMenu'>고구마/감자/호박</li>";
             appendHtml += "<li name='appendMenu'>파/양파/마늘/생강</li>";
-            appendHtml += "<li name='appendMenu'>당근/오이/가지/고추</li>";
+            appendHtml += "<li name='appendMenu'>당근/오이/가지</li>";
             appendHtml += "<li name='appendMenu'>배추/양배추/무</li>";
             appendHtml += "<li name='appendMenu'>쌈 채소/기타</li>";
             appendHtml += "<li name='appendMenu'>파프리카/피망</li>";
@@ -1153,7 +1163,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         }
 
         if(currentFocusMenu == '11' && currentFocusDtlPage == '0') {
-            appendHtml += "<li name='appendMenu'>즉석/간편식/햄/통조림</li>";
+            appendHtml += "<li name='appendMenu'>즉석/간편식/햄</li>";
             appendHtml += "<li name='appendMenu'>라면/국수/면류</li>";
             appendHtml += "<li name='appendMenu'>생수/커피/차/음료</li>";
             appendHtml += "<li name='appendMenu'>조미료/향신료/장류</li>";
