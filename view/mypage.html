@@ -48,7 +48,7 @@
 										</li>
 										<li name= "nm_menu">
 											<span class="mpn_num" name="new_tot">0</span>
-											<span class="mpn_cart">자주 구매한 상품</span>
+											<span class="mpn_cart">최근본상품</span>
 										</li>
 										<li name= "nm_menu">
 											<span class="mpn_num" name="ref_tot"><!-- 10 --></span>
@@ -330,14 +330,14 @@
 								<h1><img src="../images/logo_gigamart.png" /></h1>
 							</span>
 							<span style="position :absolute; top : 38px; left : 254px;display:inline-block; float:left;">
-								<h2>마이페이지 > 자주 구매한 한상품</h2>
+								<h2>마이페이지 > 최근 본 상품</h2>
 							</span>
-							<h3><span class="bl_cancel" name="bl_cancel">* 최근 3개월 구매 내역 중 2회이상 구매한 상품입니다.
+							<h3><span class="bl_cancel" name="bl_cancel">* 최근 3개월 내에 2회이상 본 상품입니다.
 							</span></h3>
 						</div>
 						<div id="content" style="margin-top : -30px;">
 							<div class="favorite">
-								<div class="tit">자주 구매한 상품 총 <span name="tot_new"></span><!-- 14건 -->건 입니다</div>
+								<div class="tit">최근 본 상품 총 <span name="tot_new"></span><!-- 14건 -->건 입니다</div>
 								<div class="favoriteList">
 									<ul>
 										<li class="fl_left">
@@ -400,7 +400,7 @@
 	<div id="wrap2" class="bg_alpha" name="pop_popnew_non" style="display : none;">
 		<div class="pop" style="width:350px; height : 70px;  top:40%; left:30%; position:absolute;">
 			<ul>
-				<li>자주 구매한 상품이 없습니다.</li><br />
+				<li>최근 본 상품이 없습니다.</li><br />
 				<li class="fl_right2"><span class="btn_gray focus" name="fav_btn_prev">쇼핑 계속하기</span></li>
 			</ul>
 		</div>
@@ -555,16 +555,16 @@
 									<div>
 										<table width="100%" cellpadding="0" cellspacing="0" border="0" class="mpol_table">
 											<tr>
-												<th>구매일자</th><td>2015.05.06 14:06</td>
-												<th>주문번호</th><td>adfsafsdfsdfsdf20</td>
+												<th>구매일자</th><td name="ref_dt_date"><!-- 2015.05.06 14:06 --></td>
+												<th>주문번호</th><td name="ref_dt_num"><!-- adfsafsdfsdfsdf20 --></td>
 											</tr>
 											<tr>
-												<th>구매금액</th><td>126,000원</td>
-												<th>취소금액</th><td>-</td>
+												<th>구매금액</th><td name="ref_dt_cost"><!-- 126,000원 --></td>
+												<th>취소금액</th><td name="ref_dt_cost_cancel"><!-- - --></td>
 											</tr>
 											<tr>
-												<th>상태</th><td>환불진행중</td>
-												<th>shopper</th><td>김이슬</td>
+												<th>상태</th><td name="ref_dt_state"><!-- 환불진행중 --></td>
+												<th>shopper</th><td name="ref_dt_name"><!-- 김이슬 --></td>
 											</tr>
 										</table>
 									</div>
@@ -580,7 +580,7 @@
 
 								<div class="mypage_orderDetail_con mg_t30">
 									<ul>
-										<li class="mod_row_tit">
+										<li class="mod_row_tit" id="mod_row_tit_ref1">
 											<table width="100%" cellpadding="0" cellspacing="0" border="0">
 												<tr>
 													<th class="moh_proInfo" colspan="2">상품정보</th>
@@ -594,7 +594,7 @@
 												</tr>
 											</table>
 										</li>
-										<li class="mod_row">
+										<!-- <li class="mod_row">
 											<table width="100%" cellpadding="0" cellspacing="0" border="0">
 												<tr>
 													<td class="mod_img"><img src="../images/sample_03.jpg" width="100px" height="100px" /></td>
@@ -623,10 +623,10 @@
 													<td class="mod_btn">영상없음</td>
 												</tr>
 											</table>
-										</li>
+										</li> -->
 									</ul>
-									<span class="arrow_bottom"></span>
-									<span class="page"> <b>01</b> / 02 </span>
+									<span class="arrow_bottom" name="arrow_bottom_ref_dt1"></span>
+									<!-- <span class="page"> <b>01</b> / 02 </span> -->
 								</div>
 
 								
@@ -683,8 +683,10 @@
 
 								<div class="mypage_orderDetail_con">
 									<ul>
-										<li class="mod_row_arrowTop"></li>
-										<li class="mod_row_tit">
+										<!--주문내역bac <li class="mod_row_top focus" name="arrow_top_order_dt2">이전페이지 계속</li> -->
+										<!--환불내역 bac <li class="mod_row_arrowTop focus" name="arrow_top_ref_dt2" id="mod_row_tit_ref2">이전페이지 계속</li> -->
+										<li class="mod_row_top focus" name="arrow_top_ref_dt2" id="mod_row_tit_ref2">이전페이지 계속</li>
+										<!-- <li class="mod_row_tit">
 											<table width="100%" cellpadding="0" cellspacing="0" border="0">
 												<tr>
 													<th class="moh_proInfo" colspan="2">상품정보</th>
@@ -727,25 +729,32 @@
 													<td class="mod_btn">영상없음</td>
 												</tr>
 											</table>
-										</li>
+										</li> -->
 									</ul>
-									<div>
-										<ul class="ec_calcu">
-											<li class="ecc_pa">총 상품금액<span>1,113,000원</span></li>
-											<li class="ecc_plus">-</li>
-											<li class="ecc_pa">할인금액<span class="ecc_red">13,000원</span></li>
-											<li class="ecc_plus">-</li>
-											<li class="ecc_pa">쇼퍼비용<span>6,730원</span></li>
-											<li class="ecc_plus">+</li>
-											<li class="ecc_pa">배송비<span>3,000원</span></li>
-											<li class="ecc_eq">=</li>
-											<li class="ecc_pm">총 주문금액<span>2,343,000원</span></li>
-										</ul>
+
+
+									<div name="ref_dt1_total_view" style="display : none;">
+										<div name="ref_dt1_total_content">
+											<ul class="ec_calcu" name="ref_dt1_calcu">
+												<li class="ecc_pa">총 상품금액<span name="dtr2_total_cost"><!-- 1,113,000원 --></span></li>
+												<li class="ecc_plus">-</li>
+												<li class="ecc_pa">할인금액<span class="ecc_red" name="dtr2_discount_cost">0원</span></li>
+												<li class="ecc_plus">-</li>
+												<li class="ecc_pa">쇼퍼비용<span name="dtr2_shopper_cost"><!-- 6,730원 --></span></li>
+												<li class="ecc_plus">+</li>
+												<li class="ecc_pa">배송비<span name="dtr2_delivery_cost"><!-- 3,000원 --></span></li>
+												<li class="ecc_eq">=</li>
+												<li class="ecc_pm">총 주문금액<span name="dtr2_ordered_cost"><!-- 2,343,000원 --></span></li>
+											</ul>
+										</div>
+										<p class="modc_txt">! 쇼퍼비용은 기본료 5,000원 + 주문상품금액 * 5% 로 책정됩니다.</p>
+										<div class="modc_btn">
+											<span name="ref_dt2_back">주문내역가기</span>
+										</div>
 									</div>
-									<p class="modc_txt">! 쇼퍼비용은 기본료 5,000원 + 주문상품금액 * 5% 로 책정됩니다.</p>
-									<div class="modc_btn">
-										<span>주문내역가기</span>
-									</div>
+
+
+
 								</div>
 
 								

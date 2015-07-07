@@ -469,7 +469,7 @@ var currentRefDtListPage  = 0;
 var totalRefDtListPage    = 0;
 var maxRefDtListPage      = 2;
 var arrRefDtList          = new Array();
-var arrOrderDtTotalList   = new Array();
+var arrRefDtTotalList   = new Array();
 
 /** 
  *  현재 취소/환불내역 리스트 Focus 위치
@@ -529,9 +529,8 @@ var refDt2FocusMenu = 0;
 /**
  * 취소/환불내역상세2 버튼위치 
  * 0   = 주문내역가기
- * 1   = 주문취소하기
  **/
-var refBtnFocus = 0;
+var refDt2BtnFocus = 0;
 
 //*******************************************************************************************************
 //*  취소/환불내역상세2 end
