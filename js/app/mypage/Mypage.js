@@ -252,12 +252,13 @@ var maxNewListPage      = 8;
 // * totalOrderListPage         = 주문내역 LIST 전체 페이지
 // * maxOrderListPage           = 주문내역 LIST 한 페이지에 들어갈 쇼퍼 수 (default : 2)
 // * arrOrderList               = 주문내역 LIST 배열
+// * totalCount               = 결과값 갯수
 //*************************************************
 var currentOrderListPage  = 0;
 var totalOrderListPage    = 0;
 var maxOrderListPage      = 2;
 var arrOrderList          = new Array();
-
+var totalOrderCount            = 0;
 /** 
  *  현재 주문내역 리스트 Focus 위치
  *  0 : 조회기간

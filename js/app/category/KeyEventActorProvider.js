@@ -1049,7 +1049,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         if(currentFocusMenu == '4' && currentFocusDtlPage == '0') {
             appendHtml += "<li name='appendMenu'>사과/배</li>";
             appendHtml += "<li name='appendMenu'>참외/토마토</li>";
-            appendHtml += "<li name='appendMenu'>키위/딸기/멜론/수박</li>";
+            appendHtml += "<li name='appendMenu'>키위/딸기/멜론</li>";
             appendHtml += "<li name='appendMenu'>귤/한라봉/천혜향</li>";
             appendHtml += "<li name='appendMenu'>바나나/오렌지/외국과일</li>";
             appendHtml += "<li name='appendMenu'>복분자/블루베리</li>";
