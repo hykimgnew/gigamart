@@ -312,6 +312,9 @@ line-height: 27px!important;
 	width : 100%;
 	text-align : center;
 }
+.sp_img2{
+	margin : 0 auto; width : 100%; height : 147px; display : block;background: #fff;
+}
 #div_fav{
 	min-height : 372px;
 }
@@ -361,4 +364,11 @@ margin-top: 10px!important;
 }
 .mypage .mypage_orderDetail table.mpol_table td {
   width: 382px!important;
+}
+#content .content_right div.sub_content .content_vod p.cv_title {
+height: 25px!important;
+}
+#content .content_right div.sub_content .content_category ul.cc_list li {
+height: 48px!important;
+line-height: 48px!important;
 }

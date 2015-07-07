@@ -400,11 +400,13 @@ var orderDt2BtnFocus = 0;
 // * totalRefListPage         = 취소/환불내역 LIST 전체 페이지
 // * maxRefListPage           = 취소/환불내역 LIST 한 페이지에 들어갈 쇼퍼 수 (default : 2)
 // * arrRefList               = 취소/환불내역 LIST 배열
+// * totalCount               = 결과값 갯수
 //*************************************************
 var currentRefListPage  = 0;
 var totalRefListPage    = 0;
 var maxRefListPage      = 2;
 var arrRefList          = new Array();
+var totalCount          = 0;
 
 /** 
  *  현재 취소/환불내역 리스트 Focus 위치

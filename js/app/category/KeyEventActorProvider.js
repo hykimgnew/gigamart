@@ -1028,7 +1028,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         appConfiguration.localSystem.mute = false; // 음소거 해제
 
         $('#videoDiv video').remove();
-        $('#videoDiv').html('<video id="full_mpeg_player" width="750" height="430" autoplay loop src="' + url + '"></video>');
+        $('#videoDiv').html('<video id="full_mpeg_player" width="730" height="438" autoplay loop src="' + url + '"></video>');
     },
 
     // 영상 정지
