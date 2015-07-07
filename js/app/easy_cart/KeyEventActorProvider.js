@@ -42,7 +42,7 @@ var histPage        = 1;
         // *****************************************************************************
         // * 간편 장바구니 팝업
         // *****************************************************************************
-        if(isCart == true) {
+        else if(isFullVideo == false && isCart == true && isRealTime == false && isRealTimeStart == false && isRealTimeEnd == false && isRealTimeEndComplete == false) {
             console.log("# 간편 장바구니 팝업 : " + keyCode);
 
             // **************************************************
@@ -56,7 +56,11 @@ var histPage        = 1;
             // * 三 KEY (플로팅 장바구니)
             // **************************************************
             if(keyCode === global.VK_GREEN) {
-                isCart = false;
+                isCart          = false;
+                anchorFocus     = 0;
+                chgVolumeFocus  = 0;
+                cartFocus       = 0;
+                location.href   = "#" + $('li[name="ec_li_list"]').eq(0).attr('id');
                 $('#popup_cart').hide();
             }
             // **************************************************
@@ -152,14 +156,12 @@ var histPage        = 1;
                         $('#total_cost').html(cn_toPrice(ec_total) + "원");
 
                         // 장바구니 수정
-                        updateEasyCart($('input[name="ec_cnt"]').eq(cartFocus-2).val(), $('input[name="ec_id"]').eq(cartFocus-2).val());
+                        updateEasyCart($('input[name="ec_id"]').eq(cartFocus-2).val(), Number($('input[name="ec_cnt"]').eq(cartFocus-2).val()));
 
                         // 수량변경 팝업 on -> off
                         $('#btn_volume_ok').removeClass('focus');
                         $('#wrap_chVolume_easyCart').hide();
                         chgVolumeFocus = 0;
-
-
                     }
 
                     // 취소
@@ -405,13 +407,15 @@ var histPage        = 1;
                 }
                 
             } else if (keyCode === global.VK_BACK) {
-                isCart = false;
+                isCart          = false;
+                anchorFocus     = 0;
+                chgVolumeFocus  = 0;
+                cartFocus       = 0;
+                location.href   = "#" + $('li[name="ec_li_list"]').eq(0).attr('id');
                 $('#popup_cart').hide();
-                //$('#wrap').html(cartHtml); // 백업한 html 을 다시 복구
             } else if (keyCode === global.VK_ESCAPE) {
                 
             } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
             
             }
         }
-    
