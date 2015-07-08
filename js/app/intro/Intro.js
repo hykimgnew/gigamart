@@ -8,13 +8,8 @@ var global = window;
 // 인트로 화면(index.html)일때는 스크립트상 경로에 ../ 이 존재하고
 // 일반 기획전 화면(view/exhb.html)일때는 스크립트상 경로에 ../ 이 존재하지 않음
 var EXHB_PATH = "view/";
-
-//*************************************************
-// * INTRO_SCREEN 인트로 YN (false으로 바뀌면 기획전으로 이동)
-// * GO_EXHB 다른 화면에서 이동할 때 인트로 화면 없이 기획전을 보여주려면 이 값을 Y로
-//*************************************************
+var INTRO_SCREEN = true;
 var GO_EXHB       = request.getParameter("GO_EXHB");
-var INTRO_SCREEN  = true;
 
 //*************************************************
 // * Popup
