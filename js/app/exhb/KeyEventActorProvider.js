@@ -405,7 +405,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         //this.selectProductSubCategory();
                     }else if(bb == "기획전3"){
                         requestCategoryDtlId=id;
-                        requestCategoryDtlCode = "표고/송이/버섯류";
+                        requestCategoryDtlCode = "버섯";
                         //this.selectProductSubCategory();
                     }else if(bb == "기획전4"){
                         requestCategoryDtlId=id;
@@ -424,7 +424,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         requestCategoryDtlCode = "소고기";
                         //this.selectProductSubCategory();
                     }else if(bb == "기획전8"){
-                        requestCategoryDtlId=id;
+                        requestCategoryDtlId="43003";
                         requestCategoryDtlCode = "닭/오리";
                         //this.selectProductSubCategory();
                     }
@@ -1418,7 +1418,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                             this.selectProductSubCategory(requestCategoryDtlCode,id);
                         }else if(bb == "기획전3"){
                             //requestCategoryDtlId="41000";
-                            requestCategoryDtlCode = "표고/송이/버섯류";
+                            requestCategoryDtlCode = "버섯";
                             this.selectProductSubCategory(requestCategoryDtlCode,id);
                         }else if(bb == "기획전4"){
                             //requestCategoryDtlId="54010";
@@ -1437,9 +1437,9 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                             requestCategoryDtlCode = "소고기";
                             this.selectProductSubCategory(requestCategoryDtlCode,id);
                         }else if(bb == "기획전8"){
-                            //requestCategoryDtlId="26000";
+                            //requestCategoryDtlId="87005";
                             requestCategoryDtlCode = "닭/오리";
-                            this.selectProductSubCategory(requestCategoryDtlCode,id);
+                            this.selectProductSubCategory(requestCategoryDtlCode,43003);
                         }
                         console.log("전체 영상보기 영상 재생 url : "+url);
                         console.log("전체 영상보기 영상 재생 fvId : "+fvId);
@@ -2957,7 +2957,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             SetTime = productList3[2].duration_sec;
         }else if(bb == "기획전3"){
             //requestCategoryDtlId="41000";
-            requestCategoryDtlCode = "표고/송이/버섯류";
+            requestCategoryDtlCode = "버섯";
             this.selectProductSubCategory2(requestCategoryDtlCode,id);
             // 남은 시간
             // SetTime = $('input[name="SetTime"]').eq(2).val();
@@ -2991,9 +2991,9 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             // SetTime = $('input[name="SetTime"]').eq(2).val();
             SetTime = productList3[6].duration_sec;
         }else if(bb == "기획전8"){
-            //requestCategoryDtlId="26000";
+            //requestCategoryDtlId="87005";
             requestCategoryDtlCode = "닭/오리";
-            this.selectProductSubCategory2(requestCategoryDtlCode,id);
+            this.selectProductSubCategory2(requestCategoryDtlCode,43003);
             // 남은 시간
             //SetTime = $('input[name="SetTime"]').eq(3).val();
             SetTime = productList3[0].duration_sec;

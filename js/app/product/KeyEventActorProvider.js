@@ -535,13 +535,33 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                     if(currentFocusList == 0) {
                         if(btFocus == 0) { //+/-일때 popup
                             var num = Number($('span[name="pr_num_num"]').html());
-                            currentFocusList = 4;
-                            $('span[name="pr_num_minus"]').removeClass('focus'); 
-                            $('span[name="pr_num_plus"]').removeClass('focus'); 
-                            popFocus = 1;
-                            $('div[name="wrap_chVolume"]').show();
-                            $('span[name="pr_num_numP"]').html(num);
-                            $('span[name="pr_num_plusP"]').addClass('focus');  
+                            //-에 포커스일때
+                            if(pFocus == 0){
+                                if(num > 1){
+                                    num = num - 1;
+                                    $('span[name="pr_num_num"]').html(num);
+                                }
+                                else if(num == 1){
+
+                                }
+                            }
+                            //+에 포커스일때
+                            else if(pFocus == 1){
+                                var num = Number($('span[name="pr_num_num"]').html());
+                                if(num == 1 || num>1){
+                                    num = num + 1;
+                                    $('span[name="pr_num_num"]').html(num);
+                                }else{
+
+                                }
+                            }
+                            // currentFocusList = 4;
+                            // $('span[name="pr_num_minus"]').removeClass('focus'); 
+                            // $('span[name="pr_num_plus"]').removeClass('focus'); 
+                            // popFocus = 1;
+                            // $('div[name="wrap_chVolume"]').show();
+                            // $('span[name="pr_num_numP"]').html(num);
+                            // $('span[name="pr_num_plusP"]').addClass('focus');  
                         }
                         // 장바구니 담기 
                         else if(btFocus == 1) {
@@ -552,7 +572,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                             
                             // 장바구니 담기
                             appendEasyCart(Number($('span[name="pr_num_numP"]').html()), requestCategoryDtlId);
-                            $('#cart_message').html("장바구니에 현재 상품이 " + $('span[name="pr_num_numP"]').html() + "개 담겼습니다.");
+                            $('#cart_message').html("장바구니에 현재 상품이 " + $('span[name="pr_num_num"]').html() + "개 담겼습니다.");
                             $('#wrap_cart').show();
                             // 플로팅 메뉴 장바구니 SET
                             fltEasyCart();
@@ -701,13 +721,13 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                                 $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
                                 $('li[name="pl_menul"]').eq(currentFocusMenul).children().children('.plm_tit').removeClass('focus');
                                 
-                                $('span[name="pr_num_plus"]').addClass('focus');
-                                $('span[name="pr_num_minus"]').addClass('focus'); 
-                                /*if(pFocus == 1){
+                                // $('span[name="pr_num_plus"]').addClass('focus');
+                                // $('span[name="pr_num_minus"]').addClass('focus'); 
+                                if(pFocus == 1){
                                     $('span[name="pr_num_plus"]').addClass('focus');
                                 }else{
                                     $('span[name="pr_num_minus"]').addClass('focus'); 
-                                } */   
+                                }   
                                 currentFocusList = 0;
                                 //currentFocusMenul = currentFocusMenul-1;
                             }
@@ -1016,17 +1036,17 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                         // 장바구니 찜하기 상세보기 버튼들..
                         if(currentFocusList == 0) {
                             if(btFocus  == 0) { // +/- focus일때
-                                /*if(pFocus == 1){ //+에 focus
+                                if(pFocus == 1){ //+에 focus
                                     $('span[name="pr_num_plus"]').removeClass('focus');
                                     pFocus = Number(pFocus) - 1;
                                     $('span[name="pr_num_minus"]').addClass('focus'); 
-                                }*/
+                                }
                             }
                             if(btFocus  == 1) { //장바구니담기 focus일때
                                $('ul[name="ci_btn"]').children().eq(btFocus).removeClass('focus');
                                btFocus = Number(btFocus) - 1;
                                $('span[name="pr_num_plus"]').addClass('focus'); //+에 focus
-                               $('span[name="pr_num_minus"]').addClass('focus'); //-에 focus
+                               //$('span[name="pr_num_minus"]').addClass('focus'); //-에 focus
                             }
                             if(btFocus  == 2) { //찜하기 focus일때
                                 $('ul[name="ci_btn"]').children().eq(btFocus).removeClass('focus');
@@ -1214,11 +1234,11 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                         // 장바구니 찜하기 상세보기 버튼들..
                         if(currentFocusList == 0) {
                             if(btFocus  == 0) { // +/- focus일때
-                                $('span[name="pr_num_plus"]').removeClass('focus');
-                                $('span[name="pr_num_minus"]').removeClass('focus');
-                                btFocus = Number(btFocus + 1);
-                                $('ul[name="ci_btn"]').children().eq(btFocus).addClass('focus');
-                                /*
+                                // $('span[name="pr_num_plus"]').removeClass('focus');
+                                // $('span[name="pr_num_minus"]').removeClass('focus');
+                                // btFocus = Number(btFocus + 1);
+                                // $('ul[name="ci_btn"]').children().eq(btFocus).addClass('focus');
+                                
                                 if(pFocus == 1){ //+에 focus
                                     $('span[name="pr_num_plus"]').removeClass('focus');
                                     btFocus = Number(btFocus + 1);
@@ -1228,7 +1248,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                                     $('span[name="pr_num_minus"]').removeClass('focus');
                                     pFocus = pFocus + 1;
                                     $('span[name="pr_num_plus"]').addClass('focus');
-                                }*/
+                                }
                             }
                             else if(btFocus  == 1) { //장바구니담기 focus일때
                                 console.log("btFocus@==>"+btFocus);

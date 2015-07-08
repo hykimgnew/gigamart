@@ -1362,7 +1362,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
 
 
                     $('span[name="shopper_rating"]').empty().append(shopperStar);
-                    $('li[name="shopper_img"]').empty().append("<span class='sp_img'><img src=" + entry['img'] + " height='120' /></span>"); //width='160'
+                    // $('li[name="shopper_img"]').empty().append("<span class='sp_img'><img src=" + entry['img'] + " height='120' /></span>"); //width='160'
                     $('span[name="shopper_name"]').empty().append(entry['shopper_id']);
                     $('span[name="shopper_cate"]').empty().append(entry['shopping_main']);
 
