@@ -5,6 +5,7 @@
  **/
 var global = window;
 var EXHB_PATH = "";
+var EXHB_IMAGE_PATH = "../images/";
 
 //*************************************************
 // * 상세정보 코드 (포커스 보전용)

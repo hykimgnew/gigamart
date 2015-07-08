@@ -8,6 +8,7 @@ var global = window;
 // 인트로 화면(index.html)일때는 스크립트상 경로에 ../ 이 존재하고
 // 일반 기획전 화면(view/exhb.html)일때는 스크립트상 경로에 ../ 이 존재하지 않음
 var EXHB_PATH = "";
+var EXHB_IMAGE_PATH = "../images/";
 var INTRO_SCREEN = false;
 var GO_EXHB       = request.getParameter("GO_EXHB");
 
@@ -219,7 +220,7 @@ var currentFocusDtlPage = 0;
  /**
   * 내가 늘 사는 상품 지금 얼마? : 확인/상세/담기 
   **/
-  var btnokfill = '<img src="../images/btn_ok_fill.png"/>';
+  var btnokfill = '<img src="' + EXHB_IMAGE_PATH + '"btn_ok_fill.png"/>';
 
 /**
   * 지금 이상품 이가격 하단 페이지 Λ V 커서 focus

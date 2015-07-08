@@ -8,6 +8,7 @@ var global = window;
 // 인트로 화면(index.html)일때는 스크립트상 경로에 ../ 이 존재하고
 // 일반 기획전 화면(view/exhb.html)일때는 스크립트상 경로에 ../ 이 존재하지 않음
 var EXHB_PATH = "view/";
+var EXHB_IMAGE_PATH = "images/";
 var INTRO_SCREEN = true;
 var GO_EXHB       = request.getParameter("GO_EXHB");
 

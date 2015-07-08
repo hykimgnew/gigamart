@@ -5,6 +5,7 @@
  **/
 var global = window;
 var EXHB_PATH = "";
+var EXHB_IMAGE_PATH = "../images/";
 
 //*************************************************
 // * 외부 수신 코드

@@ -56,13 +56,13 @@ var common_init = function() {
 
 	if(requestShopperStatus == 2) {
 		$('#common_shopper_status').html("쇼퍼가 쇼핑중");
-		$('#common_shopper_img').attr("src", "../images/icon_shopper2.png").css("margin-top", "-5px");
+		$('#common_shopper_img').attr("src", EXHB_IMAGE_PATH + "icon_shopper2.png").css("margin-top", "-5px");
 		$('#shlr_on').removeClass("shlr_off");
 		$('#shlr_on').addClass("shlr_on");
 		$('#shlr_b').html("ON");
 	} else if(requestShopperStatus == 3) {
 		$('#common_shopper_status').html("당일배송");
-		$('#common_shopper_img').attr("src", "../images/s_icon_car.png").css("margin-top", "-3px");
+		$('#common_shopper_img').attr("src", EXHB_IMAGE_PATH + "s_icon_car.png").css("margin-top", "-3px");
 		$('#shlr_on').removeClass("shlr_on");
 		$('#shlr_on').addClass("shlr_off");
 		$('#shlr_b').html("OFF");
@@ -101,15 +101,18 @@ var fltEasyCart = function()
 			var ec_cost = 0;	// 상품 금액
 			var ec_comm = 0;	// 쇼퍼 수수료
 			var ec_total = 0;	// 총 금액
+			var ec_cnt = 0; 	// 장바구니 담긴 수
 
 			$.each(result['cart'], function(index, entry) {
+				ec_cnt++;
 				ec_cost    += Number(entry["cost"]) * Number(entry["cnt"]);
 				ec_comm    += Math.floor((Number(entry['cost'] * Number(entry["cnt"])) * 5 / 100) / 10) * 10;
 			});
 
+			console.log("#장바구니 총 갯수 : " + ec_cnt);
 			ec_total = ec_cost + ec_comm;
 
-			$('#flt_cnt').html(result['cart'].length);
+			$('#flt_cnt').html(ec_cnt);
 			$('#flt_cost').html(cn_toPrice(ec_total) + "원");
         }
     });

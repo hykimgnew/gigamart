@@ -5,6 +5,7 @@
  **/
 var global = window;
 var EXHB_PATH = "";
+var EXHB_IMAGE_PATH = "../images/";
 
 //*************************************************
 // * Popup

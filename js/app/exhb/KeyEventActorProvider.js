@@ -175,9 +175,9 @@ function pageArrowUtil2(type) {
 function makeTweetList() {
     var appendHtml =  '<li name="sl_menu" class="sl_menu pd_r10">';
         appendHtml += ' <span class="polygon_b" name="slp_flag"></span>';
-        appendHtml += '     <a href="#" class="sl_play"><img src="../images/btn_play_s.png" /></a>';
+        appendHtml += '     <a href="#" class="sl_play"><img src="' + EXHB_IMAGE_PATH + 'btn_play_s.png" /></a>';
         appendHtml += '     <ul>';
-        appendHtml += '         <li> <img src="../images/sample_02.jpg" width="144" height="92" /></li>';
+        appendHtml += '         <li> <img src="' + EXHB_IMAGE_PATH + 'sample_02.jpg" width="144" height="92" /></li>';
         appendHtml += '         <li class="slm_txt" name="slp_title"></li>';
         appendHtml += '     </ul>';
         appendHtml += '<input type="hidden" name="tv_video" class="tv_video"id=""/>';
@@ -234,14 +234,11 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         // 공통 실행
         common_init();
 
-        // 플로팅 메뉴 장바구니 SET
-        fltEasyCart();
-
         //$('#intro_skip').show(); // 인트로 버튼 on
         //$('#intro_skip').addClass("focus");
 
         // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
-        $('#span_videoDiv').empty().append('<img src="../images/sample_02.jpg"  style="width : 614px; height : 351px; margin-left : -2px;"/>');
+        $('#span_videoDiv').empty().append('<img src="' + EXHB_IMAGE_PATH + 'sample_02.jpg"  style="width : 614px; height : 351px; margin-left : -2px;"/>');
 
     	
         //저렴한상품추천
@@ -275,6 +272,9 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         var requestCategoryDtlCode = "";
         requestCategoryDtlCode = "파프리카/피망";
         this.selectProductSubCategory2(requestCategoryDtlCode,26000);
+
+        // 플로팅 메뉴 장바구니 SET
+        fltEasyCart();
         //지금 이상품 이가격 adName에 이름
         //this.adName();
 
@@ -1978,7 +1978,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                             //전체 카테고리로 이동 
                             //$('#span_videoDiv').append('<img src="../images/sample_02.jpg" style="width : 610px; height : 343px;"/>');
-                            $('#span_videoDiv').append('<img src="../images/sample_02.jpg" style="width : 614px; height : 351px; margin-left : -2px;"/>');
+                            $('#span_videoDiv').append('<img src="' + EXHB_IMAGE_PATH + 'sample_02.jpg" style="width : 614px; height : 351px; margin-left : -2px;"/>');
 
                             $('#p_videoDiv video').remove();
                             $('#span_videoDiv video').remove();
@@ -2462,9 +2462,9 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         appendHtml = "";
         appendHtml += '<li class="shooperImg" name="shooperImg" id="shooperImg"></li>';
         appendHtml += '<li>';
-        appendHtml += '<img src="../images/icon_star.png" /><img src="../images/icon_star.png" /><img src="../images/icon_star.png" /><img src="../images/icon_star.png" /><img src="../images/icon_star_blank.png" />';
+        appendHtml += '<img src="' + EXHB_IMAGE_PATH + 'icon_star.png" /><img src="' + EXHB_IMAGE_PATH + 'icon_star.png" /><img src="' + EXHB_IMAGE_PATH + 'icon_star.png" /><img src="' + EXHB_IMAGE_PATH + 'icon_star.png" /><img src="' + EXHB_IMAGE_PATH + 'icon_star_blank.png" />';
         appendHtml += '</li>';
-        appendHtml += '<li class="pd_t5 pd_b5"><img src="../images/txt_custom.png" /></li>';
+        appendHtml += '<li class="pd_t5 pd_b5"><img src="' + EXHB_IMAGE_PATH + 'txt_custom.png" /></li>';
         appendHtml += '<li class="txt"style="font-size:12px;">무더운 여름에 시원하게 얼음동동 콩국수 어떠세요?  </li>';
         appendHtml += '</ul>';
         
@@ -2853,16 +2853,16 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 var shopperRating   = Number(result['shopper']['rating']);       // 쇼퍼 평점
                 var shopperStar     = "";                           // 쇼퍼 별점 HTML
 
-                if(shopperRating >= 20) shopperStar += '<img src="../images/icon_star.png" />';
-                else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
-                if(shopperRating >= 40) shopperStar += '<img src="../images/icon_star.png" />';
-                else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
-                if(shopperRating >= 60) shopperStar += '<img src="../images/icon_star.png" />';
-                else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
-                if(shopperRating >= 80) shopperStar += '<img src="../images/icon_star.png" />';
-                else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
-                if(shopperRating >= 100)shopperStar += '<img src="../images/icon_star.png" />';
-                else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
+                if(shopperRating >= 20) shopperStar += '<img src="' + EXHB_IMAGE_PATH + 'icon_star.png" />';
+                else                    shopperStar += '<img src="' + EXHB_IMAGE_PATH + 'icon_star_blank.png" />';
+                if(shopperRating >= 40) shopperStar += '<img src="' + EXHB_IMAGE_PATH + 'icon_star.png" />';
+                else                    shopperStar += '<img src="' + EXHB_IMAGE_PATH + 'icon_star_blank.png" />';
+                if(shopperRating >= 60) shopperStar += '<img src="' + EXHB_IMAGE_PATH + 'icon_star.png" />';
+                else                    shopperStar += '<img src="' + EXHB_IMAGE_PATH + 'icon_star_blank.png" />';
+                if(shopperRating >= 80) shopperStar += '<img src="' + EXHB_IMAGE_PATH + 'icon_star.png" />';
+                else                    shopperStar += '<img src="' + EXHB_IMAGE_PATH + 'icon_star_blank.png" />';
+                if(shopperRating >= 100)shopperStar += '<img src="' + EXHB_IMAGE_PATH + 'images/icon_star.png" />';
+                else                    shopperStar += '<img src="' + EXHB_IMAGE_PATH + 'images/icon_star_blank.png" />';
 
 
                 $('li[name="shopper_rating"]').empty().append(shopperStar);
