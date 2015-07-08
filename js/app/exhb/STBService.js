@@ -50,4 +50,5 @@ App.defineClass('Gigamart.app.exhb.STBService', {
 
 		this.keyEventProvider.addKeyEventActor(instance, conditionFunction);
 	}
+
 });
