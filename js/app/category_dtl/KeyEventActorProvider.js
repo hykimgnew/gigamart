@@ -816,7 +816,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                                 updateProductInfo();                    // 우측 상품 정보 갱신
 
                                 $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
-                                $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                                $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append('<img class="dm_bdr_imgFill" src="../images/btn_ok_fill4.gif"/>');
                                 $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');
                             }
                             else if(prevPageYN == false && currentFocusDtlPage <= 0) {
@@ -830,7 +830,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
 
                                 //updateSubCategoryList();                // 페이지 변경
                                 $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
-                                $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                                $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append('<img class="dm_bdr_imgFill" src="../images/btn_ok_fill4.gif"/>');
                                 $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');
 
                                 console.log("이동후 가로축 : " + horizonFocus);
@@ -852,7 +852,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                             updateProductInfo();                    // 우측 상품 정보 갱신
 
                             $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
-                            $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                            $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append('<img class="dm_bdr_imgFill" src="../images/btn_ok_fill4.gif"/>');
                             $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');
                         }
                     }
@@ -931,7 +931,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                             updateProductInfo();                    // 우측 상품 정보 갱신
 
                             $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
-                            $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                            $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append('<img class="dm_bdr_imgFill" src="../images/btn_ok_fill4.gif"/>');
                             $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');
                             
                         }
@@ -967,7 +967,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                                 console.log("### 아래 이동 시 전체 갯수 : " + currentPageCnt + " 현재 포커스 위치 : " + currentFocusDtl);
 
                                 $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
-                                $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                                $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append('<img class="dm_bdr_imgFill" src="../images/btn_ok_fill4.gif"/>');
                                 $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');
                             }
                             else if(nextPageYN == false) {
@@ -1034,7 +1034,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                             updateProductInfo();                    // 우측 상품 정보 갱신
 
                             $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
-                            $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                            $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append('<img class="dm_bdr_imgFill" src="../images/btn_ok_fill4.gif"/>');
                             $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');
                         }
                     }
@@ -1055,7 +1055,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                         currentFocusList = 0; // 상품 목록으로
 
                         $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
-                        $('li[name="li_discount"]:eq(' + currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                        $('li[name="li_discount"]:eq(' + currentFocusDtl + ') > .dm_bdr').append('<img class="dm_bdr_imgFill" src="../images/btn_ok_fill4.gif"/>');
                         $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');
                     }    
                 }
@@ -1084,7 +1084,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                                 updateProductInfo();                    // 우측 상품 정보 갱신
 
                                 $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
-                                $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                                $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append('<img class="dm_bdr_imgFill" src="../images/btn_ok_fill4.gif"/>');
                                 $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');
                             // 우측에 상품이 없을 때
                             } else if(currentPageCnt == currentFocusDtl+1) {
@@ -1353,7 +1353,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 // 화살표로 이동한 상태 아니면
                 if(flag != "ARROW") {
                     $('li[name="li_discount"]').eq(currentFocusDtl).addClass('focus');
-                    $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append(btnokfill);
+                    $('li[name="li_discount"]:eq('+ currentFocusDtl + ') > .dm_bdr').append('<img class="dm_bdr_imgFill" src="../images/btn_ok_fill4.gif"/>');
                     $('li[name="li_discount"]').eq(currentFocusDtl).children().children('.dlm_tit').addClass('focus');    
                 }
 

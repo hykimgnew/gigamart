@@ -349,7 +349,7 @@ position:relative;width:162px; float:left; margin-bottom:4px; color:#ffffff; bac
 #content .selDepth .sd_first .discount_list .dlm_price {display:inline-block; font-size:22px; text-align:right; width:154px; padding:0 4px; height:28px; line-height:26px; } 
 #content .selDepth .sd_first .discount_list  a.dlm_rank {position:absolute; top:0px; left:0px; width:44px; height:52px; padding-top:14px; display:inline-block; text-align:center; background:url(../images/polygon_b_gr.png) no-repeat; color:#ffffff; font-size:11px; }
 #content .selDepth .sd_first .discount_list  a.dlm_rank b {font-size:20px;}
-#content .selDepth .sd_first .discount_list .dm_bdr {position:absolute; display:inline-block; width:152px; top:60px; left:4px;}
+#content .selDepth .sd_first .discount_list .dm_bdr {position:absolute; display:inline-block; width:152px; /*top:60px; left:4px;*/}
 /* 상세카테고리 리스트 끝 */
 
 

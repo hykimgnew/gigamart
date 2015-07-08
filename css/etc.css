@@ -384,3 +384,7 @@ overflow: hidden!important;
 #content .content_right div.shopper_history .sh_list .shl_right .shlr_close {
 font-size: 18px!important;
 }
+.dm_bdr_imgFill {
+top: 0px!important;
+left: 0px!important;
+}
