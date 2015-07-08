@@ -3705,7 +3705,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             console.log("arrOrderDtList는 : "+JSON.stringify(arrOrderDtList));
             for(var i=0 ; i < 3 ; i++) {
             //var obj = arrOrderDtList[1].ordered_product[(Number(currentOrderDtListPage*3)+i)-1].name;
-            var obj = arrOrderDtList[i].ordered_product[(Number(currentOrderDtListPage*3)+i)-1];
+            var obj = arrOrderDtList[0].ordered_product[(Number(currentOrderDtListPage*3)+i)-1];
             console.log("i는 : "+i+" , obj2222222 : "+JSON.stringify(obj));
                 if(obj == undefined){
                     console.log("undefined입니다요 : ");
@@ -3713,7 +3713,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     console.log("undefined아닙니다요 : ");
                     var obj2 = arrOrderDtList[1];
                     //console.log("obj2 json : "+JSON.stringify(obj2));
-                    var obj3 = arrOrderDtList[1].ordered_product[(Number(currentOrderDtListPage*3)+i)-1];
+                    var obj3 = arrOrderDtList[0].ordered_product[(Number(currentOrderDtListPage*3)+i)-1];
                     console.log("obj3 json : "+JSON.stringify(obj3));
 
                     $('div[name="order_dt1_total_view"]').hide();
