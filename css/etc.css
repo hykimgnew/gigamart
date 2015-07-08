@@ -388,3 +388,8 @@ font-size: 18px!important;
 top: 0px!important;
 left: 0px!important;
 }
+
+.shopper_real_time .srt_info {
+position: absolute!important;
+right: 50px!important;
+}
