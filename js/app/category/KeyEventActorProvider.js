@@ -27,8 +27,8 @@ function pageArrowUtil1() {
 // 쇼퍼 실시간 영상재생
 var rtspPlayer;
 function rtspPlay() {
-    //var url = "rtsp://175.209.53.209:1554/11023.sdp";
-    var url = "http://175.209.53.205/gigamart_video/video/tv/product_event/기획전2.mp4";
+    var url = "rtsp://175.209.53.209:1554/11023.sdp";
+    //var url = "http://175.209.53.205/gigamart_video/video/tv/product_event/기획전2.mp4";
     // rtspPlayer = document.querySelector('object');
      //var url = cmsServerIp + "/video/tv/product_event/2-2기획전_문어.mp4";
     /*console.log("url : " + url + " 재생함");
