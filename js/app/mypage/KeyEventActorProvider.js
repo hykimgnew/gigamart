@@ -3221,20 +3221,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     var resultLen = result['arr_order'].length;
                     console.log("resultLen========>"+resultLen);
                     console.log("resultLen % 2========>"+resultLen % 2);
-                    //갯수가 짝수개이면 그냥 뿌려주고
-                    if(resultLen % 2 == 0){
-                        resultLen = resultLen/2;
-                    }
-                    //홀수개면 + 1 해서 / 2
-                    else{
-                        resultLen = (resultLen+1)/2;
-                    }
-                    if(resultLen < 10){
-                        resultLen = "0"+resultLen; 
-                    }
-                    $('b[name="order_cur_pg"]').empty().html("01");//현재페이지
-                    $('span[name="order_tot_pg"]').empty().html(resultLen);//총페이지
-                
+                    
                     // 결과값이 2보다 크면 다음 페이지 존재
                     if(resultLen > 2 || resultLen == 2) { 
                         $('li[name="order_menu"]').remove();
@@ -3259,10 +3246,16 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                             var obj3 = obj2[i].ordered_product;
                             var obj_length3 = Object.keys(obj3).length;
                             console.log("obj_length333---->"+JSON.stringify(obj3));
-                            console.log("obj3[0].name---->"+obj3[0].name);
                             console.log("obj_length3---->"+obj_length3);
-                            if(pindex == 0){
-                                $('td[name="order_info"]').eq(i).empty().append(obj3[0].name +"외 ……"+obj_length3+"건");
+                            //console.log("obj3[0].name---->"+obj3[0].name);
+                                if(pindex == 0){
+                                    if(obj_length3 != 0){
+                                        $('td[name="order_info"]').eq(i).empty().append(obj3[0].name +"외 ……"+obj_length3+"건");
+                                    }
+                                    else{
+                                        $('td[name="order_info"]').eq(i).empty().append("없음");
+                                    }   
+                                    
                                 }
                             });
                             // cnt                 = Math.floor(obj_length / maxRefListPage);
@@ -3365,6 +3358,23 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     else{
                         $('li[name="order_menu"]').eq(orderFocusMenu).removeClass('focus');
                     }
+
+                    //갯수가 짝수개이면 그냥 뿌려주고
+                    if(resultLen % 2 == 0){
+                        resultLen = resultLen/2;
+                    }
+                    //홀수개면 + 1 해서 / 2
+                    else{
+                        resultLen = (resultLen+1)/2;
+                    }
+                    if(resultLen < 10){
+                        resultLen = "0"+resultLen; 
+                    }
+                    $('b[name="order_cur_pg"]').empty().html("01");//현재페이지
+                    $('span[name="order_tot_pg"]').empty().html(resultLen);//총페이지
+                
+
+
                 }
             }
         });
@@ -3692,9 +3702,10 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
         //마지막페이지아닐때
         else if(currentOrderDtListPage != totalOrderDtListPage){ 
             console.log("마지막페이지아닐때");
+            console.log("arrOrderDtList는 : "+JSON.stringify(arrOrderDtList));
             for(var i=0 ; i < 3 ; i++) {
             //var obj = arrOrderDtList[1].ordered_product[(Number(currentOrderDtListPage*3)+i)-1].name;
-            var obj = arrOrderDtList[1].ordered_product[(Number(currentOrderDtListPage*3)+i)-1];
+            var obj = arrOrderDtList[i].ordered_product[(Number(currentOrderDtListPage*3)+i)-1];
             console.log("i는 : "+i+" , obj2222222 : "+JSON.stringify(obj));
                 if(obj == undefined){
                     console.log("undefined입니다요 : ");
