@@ -32,7 +32,7 @@
 					<span class="sbg">
 					<span id="common_shopper_status"  style="margin-top : -1px;">당일배송</span>
 					&nbsp;
-					<img src="images/s_icon_car.png" style="margin-top : -3px;"/></span>
+					<img id="common_shopper_img" src="../images/s_icon_car.png" style="margin-top : -3px;"/></span>
 					<span><img src="images/s_bg_right.png" /></span>
 				</h3>
 			</div>
@@ -401,6 +401,7 @@
 						// 쇼퍼 구매 시작
 						$('#common_shopper_message').html("쇼퍼가 쇼핑을 시작하였습니다.");
 						$('#common_shopper_status').html("쇼퍼가 쇼핑중");
+						$('#common_shopper_img').attr("src", "../images/icon_shopper2.png").css("margin-top", "-5px");
 						viewShopperMsg();
 
 					} 
@@ -408,6 +409,7 @@
 						// 쇼퍼 구매 완료
 						$('#common_shopper_message').html("현재 리얼타임 방송이 없습니다.");
 						$('#common_shopper_status').html("당일배송");
+						$('#common_shopper_img').attr("src", "../images/s_icon_car.png").css("margin-top", "-3px");
 						viewShopperMsg();
 					}
 				}
@@ -429,7 +431,7 @@
 		// 쇼퍼 메시지 출력 후 5초 후 사라짐
 		var viewShopperMsg = function() {
 			$('#wrap_shopper_status').show();
-			setTimeout($('#wrap_shopper_status').hide(), 5000);
+			setTimeout("$('#wrap_shopper_status').hide()", 5000);
 		}
 
 		function go_login() {

@@ -56,8 +56,16 @@ var common_init = function() {
 
 	if(requestShopperStatus == 2) {
 		$('#common_shopper_status').html("쇼퍼가 쇼핑중");
+		$('#common_shopper_img').attr("src", "../images/icon_shopper2.png").css("margin-top", "-5px");
+		$('#shlr_on').removeClass("shlr_off");
+		$('#shlr_on').addClass("shlr_on");
+		$('#shlr_b').html("ON");
 	} else if(requestShopperStatus == 3) {
 		$('#common_shopper_status').html("당일배송");
+		$('#common_shopper_img').attr("src", "../images/s_icon_car.png").css("margin-top", "-3px");
+		$('#shlr_on').removeClass("shlr_on");
+		$('#shlr_on').addClass("shlr_off");
+		$('#shlr_b').html("OFF");
 	}
 	
 }

@@ -353,6 +353,11 @@
 	<div id="popup_rt_start" class="popup_rt_start" style="display: none;"></div>
 	<div id="popup_rt_end" class="popup_rt_end" style="display: none;"></div>
 	<div id="popup_rt_end_complete" class="popup_rt_end_complete" style="display: none;"></div>
+	<!-- <div id="wrap_shopper_status" class="bg_alpha" style="display : none; position : absolute; top : 0;"> -->
+		<div id="wrap_shopper_status" class="pop2" style="width:500px; top:0; left:0; position:absolute; display:none; z-index:1300000;">
+			<ul><li id="common_shopper_message"></li></ul>
+		</div>
+	<!-- </div> -->
 	
 	<!-- Common Function -->
 	<script type="text/javascript" src="../js/app.js"></script>
@@ -397,7 +402,7 @@
 						// 쇼퍼 구매 시작
 						$('#common_shopper_message').html("쇼퍼가 쇼핑을 시작하였습니다.");
 						$('#common_shopper_status').html("쇼퍼가 쇼핑중");
-						$('#common_shopper_img').attr("../images/icon_shopper2.png").css("margin-top", "-5px");
+						$('#common_shopper_img').attr("src", "../images/icon_shopper2.png").css("margin-top", "-5px");
 						viewShopperMsg();
 
 					} 
@@ -416,16 +421,12 @@
 		// 쇼퍼 메시지 출력 후 5초 후 사라짐
 		var viewShopperMsg = function() {
 			$('#wrap_shopper_status').show();
-			setTimeout($('#wrap_shopper_status').hide(), 5000);
+			setTimeout("$('#wrap_shopper_status').hide()", 5000);
 		}
 
 	</script>
 
-	<!-- <div id="wrap_shopper_status" class="bg_alpha" style="display : none; position : absolute; top : 0;"> -->
-		<div id="wrap_shopper_status" class="pop2" style="width:500px; top:80%; left:32%; position:absolute; display:none;">
-			<ul><li id="common_shopper_message"></li></ul>
-		</div>
-	<!-- </div> -->
+	
 </body>
 
 </html>

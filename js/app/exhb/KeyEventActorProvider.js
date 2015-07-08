@@ -273,8 +273,8 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
         //매실 지금이상품 이가격 adName에 이름주기
         var requestCategoryDtlCode = "";
-        requestCategoryDtlCode = "생선/해산물";
-        this.selectProductSubCategory2(requestCategoryDtlCode,51018);
+        requestCategoryDtlCode = "파프리카/피망";
+        this.selectProductSubCategory2(requestCategoryDtlCode,26000);
         //지금 이상품 이가격 adName에 이름
         //this.adName();
 

@@ -26,7 +26,7 @@
 				<span><img src="../images/s_bg_left.png" /></span>
 				<span class="sbg">
 					<span id="common_shopper_status" style="margin-top : -1px;">당일배송</span> &nbsp;
-					<img src="../images/s_icon_car.png" style="margin-top : -3px;"/></span>
+					<img id="common_shopper_img" src="../images/s_icon_car.png" style="margin-top : -3px;"/></span>
 				<span>
 				<img src="../images/s_bg_right.png" /></span>
 			</h3>
@@ -206,13 +206,13 @@
 							</li>
 							<li class="shl_right">
 								<ul>
-									<li id="shopper_photo" class="shlr_photo"></li>
+									<li id="shopper_photo" class="shlr_photo"><!-- <span class='sp_img'><img src="../images/shopper_e.png"/></span> --></li>
 									<li id="shopper_id" class="shlr_id"></li>
 									<li id="shopper_rating">
 									</li>
 									<li id="shlr_on" class="shlr_off">
-										<b style="top : 4px!important">OFF</b>
-										<span style="top : 4px!important;">쇼퍼 리얼 타임<br />영상 연결</span>
+										<b id="shlr_b" style="top : 4px!important">OFF</b>
+										<span id="shlr_span" style="top : 4px!important;">쇼퍼 리얼 타임<br />영상 연결</span>
 									</li>
 									<li id="shlr_close" class="shlr_close">닫기</li>
 								</ul>
@@ -297,7 +297,6 @@
 
 				var socket = io.connect("http://14.52.244.91:8080");
 
-
 				socket.on('start_shopping', function(buyer_id, shopper_id, order_id, status) {
 					// TT141002133 STB의 buyer_id : aa
 					//if(buyer_id == buyerID) {
@@ -311,7 +310,9 @@
 							viewShopperMsg();
 							$('#shlr_on').removeClass("shlr_off");
 							$('#shlr_on').addClass("shlr_on");
+							$('#shlr_b').html("ON");
 							$('#common_shopper_status').html("쇼퍼가 쇼핑중");
+							$('#common_shopper_img').attr("src", "../images/icon_shopper2.png").css("margin-top", "-5px");
 						} 
 						if(status == 3) {
 							// 쇼퍼 구매 완료
@@ -319,9 +320,14 @@
 							viewShopperMsg();
 							$('#shlr_on').removeClass("shlr_on");
 							$('#shlr_on').addClass("shlr_off");
+							$('#shlr_b').html("OFF");
 							$('#common_shopper_status').html("당일배송");
+							$('#common_shopper_img').attr("src", "../images/s_icon_car.png").css("margin-top", "-3px");
+
+							currentFocusList = 3; // 쇼퍼 주문이력
+                    		rtspStop();
+                    		$('#shopper_real_time').hide();
 						}
-						
 					}
 					
 				});
@@ -333,7 +339,6 @@
 				$('#wrap_shopper_status').show();
 				setTimeout("$('#wrap_shopper_status').hide()", 5000);
 			}
-
 		</script>
 	</div>
 
@@ -365,7 +370,9 @@
 								<ul>
 									<li name="shopper_name"></li>
 									<li name="shopper_rating"></li>
+									<!-- <li name="shopper_cnt"></li> -->
 									<li>하나로마트 양재점에서 직접 골라 드립니다.</li>
+									<li name="shopper_main"></li>
 								</ul>
 							</li>
 							<li name="description" class="smtc_txt">

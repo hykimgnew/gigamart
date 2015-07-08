@@ -1361,10 +1361,16 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                     else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
 
 
+                    $('li[name="shopper_rating"]').empty().append(shopperStar);
                     $('span[name="shopper_rating"]').empty().append(shopperStar);
-                    // $('li[name="shopper_img"]').empty().append("<span class='sp_img'><img src=" + entry['img'] + " height='120' /></span>"); //width='160'
+                    //$('li[name="shopper_img"]').empty().append("<span class='sp_img'><img src=" + entry['img'] + " height='120' /></span>"); //width='160'
+                    //$("#shopper_photo").empty().append("<span class='sp_img'><img src=" + entry['img'] + " height='120' /></span>"); //width='160'
+                    $('li[name="shopper_name"]').empty().append(entry['shopper_id']);
                     $('span[name="shopper_name"]').empty().append(entry['shopper_id']);
+                    /*$('li[name="shopper_cnt"]').empty().append(" (후기: " + entry['reply_cnt'] + ")");*/
+                    $('li[name="shopper_cate"]').empty().append(entry['shopping_main']);
                     $('span[name="shopper_cate"]').empty().append(entry['shopping_main']);
+                    //$('li[name="description"]').empty().append(entry['description']);
 
                 });
                 /* $('p[name="shopper_img"]').empty().append("<img src=" + cmsServerIp + result['shopper']['img'] + " width='160' height='120' />");
