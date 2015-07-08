@@ -728,10 +728,10 @@ position:relative;width:162px; float:left; margin-bottom:4px; color:#ffffff;back
 #content .con_wrap .cw_right .cr_infoArea .ci_btn li.add_cart.focus {position:absolute; bottom:0px; left:187px; width:124px; height:44px; line-height:42px; padding-left:50px; border-radius:10px; background:url(../images/icon_bg_cart_sel.png) 15px 10px no-repeat #2b9330; border:2px solid #2b9330; color:#FFFFFF; font-size:18px; font-weight:bold; }
 /*찜하기 버튼*/
 #content .con_wrap .cw_right .cr_infoArea .ci_btn li.favorite {position:absolute; bottom:0px; right:0px; width:94px; height:44px; line-height:42px; padding-left:80px; border-radius:10px; background:url(../images/icon_bg_favorite.png) 40px 10px no-repeat #FFFFFF; border:2px solid #6c6c6c; color:#6c6c6c; font-size:18px; font-weight:bold; }
-#content .con_wrap .cw_right .cr_infoArea .ci_btn li.favorite.focus {position:absolute; bottom:0px; right:0px; width:94px; height:44px; line-height:42px; padding-left:80px; border-radius:10px; background:url(../images/icon_bg_favorite_sel.png) 40px 10px no-repeat #6c6c6c; border:2px solid #6c6c6c; color:#FFFFFF; font-size:18px; font-weight:bold; }
+#content .con_wrap .cw_right .cr_infoArea .ci_btn li.favorite.focus {position:absolute; bottom:0px; right:0px; width:94px; height:44px; line-height:42px; padding-left:80px; border-radius:10px; background:url(../images/icon_bg_favorite_sel.png) 40px 10px no-repeat #2b9330; border:2px solid #2b9330; color:#FFFFFF; font-size:18px; font-weight:bold; }
 /*상세보기 버튼*/
 #content .con_wrap .cw_right .cr_infoArea .ci_btn li.more {position:absolute; bottom:60px; right:0px; width:104px; height:44px; line-height:42px; padding-left:70px; border-radius:10px; background:url(../images/icon_bg_more.png) 30px 10px no-repeat #FFFFFF; border:2px solid #6c6c6c; color:#6c6c6c; font-size:18px; font-weight:bold; }
-#content .con_wrap .cw_right .cr_infoArea .ci_btn li.more.focus {position:absolute; bottom:60px; right:0px; width:104px; height:44px; line-height:42px; padding-left:70px; border-radius:10px; background:url(../images/icon_bg_more_sel.png) 30px 10px no-repeat #6c6c6c; border:2px solid #6c6c6c; color:#FFFFFF; font-size:18px; font-weight:bold;}
+#content .con_wrap .cw_right .cr_infoArea .ci_btn li.more.focus {position:absolute; bottom:60px; right:0px; width:104px; height:44px; line-height:42px; padding-left:70px; border-radius:10px; background:url(../images/icon_bg_more_sel.png) 30px 10px no-repeat #2b9330; border:2px solid #2b9330; color:#FFFFFF; font-size:18px; font-weight:bold;}
 
 
 
