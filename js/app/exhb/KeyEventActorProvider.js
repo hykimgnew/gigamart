@@ -22,6 +22,7 @@ var tid;      // 타이머 객체
 
 var rtspPlayer = window.oipfObjectFactory.createVideoMpegObject();    // 실시간 영상보기
 var appConfiguration = window.oipfObjectFactory.createConfigurationObject();
+var keySet = appConfiguration.getOwnerApplication(window.document).privateData.keyset;
 
 var videoPlayer = window.oipfObjectFactory.createVideoMpegObject();     // 기획전
 var videoPlayer2 = window.oipfObjectFactory.createVideoMpegObject();    // 전체 영상보기
@@ -33,7 +34,6 @@ var videoFlag = true;
 // 타이머 시작
 function TimerStart() {
     tid=setInterval('msg_time()', 1000);
-
     console.log("########## Set Time : " + SetTime);
 }
 
@@ -227,6 +227,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
     _construct: function() {
 
         console.log("############# EXHB_PATH : " + EXHB_PATH );
+        console.log("############# KEYSET : " + keySet );
 
         var me = this;
         me.actors = [];
