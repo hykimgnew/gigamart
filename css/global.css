@@ -124,7 +124,7 @@ a:hover, a:active{text-decoration:none;}
 .bg_intro {background:url(../images/bg_intro.jpg) no-repeat;}
 .bg_fruits {background:url(../images/bg_category.jpg) no-repeat;}
 .bg_cart {background:url(../images/bg_cart.jpg) no-repeat;}
-.bg_alpha {background:rgba(0,0,0,0.5); width:1280px; height:720px; z-index:100000;}
+.bg_alpha {/*background:rgba(0,0,0,0.5);*/ width:1280px; height:720px; z-index:100000;}
 .bg_gray {background:#F4F4F4;}
 
 
@@ -1228,7 +1228,7 @@ position:relative;width:152px; border-top:4px solid #2b9330; border-right:4px so
 .pop li.pop_btn .green {display:inline-block; background:#FFFFFF; border-radius:10px; width:240px; height:44px; border:2px solid #6c6c6c; text-align:center; line-height:44px; font-size:16px; font-weight:bold; color:#6c6c6c; }
 .pop li.pop_btn .green.focus {display:inline-block; background:#2b9330; border-radius:10px; width:240px; height:44px; border:2px solid #2b9330; text-align:center; line-height:44px; font-size:16px; font-weight:bold; color:#FFFFFF; }
 .pop li.pop_btn .gray {display:inline-block; background:#FFFFFF; border-radius:10px; width:240px; height:44px; border:2px solid #404040; text-align:center; line-height:44px; font-size:16px; font-weight:bold; color:#404040; }
-.pop li.pop_btn .gray.focus {display:inline-block; background:#404040; border-radius:10px; width:240px; height:44px; border:2px solid #404040; text-align:center; line-height:44px; font-size:16px; font-weight:bold; color:#FFFFFF; }
+.pop li.pop_btn .gray.focus {display:inline-block; background:#2b9330; border-radius:10px; width:240px; height:44px; border:2px solid #2b9330; text-align:center; line-height:44px; font-size:16px; font-weight:bold; color:#FFFFFF; }
 /*숫자 버튼*/
 .pop li.pr_num {position:relative; }
 .pop li.pr_num span {display:inline-block; text-align:center;}

@@ -3426,7 +3426,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             //전체 갯수가 짝수개면 마지막페이지에2개뿌림
             if(zh == 0){
                 for(var i=0 ; i < 2 ; i++) {
-                var obj3 = arrOrderList[Number((page*2)+i)].ordered_product;
+                var obj3 = arrOrderList[Number((page*2)+i)].ordered_product[0];
                 var obj_length3 = Object.keys(obj3).length;
                 console.log("obj3는 : "+JSON.stringify(obj3));
                 console.log("i는 : "+i+" , obj3의 길이 : "+JSON.stringify(obj_length3));
