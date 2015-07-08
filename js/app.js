@@ -166,6 +166,7 @@ var retrieveEasyCart = function()
         	anchorFocus     = 0;
             chgVolumeFocus  = 0;
             cartFocus       = 1;
+            location.href = "#" + $('li[name="ec_li_list"]').eq(0).attr('id');
             $('#ecc_payments').addClass('focus');
         	// 플로팅 메뉴 장바구니 SET
         	fltEasyCart();
