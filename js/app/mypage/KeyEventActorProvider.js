@@ -975,15 +975,35 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 }
                 //주문내역
                 else if(myView == 7){
-                    //주문상세페이지 이동
-                    var id = $('td[name="order_num"]').eq(orderFocusMenu).html();
-                    console.log("id-->"+id);
-                    $('div[name="view_order"]').hide();
-                    myView = 8;
-                    myViewOrderPrev = 1;
-                    this.selectOrderDtList(id,1);
-                    $('div[name="view_order_dt1"]').show();
-                    $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).addClass('focus');
+                    //주문상세페이지 이동(focus가 조회기간이 아닐때)
+                    if(orderFocusList == 1){
+                        var id = $('td[name="order_num"]').eq(orderFocusMenu).html();
+                        console.log("id-->"+id);
+                        $('div[name="order_dt1_total_view"]').hide();
+                        $('div[name="view_order"]').hide();
+                        myView = 8;
+                        myViewOrderPrev = 1;
+                        //1개월
+                        if(orderFocusMenu2 == 0){
+                            this.selectOrderDtList(id,1);
+                            $('div[name="view_order_dt1"]').show();
+                            $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).addClass('focus');
+                        }
+                        //2개월
+                        else if(orderFocusMenu2 ==1){
+                            this.selectOrderDtList(id,2);
+                            $('div[name="view_order_dt1"]').show();
+                            $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).addClass('focus');
+                        }
+                        //3개월
+                        else if(orderFocusMenu2 == 2){
+                            this.selectOrderDtList(id,3);
+                            $('div[name="view_order_dt1"]').show();
+                            $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).addClass('focus');
+                        }
+                        
+                    }
+                    
                     //$('li[name="order_menu"]').eq(orderFocusMenu).removeClass('focus');
                     //orderFocusMenu = Number(orderFocusMenu)-1;
                     //$('li[name="order_menu"]').eq(orderFocusMenu).addClass('focus');
@@ -1000,18 +1020,29 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     }
                     //버튼영역
                     else if(orderDt2FocusList == 1){
-                        if(orderDt2BtnFocus == 0){
-                            //주문내역가기 이동
-                            $('span[name="order_dt2_back"]').removeClass('focus');
-                            orderDt2BtnFocus = 0;
+                        //주문내역상세2->마이페이지최신3개
+                        if(myViewOrderPrev == 0){
                             $('tr[name="order_dt_menu"]').remove();
-                            $('div[name="view_order_dt1"]').hide();
-                            $('div[name="view_order_dt2"]').hide();
                             orderDt2FocusMenu = 0;
                             orderDtFocusMenu = 0;
-                            myView = 7;
-                            $('div[name="view_order"]').show();   
+                            myView = 0;
+                            $('div[name="view_my"]').show();
                         }
+                        //주문내역 상세2 -> 주문내역
+                        else if(myViewOrderPrev == 1){
+                            if(orderDt2BtnFocus == 0){
+                                //주문내역가기 이동
+                                $('span[name="order_dt2_back"]').removeClass('focus');
+                                orderDt2BtnFocus = 0;
+                                $('tr[name="order_dt_menu"]').remove();
+                                $('div[name="view_order_dt1"]').hide();
+                                $('div[name="view_order_dt2"]').hide();
+                                orderDt2FocusMenu = 0;
+                                orderDtFocusMenu = 0;
+                                myView = 7;
+                                $('div[name="view_order"]').show();   
+                            }    
+                        }  
                     }
                 }
                 
@@ -1419,6 +1450,14 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     }
                     //주문내역 상세2
                     else if(myView == 9){
+                        //주문내역 list일때
+                        // if(orderDt2FocusList == 0){
+
+                        // }
+                        // //주문내역 list total의 버튼영역
+                        // else{
+
+                        // }
                         if(currentOrderDtListPage == 0){
                             if($('tr[name="order_dt_menu"]').length == 1){
                                 console.log("##### 첫페이지인데 리스트갯수가 1개면 그다음페이지에 total이 보여줬으므로 이전페이지엔 리스트 한개 보여야됨 ..");    
@@ -1444,6 +1483,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                             //리스트없는거면 토탈페이지이므로 이전페이지로
                             if($('tr[name="order_dt_menu2"]').length == 0){
                                 console.log("리스트없는거면 토탈페이지이므로 이전페이지로");
+                                orderDt2FocusList = 0;
                                 this.pagingOrderedDtProduct(Number(currentOrderDtListPage)-1);
                             }
                             //리스트1개일때 1행->이전페이지
@@ -2043,7 +2083,8 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
 
                     }
                     //주문내역 상세1
-                    else if(myView == 8){   
+                    else if(myView == 8){
+                        console.log("orderDtFocusList===>"+orderDtFocusList);   
                         if(orderDtFocusList == 0){
                             console.log("total페이지이므로 버튼으로 이동해야됨");
                         }
@@ -2064,12 +2105,6 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                         $('div[name="view_order_dt2"]').show();
                                         //토탈페이지 보여주기
                                         this.pagingOrderedDtTotalProduct();
-                                        //주문내역가기 focus?
-                                        //this.orderArrow();
-
-
-                                    // $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).removeClass('focus');
-                                    // $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).addClass('focus');
                                 }  
                             }
                             //리스트갯수 2개일때
@@ -2084,18 +2119,18 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 //2행->페이징  
                                 else if(orderDtFocusMenu == 1){
                                     // 현재 페이지가 마지막 페이지 일 때
-                                    if(currentOrderDtListPage == totalOrderDtListPage){
-                                        console.log("##### 더 이상 이동할 페이지 없음..totalpage보여줘야됨");
+                                    if(nextOrderDtPageYN == false){
+                                        console.log("##### 더 이상 이동할 페이지 없음..totalpage보여줘야됨1234");
                                         console.log("currentOrderListPage : "+currentOrderDtListPage);
                                         console.log("totalOrderListPage : "+totalOrderDtListPage);
                                         orderDtTotalPageYN = true;
                                         myView = 9;
-                                        $('div[name="view_order_dt1"]').hide();
-                                        $('div[name="view_order_dt2"]').show();
+                                         $('div[name="view_order_dt1"]').hide();
+                                         $('div[name="view_order_dt2"]').show();
                                         //토탈페이지 보여주기
                                         this.pagingOrderedDtTotalProduct();
                                         //주문내역가기 focus?
-                                        //this.orderArrow();
+                                        
                                     }
                                     // 마지막 페이지 아닐 때
                                     else {
@@ -2103,6 +2138,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                             console.log("##### 다음페이지 이동..");
                                             $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).removeClass('focus');
                                             myView = 9;
+                                            currentOrderDtListPage = 0;
                                             $('div[name="view_order_dt1"]').hide();
                                             $('div[name="view_order_dt2"]').show();
                                             this.pagingOrderedDtProduct(Number(currentOrderDtListPage)+1);
@@ -2114,12 +2150,12 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                             console.log("##### 더 이상 이동할 페이지 없음..totalpage보여줘야됨");
                                             console.log("currentOrderListPage : "+currentOrderDtListPage);
                                             console.log("totalOrderListPage : "+totalOrderDtListPage);
-                                            orderDtTotalPageYN = true;
-                                            myView = 9;
-                                            $('div[name="view_order_dt1"]').hide();
-                                            $('div[name="view_order_dt2"]').show();
-                                            //토탈페이지 보여주기
-                                            this.pagingOrderedDtTotalProduct();
+                                            // orderDtTotalPageYN = true;
+                                            // myView = 9;
+                                            // $('div[name="view_order_dt1"]').hide();
+                                            // $('div[name="view_order_dt2"]').show();
+                                            // //토탈페이지 보여주기
+                                            // this.pagingOrderedDtTotalProduct();
                                         }
                                         
                                     }
@@ -2142,70 +2178,90 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                     }
                                 }
                                 //리스트갯수 1개일때
-                                else if($('tr[name="order_dt_menu2"]').length == 1){
+                                else if($('tr[name="order_dt_menu2"]').length == 1){   
+                                    if(orderDtTotalPageYN  == false){
+                                       orderDt2FocusMenu = 0;
+                                       this.pagingOrderedDtProduct(Number(currentOrderDtListPage)+1);     
+                                    }
+                                    
                                     //페이징
-                                    if(currentOrderDtListPage == totalOrderDtListPage){
-                                        console.log("##### 더 이상 이동할 페이지 없음..totalpage보여줘야됨");
-                                        console.log("currentOrderListPage : "+currentOrderDtListPage);
-                                        console.log("totalOrderListPage : "+totalOrderDtListPage);
-                                        orderDtTotalPageYN = true;
-                                        //myView = 9;
-                                        //$('div[name="view_order_dt1"]').hide();
-                                        //$('div[name="view_order_dt2"]').show();
-                                        //토탈페이지 보여주기
-                                        this.pagingOrderedDtTotalProduct();
-                                        //주문내역가기 focus?
-                                        //this.orderArrow();
-                                    }
-                                        // 마지막 페이지 아닐 때
-                                    else {
-                                            console.log("##### 마지막 페이지 아닐 때");
-                                            orderDtTotalPageYN = true;
-                                            orderDt2FocusMenu = 0;
-                                            //myView = 9;
-                                            //$('div[name="view_order_dt1"]').hide();
-                                            //$('div[name="view_order_dt2"]').show();
-                                            this.pagingOrderedDtProduct(Number(currentOrderDtListPage)+1);
+                                    // if(currentOrderDtListPage == totalOrderDtListPage){
+                                    //     console.log("##### 더 이상 이동할 페이지 없음..totalpage보여줘야됨");
+                                    //     console.log("currentOrderListPage : "+currentOrderDtListPage);
+                                    //     console.log("totalOrderListPage : "+totalOrderDtListPage);
+                                    //     orderDtTotalPageYN = true;
+                                    //     //myView = 9;
+                                    //     //$('div[name="view_order_dt1"]').hide();
+                                    //     //$('div[name="view_order_dt2"]').show();
+                                    //     //토탈페이지 보여주기
+                                    //     //this.pagingOrderedDtTotalProduct();
+                                    //     //주문내역가기 focus?
+                                    //     //this.orderArrow();
+                                    // }
+                                    //     // 마지막 페이지 아닐 때
+                                    // else {
+                                    //         console.log("##### 마지막 페이지 아닐 때");
+                                    //         orderDtTotalPageYN = true;
+                                    //         orderDt2FocusMenu = 0;
+                                    //         //myView = 9;
+                                    //         //$('div[name="view_order_dt1"]').hide();
+                                    //         //$('div[name="view_order_dt2"]').show();
+                                    //         this.pagingOrderedDtProduct(Number(currentOrderDtListPage)+1);
                                         
-                                    }
+                                    // }
                                 }
                                 //리스트갯수 1개이상일때
                                 else{
                                     //1행->2행
+                                    console.log("````1 orderDt2FocusMenu : "+orderDt2FocusMenu);
                                     $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).removeClass('focus');
                                     orderDt2FocusMenu = Number(orderDt2FocusMenu) + 1;
+                                    console.log("````2 orderDt2FocusMenu : "+orderDt2FocusMenu);
                                     $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).addClass('focus');
                                 }
                                 
                             }
                             else if(orderDt2FocusMenu == 1){
+                                //리스트갯수 0개일때
+                                if($('tr[name="order_dt_menu2"]').length == 0){
+                                    console.log("total페이지이므로 버튼으로 이동해야됨");
+                                    if(orderDt2FocusList == 0){
+                                        //버튼으로 이동
+                                        orderDt2FocusList = 1;
+                                        $('span[name="order_dt2_back"]').addClass('focus');
+                                    }
+                                }
                                 //리스트캣수 2개일때
-                                if($('tr[name="order_dt_menu2"]').length == 2){
+                                else if($('tr[name="order_dt_menu2"]').length == 2){
+                                    if(orderDtTotalPageYN  == false){
+                                       orderDt2FocusMenu = 0;
+                                       this.pagingOrderedDtProduct(Number(currentOrderDtListPage)+1);     
+                                    }
                                     //페이징
-                                    if(currentOrderDtListPage == totalOrderDtListPage){
-                                        console.log("##### 더 이상 이동할 페이지 없음..totalpage보여줘야됨");
-                                        console.log("currentOrderListPage : "+currentOrderDtListPage);
-                                        console.log("totalOrderListPage : "+totalOrderDtListPage);
-                                        orderDtTotalPageYN = true;
-                                        //myView = 9;
-                                        //$('div[name="view_order_dt1"]').hide();
-                                        //$('div[name="view_order_dt2"]').show();
-                                        //토탈페이지 보여주기
-                                        this.pagingOrderedDtTotalProduct();
-                                        //주문내역가기 focus?
-                                        //this.orderArrow();
-                                    }
-                                        // 마지막 페이지 아닐 때
-                                    else {
-                                            console.log("##### 마지막 페이지 아닐 때");
-                                            orderDtTotalPageYN = true;
-                                            orderDt2FocusMenu = 0;
-                                            //myView = 9;
-                                            //$('div[name="view_order_dt1"]').hide();
-                                            //$('div[name="view_order_dt2"]').show();
-                                            this.pagingOrderedDtProduct(Number(currentOrderDtListPage)+1);
+                                    // if(currentOrderDtListPage == totalOrderDtListPage){
+                                    //     console.log("##### 더 이상 이동할 페이지 없음..totalpage보여줘야됨");
+                                    //     console.log("currentOrderListPage : "+currentOrderDtListPage);
+                                    //     console.log("totalOrderListPage : "+totalOrderDtListPage);
+                                    //     orderDtTotalPageYN = true;
+                                    //     //myView = 9;
+                                    //     //$('div[name="view_order_dt1"]').hide();
+                                    //     //$('div[name="view_order_dt2"]').show();
+                                    //     //토탈페이지 보여주기
+                                    //     //this.pagingOrderedDtTotalProduct();
+                                    //     //주문내역가기 focus?
+                                    //     //this.orderArrow();
+                                    // }
+                                    //     // 마지막 페이지 아닐 때
+                                    // else {
+                                    //         console.log("##### 마지막 페이지 아닐 때");
+                                    //         orderDtTotalPageYN = true;
+                                    //         //orderDt2FocusMenu = 0;
+                                    //         //myView = 9;
+                                    //         //$('div[name="view_order_dt1"]').hide();
+                                    //         //$('div[name="view_order_dt2"]').show();
+                                    //         //this.pagingOrderedDtProduct(Number(currentOrderDtListPage)+1);
                                         
-                                    }
+                                    // }
 
 
                                 }
@@ -2218,31 +2274,35 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 }
                             }
                             else if(orderDt2FocusMenu == 2){
+                                if(orderDtTotalPageYN  == false){
+                                       orderDt2FocusMenu = 0;
+                                       this.pagingOrderedDtProduct(Number(currentOrderDtListPage)+1);     
+                                }
                                 //3행->페이징  
-                                if(currentOrderDtListPage == totalOrderDtListPage){
-                                        console.log("##### 더 이상 이동할 페이지 없음..totalpage보여줘야됨");
-                                        console.log("currentOrderListPage : "+currentOrderDtListPage);
-                                        console.log("totalOrderListPage : "+totalOrderDtListPage);
-                                        orderDtTotalPageYN = true;
-                                        //myView = 9;
-                                        //$('div[name="view_order_dt1"]').hide();
-                                        //$('div[name="view_order_dt2"]').show();
-                                        //토탈페이지 보여주기
-                                        this.pagingOrderedDtTotalProduct();
-                                        //주문내역가기 focus?
-                                        //this.orderArrow();
-                                }
-                                    // 마지막 페이지 아닐 때
-                                else {
-                                        console.log("##### 마지막 페이지 아닐 때");
-                                        orderDtTotalPageYN = true;
-                                        orderDt2FocusMenu = 0;
-                                        //myView = 9;
-                                        //$('div[name="view_order_dt1"]').hide();
-                                        //$('div[name="view_order_dt2"]').show();
-                                        this.pagingOrderedDtProduct(Number(currentOrderDtListPage)+1);
+                                // if(currentOrderDtListPage == totalOrderDtListPage){
+                                //         console.log("##### 더 이상 이동할 페이지 없음..totalpage보여줘야됨");
+                                //         console.log("currentOrderListPage : "+currentOrderDtListPage);
+                                //         console.log("totalOrderListPage : "+totalOrderDtListPage);
+                                //         orderDtTotalPageYN = true;
+                                //         //myView = 9;
+                                //         //$('div[name="view_order_dt1"]').hide();
+                                //         //$('div[name="view_order_dt2"]').show();
+                                //         //토탈페이지 보여주기
+                                //         //this.pagingOrderedDtTotalProduct();
+                                //         //주문내역가기 focus?
+                                //         //this.orderArrow();
+                                // }
+                                //     // 마지막 페이지 아닐 때
+                                // else {
+                                //         console.log("##### 마지막 페이지 아닐 때");
+                                //         orderDtTotalPageYN = true;
+                                //         orderDt2FocusMenu = 0;
+                                //         //myView = 9;
+                                //         //$('div[name="view_order_dt1"]').hide();
+                                //         //$('div[name="view_order_dt2"]').show();
+                                //         this.pagingOrderedDtProduct(Number(currentOrderDtListPage)+1);
                                     
-                                }
+                                // }
 
 
 
@@ -2250,7 +2310,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         }
                         //버튼 
                         else if(orderDt2FocusList == 1){
-
+                            console.log("버튼으로 이동");
                         }
                         
 
@@ -2684,6 +2744,9 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 else if(myView == 7){
                     $('li[name="order_menu"]').eq(orderFocusMenu).removeClass('focus');
                     $('div[name="view_order"]').hide();
+                    $('li[name="order_year"]').eq(orderFocusMenu2).removeClass('focus');
+                    orderFocusList = 1;
+                    orderFocusMenu2=0;
                     orderFocusMenu = 0;
                     myView = 0;
                     $('div[name="view_my"]').show();
@@ -2697,7 +2760,11 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     if(myViewOrderPrev == 0){
                         $('tr[name="order_dt_menu"]').remove();
                         $('div[name="view_order_dt1"]').hide();
+                        $('li[name="order_year"]').eq(orderFocusMenu2).removeClass('focus');
                         myView = 0;
+                        currentOrderDtListPage = 0;
+                        orderFocusList = 1;
+                        orderFocusMenu2=0;
                         $('div[name="view_my"]').show();
                         //$('li[name="nm_menu"]').eq(currentFocusMenu2).addClass('focus');  
                     }
@@ -2705,49 +2772,94 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     else if(myViewOrderPrev == 1){
                         $('tr[name="order_dt_menu"]').remove();
                         $('div[name="view_order_dt1"]').hide();
+                        $('li[name="order_year"]').eq(orderFocusMenu2).removeClass('focus');
                         orderDt2FocusMenu = 0;
                         orderDtFocusMenu = 0;
+                        currentOrderDtListPage = 0;
                         myView = 7;
+                        orderFocusList = 1;
+                        orderFocusMenu2=0;
                         $('div[name="view_order"]').show();
                     }
                 }
-                //주문내역 상세2 -> 주문내역 상세1
+                //주문내역 상세2 -> 주문내역 상세1 or 주문내역상세2->마이페이지최신3개
                 else if(myView == 9){
                     ////리스트영역
                     if(orderDt2FocusList == 0){
-                        //주문내역으로 이동
-                        $('tr[name="order_dt_menu"]').remove();
-                        $('tr[name="order_dt_menu2"]').remove();
-                        $('div[name="view_order_dt1"]').hide();
-                        $('div[name="view_order_dt2"]').hide();
-                        orderDt2FocusList = 0;
-                        orderDt2FocusMenu = 0;
-                        orderDtFocusMenu = 0;
-                        orderDtTotalPageYN = false;
-                        currentOrderDtListPage  = 0;
-                        totalOrderDtListPage    = 0;
-                        myView = 7;
-                        $('div[name="view_order"]').show();   
+                        //주문내역상세2->마이페이지최신3개
+                        if(myViewOrderPrev == 0){
+                            //마이페이지최신3개로 이동
+                            $('tr[name="order_dt_menu"]').remove();
+                            $('tr[name="order_dt_menu2"]').remove();
+                            $('div[name="view_order_dt1"]').hide();
+                            $('div[name="view_order_dt2"]').hide();
+                            orderDt2FocusList = 0;
+                            orderDt2FocusMenu = 0;
+                            orderDtFocusMenu = 0;
+                            orderDtTotalPageYN = false;
+                            currentOrderDtListPage  = 0;
+                            totalOrderDtListPage    = 0;
+                            myView = 0;
+                            $('div[name="view_my"]').show(); 
+                        }
+                        //주문내역 상세2 -> 주문내역
+                        else if(myViewOrderPrev == 1){
+                            $('tr[name="order_dt_menu"]').remove();
+                            $('tr[name="order_dt_menu2"]').remove();
+                            $('div[name="view_order_dt1"]').hide();
+                            $('div[name="view_order_dt2"]').hide();
+                            orderFocusList = 1;
+                            orderFocusMenu2=0;
+                            orderDt2FocusList = 0;
+                            orderDt2FocusMenu = 0;
+                            orderDtFocusMenu = 0;
+                            orderDtTotalPageYN = false;
+                            currentOrderDtListPage  = 0;
+                            totalOrderDtListPage    = 0;
+                            myView = 7;
+                            $('div[name="view_order"]').show();   
+                        }
+                        
                     }
                     //버튼영역
                     else if(orderDt2FocusList == 1){
-                        //주문내역으로 이동
-                        $('span[name="order_dt2_back"]').removeClass('focus');
-                        $('span[name="order_dt2_cancel"]').removeClass('focus');
-                        orderDt2BtnFocus = 0;
-                        $('tr[name="order_dt_menu"]').remove();
-                        $('tr[name="order_dt_menu2"]').remove();
-                        $('div[name="view_order_dt1"]').hide();
-                        $('div[name="view_order_dt2"]').hide();
-                        orderDt2FocusList = 0;
-                        orderDt2FocusMenu = 0;
-                        orderDtFocusMenu = 0;
-                        orderDtTotalPageYN = false;
-                        currentOrderDtListPage  = 0;
-                        totalOrderDtListPage    = 0;
-                        myView = 7;
-                        $('div[name="view_order"]').show();   
-                        
+                        //주문내역상세2->마이페이지최신3개
+                        if(myViewOrderPrev == 0){
+                            $('span[name="order_dt2_back"]').removeClass('focus');
+                            $('span[name="order_dt2_cancel"]').removeClass('focus');
+                            orderDt2BtnFocus = 0;
+                            $('tr[name="order_dt_menu"]').remove();
+                            $('tr[name="order_dt_menu2"]').remove();
+                            $('div[name="view_order_dt1"]').hide();
+                            $('div[name="view_order_dt2"]').hide();
+                            orderDt2FocusList = 0;
+                            orderDt2FocusMenu = 0;
+                            orderDtFocusMenu = 0;
+                            orderDtTotalPageYN = false;
+                            currentOrderDtListPage  = 0;
+                            totalOrderDtListPage    = 0;
+                            myView = 0;
+                            $('div[name="view_my"]').show();  
+                        }
+                        //주문내역 상세2 -> 주문내역
+                        else if(myViewOrderPrev == 1){
+                           //주문내역으로 이동
+                            $('span[name="order_dt2_back"]').removeClass('focus');
+                            $('span[name="order_dt2_cancel"]').removeClass('focus');
+                            orderDt2BtnFocus = 0;
+                            $('tr[name="order_dt_menu"]').remove();
+                            $('tr[name="order_dt_menu2"]').remove();
+                            $('div[name="view_order_dt1"]').hide();
+                            $('div[name="view_order_dt2"]').hide();
+                            orderDt2FocusList = 0;
+                            orderDt2FocusMenu = 0;
+                            orderDtFocusMenu = 0;
+                            orderDtTotalPageYN = false;
+                            currentOrderDtListPage  = 0;
+                            totalOrderDtListPage    = 0;
+                            myView = 7;
+                            $('div[name="view_order"]').show();    
+                        }
                     }
                 }
 
@@ -3186,6 +3298,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
     },
     // 조회 : 주문내역
     selectOrderList: function(inter_num) {
+        currentOrderListPage  = 0;
         console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
         console.log("inter_num : "+inter_num);
         console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
@@ -3426,10 +3539,9 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             //전체 갯수가 짝수개면 마지막페이지에2개뿌림
             if(zh == 0){
                 for(var i=0 ; i < 2 ; i++) {
+                // var obj3 = arrOrderList[Number((page*2)+i)].ordered_product[0];
                 var obj3 = arrOrderList[Number((page*2)+i)].ordered_product[0];
-                var obj_length3 = Object.keys(obj3).length;
                 console.log("obj3는 : "+JSON.stringify(obj3));
-                console.log("i는 : "+i+" , obj3의 길이 : "+JSON.stringify(obj_length3));
                     if(obj3 == undefined){
                         console.log("undefined입니다요 : ");
                         $('td[name="order_date"]').eq(i).empty().append(arrOrderList[Number((page*2)+i)].order_date);
@@ -3439,6 +3551,8 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         $('td[name="order_name"]').eq(i).empty().append(arrOrderList[Number((page*2)+i)].shopper_id);
                         $('td[name="order_info"]').eq(i).empty().append("없음");
                     }else{
+                        var obj_length3 = Object.keys(obj3).length;
+                        console.log("i는 : "+i+" , obj3의 길이 : "+JSON.stringify(obj_length3));
                         console.log("undefined아닙니다요 : ");
                         $('td[name="order_date"]').eq(i).empty().append(arrOrderList[Number((page*2)+i)].order_date);
                         $('td[name="order_num"]').eq(i).empty().append(arrOrderList[Number((page*2)+i)].order_id);
@@ -3453,13 +3567,11 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             else if(zh == 1){
                 for(var i=0 ; i < 1 ; i++) {
                 console.log("i는 : "+i);
-                var obj3 = arrOrderList[Number((page*2)+i)].ordered_product;
-                var obj_length3 = Object.keys(obj3).length;
-                console.log("obj3는 : "+JSON.stringify(obj3));
-                console.log("obj3.name :  : "+obj3.name);
-                console.log("obj3.name :  : "+obj3[i].name);
-                console.log("i는 : "+i+" , obj3의 길이 : "+JSON.stringify(obj_length3));
-                    if(obj3 == undefined){
+                var obj33 = arrOrderList[Number((page*2)+i)].ordered_product[0];
+                //var obj_length33 = Object.keys(obj33).length;
+                console.log("obj33는 : "+JSON.stringify(obj33));
+                //console.log("i는 : "+i+" , obj33의 길이 : "+JSON.stringify(obj_length33));
+                    if(obj33 == undefined){
                         console.log("undefined입니다요 : ");
                         //$('li[name="ref_menu"]').eq(1).remove();
                         $('td[name="order_date"]').eq(i).empty().append(arrOrderList[Number((page*2)+i)].order_date);
@@ -3470,12 +3582,15 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         $('td[name="order_info"]').eq(i).empty().append("없음");
                     }else{
                         console.log("undefined아닙니다요 : ");
+                        var obj44 = arrOrderList[Number((page*2)+i)].ordered_product;
+                        var obj_length33 = Object.keys(obj44).length;
+                        console.log("i는 : "+i+" , obj44의 길이 : "+JSON.stringify(obj_length33));
                         $('td[name="order_date"]').eq(i).empty().append(arrOrderList[Number((page*2)+i)].order_date);
                         $('td[name="order_num"]').eq(i).empty().append(arrOrderList[Number((page*2)+i)].order_id);
                         $('td[name="order_cost"]').eq(i).empty().append(cn_toPrice(arrOrderList[Number((page*2)+i)].ordered_cost)+"원");
                         $('td[name="order_state"]').eq(i).empty().append(arrOrderList[Number((page*2)+i)].status);
                         $('td[name="order_name"]').eq(i).empty().append(arrOrderList[Number((page*2)+i)].shopper_id);
-                        $('td[name="order_info"]').eq(i).empty().append(obj3[i].name +"외 ……"+obj_length3+"건");
+                        $('td[name="order_info"]').eq(i).empty().append(obj33.name +"외 ……"+obj_length33+"건");
                     }
                     //두번째 리스트 삭제
                     $('li[name="order_menu"]').eq(1).remove();
@@ -3591,6 +3706,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 var obj2 = entry['ordered_product'];
                                 var obj_length = Object.keys(obj2).length;
                                 console.log("obj_length-->"+obj_length);
+                                
                                 // appendHtml = {
                                 //             "image" : obj2.image,
                                 //             "name" : obj2.name,
@@ -3604,9 +3720,18 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 //console.log("##### 주문내역 List  obj2 json " + JSON.stringify(obj2));
                                 // 결과값이 2보다 크면 다음 페이지 존재 / 결과값이 2이면ㄴ 다음페이지에 total보임
                                 if(obj_length > 2 || obj_length == 2) { 
+                                    if(obj_length > 2){
+                                        console.log("()()())()nextOrderDtPageYN true");
+                                        nextOrderDtPageYN = true;
+                                    }
+                                    else if(obj_length == 2){
+                                            console.log("()()())()nextOrderDtPageYN false");
+                                            nextOrderDtPageYN = false;
+                                    }
                                     $('span[name="arrow_top_order_dt1"]').removeClass('arrow_top');
                                     $('span[name="arrow_bottom_order_dt1"]').addClass('arrow_bottom focus');
-                                    if(obj_length > 2){nextOrderDtPageYN = true;}
+                                    var obj2 = entry['ordered_product'];
+                                    var obj_length = Object.keys(obj2).length;
                                     for(var i=0; i<2; i++){
                                         makeOrderDtProduct();
                                         console.log("i : "+i +",image : "+obj2[i].image);
@@ -3676,19 +3801,41 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
     },
     // 주문내역상세_2로가는 페이징
     pagingOrderedDtProduct : function(page) {
+        currentOrderDtListPage = 0;
+
         orderDtTotalPageYN = false;
+        $('div[name="order_dt1_total_view"]').hide();
+        currentOrderDtListPage  = 0;
+        orderDt2FocusList = 0;
+        $('tr[name="order_dt_menu2"]').remove();
+        console.log("nextOrderDtPageYN===>"+nextOrderDtPageYN);
+        var cnt = 0;
+
+        var objTot = arrOrderDtList[(Number(currentOrderListPage*2)+Number(orderFocusMenu))].ordered_product;    
+        var objTot_len =Object.keys(objTot).length;  
+        var objTot_len2 =(objTot_len-2) % 3;  
+        cnt       = Math.floor(objTot_len / 3);
+        totalOrderDt2ListPage = Number(cnt)+1;
+        //totalOrderDt2ListPage = Number(cnt);
+        //console.log("objTot_len = >>>>>>>"+objTot_len); 
+        console.log("cnt = >>>>>>>"+cnt);    
+        console.log("totalOrderDt2ListPage = >>>>>>>"+totalOrderDt2ListPage);  
+
         $('#mod_row_tit2').empty();
         // 현재 페이지
         currentOrderDtListPage = page;
         console.log("########주문내역 상세2222list리스트 페이지 이동 currentOrderDtListPage   : " + currentOrderDtListPage);
-        console.log("totalOrderDtListPage  : " + totalOrderDtListPage);
-        console.log("currentOrderListPage  : " + Number(currentOrderListPage+1));
-        //console.log("########arrOrderList.length : " + arrOrderList.length);
+        console.log("########주문내역 상세2222list리스트 페이지 이동 totalOrderDt2ListPage   : " + totalOrderDt2ListPage);
+        // console.log("totalOrderDtListPage  : " + totalOrderDtListPage);
+        // console.log("currentOrderListPage  : " + Number(currentOrderListPage));
+        // console.log("orderFocusMenu  : " + Number(orderFocusMenu));
+        //console.log("########arrOrderList.length : " + arrOrderList.length);orderDt2FocusMenu
         //console.log("##### 쇼퍼 List json 페이지이동 " + JSON.stringify(arrOrderList));
+        
 
         //첫ㅍㅔ이지일때->상세1로감
         if(currentOrderDtListPage == 0){
-            console.log("첫페이지");
+            console.log("==============================첫페이지==============================");
             myView = 8;
             $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).removeClass('focus');
             orderDt2FocusMenu = 0;
@@ -3699,89 +3846,144 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).addClass('focus');
             return;
         }
-        //마지막페이지아닐때
-        else if(currentOrderDtListPage != totalOrderDtListPage){ 
-            console.log("마지막페이지아닐때");
-            console.log("arrOrderDtList는 : "+JSON.stringify(arrOrderDtList));
-            for(var i=0 ; i < 3 ; i++) {
-            //var obj = arrOrderDtList[1].ordered_product[(Number(currentOrderDtListPage*3)+i)-1].name;
-            var obj = arrOrderDtList[0].ordered_product[(Number(currentOrderDtListPage*3)+i)-1];
-            console.log("i는 : "+i+" , obj2222222 : "+JSON.stringify(obj));
-                if(obj == undefined){
-                    console.log("undefined입니다요 : ");
-                }else{
-                    console.log("undefined아닙니다요 : ");
-                    var obj2 = arrOrderDtList[1];
-                    //console.log("obj2 json : "+JSON.stringify(obj2));
-                    var obj3 = arrOrderDtList[0].ordered_product[(Number(currentOrderDtListPage*3)+i)-1];
-                    console.log("obj3 json : "+JSON.stringify(obj3));
+        //마지막페이지일때
+        else if(currentOrderDtListPage == totalOrderDt2ListPage){
+            console.log("==============================마지막페이지일때 TOTAL 페이지==============================")
+            console.log("objTot_len2 : "+objTot_len2);
+            orderDtTotalPageYN = true;
+            myView = 9;
+            $('div[name="view_order_dt1"]').hide();
+            $('div[name="view_order_dt2"]').show();
+            //토탈페이지 보여주기
+            this.pagingOrderedDtTotalProduct();
 
-                    $('div[name="order_dt1_total_view"]').hide();
-                    makeOrderDtProduct2();
-                    $('td[name="dt_img2"]').eq(i).empty().append('<img src="' + obj3.image + '" height="100" width="100" />'); 
-                    $('td[name="dt_name2"]').eq(i).empty().append(obj3.name);    
-                    $('td[name="dt_cost2"]').eq(i).empty().append(cn_toPrice(obj3.cost)+"원"); 
-                    $('td[name="dt_discount2"]').eq(i).empty().append(""); 
-                    $('td[name="dt_cnt2"]').eq(i).empty().append(obj3.cnt); 
-                    $('td[name="dt_delivery2"]').eq(i).empty().append(cn_toPrice(obj3.delivery_cost)+"원");    //배송비
-                    $('td[name="dt_store2"]').eq(i).empty().append("양재점"); 
-                    $('td[name="dt_order2"]').eq(i).empty().append(cn_toPrice(Number(obj3.cost)*Number(obj3.cnt))+"원"); 
-                    
-                    //첫번째 페이지가 아니고 다음페이지가 있을때
-                    if(currentOrderDtListPage != 0 && currentOrderDtListPage != totalOrderDtListPage){
-                         console.log("첫번째 페이지가 아니고 다음페이지가 있을때");
-                         $('span[name="arrow_top_order_dt2"]').addClass('arrow_top focus');
-                         $('span[name="arrow_bottom_order_dt2"]').addClass('arrow_bottom focus'); 
-                    }
-                    //첫번째 페이지가 아니고 다음페이지가 없을때
-                    // if(currentOrderDtListPage != 0 && currentOrderDtListPage == totalOrderDtListPage){
-                    //     console.log("첫번째 페이지가 아니고 다음페이지가 없을때");
-                    //     $('span[name="arrow_top_order_dt2"]').addClass('arrow_top focus');
-                    //     $('span[name="arrow_bottom_order_dt2"]').removeClass('arrow_bottom');
-                    // }
-                    // //첫번째 페이지가 아니고 다음페이지가 있을때
-                    // else if(currentOrderDtListPage != 0 && currentOrderDtListPage != totalOrderDtListPage){
-                    //     console.log("첫번째 페이지가 아니고 다음페이지가 있을때");
-                    //     $('span[name="arrow_top_order_dt2"]').addClass('arrow_top focus');
-                    //     $('span[name="arrow_bottom_order_dt2"]').addClass('arrow_bottom focus'); 
-                    //}   
-
-                    //첫번째 리스트 포커스   
-                    //orderDt2FocusMenu = 0;
-                    console.log("orderDt2FocusMenu"+orderDt2FocusMenu);
-                    $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).addClass('focus');              
-                }
-            }
-        } 
+            //0개리스트-total페이지
+            // if(objTot_len2 ==0){
+            //     console.log("마지막페이지일때 0개리스트-total페이지");
+            // }
+            // //1개리스트
+            // else if(objTot_len2 ==1){
+            //     console.log("마지막페이지일때 1개리스트");     
+            // }
+            // //2개리스트 
+            // else if(objTot_len2 ==2){
+            //     console.log("마지막페이지일때 2개리스트");       
+            // }
+        }
+        //첫페이지 아닐때
         else{
-            console.log("마지막페이지일때");
-            for(var i=0 ; i < 2 ; i++) {
-            var obj = arrOrderDtList[1].ordered_product[(Number(currentOrderDtListPage*3)+i)-1];
-            console.log("i는 : "+i+" , obj2222222 : "+JSON.stringify(obj));
-                if(obj == undefined){
-                    console.log("undefined입니다요 : total sum 보여줘야됨111");
-                    this.pagingOrderedDtTotalProduct();
-
-                }else{
-                    console.log("undefined아닙니다요 : ");
-                    console.log("obj3333333333 : "+obj.name);
-                    var obj2 = arrOrderList[Number((page*2)+i)].ordered_product;
-                    var obj_length = Object.keys(obj2).length;
-                    console.log("obj34343434 : "+obj_length);
-                    makeOrderDtProduct();
-                    $('td[name="dt_img"]').eq(i).empty().append('<img src="' + obj2[i].image + '" height="100" width="100" />'); 
-                    $('td[name="dt_name"]').eq(i).empty().append(obj2[i].name);    
-                    $('td[name="dt_cost"]').eq(i).empty().append(cn_toPrice(obj2[i].cost)+"원"); 
-                    $('td[name="dt_discount"]').eq(i).empty().append(""); 
-                    $('td[name="dt_cnt"]').eq(i).empty().append(obj2[i].cnt); 
-                    $('td[name="dt_delivery"]').eq(i).empty().append(cn_toPrice(obj2[i].delivery_cost)+"원");    //배송비
-                    $('td[name="dt_store"]').eq(i).empty().append("양재점"); 
-                    $('td[name="dt_order"]').eq(i).empty().append(cn_toPrice(Number(obj2[i].cost)*Number(obj2[i].cnt))+"원"); 
-                    console.log("total sum 보여줘야됨2222");
+            console.log("==============================첫페이지아니고 마지막페이지아닐때=============================="); 
+            //마지막페이지아닐때
+            if(currentOrderDtListPage != totalOrderDt2ListPage){
+                for(var i=0 ; i < 3 ; i++) {
+                //var obj = arrOrderDtList[0].ordered_product[(Number(currentOrderDtListPage*3)+i)-1];
+                //var objXXXXX = arrOrderDtList[Number(currentOrderListPage+orderFocusMenu)].ordered_product[(Number(currentOrderDtListPage*3)+i)-1];
+                    var obj = arrOrderDtList[(Number(currentOrderListPage*2)+Number(orderFocusMenu))].ordered_product[(Number(currentOrderDtListPage*3)+i)-1];
+                    console.log("i는 : "+i+" , @@@obj000@@@ : "+JSON.stringify(obj));
+                    if(obj == undefined){
+                        console.log("undefined입니다요 : ");
+                    }else{
+                        console.log("undefined아닙니다요 : ");
+                        $('div[name="order_dt1_total_view"]').hide();
+                        makeOrderDtProduct2();
+                        $('td[name="dt_img2"]').eq(i).empty().append('<img src="' + obj.image + '" height="100" width="100" />'); 
+                        $('td[name="dt_name2"]').eq(i).empty().append(obj.name);    
+                        $('td[name="dt_cost2"]').eq(i).empty().append(cn_toPrice(obj.cost)+"원"); 
+                        $('td[name="dt_discount2"]').eq(i).empty().append(""); 
+                        $('td[name="dt_cnt2"]').eq(i).empty().append(obj.cnt); 
+                        $('td[name="dt_delivery2"]').eq(i).empty().append(cn_toPrice(obj.delivery_cost)+"원");    //배송비
+                        $('td[name="dt_store2"]').eq(i).empty().append("양재점"); 
+                        $('td[name="dt_order2"]').eq(i).empty().append(cn_toPrice(Number(obj.cost)*Number(obj.cnt))+"원"); 
+                        
+                        //첫번째 페이지가 아니고 다음페이지가 있을때
+                        if(currentOrderDtListPage != 0 && currentOrderDtListPage != totalOrderDt2ListPage){
+                             console.log("첫번째 페이지가 아니고 다음페이지가 있을때");
+                             $('span[name="arrow_top_order_dt2"]').addClass('arrow_top focus');
+                             $('span[name="arrow_bottom_order_dt2"]').addClass('arrow_bottom focus'); 
+                        }
+                        console.log("orderDt2FocusMenu"+orderDt2FocusMenu);
+                        //orderDt2FocusMenu = 0;
+                        $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).addClass('focus');              
+                    }
                 }
-            
             }
         }
+        //마지막페이지아닐때
+        // else if(currentOrderDtListPage != totalOrderDtListPage){ 
+        //     console.log("마지막페이지아닐때");
+        //     console.log("(Number(currentOrderListPage*2)+Number(orderFocusMenu)) : "+(Number(currentOrderListPage*2)+Number(orderFocusMenu)));
+        //     //console.log("arrOrderDtList는 : "+JSON.stringify(arrOrderDtList));
+        //     console.log("arrOrderDtList는 : "+JSON.stringify(arrOrderDtList[(Number(currentOrderListPage*2)+Number(orderFocusMenu))]));
+        //     if(nextOrderDtPageYN == false){
+        //         console.log("nextOrderDtPageYN = false , 다음페이지 없음 total보여라");
+        //     }else{
+        //         console.log("nextOrderDtPageYN = true");
+        //         for(var i=0 ; i < 3 ; i++) {
+        //         //var obj = arrOrderDtList[0].ordered_product[(Number(currentOrderDtListPage*3)+i)-1];
+        //         //var objXXXXX = arrOrderDtList[Number(currentOrderListPage+orderFocusMenu)].ordered_product[(Number(currentOrderDtListPage*3)+i)-1];
+        //         var obj = arrOrderDtList[(Number(currentOrderListPage*2)+Number(orderFocusMenu))].ordered_product[(Number(currentOrderDtListPage*3)+i)-1];
+        //         console.log("i는 : "+i+" , @@@obj000@@@ : "+JSON.stringify(obj));
+        //             if(obj == undefined){
+        //                 console.log("undefined입니다요 : ");
+        //             }else{
+        //                 console.log("undefined아닙니다요 : ");
+        //                 //var obj3 = arrOrderDtList[0].ordered_product[(Number(currentOrderDtListPage*3)+i)-1];
+        //                 //var obj3 = obj[(Number(currentOrderDtListPage*3)+i)-1];
+        //                 //console.log("obj3 json : "+JSON.stringify(obj3));
+        //                 $('div[name="order_dt1_total_view"]').hide();
+        //                 makeOrderDtProduct2();
+        //                 $('td[name="dt_img2"]').eq(i).empty().append('<img src="' + obj.image + '" height="100" width="100" />'); 
+        //                 $('td[name="dt_name2"]').eq(i).empty().append(obj.name);    
+        //                 $('td[name="dt_cost2"]').eq(i).empty().append(cn_toPrice(obj.cost)+"원"); 
+        //                 $('td[name="dt_discount2"]').eq(i).empty().append(""); 
+        //                 $('td[name="dt_cnt2"]').eq(i).empty().append(obj.cnt); 
+        //                 $('td[name="dt_delivery2"]').eq(i).empty().append(cn_toPrice(obj.delivery_cost)+"원");    //배송비
+        //                 $('td[name="dt_store2"]').eq(i).empty().append("양재점"); 
+        //                 $('td[name="dt_order2"]').eq(i).empty().append(cn_toPrice(Number(obj.cost)*Number(obj.cnt))+"원"); 
+                        
+        //                 //첫번째 페이지가 아니고 다음페이지가 있을때
+        //                 if(currentOrderDtListPage != 0 && currentOrderDtListPage != totalOrderDtListPage){
+        //                      console.log("첫번째 페이지가 아니고 다음페이지가 있을때");
+        //                      $('span[name="arrow_top_order_dt2"]').addClass('arrow_top focus');
+        //                      $('span[name="arrow_bottom_order_dt2"]').addClass('arrow_bottom focus'); 
+        //                 }
+        //                 console.log("orderDt2FocusMenu"+orderDt2FocusMenu);
+        //                 $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).addClass('focus');              
+        //             }
+        //         }
+        //     } 
+                
+        // } 
+        // else{
+        //     console.log("마지막페이지일때");
+        //     console.log("orderDt2FocusMenu"+orderDt2FocusMenu);
+        //     for(var i=0 ; i < 2 ; i++) {
+        //     var obj = arrOrderDtList[Number(currentOrderListPage+orderFocusMenu)].ordered_product[(Number(currentOrderDtListPage*3)+i)-1];
+        //     console.log("i는 : "+i+" , obj2222222 : "+JSON.stringify(obj));
+        //         if(obj == undefined){
+        //             console.log("undefined입니다요 : total sum 보여줘야됨111");
+        //             this.pagingOrderedDtTotalProduct();
+
+        //         }else{
+        //             console.log("undefined아닙니다요 : ");
+        //             console.log("obj3333333333 : "+obj.name);
+        //             var obj2 = arrOrderList[Number((page*2)+i)].ordered_product;
+        //             var obj_length = Object.keys(obj2).length;
+        //             console.log("obj34343434 : "+obj_length);
+        //             makeOrderDtProduct();
+        //             $('td[name="dt_img"]').eq(i).empty().append('<img src="' + obj2[i].image + '" height="100" width="100" />'); 
+        //             $('td[name="dt_name"]').eq(i).empty().append(obj2[i].name);    
+        //             $('td[name="dt_cost"]').eq(i).empty().append(cn_toPrice(obj2[i].cost)+"원"); 
+        //             $('td[name="dt_discount"]').eq(i).empty().append(""); 
+        //             $('td[name="dt_cnt"]').eq(i).empty().append(obj2[i].cnt); 
+        //             $('td[name="dt_delivery"]').eq(i).empty().append(cn_toPrice(obj2[i].delivery_cost)+"원");    //배송비
+        //             $('td[name="dt_store"]').eq(i).empty().append("양재점"); 
+        //             $('td[name="dt_order"]').eq(i).empty().append(cn_toPrice(Number(obj2[i].cost)*Number(obj2[i].cnt))+"원"); 
+        //             console.log("total sum 보여줘야됨2222");
+        //         }
+            
+        //     }
+        // }
 
     },
     // 주문내역상세_2로가는 페이징인데 리스트 갯수가 하나라서 다음페이지에 보여줄게 없다 total 보여줌

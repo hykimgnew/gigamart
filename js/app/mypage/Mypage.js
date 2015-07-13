@@ -303,18 +303,20 @@ var orderFocusMenu2 = 0;
 // *  주문내역상세 list page
 // * currentOrderDtListPage       = 주문내역상세 LIST 현재 페이지 (default : 0)
 // * totalOrderDtListPage         = 주문내역상세 LIST 전체 페이지
+// * totalOrderDt2ListPage         = 주문내역상세2 LIST 전체 페이지(상세1view에서의 갯수(2) 빼고)
 // * maxOrderDtListPage           = 주문내역상세 LIST 한 페이지에 들어갈 쇼퍼 수 (default : 2)
 // * arrOrderDtList               = 주문내역상세 LIST 배열
 // * arrOrderDtTotalList          = 주문내역상세 total LIST 배열
 //*************************************************
 var currentOrderDtListPage  = 0;
 var totalOrderDtListPage    = 0;
+var totalOrderDt2ListPage    = 0;
 var maxOrderDtListPage      = 2;
 var arrOrderDtList          = new Array();
 var arrOrderDtTotalList     = new Array();
 
 /** 
- *  현재 주문내역상세 리스트 Focus 위치
+ *  현재 주문내역상세1 리스트 Focus 위치
  *  0 : 
  *  1 : 주문내역 list
  *  2 : 
@@ -322,7 +324,7 @@ var arrOrderDtTotalList     = new Array();
  **/
 var orderDtFocusList = 1;
 /** 
- *  주문내역list Focus 위치
+ *  주문내역상세1 list Focus 위치
  *  0 : 
  *  1 : 
  **/    
