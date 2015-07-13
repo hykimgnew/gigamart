@@ -26,7 +26,7 @@ App.defineClass('Gigamart.app.category.STBService', {
 			original = me.ownerApp.privateData.keyset,
 			keySet = (original.NAVIGATION + original.VCR + original.NUMERIC + original.OTHER);
 			
-	    original.setValue(original.maximumValue, [global.VK_CHANNEL_UP, global.VK_CHANNEL_DOWN, VK_VOLUME_UP, VK_VOLUME_DOWN, global.VK_CHANNEL_DOWN, global.VK_MUTE, global.VK_F3, global.VK_F12]);
+	    original.setValue(original.maximumValue, [global.VK_CHANNEL_UP, global.VK_CHANNEL_DOWN, global.VK_CHANNEL_DOWN, global.VK_F3, global.VK_F12]);
 
 	    document.addEventListener('keydown', function(e) {
 	    	me._keyDown(e);

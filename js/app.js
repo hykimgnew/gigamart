@@ -72,11 +72,19 @@ var common_init = function() {
 
 
 /**
- * 간편 장바구니 토스트 메시지
+ * 간편 장바구니 토스트 메시지 제거
  **/
 var fn_popEasyCart = function() {
     $('#wrap_cart').hide();
     $('#cart_message').html(""); // 팝업 내용 비움
+}
+
+/**
+ * 전체 영상보기 간편 장바구니 토스트 메시지 제거
+ **/
+var fn_popFvEasyCart = function() {
+    $('#fv_wrap_cart').hide();
+    $('#fv_cart_message').html(""); // 팝업 내용 비움
 }
 
 /**
@@ -210,6 +218,9 @@ var appendEasyCart = function(cnt, product_id) {
         },
         success     : function(result) {
         	console.log("## 장바구니 담기 시도 : " + JSON.stringify(result));
+
+        	// 장바구니 담기
+            console.log("######## app.js 장바구니에 담기? : " + JSON.stringify(param));
 
         	if(result['resultCode'] == 1) {
         		console.log("### 장바구니 담기 성공");

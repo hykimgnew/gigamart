@@ -372,9 +372,18 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 }
                 // 장바구니 담기
                 if(fvFocus == 1) {
-                    $('#pop_cart').show();
+                    /*$('#pop_cart').show();
                     fvFocus = 0;
-                    setTimeout("fn_popCart()", 1500);
+                    setTimeout("fn_popCart()", 1500);*/
+                    // 장바구니 담기
+                    var idx = currentFocusMenu + (4 * currentOrderedProductPage1);
+
+                    appendEasyCart(1, productList3[idx]["product_id"]);
+                    $('#fv_cart_message').html("장바구니에 " + productList3[idx]["title"] + " 상품이 1개 담겼습니다.");
+                    $('#fv_wrap_cart').show();
+                    // 플로팅 메뉴 장바구니 SET
+                    fltEasyCart();
+                    setTimeout("fn_popFvEasyCart()", 1500);
                 }
 
                 // 상품 상세보기

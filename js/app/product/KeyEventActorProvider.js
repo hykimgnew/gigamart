@@ -573,6 +573,8 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                             console.log("장바구니에 담겼습니다..");
                             
                             // 장바구니 담기
+                            console.log("######## 장바구니에 담을 수량 : " + Number($('span[name="pr_num_numP"]').html()));
+
                             appendEasyCart(Number($('span[name="pr_num_numP"]').html()), requestCategoryDtlId);
                             $('#cart_message').html("장바구니에 현재 상품이 " + $('span[name="pr_num_num"]').html() + "개 담겼습니다.");
                             $('#wrap_cart').show();
