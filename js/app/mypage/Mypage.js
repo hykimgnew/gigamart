@@ -464,12 +464,14 @@ var refFocusMenu2 = 0;
 // *  취소/환불내역상세 list page
 // * currentRefDtListPage       = 취소/환불내역상세 LIST 현재 페이지 (default : 0)
 // * totalRefDtListPage         = 취소/환불내역상세 LIST 전체 페이지
+// * totalRefDt2ListPage        = 취소/환불내역상세2 LIST 전체 페이지(상세1view에서의 갯수(2) 빼고)
 // * maxRefDtListPage           = 취소/환불내역상세 LIST 한 페이지에 들어갈 쇼퍼 수 (default : 2)
 // * arrRefDtList               = 취소/환불내역상세 LIST 배열
 // * arrOrderDtTotalList        = 취소/환불내역상세 total페이지 LIST 배열
 //*************************************************
 var currentRefDtListPage  = 0;
 var totalRefDtListPage    = 0;
+var totalRefDt2ListPage    = 0;
 var maxRefDtListPage      = 2;
 var arrRefDtList          = new Array();
 var arrRefDtTotalList   = new Array();
