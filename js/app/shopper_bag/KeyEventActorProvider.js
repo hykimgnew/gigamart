@@ -1261,6 +1261,16 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').append(btnokfill);
                     $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').addClass('focus');
                 }
+                else if(requestSetMenu == '목살스테이크카레'){
+                    $('li[name="sbl_list"]').eq(currentFocusMenu).removeClass('focus');
+
+                    currentFocusList = 1;
+                    currentFocusMenu2 = 0;
+
+                    $('li[name="pl_menu"]').eq(currentFocusMenu2).addClass('focus');
+                    $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').append(btnokfill);
+                    $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').addClass('focus');    
+                }
             }
         });
     },
@@ -1290,9 +1300,10 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 }
                 console.log("##### 마트는 지금 List json " + JSON.stringify(result));
 
-                arrMartList = new Array(); // 리스트 초기화
+                //arrMartList = new Array(); // 리스트 초기화
 
                 $.each(result['tweet'], function(index, entry) {
+                    console.log("index-->>"+index);
                     var cnt = 0;
                     makeTweetList();
                     // *** 쇼퍼 이미지 ***/
@@ -1325,9 +1336,9 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 console.log("#####################################");
                 console.log("총페이지수: " + totalMartListPage);
                 console.log("마트는 지금 리스트 : " + JSON.stringify(arrMartList));
-                for(var i=0 ; i < arrMartList.length ; i++) {
-                    console.log("arrMartList[index]: " + JSON.stringify(arrMartList[i]));
-                }
+                // for(var i=0 ; i < arrMartList.length ; i++) {
+                //     console.log("arrMartList[index]: " + JSON.stringify(arrMartList[i]));
+                // }
                 console.log("######################################");
             }
         });
@@ -1380,13 +1391,12 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             console.log("i : "+i);
             console.log("page : "+page);
             console.log("##### 마트는 지금 List json 페이지이동 " + JSON.stringify(arrMartList));
-            console.log("arrMartList[Number(page)+Number(i)] : "+arrMartList[0].tweet_date);
-            console.log("arrMartList[Number(page)+Number(i)] : "+arrMartList[1].tweet_date);
+            console.log("arrMartList[Number(page)+Number(i)] : "+arrMartList[Number(page+i)].shopper_img);
             //console.log("00@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+arrMartList.shopper_id);
             //console.log("arrMartList[currentMartListPage].shopper_id : "+arrMartList[currentMartListPage].shopper_id);
             makeTweetList();
             // *** 쇼퍼 이미지 ***/
-            $('span[name="shopper_img"]').eq(i).empty().append("<img src=" + arrMartList[Number(page+i)].shopper_img + " width='60' height='68' />");
+            $('span[name="shopper_img"]').eq(i).empty().append("<img src=" + cmsServerIp+ arrMartList[Number(page+i)].shopper_img + " width='60' height='68' />");
             // *** 쇼퍼 ID ***/
             $('li[name="shopper_id"]').eq(i).empty().append(arrMartList[Number(page+i)].shopper_id);
             // *** 트윗 일시 ***/
@@ -1394,7 +1404,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             // *** 트윗 내용 ***/
             $('li[name="tweet"]').eq(i).empty().append(arrMartList[Number(page+i)].tweet);
             // *** 제품 이미지 ***/
-            $('li[name="product_img"]').eq(i).empty().append("<img src=" + arrMartList[Number(page+i)].tweet_img + "  height='180' />"); //width='393'
+            $('li[name="product_img"]').eq(i).empty().append("<img src=" + cmsServerIp+ arrMartList[Number(page+i)].tweet_img + "  height='180' />"); //width='393'
             } 
         }
         
