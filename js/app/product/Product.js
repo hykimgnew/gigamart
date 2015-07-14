@@ -33,6 +33,11 @@ var requestCategoryDtlCode  = request.getParameter("categoryDtlCode");
 var requestCategoryDtlPage  = request.getParameter("categoryDtlPage");
 var requestCategoryDtlId  = request.getParameter("id");
 
+//*************************************************
+// * 기획전에서 넘어온 카테고리 코드
+//*************************************************
+var requestExhbFocus  = request.getParameter("requestExhbFocus");
+var requestExhbPage   = request.getParameter("requestExhbPage");
 
 
 

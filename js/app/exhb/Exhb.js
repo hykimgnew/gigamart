@@ -14,6 +14,12 @@ var GO_EXHB       = request.getParameter("GO_EXHB");
 
 
 //*************************************************
+// * 전체영상보기 -> 상품상세정보 -> 기획전 지금 이상품 이가격 포커싱 
+//*************************************************
+var requestExhbFocus  = request.getParameter("requestExhbFocus");
+var requestExhbPage   = request.getParameter("requestExhbPage");
+
+//*************************************************
 // * Popup
 // * isFullVideo           : 전체 영상보기
 // * isCart                : 간편 장바구니

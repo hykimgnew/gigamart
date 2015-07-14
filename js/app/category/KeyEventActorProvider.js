@@ -93,9 +93,12 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             $('#shlr_on').removeClass("shlr_on");
             $('#shlr_on').addClass("shlr_off");    
         }
+        fltEasyCart();
+
+        // 카테고리 목록 조회
+        this.selectCategoryList();
         
         // 영상 재생
-        fltEasyCart();
         this.videoPlay("test", currentFocusMenu);
         
         console.log("############# requestCategoryCode : " + requestCategoryCode);
@@ -1001,6 +1004,35 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         }
     },
 
+
+    // 카테고리 목록 조회 20150714 카테고리 하드코딩 삭제 관련 
+    selectCategoryList: function() {
+        var param = '';
+        //var encCateUrl = unescape(encodeURIComponent("채소"));
+        //var decCateUrl = decodeURIComponent(encCateUrl);
+        var decCateUrl = encodeURI(encodeURIComponent("채소"));
+        
+        $.ajax({
+            url         : cmsServerIp + "/TVProductCategory/sub/" + decCateUrl,
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                console.log("#####%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 카테고리 목록 " + JSON.stringify(result));
+
+                $.each(result['shopper'], function(index, entry) {
+                });
+            }
+        });
+    },
+
+
+
+
     // 영상재생
     videoPlay: function(url, category) {
 
@@ -1061,7 +1093,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
     },
     
     // 화면 이동 시 메뉴 갱신
-    menuRefresh: function() {
+    /*menuRefresh: function() {
         var appendHtml = "";
 
         // 쇼퍼's Bag
@@ -1190,7 +1222,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
 
         pageArrowUtil1(); // 페이징 화살표 컨트롤
     },
-
+*/
     addKeyEventActor: function (instance, conditionFunction) {
     	this.actors.push({
     		instance: instance,

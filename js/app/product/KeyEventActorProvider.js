@@ -33,6 +33,8 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
         // 플로팅 메뉴 장바구니 SET
         fltEasyCart();
 
+        console.log("지금 이상품 이가격 포커스 : " + requestExhbFocus);
+        console.log("지금 이상품 이가격 페이지 : " + requestExhbPage);
         console.log("###################################################################################################################");
         console.log("############# requestProductView : " + requestProductView);
         console.log("############# requestCurrentFocusList : " + requestCurrentFocusList);
@@ -573,9 +575,9 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                             console.log("장바구니에 담겼습니다..");
                             
                             // 장바구니 담기
-                            console.log("######## 장바구니에 담을 수량 : " + Number($('span[name="pr_num_numP"]').html()));
+                            console.log("######## 장바구니에 담을 수량 : " + Number($('span[name="pr_num_num"]').html()));
 
-                            appendEasyCart(Number($('span[name="pr_num_numP"]').html()), requestCategoryDtlId);
+                            appendEasyCart(Number($('span[name="pr_num_num"]').html()), requestCategoryDtlId);
                             $('#cart_message').html("장바구니에 현재 상품이 " + $('span[name="pr_num_num"]').html() + "개 담겼습니다.");
                             $('#wrap_cart').show();
                             // 플로팅 메뉴 장바구니 SET
@@ -1447,15 +1449,21 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 
                 
             } else if (keyCode === global.VK_BACK) {
-                if(requestCategoryCode  == null || requestCategoryCode  == '' || requestCategoryCode  == 'undefined') {
-                    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%기획전으로 이동");
-                    location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS; // 기획전 이동
-                }else{
+                console.log("지금 이상품 이가격 포커스 : " + requestExhbFocus);
+                console.log("지금 이상품 이가격 페이지 : " + requestExhbPage);
+                if(requestCategoryCode  != null && requestCategoryCode  != '' && requestCategoryCode != 'undefined') {
                     console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%전체 카테고리로 이동");
                     // 전체 카테고리로 이동
                     //this.transCategoryCode(); // 한글코드를 숫자코드로 변환 후 페이지 이동
                     location.href = "category_dtl.html?categoryCode=" + requestCategoryCode + "&categoryDtlCode=" + requestCategoryDtlCode + "&categoryDtlPage=" + requestCategoryDtlPage + "&SHOPPER_STATUS=" + SHOPPER_STATUS;
-                
+                }
+                else if(requestExhbFocus != null && requestExhbFocus != '' && requestExhbFocus != 'undefined') {
+                    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%기획전으로 이동 (지금 이상품 이가격 포커싱)");
+                    location.href = "exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS + "&requestExhbFocus=" + requestExhbFocus + "&requestExhbPage=" + requestExhbPage; // 기획전 이동
+                }
+                else{
+                    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%기획전으로 이동");
+                    location.href = "exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS; // 기획전 이동
                 }
                 
                 
