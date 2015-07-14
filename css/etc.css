@@ -318,6 +318,9 @@ line-height: 27px!important;
 #div_fav{
 	min-height : 372px;
 }
+#div_new {
+	min-height: 372px;
+}
 #content .favorite .allSelect.focus {
 color: #08760d;
 }
@@ -392,4 +395,9 @@ left: 0px!important;
 .shopper_real_time .srt_info {
 position: absolute!important;
 right: 52px!important;
+}
+#content .favorite .favoriteList .fl_left .favorite_list .dl_menu_areaN {
+padding: 0 0 30px 30px;
+width: 190px;
+float: left;
 }

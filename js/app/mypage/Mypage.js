@@ -140,12 +140,14 @@ var favFocusMenu = 0;
  *                             4567
  * arrFavList      = 찜한상품list 배열
  * currentPageCnt  = 현재 페이지의 상품 갯수
+* totalFavCount = 총상품갯수
  **/
 var horizonFocus  = 0;
 var verticalFocus = 0;
 var favFocusMenu = 0;
 var arrFavList          = new Array();
 var currentPageCnt = 0;
+var totalFavCount = 0;
 
 /**
  * 찜한상품 버튼위치 
@@ -209,12 +211,14 @@ var newFocusList = 0;
  *                             4567
  * arrNewList      = 자주구매한상품 list 배열
  * currentNewPageCnt  = 현재 페이지의 상품 갯수
+ * totalNewCount = 총상품갯수
  **/
 var horizonNewFocus  = 0;
 var verticalNewFocus = 0;
 var newFocusMenu = 0;
 var arrNewList          = new Array();
 var currentNewPageCnt = 0;
+var totalNewCount     = 0;
 
 //*************************************************
 // *  자주구매한상품list page

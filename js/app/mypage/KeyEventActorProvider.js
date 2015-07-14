@@ -77,7 +77,40 @@ function makeFavProduct() {
     $('#div_fav').append(appendHtml);
 }
 
+// 마이 최근본상품
+function makeNewProduct() {
 
+    var appendHtml =  '<div class="dl_menu_areaN">';
+        appendHtml += '    <ul> ';
+        appendHtml += '    <li class="dl_menu mg_r5" name="new_menu">';
+        appendHtml += '    <span class="dm_bdr"></span>';
+        appendHtml += '       <ul>';
+        appendHtml += '           <li class="dlm_img" name="new_img"></li>';
+        appendHtml += '           <li class="dlm_tit" name="new_tit"></li>';
+        appendHtml += '           <li class="dlm_price" name="new_price"></li>';
+        appendHtml += '      </ul>';
+        appendHtml += '      <input type="hidden" name="new_pd_id" class="new_pd_id" id=""/>';
+        appendHtml += '      <input type="hidden" name="new_cate_id" class="new_cate_id" id=""/>';
+        appendHtml += '    </li>';
+        appendHtml += '    </ul>';
+        appendHtml += '</div>';
+
+        // <div class="dl_menu_area">
+        //     <ul>    
+        //         <li class="dl_menu mg_r5" name="fav_menu">
+        //             <span class="dlm_checkbox"><img src="../images/checkbox_sel.png" /></span> 또는<img src="../images/checkbox.png" />
+        //             <span class="dm_bdr"></span>
+        //             <ul>
+        //                 <li class="dlm_img" name="fav_img"><img src="../images/sample_01.jpg" /></li>
+        //                 <li class="dlm_tit" name="fav_tit">1달달한 사과</li>
+        //                 <li class="dlm_price" name="fav_price">24,900원</li>
+        //             </ul>
+        //         </li>
+        //     </ul>
+        // </div>
+
+    $('#div_new').append(appendHtml);
+}
 
 //주문내역 목록
 function makeOrderProduct() {
@@ -187,9 +220,6 @@ function makeOrderDtProduct2() {
 
     $('#mod_row_tit2').append(appendHtml);
 }
-
-
-
 
 //환불/취소내역 목록
 function makeRefProduct() {
@@ -330,13 +360,14 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
         // 플로팅 메뉴 장바구니 SET
         fltEasyCart();
 
-        //마이페이지 메인에 상단메뉴의 
+        //마이페이지 메인에 상단메뉴의 찜한상품 totalcount를 위해
         this.totFav();
+        //마이페이지 메인에 상단메뉴의 최근봄상품 totalcount를 위해
+        this.totNew();
         //마이페이지 주문내역
         this.selectMyOrderList();
-        //취소/환불내역
+        //취소/환불내역 totalcount를 위해
         this.totRef(1);
-
         //주문내역 totalcount를 위해
         this.totOrder(1);
         
@@ -814,13 +845,13 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         //최근본상품 _ 자주구매한 상품
                         else if(currentFocusMenu == 2){
                             myView = 3;
-                            newFocusList = 1;
-                            $('div[name="pop_popnew_non"]').show();
-                            // $('li[name="nm_menu"]').eq(currentFocusMenu).removeClass('focus');
-                            // $('div[name="view_my"]').hide();
-                            // myView = 3;
-                            // $('div[name="view_new"]').show();
-                            // this.myNewList();
+                            newFocusList = 0;
+                            //$('div[name="pop_popnew_non"]').show();
+                            $('li[name="nm_menu"]').eq(currentFocusMenu).removeClass('focus');
+                            $('div[name="view_my"]').hide();
+                            myView = 3;
+                            $('div[name="view_new"]').show();
+                            this.myNewList();
                         }
                         //취소 환불내역
                         else if(currentFocusMenu == 3){
@@ -948,10 +979,21 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         }
 
                 }
-                //자주구매한 상품
+                //자주구매한 상품 - 최근본상품
                 else if(myView == 3){
+                    //리스트일때->상품상세이동
+                    if(newFocusList == 0){
+                        var requestCategoryDtlId = "";
+                        var requestCategoryDtlCode = "";
+                        var pd_id = $('li[name="new_menu"]').eq(newFocusMenu).children('.new_pd_id').val();
+                        var cate_id = $('li[name="new_menu"]').eq(newFocusMenu).children('.new_cate_id').val();
+                        console.log("pd_id : "+pd_id);
+                        console.log("cate_id : "+cate_id);
+                        location.href = EXHB_PATH + "product1.html?id="+pd_id+"&categoryDtlCode="+cate_id+"&SHOPPER_STATUS=" + SHOPPER_STATUS;
+                     
+                    }
                     //팝업일때
-                    if(newFocusList == 1){
+                    else if(newFocusList == 1){
                         myView = 0;
                         $('div[name="pop_popnew_non"]').hide();
                     }
@@ -1146,7 +1188,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                             prevPageYN = false;
                                             // $('#arrow_top').hide();
                                         } 
-                                        //updateSubCategoryList();                // 페이지 변경
+                                        this.updateSubCategoryList();                // 페이지 변경
                                         verticalFocus   = verticalFocus + 2;    // 행 증가(전페이지의 마지막으로 위치)
                                         horizonFocus    = horizonFocus;         // 열 증감 없음
                                         favFocusMenu    = favFocusMenu - 4;   // 위치 변경
@@ -1201,7 +1243,57 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                             
                         }
                     }
+                    //최근 본상품
                     else if(myView == 3){
+                        //상품목록
+                        if(newFocusList == 0){
+                            console.log("verticalNewFocus : "+verticalNewFocus+" ,현재 포커스 위치(newFocusMenu) : " + newFocusMenu);
+                            console.log("prevNewPageYN : "+prevNewPageYN+" ,nextNewPageYN : " + nextNewPageYN);
+                            console.log("currentNewListPage : "+currentNewListPage+" ,nextNewPageYN : " + nextNewPageYN);
+                            // 첫번째 행 일때
+                            if(verticalNewFocus == 0) {
+                                if(prevNewPageYN == true) {
+                                    // 전 페이지 조회
+                                    console.log("### 최근 본상품 : 전 페이지 조회");
+                                    currentNewListPage = currentNewListPage - 1;
+
+                                    if(currentNewListPage <= 0) {
+                                        // 현재 페이지가 0이면 이전 페이지 없음 처리
+                                        prevNewPageYN = false;
+                                        // $('#arrow_top').hide();
+                                    } 
+                                    this.updateSubCategoryNewList();                      // 페이지 변경
+                                    verticalNewFocus   = verticalNewFocus + 2;      // 행 증가(전페이지의 마지막으로 위치)
+                                    horizonNewFocus    = horizonNewFocus;           // 열 증감 없음
+                                    newFocusMenu       = newFocusMenu - 4;             // 위치 변경
+                                    //updateProductInfo();                          // 우측 상품 정보 갱신
+
+                                    $('li[name="new_menu"]').eq(newFocusMenu).addClass('focus');
+                                    $('li[name="new_menu"]:eq('+ newFocusMenu + ') > .dm_bdr').append(btnokfill);
+                                }
+                                else if(prevNewPageYN == false && currentNewListPage <= 0) {
+                                    // 전 페이지 없음
+                                    console.log("최근 본상품 : 전 페이지 없음");
+                                }
+                                
+                            }
+
+                            // 두번째 행 일때
+                            else if(verticalNewFocus >= 1 && verticalNewFocus < 2) {
+                                console.log("두번째 행 일때");
+                                $('li[name="new_menu"]').eq(newFocusMenu).removeClass('focus');
+                                $('li[name="new_menu"]:eq('+ newFocusMenu + ') > .dm_bdr').empty();
+                                verticalNewFocus   = verticalNewFocus - 1;    // 행 감소
+                                horizonNewFocus    = horizonNewFocus;         // 열 증감 없음
+                                newFocusMenu       = newFocusMenu - 4;  // 위치 변경
+                                //updateProductInfo();                    // 우측 상품 정보 갱신
+                                $('li[name="new_menu"]').eq(newFocusMenu).addClass('focus');
+                                $('li[name="new_menu"]:eq('+ newFocusMenu + ') > .dm_bdr').append(btnokfill);
+                                
+                                
+
+                            }
+                        }
 
                     }
                     //취소/환불내역
@@ -1321,7 +1413,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 
                             //리스트없는거면 토탈페이지이므로 이전페이지로
                             if($('tr[name="ref_dt_menu2"]').length == 0){
-                                console.log("리스트없는거면 토탈페이지이므로 이전페이지로");
+                                console.log("리스트없는거면 토탈페이지이므로 이전페이지로   refDtFocusMenu : "+refDtFocusMenu);
                                 refDt2FocusList = 0;
                                 this.pagingRefDtProduct(Number(currentRefDtListPage)-1);
                             }
@@ -1645,7 +1737,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                     horizonFocus    = horizonFocus;         // 열 증감 없음
                                     favFocusMenu    = favFocusMenu + 4;     // 위치 변경
                                     //updateProductInfo();                    // 우측 상품 정보 갱신
-
+                                    console.log("마이페이지 찜한상품 : verticalFocus-->" + verticalFocus);
                                     $('li[name="fav_menu"]').eq(favFocusMenu).addClass('focus');
                                     $('li[name="fav_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').append(btnokfill);
                                 }
@@ -1669,11 +1761,12 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 }
                             }
 
-                            // 두번째 행 일때
-                            else if(verticalFocus == 2) {
-
+                            // 
+                            else if(verticalFocus == 1) {
+                                console.log("마이페이지 찜한상품 : 두번째 행 일때" + nextPageYN);
                                 //편집모드아닐때
                                 if(favUpdateMode == false){
+                                    console.log("마이페이지 찜한상품 : 다음 페이지 조회nextPageYN" + nextPageYN);
                                     if(nextPageYN == true) {
                                         // 다음 페이지 조회
                                         console.log("마이페이지 찜한상품 : 다음 페이지 조회");
@@ -1683,7 +1776,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                         $('#arrow_top').show();
 
                                         currentFavListPage = currentFavListPage + 1;
-                                        //updateSubCategoryList();    // 페이지 변경
+                                        this.updateSubCategoryList();    // 페이지 변경
                                         verticalFocus   = verticalFocus - 2;    // 행 감소
                                         horizonFocus    = horizonFocus;         // 열 증감 없음
                                         favFocusMenu    = 0;  // 위치 변경
@@ -1732,8 +1825,81 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         }
 
                     }
+                    //최근 본상품
                     else if(myView == 3){
+                        //상품목록
+                        if(newFocusList == 0){
+                            // 첫번째 행 일때
+                            if(verticalNewFocus >= 0 && verticalNewFocus < 1) {
+                                
+                                // 총 갯수에서 3을 뺀 수가 포커스보다 작을 때 아래로 이동 불가 
+                                console.log("### 마이페이지 최근 본상품 아래 이동 시 전체 갯수 : " + currentNewPageCnt + " 현재 포커스 위치 : " + newFocusMenu);
 
+                                if(currentNewPageCnt - 4 <= newFocusMenu) {
+                                    console.log("###### 마이페이지 최근 본상품 아래로 이동 불가");
+                                    return;
+                                } else {
+                                    console.log("###### 마이페이지 최근 본상품 아래로 이동 가능");
+                                }
+
+                                $('li[name="new_menu"]').eq(newFocusMenu).removeClass('focus');
+                                $('li[name="new_menu"]:eq('+ newFocusMenu + ') > .dm_bdr').empty();
+
+                                verticalNewFocus   = verticalNewFocus + 1;   // 행 증가
+                                horizonNewFocus    = horizonNewFocus;        // 열 증감 없음
+                                newFocusMenu       = newFocusMenu + 4;       // 위치 변경
+                                //updateProductInfo();                       // 우측 상품 정보 갱신
+
+                                $('li[name="new_menu"]').eq(newFocusMenu).addClass('focus');
+                                $('li[name="new_menu"]:eq('+ newFocusMenu + ') > .dm_bdr').append(btnokfill);
+                                
+                            }
+
+                            // 두번째 행 일때
+                            else if(verticalNewFocus == 2) {
+                                if(nextNewPageYN == true) {
+                                    // 다음 페이지 조회
+                                    console.log("마이페이지 최근 본상품 : 다음 페이지 조회");
+                                    
+                                    // 페이지 이동했으므로 전 페이지 존재
+                                    prevNewPageYN = true;
+                                    $('#arrow_top').show();
+
+                                    currentNewListPage = currentNewListPage + 1;
+                                    this.updateSubCategoryNewList();    // 페이지 변경
+                                    verticalNewFocus   = verticalNewFocus - 2;    // 행 감소
+                                    horizonNewFocus    = horizonNewFocus;         // 열 증감 없음
+                                    newFocusMenu    = 0;  // 위치 변경
+
+                                    // 아래로 이동했을때 아래 위치에 상품이 없으면 (이동할 포커스가 다음 페이지 상품 수 보다 큼)
+                                    if(currentNewPageCnt <= newFocusMenu + 1) {
+                                        newFocusMenu = currentNewPageCnt - 1;
+                                        horizonNewFocus = currentNewPageCnt - 1;
+                                    }
+
+                                   //updateProductInfo();                    // 우측 상품 정보 갱신
+
+                                    console.log("### 아래 이동 시 전체 갯수 : " + currentNewPageCnt + " 현재 포커스 위치 : " + newFocusMenu);
+                                    
+                                    console.log("### 아래 이동 시 전체 갯수 : " + currentNewPageCnt + " 현재 포커스 위치 : " + newFocusMenu);
+
+                                    $('li[name="new_menu"]').eq(newFocusMenu).addClass('focus');
+                                    $('li[name="new_menu"]:eq('+ newFocusMenu + ') > .dm_bdr').append(btnokfill);
+                                }
+                                else if(nextNewPageYN == false) {
+                                    // 다음 페이지 없음
+                                    console.log("마이페이지 최근 본상품 : 다음 페이지 없음");
+                                }
+                            }
+                            //상품목록의 1행일때 2행으로 이동
+                            // if(verticalFocus == 0){
+                            //     $('li[name="fav_menu"]').eq(favFocusMenu).removeClass('focus');
+                            //     $('li[name="fav_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').empty();
+                            //     verticalFocus   = verticalFocus + 1;        // 행 증가
+                            //     horizonFocus    = horizonFocus;     // 열 증감 없음
+                            //     favFocusMenu    = favFocusMenu + 4;  // 위치 변경
+                            // }
+                        }
                     }
                     //취소/환불내역
                     else if(myView == 4){
@@ -2475,8 +2641,24 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         }
 
                     }
+                    //최근 본상품
                     else if(myView == 3){
+                        //상품목록
+                        if(newFocusList == 0){
+                            // 상품 목록 두번째, 세번째, 네번째 열일 때
+                            if(horizonNewFocus >= 1 && horizonNewFocus < 4) {
+                                $('li[name="new_menu"]').eq(newFocusMenu).removeClass('focus');
+                                $('li[name="new_menu"]:eq('+ newFocusMenu + ') > .dm_bdr').empty();
 
+                                verticalNewFocus   = verticalNewFocus;        // 행 증감 없음
+                                horizonNewFocus    = horizonNewFocus - 1;     // 열 감소
+                                newFocusMenu       = newFocusMenu - 1;  // 위치 변경
+                                //updateProductInfo();                    // 우측 상품 정보 갱신
+
+                                $('li[name="new_menu"]').eq(newFocusMenu).addClass('focus');
+                                $('li[name="new_menu"]:eq('+ newFocusMenu + ') > .dm_bdr').append(btnokfill);
+                            }
+                        }
                     }
                     //취소/환불내역
                     else if(myView == 4){
@@ -2665,8 +2847,51 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
 
                         }
                     }
+                    //최근 본상품
                     else if(myView == 3){
+                        console.log("최근 본상품최근 본상품최근 본상품 : "+newFocusList)
+                        //상품목록
+                        if(newFocusList == 0){
+                            console.log("new menu 길이"+$('li[name="new_menu"]').length);//3
+                            var newMenuLen = $('li[name="new_menu"]').length;
+                            currentNewPageCnt = newMenuLen
+                            // 총 갯수에서 1을 뺀 수가 포커스보다 작을 때 오른쪽으로 이동 불가 
+                            console.log("### 우측 이동 시 전체 갯수 : " + currentNewPageCnt + " 현재 포커스 위치 : " + newFocusMenu+",horizonNEWFocus : "+horizonNewFocus);
+                            // 상품 목록 첫번째, 두번째 세번째 열일 때
+                            if(horizonNewFocus >= 0 && horizonNewFocus < 3) {
+                                // 우측에 상품이 있을때
+                                if(currentNewPageCnt > newFocusMenu+1) {
+                                    $('li[name="new_menu"]').eq(newFocusMenu).removeClass('focus');
+                                    $('li[name="new_menu"]:eq('+ newFocusMenu + ') > .dm_bdr').empty();
 
+                                    verticalNewFocus   = verticalNewFocus;        // 행 증감 없음
+                                    horizonNewFocus    = horizonNewFocus + 1;     // 열 증가
+                                    newFocusMenu    = newFocusMenu + 1;  // 위치 변경
+                                    //updateProductInfo();      
+                                    $('li[name="new_menu"]').eq(newFocusMenu).addClass('focus');
+                                    $('li[name="new_menu"]:eq('+ newFocusMenu + ') > .dm_bdr').append(btnokfill);
+                                    
+
+
+                                // 우측에 상품이 없을 때
+                                }else if(currentNewPageCnt == newFocusMenu+1) {
+                                    console.log("### 우측에 상품이 없어");
+                                    //$('li[name="fav_menu"]').eq(favFocusMenu).removeClass('focus');
+                                    //$('li[name="fav_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').empty();
+                                    //favFocusList = 2; // 화살표 버튼으로
+                                    //$('span[name="fav_btn_ud"]').addClass('focus');
+                                }
+                            }
+                            // 상품 목록 네번째열일때
+                            else if(horizonNewFocus == 3){
+                                console.log("###4번째열 있을때->이동XXXXXX");
+                                // $('li[name="fav_menu"]').eq(favFocusMenu).removeClass('focus');
+                                // $('li[name="fav_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').empty();
+                                // favFocusList = 2; // 화살표 버튼으로
+                                // $('span[name="fav_btn_ud"]').addClass('focus');
+                                
+                            }             
+                        }
                     }
                     //취소/환불내역
                     else if(myView == 4){
@@ -2755,6 +2980,18 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 }
                 //자주구매상품 화면
                 else if(myView == 3){
+                    //$('div[name="fav_allSelect"]').removeClass('focus');
+                    //$('span[name="fav_btn_ud"]').removeClass('focus');
+                    $('div[name="view_new"]').hide();
+                    myView = 0;
+                    newFocusList = 0;
+                    newFocusMenu = 0;
+                    horizonNewFocus = 0;
+                    verticalNewFocus = 0;
+                    currentNewPageCnt = 0;
+                    $('#div_new').empty();
+                    $('div[name="view_my"]').show();
+                    $('li[name="nm_menu"]').eq(currentFocusMenu).addClass('focus');
 
                 }
                 //취소/환불내역 화면->마이페이지
@@ -3039,7 +3276,13 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 var cnt = $('#flt_cnt').eq(0).html();
                 var cnt2 = $('#flt_cost').eq(0).html();
                 console.log("123###############################################################장바구니갯수-->"+cnt);
-                $('span[name="bag_tot"]').html(cnt);
+                var cnt_html = 0;
+                if(cnt < 10){
+                    cnt_html = "0" + cnt;
+                }else{
+                    cnt_html = cnt;
+                }
+                $('span[name="bag_tot"]').html(cnt_html);
                 $('span[name="flt_cnt"]').html(cnt);
                 $('li[name="flt_cost"]').html(cnt2);
             }
@@ -3171,6 +3414,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 //결과값 있을때
                 else{
                     var resultLen = result['favorite'].length;
+                    totalFavCount = resultLen;
                     if(resultLen < 10){
                         resultLen = "0"+resultLen; 
                     }
@@ -3218,137 +3462,140 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             }
         });
     },
-    // 조회 : 자주구매한상품
-    // myNewList: function() {
-    //     var param = '';
-    //     var appendHtml = '';
-    //     var str = '';
+    //조회 : 최근본상품
+    myNewList: function() {
+        var param = '';
+        var appendHtml = '';
+        var str = '';
 
-    //     $.ajax({
-    //         url         : cmsServerIp + "/BuyerFavoriteTask/Select",
-    //         type        : "post",
-    //         dataType    : "json",
-    //         data        : param,
-    //         async       : true,
-    //         xhrFields   : {
-    //                         withCredentials: true
-    //         },
-    //         success     : function(result) {
-    //             var obj = result;
-    //             var obj_length = Object.keys(obj).length;
-    //             console.log("obj_length---->"+obj_length);
-    //             //값이 없을때
-    //             if(obj_length == 1){
-    //                 console.log("값이 없다.!@@@@@@@@@@@@@!!!!!!!!");
-    //                 $('a[name="arrow_top_new"]').removeClass('arrow_top');
-    //                 $('a[name="arrow_bottom_new"]').removeClass('arrow_bottom');
-    //                 $('span[name="tot_new"]').empty().html("0"); //상단 찜한 상품 총 갯수
-    //                 //$('#pop_popfav_non').show();
-    //                 $('div[name="pop_popnew_non"]').show();
-    //                 favFocusList = 3;
-    //                 return;
-    //             }else{
-    //                 var resultLen  = result['favorite'].length;
-    //                 currentPageCnt = resultLen;
-    //                 // 결과값이 8보다 크면 다음 페이지 존재
-    //                 if(resultLen > 8) { 
-    //                     for(var i=0; i<8; i++){
-    //                         makeFavProduct();  
-    //                         nextPageYN = true;
-    //                     }
-    //                     $('a[name="arrow_top_fav"]').removeClass('arrow_top');
-    //                     $('a[name="arrow_bottom_fav"]').addClass('arrow_bottom focus');
-    //                 }
-    //                 // 결과값이 8보다 작은경우 다음페이지 존재x
-    //                 else if(resultLen < 8){
-    //                     for(var i=0; i<resultLen; i++){
-    //                         makeFavProduct();  
-    //                     }
-    //                     $('a[name="arrow_top_fav"]').removeClass('arrow_top');
-    //                     $('a[name="arrow_bottom_fav"]').removeClass('arrow_bottom');
-    //                 }
-    //                 console.log("##### 찜한상품 List json " + JSON.stringify(result));
-    //                 $.each(result['favorite'], function(index, entry) {
-    //                     arrFavList = new Array(); // 리스트 초기화
-    //                     var cnt = 0;
-    //                     $('li[name="fav_img"]').eq(index).empty().append('<img src="' + cmsServerIp + entry["img"] + '" height="92" width="162" />');
-    //                     $('li[name="fav_tit"]').eq(index).empty().append(entry['name']);
-    //                     $('li[name="fav_price"]').eq(index).empty().append(cn_toPrice(entry['cost']) +"원");
-    //                     $('input[name="fav_pd_id"]').eq(index).val(entry['product_id']);
+        $.ajax({
+            url         : cmsServerIp + "/ProductTask/recent",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                var obj = result;
+                var obj_length = Object.keys(obj).length;
+                console.log("obj_length---->"+obj_length);
+                //값이 없을때
+                if(obj_length == 1){
+                    console.log("값이 없다.!@@@@@@@@@@@@@!!!!!!!!");
+                    $('a[name="arrow_top_new"]').removeClass('arrow_top');
+                    $('a[name="arrow_bottom_new"]').removeClass('arrow_bottom');
+                    $('span[name="tot_new"]').empty().html("0"); //상단 찜한 상품 총 갯수
+                    //$('#pop_popfav_non').show();
+                    $('div[name="pop_popnew_non"]').show();
+                    newFocusList = 1;
+                    return;
+                }else{
+                    var resultLen  = result['product'].length;
+                    currentNewPageCnt = resultLen;
+                    // 결과값이 8보다 크면 다음 페이지 존재
+                    if(resultLen > 8) { 
+                        for(var i=0; i<8; i++){
+                            makeNewProduct();  
+                            nextPageYN = true;
+                        }
+                        $('a[name="arrow_top_new"]').removeClass('arrow_top');
+                        $('a[name="arrow_bottom_new"]').addClass('arrow_bottom focus');
+                    }
+                    // 결과값이 8보다 작은경우 다음페이지 존재x
+                    else if(resultLen < 8){
+                        for(var i=0; i<resultLen; i++){
+                            makeNewProduct();  
+                        }
+                        $('a[name="arrow_top_new"]').removeClass('arrow_top');
+                        $('a[name="arrow_bottom_new"]').removeClass('arrow_bottom');
+                    }
+                    console.log("##### 최근본상품 List json " + JSON.stringify(result));
+                    $.each(result['product'], function(index, entry) {
+                        var cnt = 0;
+                        $('li[name="new_img"]').eq(index).empty().append('<img src="' + entry["img"] + '" height="92" width="162" />');
+                        $('li[name="new_tit"]').eq(index).empty().append(entry['name']);
+                        $('li[name="new_price"]').eq(index).empty().append(cn_toPrice(entry['cost']) +"원");
+                        $('input[name="new_pd_id"]').eq(index).val(entry['product_id']);
+                        $('input[name="new_cate_id"]').eq(index).val(entry['subcategory']);
                         
-    //                     appendHtml = {
-    //                                         "img" : entry['img'],
-    //                                         "name" : entry['name'],
-    //                                         "cost" : entry['cost']
-    //                                      };
-    //                     cnt                 = Math.floor(index / maxFavListPage);
-    //                     var str             = appendHtml;
-    //                     arrFavList[index]    = str;
-    //                     console.log("index : " + index + " maxFavListPage : " + maxFavListPage + " cnt : " + cnt);
+                        appendHtml = {
+                                            "img" : entry['img'],
+                                            "name" : entry['name'],
+                                            "cost" : entry['cost'],
+                                            "product_id" : entry['product_id'],
+                                            "subcategory" : entry['subcategory']
+                                         };
+                        cnt                 = Math.floor(index / maxNewListPage);
+                        var str             = appendHtml;
+                        arrNewList[index]    = str;
+                        console.log("index : " + index + " maxNewListPage : " + maxNewListPage + " cnt : " + cnt);
                         
-    //                     totalFavListPage = cnt;
+                        totalNewListPage = cnt;
 
-    //                     console.log("arrFavList[index]: " + arrFavList[index]);
+                        console.log("arrNewList[index]: " + arrNewList[index]);
 
-    //                 });
-    //                 console.log("#####################################");
-    //                 console.log("찜 총페이지수: " + totalFavListPage);
-    //                 console.log("######################################");
-    //                 $('li[name="new_menu"]').eq(favFocusMenu).addClass('focus');
-    //                 $('li[name="new_menu"]:eq('+ favFocusMenu + ') > .dm_bdr').append(btnokfill);
+                    });
+                    console.log("#####################################");
+                    console.log("최근본상품 총페이지수: " + totalNewListPage);
+                    console.log("######################################");
+                    $('li[name="new_menu"]').eq(newFocusMenu).addClass('focus');
+                    $('li[name="new_menu"]:eq('+ newFocusMenu + ') > .dm_bdr').append(btnokfill);
 
-    //                 //찜한상품 페이지표시
-    //                 var totalFavListPage_html = totalFavListPage+1;
-    //                 if(totalFavListPage_html < 10){
-    //                    totalFavListPage_html = "0"+totalFavListPage_html; 
-    //                 }
-    //                 $('b[name="new_cur_pg"]').empty().html("01");
-    //                 $('span[name="new_tot_pg"]').empty().html(totalFavListPage_html);
-    //                 $('span[name="tot_new"]').empty().html(resultLen); //상단 찜한 상품 총 갯수
-    //             }
-    //         }
-    //     });
-    // },
-    // // 조회 : 자주구매한상품
-    // totNew: function() {
-    //     var param = '';
+                    //최근본상품 페이지표시
+                    var totalNewListPage_html = totalNewListPage+1;
+                    if(totalNewListPage_html < 10){
+                       totalNewListPage_html = "0"+totalNewListPage_html; 
+                    }
+                    $('b[name="new_cur_pg"]').empty().html("01");
+                    $('span[name="new_tot_pg"]').empty().html(totalNewListPage_html);
+                    $('span[name="tot_new"]').empty().html(resultLen); //상단 최근본상품 총 갯수
+                }
+            }
+        });
+    },
+    // 조회 : 최근본상품
+    totNew: function() {
+        var param = '';
 
-    //     $.ajax({
-    //         url         : cmsServerIp + "/BuyerFavoriteTask/Select",
-    //         type        : "post",
-    //         dataType    : "json",
-    //         data        : param,
-    //         async       : true,
-    //         xhrFields   : {
-    //                         withCredentials: true
-    //         },
-    //         success     : function(result) {
-    //             var obj = result;
-    //             var obj_length = Object.keys(obj).length;
-    //             console.log("obj_length---->"+obj_length);
-    //             //결과값 없을때 0
-    //             if(obj_length == 1){
-    //                 console.log("123");
-    //                 $('span[name="new_tot"]').empty().html("0");
-    //                 return;
-    //             }
-    //             //결과값 있을때
-    //             else{
-    //                 var resultLen = result['favorite'].length;
-    //                 if(resultLen < 10){
-    //                     resultLen = "0"+resultLen; 
-    //                 }
-    //                 $('span[name="new_tot"]').empty().html(resultLen);
-    //             }
-    //             // else if(result['favorite'].length < 10){
-    //             //    var resultLen = result['favorite'].length;
-    //             //    resultLen = "0"+resultLen; 
-    //             // }
-    //             // $('span[name="fav_tot"]').empty().html(resultLen);
+        $.ajax({
+            url         : cmsServerIp + "/ProductTask/recent",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                var obj = result;
+                var obj_length = Object.keys(obj).length;
+                console.log("obj_length---->"+obj_length);
+                //결과값 없을때 0
+                if(obj_length == 1){
+                    console.log("123");
+                    $('span[name="new_tot"]').empty().html("0");
+                    return;
+                }
+                //결과값 있을때
+                else{
+                    var resultLen = result['product'].length;
+                    totalNewCount = resultLen;
+                    if(resultLen < 10){
+                        resultLen = "0"+resultLen; 
+                    }
+                    $('span[name="new_tot"]').empty().html(resultLen);
+                }
+                // else if(result['favorite'].length < 10){
+                //    var resultLen = result['favorite'].length;
+                //    resultLen = "0"+resultLen; 
+                // }
+                // $('span[name="fav_tot"]').empty().html(resultLen);
                 
-    //         }
-    //     });
-    // },
+            }
+        });
+    },
     // 조회 :주문내역 갯수
     totOrder: function(inter_num) {
         var param = {
@@ -3878,8 +4125,22 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
         }
         //마지막페이지일때
         else if(currentOrderDtListPage == totalOrderDt2ListPage){
-            console.log("==============================마지막페이지일때 TOTAL 페이지==============================")
+            console.log("==============================마지막페이지일때 TOTAL 페이지==============================");
+            var len = $('tr[name="order_dt_menu2"]').length;
+            console.log("len : "+len);
+            //이전페이지에 몇개가 있었느냐에따라 total페이지에서 이전으로 갔을때 focus위치 지정가능/
+            if(objTot_len2 == 1){
+                orderDt2FocusMenu = 0;
+            }
+            else if(objTot_len2 == 2){
+                orderDt2FocusMenu = 1;
+            }
+            else if(objTot_len2 == 3){
+                orderDt2FocusMenu = 2;
+            }
+
             console.log("objTot_len2 : "+objTot_len2);
+            console.log("orderDt2FocusMenu : "+orderDt2FocusMenu);
             orderDtTotalPageYN = true;
             myView = 9;
             $('div[name="view_order_dt1"]').hide();
@@ -4509,6 +4770,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
     },
     // 환불취소상세_2로가는 페이징
     pagingRefDtProduct : function(page) {
+        console.log("페이징진입!!!!!!!!!!!!!!!!!!!!!!refDt2FocusMenu : "+refDt2FocusMenu);
         currentRefDtListPage = 0;
 
         refDtTotalPageYN = false;
@@ -4549,7 +4811,23 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
         //마지막페이지일때
         else if(currentRefDtListPage == totalRefDt2ListPage){
             console.log("==============================마지막페이지일때 TOTAL 페이지==============================")
+
+            var len = $('tr[name="ref_dt_menu2"]').length;
+            console.log("len : "+len);
+            //이전페이지에 몇개가 있었느냐에따라 total페이지에서 이전으로 갔을때 focus위치 지정가능/
+            if(objTot_len2 == 1){
+                refDt2FocusMenu = 0;
+            }
+            else if(objTot_len2 == 2){
+                refDt2FocusMenu = 1;
+            }
+            else if(objTot_len2 == 3){
+                refDt2FocusMenu = 2;
+            }
+
+
             console.log("objTot_len2 : "+objTot_len2);
+            console.log("refDt2FocusMenu : "+refDt2FocusMenu);
             refDtTotalPageYN = true;
             myView = 6;
             $('div[name="view_ref_dt1"]').hide();
@@ -4587,9 +4865,11 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                              $('span[name="arrow_top_ref_dt2"]').addClass('arrow_top focus');
                              $('span[name="arrow_bottom_ref_dt2"]').addClass('arrow_bottom focus'); 
                         }
-                        console.log("refDt2FocusMenu"+refDt2FocusMenu);
+                        console.log("refDt2FocusMenu : "+refDt2FocusMenu);
                         //orderDt2FocusMenu = 0;
-                        $('tr[name="ref_dt_menu2"]').eq(orderDt2FocusMenu).addClass('focus');              
+                        //$('tr[name="ref_dt_menu2"]').eq(0).addClass('focus'); 
+                        //$('tr[name="ref_dt_menu2"]').eq(1).addClass('focus');
+                        $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).addClass('focus');               
                     }
                 }
             }
@@ -4600,6 +4880,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
     pagingRefDtTotalProduct : function() {
         // 현재 페이지
         //currentOrderDtListPage = page;
+        console.log("refDt2FocusMenu : "+refDt2FocusMenu);
         console.log("########취소/환불내역 상세 total보여줌");
         
         $('div[name="ref_dt1_total_view"]').show();
@@ -4622,5 +4903,141 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
         $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).addClass('focus');  
 
     },
+
+    // 페이징 변경 업데이트 - 찜한상품
+    updateSubCategoryList : function () {
+
+       console.log("## 찜한상품 페이징 변경 업데이트");
+       // 변경 해야 할 파라미터 
+       // var horizonFocus  = 0;    가로값 (0~2)
+       // var verticalFocus = 0;    세로값 (0~2)
+       // var currentFocusDtl = 0;  현재위치 (0~8)
+       // var currentFocusDtlPage = 0; 페이지 (0~n)  (한페이지에 8개의 데이터)
+       // var prevPageYN = false; 이전페이지 
+       // var nextPageYN = false; 다음페이지
+       var resultLen    = totalFavCount;            // 데이터 전체 갯수
+       var startIdx     = currentFavListPage * 8;     // 페이지에서 시작되는 idx
+       var endIdx       = (startIdx + 8);
+       var totalPage    = Math.ceil(resultLen / 8);
+
+       console.log("## 전체 페이지 수 : " + totalPage);
+
+       $('#pageNavi').empty().append("<B>" + Number(currentFavListPage+1) + "</b> / " + totalPage);
+
+       // 마지막 페이지 일 때 (마지막 인덱스가 전체 데이터 갯수보다 많을 때)
+       if(resultLen <= endIdx) {
+            nextPageYN = false;        // 다음 페이지 없음
+            $('#arrow_bottom').hide(); // 다음 페이지 방향키 감춤
+            endIdx = resultLen;         // 마지막 인덱스를 최대길이로 변경
+       // 마지막 페이지 아닐 때 (마지막 인덱스가 전체데이터 갯수보다 적을 때)
+       } else {
+            nextPageYN = true;          // 다음 페이지 있음
+            $('#arrow_bottom').show();  // 다음 페이지 방향키
+       }
+
+       var pageSet  = resultSet.slice(startIdx, endIdx); // 전체 데이터에서 페이지 갯수만큼의 데이터를 추출
+       var emptyLen = 9 - pageSet.length;                // 빈 공간 갯수
+       currentPageCnt = pageSet.length;                  // 현재 페이지 상품 cnt
+
+       console.log("####### 빈 페이지 개수 : " + emptyLen);
+       console.log("####### 시작 idx : " + startIdx);
+       console.log("####### 종료 idx : " + endIdx);
+
+       $('ul[name="ul_discount"]').empty();
+
+       // 결과값이 9보다 작으면 결과값 만큼만 상품 리스트를 뿌리고 빈 값으로 나머지를 채워준다.
+        for(var i=0 ; i < pageSet.length ; i++) {
+            console.log("not empty ? : " + i);
+            //makeProduct();
+        }
+        if(emptyLen > 0) {
+            for(var i=0 ; i < emptyLen ; i++) {
+                //makeEmptyProduct();
+                console.log("empty ? : " + i);
+            }
+        }
+
+        $('#pageNavi').empty().append("<B>" + Number(currentFavListPage+1) + "</b> / " + totalPage);
+
+        // 데이터를 넣는다.
+        $.each(pageSet, function(index, entry) {
+            if(index < resultLen) {
+                $('li[name="li_img"]').eq(index).append('<span class="dtl_img"><img src="' + entry['img'] + '" /></span>');
+                $('li[name="li_name"]').eq(index).append(entry['name']);
+                $('li[name="li_cost"]').eq(index).append(cn_toPrice(entry['cost']) + "원");
+            }
+        });
+
+        
+        // 페이징 화살표 컨트롤
+        //pageArrowUtil1(); 
+    },
+    // 페이징 변경 업데이트 - 최근본상품
+updateSubCategoryNewList : function () {
+    console.log("## 최근본상품 페이징 변경 업데이트");
+   // 변경 해야 할 파라미터 
+   // var horizonFocus  = 0;    가로값 (0~2)
+   // var verticalFocus = 0;    세로값 (0~2)
+   // var currentFocusDtl = 0;  현재위치 (0~8)
+   // var currentFocusDtlPage = 0; 페이지 (0~n)  (한페이지에 9개의 데이터)
+   // var prevPageYN = false; 이전페이지 
+   // var nextPageYN = false; 다음페이지
+   var resultLen    = totalNewCount;            // 데이터 전체 갯수
+   var startIdx     = currentNewListPage * 9;     // 페이지에서 시작되는 idx
+   var endIdx       = (startIdx + 9);
+   var totalPage    = Math.ceil(resultLen / 9);
+
+   console.log("## 전체 페이지 수 : " + totalPage);
+
+   $('#pageNavi').empty().append("<B>" + Number(currentNewListPage+1) + "</b> / " + totalPage);
+
+   // 마지막 페이지 일 때 (마지막 인덱스가 전체 데이터 갯수보다 많을 때)
+   if(resultLen <= endIdx) {
+        nextPageYN = false;        // 다음 페이지 없음
+        $('#arrow_bottom').hide(); // 다음 페이지 방향키 감춤
+        endIdx = resultLen;         // 마지막 인덱스를 최대길이로 변경
+   // 마지막 페이지 아닐 때 (마지막 인덱스가 전체데이터 갯수보다 적을 때)
+   } else {
+        nextPageYN = true;          // 다음 페이지 있음
+        $('#arrow_bottom').show();  // 다음 페이지 방향키
+   }
+
+   var pageSet  = resultSet.slice(startIdx, endIdx); // 전체 데이터에서 페이지 갯수만큼의 데이터를 추출
+   var emptyLen = 9 - pageSet.length;                // 빈 공간 갯수
+   currentPageCnt = pageSet.length;                  // 현재 페이지 상품 cnt
+
+   console.log("####### 빈 페이지 개수 : " + emptyLen);
+   console.log("####### 시작 idx : " + startIdx);
+   console.log("####### 종료 idx : " + endIdx);
+
+   $('ul[name="ul_discount"]').empty();
+
+   // 결과값이 9보다 작으면 결과값 만큼만 상품 리스트를 뿌리고 빈 값으로 나머지를 채워준다.
+    for(var i=0 ; i < pageSet.length ; i++) {
+        console.log("not empty ? : " + i);
+        makeProduct();
+    }
+    if(emptyLen > 0) {
+        for(var i=0 ; i < emptyLen ; i++) {
+            makeEmptyProduct();
+            console.log("empty ? : " + i);
+        }
+    }
+
+    $('#pageNavi').empty().append("<B>" + Number(currentNewListPage+1) + "</b> / " + totalPage);
+
+    // 데이터를 넣는다.
+    $.each(pageSet, function(index, entry) {
+        if(index < resultLen) {
+            $('li[name="li_img"]').eq(index).append('<span class="dtl_img"><img src="' + entry['img'] + '" /></span>');
+            $('li[name="li_name"]').eq(index).append(entry['name']);
+            $('li[name="li_cost"]').eq(index).append(cn_toPrice(entry['cost']) + "원");
+        }
+    });
+
+    
+    // 페이징 화살표 컨트롤
+    //pageArrowUtil1(); 
+}
 
 });
