@@ -1859,7 +1859,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                             }
 
                             // 두번째 행 일때
-                            else if(verticalNewFocus == 2) {
+                            else if(verticalNewFocus == 1) {
                                 if(nextNewPageYN == true) {
                                     // 다음 페이지 조회
                                     console.log("마이페이지 최근 본상품 : 다음 페이지 조회");
@@ -1872,7 +1872,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                     this.updateSubCategoryNewList();    // 페이지 변경
                                     verticalNewFocus   = verticalNewFocus - 1;    // 행 감소
                                     horizonNewFocus    = horizonNewFocus;         // 열 증감 없음
-                                    newFocusMenu    = 0;  // 위치 변경
+                                    newFocusMenu    = newFocusMenu - 4;  // 위치 변경
 
                                     // 아래로 이동했을때 아래 위치에 상품이 없으면 (이동할 포커스가 다음 페이지 상품 수 보다 큼)
                                     if(currentNewPageCnt <= newFocusMenu + 1) {
@@ -3506,7 +3506,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     if(resultLen > 8) { 
                         for(var i=0; i<8; i++){
                             makeNewProduct();  
-                            nextPageYN = true;
+                            nextNewPageYN = true;
                         }
                         $('a[name="arrow_top_new"]').removeClass('arrow_top');
                         $('a[name="arrow_bottom_new"]').addClass('arrow_bottom focus');

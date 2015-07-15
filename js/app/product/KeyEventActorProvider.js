@@ -105,6 +105,9 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
         //첫번째페이지에 상세정보 관련이미지/관련정보
         this.selectProductSubCategory();
 
+        //최근본상품 add count
+        this.addCountNewProduct();
+
 
     },
 
@@ -1752,6 +1755,32 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
         });
     },
 
+    //최근본상품 count
+    addCountNewProduct: function() {
+        var param = {
+                        "product_id" : requestCategoryDtlId
+                    };
+        $.ajax({
+            url         : cmsServerIp + "/ProductTask/",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                /*console.log("######## 상세카테고리 파라미터 : " + requestCategoryDtlCode);*/
+                console.log("############################최근본상품 count ##############################");
+                console.log("######## success");
+                console.log("######## result  : " + JSON.stringify(result));
+                console.log("######################################################################");
+            },
+            error : function(){
+                    console.log("에러");
+            }
+        });
+    },
 
 
 });
