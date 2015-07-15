@@ -104,7 +104,7 @@ var fltEasyCart = function()
         },
         success     : function(result) {
         	var appendHtml = "";
-        	//console.log("#간편 장바구니 조회 : " + JSON.stringify(result));
+        	console.log("#간편 장바구니 조회 : " + JSON.stringify(result));
 
 			var ec_cost = 0;	// 상품 금액
 			var ec_comm = 0;	// 쇼퍼 수수료

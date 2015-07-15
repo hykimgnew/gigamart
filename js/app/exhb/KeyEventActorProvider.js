@@ -340,6 +340,12 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     //alert("셋탑박스를 확인해주시거나 고객센터로 문의해주세요.");
                     // return;
                 }
+            }, complete     : function(result) {
+                // 공통 실행
+                common_init();
+
+                // 플로팅 메뉴 장바구니 SET
+                fltEasyCart();
             }
         });
     },
