@@ -1065,6 +1065,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         this.selectRefDtList(id);
                         $('div[name="view_ref_dt1"]').show();
                         $('tr[name="ref_dt_menu"]').eq(refDtFocusMenu).addClass('focus');
+                        $('tr[name="ref_dt_menu"]').eq(refDtFocusMenu).children('td').css("border-right","none");
                     }
                 }
                 //주문 취소/환불 상세1
@@ -1108,18 +1109,21 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                             this.selectOrderDtList(id,1);
                             $('div[name="view_order_dt1"]').show();
                             $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).addClass('focus');
+                            $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).children('td').css("border-right","none");
                         }
                         //2개월
                         else if(orderFocusMenu2 ==1){
                             this.selectOrderDtList(id,2);
                             $('div[name="view_order_dt1"]').show();
                             $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).addClass('focus');
+                            $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).children('td').css("border-right","none");
                         }
                         //3개월
                         else if(orderFocusMenu2 == 2){
                             this.selectOrderDtList(id,3);
                             $('div[name="view_order_dt1"]').show();
                             $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).addClass('focus');
+                            $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).children('td').css("border-right","none");
                         }
                         
                     }
@@ -1443,8 +1447,10 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                             //2행 -> 1행
                             else{
                                 $('tr[name="ref_dt_menu"]').eq(refDtFocusMenu).removeClass('focus');
+                                $('tr[name="ref_dt_menu"]').eq(refDtFocusMenu).children('td').css("border-right","1px solid #dedede");
                                 refDtFocusMenu = Number(refDtFocusMenu)-1;
                                 $('tr[name="ref_dt_menu"]').eq(refDtFocusMenu).addClass('focus');     
+                                $('tr[name="ref_dt_menu"]').eq(refDtFocusMenu).children('td').css("border-right","none");
                             }
                             
                         }
@@ -1459,6 +1465,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 $('div[name="view_ref_dt2"]').hide();
                                 refDtFocusMenu = 0;
                                 $('tr[name="ref_dt_menu"]').eq(refDtFocusMenu).addClass('focus');
+                                $('tr[name="ref_dt_menu"]').eq(refDtFocusMenu).children('td').css("border-right","none");
                             }
                             else{
                                 console.log("##### 첫페이지인데 리스트갯수가 2개면 그다음페이지에 total이 보여줬으므로 이전페이지엔 리스트 두개 보여야됨 ..");
@@ -1467,6 +1474,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 $('div[name="view_ref_dt2"]').hide();
                                 refDtFocusMenu = 1;
                                 $('tr[name="ref_dt_menu"]').eq(refDtFocusMenu).addClass('focus');
+                                $('tr[name="ref_dt_menu"]').eq(refDtFocusMenu).children('td').css("border-right","none");
                             }
                                 //this.orderArrow();
                         }
@@ -1500,9 +1508,11 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 //2행->1행
                                 else if(refDt2FocusMenu == 1){
                                     console.log("리스트2개일때 2행->1행");
-                                    $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).removeClass('focus');    
+                                    $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).removeClass('focus');  
+                                    $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).children('td').css("border-right","1px solid #dedede");  
                                     refDt2FocusMenu = Number(refDt2FocusMenu)-1;
                                     $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).addClass('focus');
+                                    $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).children('td').css("border-right","none");
                                 }
 
                             }
@@ -1518,15 +1528,19 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 else if(refDt2FocusMenu == 1){
                                     console.log("리스트3개일때 2행->1행");
                                     $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).removeClass('focus');    
+                                    $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).children('td').css("border-right","1px solid #dedede");
                                     refDt2FocusMenu = Number(refDt2FocusMenu)-1;
                                     $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).addClass('focus');
+                                    $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).children('td').css("border-right","none");
                                 }
                                 //3행->2행
                                 else if(refDt2FocusMenu == 2){
                                     console.log("리스트3개일때 3행->2행");
                                     $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).removeClass('focus');    
+                                    $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).children('td').css("border-right","1px solid #dedede");
                                     refDt2FocusMenu = Number(refDt2FocusMenu)-1;
                                     $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).addClass('focus');
+                                    $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).children('td').css("border-right","none");
 
                                 }
 
@@ -1635,6 +1649,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                     //if(orderState == "배송 완료"){
                                         console.log("-------전체영상보기------------");
                                         $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).removeClass('focus');
+                                        $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).children('td').css("border-right","1px solid #dedede");
                                         orderDtFocusList = 0;
                                         orderDtFocusMenu2 = 1;
                                         $('div[name="order_full_video"]').addClass('focus');
@@ -1644,8 +1659,10 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 //2행 -> 1행
                                 else{
                                     $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).removeClass('focus');
+                                    $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).children('td').css("border-right","1px solid #dedede");
                                     orderDtFocusMenu = Number(orderDtFocusMenu)-1;
                                     $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).addClass('focus');     
+                                    $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).children('td').css("border-right","none");
                                 }
                                 
                             }
@@ -1671,6 +1688,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 $('div[name="view_order_dt2"]').hide();
                                 orderDtFocusMenu = 0;
                                 $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).addClass('focus');
+                                $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).children('td').css("border-right","none");
                             }
                             else{
                                 console.log("##### 첫페이지인데 리스트갯수가 2개면 그다음페이지에 total이 보여줬으므로 이전페이지엔 리스트 두개 보여야됨 ..");
@@ -1679,6 +1697,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 $('div[name="view_order_dt2"]').hide();
                                 orderDtFocusMenu = 1;
                                 $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).addClass('focus');
+                                $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).children('td').css("border-right","none");
                             }
                                 //this.orderArrow();
                         }
@@ -1713,8 +1732,10 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 else if(orderDt2FocusMenu == 1){
                                     console.log("리스트2개일때 2행->1행");
                                     $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).removeClass('focus');    
+                                    $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).children('td').css("border-right","1px solid #dedede");
                                     orderDt2FocusMenu = Number(orderDt2FocusMenu)-1;
                                     $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).addClass('focus');
+                                    $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).children('td').css("border-right","none");
                                 }
 
                             }
@@ -1730,15 +1751,19 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 else if(orderDt2FocusMenu == 1){
                                     console.log("리스트3개일때 2행->1행");
                                     $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).removeClass('focus');    
+                                    $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).children('td').css("border-right","1px solid #dedede");
                                     orderDt2FocusMenu = Number(orderDt2FocusMenu)-1;
                                     $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).addClass('focus');
+                                    $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).children('td').css("border-right","none");
                                 }
                                 //3행->2행
                                 else if(orderDt2FocusMenu == 2){
                                     console.log("리스트3개일때 3행->2행");
-                                    $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).removeClass('focus');    
+                                    $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).removeClass('focus');
+                                    $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).children('td').css("border-right","1px solid #dedede");    
                                     orderDt2FocusMenu = Number(orderDt2FocusMenu)-1;
                                     $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).addClass('focus');
+                                    $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).children('td').css("border-right","none");
 
                                 }
 
@@ -2123,8 +2148,10 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 if(refDtFocusMenu == 0){
                                     console.log("리스트갯수 2개이므로 1행->2행");
                                     $('tr[name="ref_dt_menu"]').eq(refDtFocusMenu).removeClass('focus');
+                                    $('tr[name="ref_dt_menu"]').eq(refDtFocusMenu).children('td').css("border-right","1px solid #dedede");
                                     refDtFocusMenu = Number(refDtFocusMenu)+1;
                                     $('tr[name="ref_dt_menu"]').eq(refDtFocusMenu).addClass('focus');
+                                    $('tr[name="ref_dt_menu"]').eq(refDtFocusMenu).children('td').css("border-right","none");
                                 }   
                                 //2행->페이징  
                                 else if(refDtFocusMenu == 1){
@@ -2146,6 +2173,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                         if(nextRefDtPageYN == true){
                                             console.log("##### 다음페이지 이동..");
                                             $('tr[name="ref_dt_menu"]').eq(refDtFocusMenu).removeClass('focus');
+                                            $('tr[name="ref_dt_menu"]').eq(refDtFocusMenu).children('td').css("border-right","1px solid #dedede");
                                             myView = 6;
                                             currentRefDtListPage = 0;
                                             $('div[name="view_ref_dt1"]').hide();
@@ -2154,6 +2182,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                             refDtFocusMenu = 0;
                                             refDt2FocusMenu = 0;
                                             $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).addClass('focus');
+                                            $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).children('td').css("border-right","none");
                                             //this.orderArrow();
                                         }else{
                                             console.log("##### 더 이상 이동할 페이지 없음..totalpage보여줘야됨");
@@ -2220,8 +2249,10 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 else{
                                     //1행->2행
                                     $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).removeClass('focus');
+                                    $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).children('td').css("border-right","1px solid #dedede");
                                     refDt2FocusMenu = Number(refDt2FocusMenu) + 1;
                                     $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).addClass('focus');
+                                    $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).children('td').css("border-right","none");
                                 }
                                 
                             }
@@ -2261,8 +2292,10 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 else{
                                     //2행->3행
                                     $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).removeClass('focus');
+                                    $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).children('td').css("border-right","1px solid #dedede");
                                     refDt2FocusMenu = Number(refDt2FocusMenu) + 1;
                                     $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).addClass('focus');
+                                    $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).children('td').css("border-right","none");
                                 }
                             }
                             else if(refDt2FocusMenu == 2){
@@ -2400,6 +2433,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 $('div[name="order_full_video"]').removeClass('focus');
                                 orderDtFocusList = 1;
                                 $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).addClass('focus');
+                                $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).children('td').css("border-right","none");
                             }
                             
                         }
@@ -2428,8 +2462,10 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 if(orderDtFocusMenu == 0){
                                     console.log("리스트갯수 2개이므로 1행->2행");
                                     $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).removeClass('focus');
+                                    $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).children('td').css("border-right","1px solid #dedede");
                                     orderDtFocusMenu = Number(orderDtFocusMenu)+1;
                                     $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).addClass('focus');
+                                    $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).children('td').css("border-right","none");
                                 }   
                                 //2행->페이징  
                                 else if(orderDtFocusMenu == 1){
@@ -2452,6 +2488,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                         if(nextOrderDtPageYN == true){
                                             console.log("##### 다음페이지 이동..");
                                             $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).removeClass('focus');
+                                            $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).children('td').css("border-right","1px solid #dedede");
                                             myView = 9;
                                             currentOrderDtListPage = 0;
                                             $('div[name="view_order_dt1"]').hide();
@@ -2460,6 +2497,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                             orderDtFocusMenu = 0;
                                             orderDt2FocusMenu = 0;
                                             $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).addClass('focus');
+                                            $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).children('td').css("border-right","none");
                                             //this.orderArrow();
                                         }else{
                                             console.log("##### 더 이상 이동할 페이지 없음..totalpage보여줘야됨");
@@ -2530,9 +2568,11 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                     //1행->2행
                                     console.log("````1 orderDt2FocusMenu : "+orderDt2FocusMenu);
                                     $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).removeClass('focus');
+                                    $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).children('td').css("border-right","1px solid #dedede");
                                     orderDt2FocusMenu = Number(orderDt2FocusMenu) + 1;
                                     console.log("````2 orderDt2FocusMenu : "+orderDt2FocusMenu);
                                     $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).addClass('focus');
+                                    $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).children('td').css("border-right","none");
                                 }
                                 
                             }
@@ -2584,8 +2624,10 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 else{
                                     //2행->3행
                                     $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).removeClass('focus');
+                                    $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).children('td').css("border-right","1px solid #dedede");
                                     orderDt2FocusMenu = Number(orderDt2FocusMenu) + 1;
                                     $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).addClass('focus');
+                                    $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).children('td').css("border-right","none");
                                 }
                             }
                             else if(orderDt2FocusMenu == 2){
@@ -4218,6 +4260,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                     $('span[name="dt1_star"]').addClass('focus');
                                 }else{
                                     $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).addClass('focus');
+                                    $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).children('td').css("border-right","none");
                                 }
                         }
                         cnt                 = Math.floor(index / maxOrderDtListPage);
@@ -4276,12 +4319,14 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             console.log("==============================첫페이지==============================");
             myView = 8;
             $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).removeClass('focus');
+            $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).children('td').css("border-right","1px solid #dedede");
             orderDt2FocusMenu = 0;
             $('div[name="view_order_dt1"]').show();
             $('div[name="view_order_dt2"]').hide();
             orderDtFocusMenu = 1;
             //this.selectOrderDtList();
             $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).addClass('focus');
+            $('tr[name="order_dt_menu"]').eq(orderDtFocusMenu).children('td').css("border-right","none");
             return;
         }
         //마지막페이지일때
@@ -4355,7 +4400,8 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         }
                         console.log("orderDt2FocusMenu"+orderDt2FocusMenu);
                         //orderDt2FocusMenu = 0;
-                        $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).addClass('focus');              
+                        $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).addClass('focus');     
+                        $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).children('td').css("border-right","none");         
                     }
                 }
             }
@@ -4385,7 +4431,8 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
         orderDt2BtnFocus =0;
         $('span[name="order_dt2_cancel"]').removeClass('focus');
         $('span[name="order_dt2_back"]').removeClass('focus');
-        $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).addClass('focus');   
+        $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).addClass('focus'); 
+        $('tr[name="order_dt_menu2"]').eq(orderDt2FocusMenu).children('td').css("border-right","none");  
     },
     // 조회 :취소,환불내역
     totRef: function(inter_num) {
@@ -4961,12 +5008,14 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             console.log("==============================첫페이지==============================");
             myView = 5;
             $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).removeClass('focus');
+            $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).children('td').css("border-right","1px solid #dedede");
             refDt2FocusMenu = 0;
             $('div[name="view_ref_dt1"]').show();
             $('div[name="view_ref_dt2"]').hide();
             refDtFocusMenu = 1;
             //this.selectOrderDtList();
             $('tr[name="ref_dt_menu"]').eq(refDtFocusMenu).addClass('focus');
+            $('tr[name="ref_dt_menu"]').eq(refDtFocusMenu).children('td').css("border-right","none");
             return;
         }
         //마지막페이지일때
@@ -5030,7 +5079,8 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         //orderDt2FocusMenu = 0;
                         //$('tr[name="ref_dt_menu2"]').eq(0).addClass('focus'); 
                         //$('tr[name="ref_dt_menu2"]').eq(1).addClass('focus');
-                        $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).addClass('focus');               
+                        $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).addClass('focus');         
+                        $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).children('td').css("border-right","none");      
                     }
                 }
             }
@@ -5062,6 +5112,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
         refDt2BtnFocus =0;
         $('span[name="ref_dt2_back"]').removeClass('focus');
         $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).addClass('focus');  
+        $('tr[name="ref_dt_menu2"]').eq(refDt2FocusMenu).children('td').css("border-right","none");
 
     },
 
