@@ -10,9 +10,15 @@ var EXHB_IMAGE_PATH = "../images/";
 
 
 //*************************************************
-// * 찜/최근본 상품 -> 상품상세정보 -> 마이페이지의 찜/최근본상품 
+// * requestMyStatus = 찜/최근본 상품 -> 상품상세정보 -> 마이페이지의 찜/최근본상품 인지 확인위해
+// * requestMyPage =  찜/최근본 상품 -> 상품상세정보 -> 마이페이지의 찜/최근본상품의 현재 페이지가 무엇인지 확인위해
+// * requestMyMenu =  찜/최근본 상품 -> 상품상세정보 -> 마이페이지의 찜/최근본상품 현재 포커스된 위치가 무엇인지 확인위해
+// * requestMyCnt =  찜/최근본 상품 -> 상품상세정보 -> 마이페이지의 찜/최근본상품 현재 포커스된 위치의 상품갯수가 무엇인지 확인위해
 //*************************************************
 var requestMyStatus  = request.getParameter("requestMyStatus");
+var requestMyPage  = request.getParameter("requestMyPage");
+var requestMyMenu  = request.getParameter("requestMyMenu");
+var requestMyCnt  = request.getParameter("requestMyCnt");
 
 //*************************************************
 // * Popup
@@ -166,6 +172,14 @@ var totalFavCount = 0;
  **/
 var favBtnFocus = 0;
 
+
+/**
+ * 찜한상품 삭제할상품 있는지 없는지. 
+ * 0   = 없다.
+ * 1   = 있다.
+ **/
+var favDelYn = 1;
+
 /**
  * 찜한상품 편집모드 
  * false  = 편집모드 X
@@ -189,6 +203,14 @@ var maxFavListPage      = 8;
  **/
  var prevPageYN = false;
  var nextPageYN = false;
+
+
+
+/**
+ * 찜한상품삭제하기위해 id 배열로 담음
+ **/
+var arrPdIdList          = new Array();
+
 
 //*******************************************************************************************************
 //*  찜한상품 end

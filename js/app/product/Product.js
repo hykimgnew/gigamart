@@ -24,9 +24,16 @@ var requestCurrentFocusMenul = request.getParameter("currentFocusMenul");
 
 
 //*************************************************
-// * 찜/최근본 상품 -> 상품상세정보 -> 마이페이지의 찜/최근본상품 (//마이페이지에서->상품상세로 넘어갈때 찜한상품인지 최근본상품에서 상세로 넘어가는지..)
+// * requestMyStatus 찜/최근본 상품 -> 상품상세정보 -> 마이페이지의 찜/최근본상품 (//마이페이지에서->상품상세로 넘어갈때 찜한상품인지 최근본상품에서 상세로 넘어가는지..)
+// * requestMyPage =  찜/최근본 상품 -> 상품상세정보 -> 마이페이지의 찜/최근본상품의 현재 페이지가 무엇인지 확인위해
+// * requestMyMenu =  찜/최근본 상품 -> 상품상세정보 -> 마이페이지의 찜/최근본상품 현재 포커스된 위치가 무엇인지 확인위해
+// * requestMyCnt =  찜/최근본 상품 -> 상품상세정보 -> 마이페이지의 찜/최근본상품 현재 포커스된 위치의 상품갯수가 무엇인지 확인위해
+
 //*************************************************
 var requestMyStatus  = request.getParameter("requestMyStatus");
+var requestMyPage  = request.getParameter("requestMyPage");
+var requestMyMenu  = request.getParameter("requestMyMenu");
+var requestMyCnt  = request.getParameter("requestMyCnt");
 
 
 

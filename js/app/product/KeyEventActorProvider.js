@@ -36,6 +36,18 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
         //마이페이지에서->상품상세로 넘어갈때 찜한상품인지 최근본상품에서 상세로 넘어가는지..)
         var requestMyStatus  = request.getParameter("requestMyStatus");
 
+        //마이페이지에서->상품상세로 넘어갈때 현재 페이지
+        var requestMyPage  = request.getParameter("requestMyPage");
+        //마이페이지에서->상품상세로 넘어갈때 현재포커스된 위치
+        var requestMyMenu  = request.getParameter("requestMyMenu");
+        //마이페이지에서->상품상세로 넘어갈때 현재포커스된 위치의 상품갯수
+        var requestMyCnt  = request.getParameter("requestMyCnt");
+
+        console.log("requestMyStatus : " + requestMyStatus);
+        console.log("requestMyPage : " + requestMyPage);
+        console.log("requestMyMenu : " + requestMyMenu);
+        console.log("requestMyCnt : " + requestMyCnt);
+
         console.log("requestMyStatus : " + requestMyStatus);
         console.log("지금 이상품 이가격 포커스 : " + requestExhbFocus);
         console.log("지금 이상품 이가격 페이지 : " + requestExhbPage);
@@ -1488,10 +1500,10 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 else if(requestMyStatus != null && requestMyStatus != '' && requestMyStatus != 'undefined') {
                     if(requestMyStatus == 2){
                         console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%찜한상품으로 이동");
-                        location.href ="mypage.html?SHOPPER_STATUS=" + SHOPPER_STATUS+"&requestMyStatus=2"; // 마이페이지 이동
+                        location.href ="mypage.html?SHOPPER_STATUS=" + SHOPPER_STATUS+"&requestMyStatus=2&requestMyPage=" + requestMyPage+"&requestMyMenu=" + requestMyMenu+"&requestMyCnt=" + requestMyCnt; // 마이페이지 이동
                     }else if(requestMyStatus == 3){
                         console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%자주본상품으로 이동");   
-                        location.href ="mypage.html?SHOPPER_STATUS=" + SHOPPER_STATUS+"&requestMyStatus=3"; // 마이페이지 이동 
+                        location.href ="mypage.html?SHOPPER_STATUS=" + SHOPPER_STATUS+"&requestMyStatus=3&requestMyPage=" + requestMyPage+"&requestMyMenu=" + requestMyMenu+"&requestMyCnt=" + requestMyCnt; // 마이페이지 이동 
                     }                  
                 }
                 else{
