@@ -218,7 +218,7 @@ function makeEmptyCartList() {
     $('#order_shopper_cost').html("0원");
     $('#order_total_cost').html("0원");
 
-    ('#btn_delete_yn_submit').removeClass("focus");
+    $('#btn_delete_yn_submit').removeClass("focus");
     $('#ul_cart_list').empty().append(appendHtml);
 }
 

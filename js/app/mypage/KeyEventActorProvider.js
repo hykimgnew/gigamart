@@ -402,6 +402,11 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             // * 三 KEY (플로팅 장바구니)
             // **************************************************
             if(keyCode === global.VK_GREEN) {
+                // 수량변경 팝업 on -> off
+                $('#btn_volume_close').removeClass('focus');
+                $('#wrap_chVolume_easyCart').hide();
+                chgVolumeFocus = 0;
+
                 isCart          = false;
                 anchorFocus     = 0;
                 chgVolumeFocus  = 0;
@@ -619,9 +624,11 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         // 결제
                         else if(cartFocus == 1) {
                             // 간편 장바구니 리스트로 이동
-                            $('#ecc_payments').removeClass('focus');
-                            cartFocus = 2;
-                            $('li[name="ec_li_list"]').eq(cartFocus-2).addClass('focus');
+                            if($('li[name="ec_li_list"]').length != 0) {
+                                $('#ecc_payments').removeClass('focus');
+                                cartFocus = 2;
+                                $('li[name="ec_li_list"]').eq(cartFocus-2).addClass('focus');
+                            }
                         }
 
                         // 간편 장바구니 리스트
