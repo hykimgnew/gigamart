@@ -21,7 +21,12 @@ var requestCurrentFocusList = request.getParameter("currentFocusList");
 var requestCurrentFocusMenu = request.getParameter("currentFocusMenu");
 //다른사람이 구매한 연관상품일때 menu focus
 var requestCurrentFocusMenul = request.getParameter("currentFocusMenul");
-//currentFocusList="+currentFocusList+"&currentFocusMenu="+currentFocusMenu;
+
+
+//*************************************************
+// * 찜/최근본 상품 -> 상품상세정보 -> 마이페이지의 찜/최근본상품 (//마이페이지에서->상품상세로 넘어갈때 찜한상품인지 최근본상품에서 상세로 넘어가는지..)
+//*************************************************
+var requestMyStatus  = request.getParameter("requestMyStatus");
 
 
 

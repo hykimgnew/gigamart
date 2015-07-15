@@ -33,6 +33,10 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
         // 플로팅 메뉴 장바구니 SET
         fltEasyCart();
 
+        //마이페이지에서->상품상세로 넘어갈때 찜한상품인지 최근본상품에서 상세로 넘어가는지..)
+        var requestMyStatus  = request.getParameter("requestMyStatus");
+
+        console.log("requestMyStatus : " + requestMyStatus);
         console.log("지금 이상품 이가격 포커스 : " + requestExhbFocus);
         console.log("지금 이상품 이가격 페이지 : " + requestExhbPage);
         console.log("###################################################################################################################");
@@ -1473,6 +1477,15 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 else if(requestExhbFocus != null && requestExhbFocus != '' && requestExhbFocus != 'undefined') {
                     console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%기획전으로 이동 (지금 이상품 이가격 포커싱)");
                     location.href = "exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS + "&requestExhbFocus=" + requestExhbFocus + "&requestExhbPage=" + requestExhbPage; // 기획전 이동
+                }
+                else if(requestMyStatus != null && requestMyStatus != '' && requestMyStatus != 'undefined') {
+                    if(requestMyStatus == 2){
+                        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%찜한상품으로 이동");
+                        location.href ="mypage.html?SHOPPER_STATUS=" + SHOPPER_STATUS+"&requestMyStatus=2"; // 마이페이지 이동
+                    }else if(requestMyStatus == 3){
+                        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%자주본상품으로 이동");   
+                        location.href ="mypage.html?SHOPPER_STATUS=" + SHOPPER_STATUS+"&requestMyStatus=3"; // 마이페이지 이동 
+                    }                  
                 }
                 else{
                     console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%기획전으로 이동");
