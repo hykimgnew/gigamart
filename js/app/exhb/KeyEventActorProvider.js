@@ -639,7 +639,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                         appConfiguration.localSystem.mute = true; // 음소거 설정
 
-                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS;
+                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&requestOrderScreen=exhb.html';
                     }
                     
                     // 결제

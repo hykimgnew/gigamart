@@ -387,7 +387,10 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                         $('#p_videoDiv video').remove();
                         $('#span_videoDiv video').remove();
                         appConfiguration.localSystem.mute = true; // 음소거 설정
-                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS;
+                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&requestOrderScreen=category_dtl.html'
+                                      + '&categoryDtlCode=' + requestCategoryDtlCode
+                                      + '&categoryDtlPage=' + requestCategoryDtlPage
+                                      + '&categoryCode=' + requestCategoryCode;
                     }
                     
                     // 결제

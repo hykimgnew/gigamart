@@ -154,7 +154,18 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                         $('#p_videoDiv video').remove();
                         $('#span_videoDiv video').remove();
                         appConfiguration.localSystem.mute = true; // 음소거 설정
-                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS;
+                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&requestOrderScreen=product1.html'
+                                      + '&productView=' + requestProductView 
+                                      + '&currentFocusList=' + requestCurrentFocusList
+                                      + '&currentFocusMenu=' + requestCurrentFocusMenu
+                                      + '&currentFocusMenul=' + requestCurrentFocusMenul
+                                      + '&categoryCode=' + requestCategoryCode
+                                      + '&categoryDtlCode=' + requestCategoryDtlCode
+                                      + '&categoryDtlPage=' + requestCategoryDtlPage
+                                      + '&id=' + requestCategoryDtlId
+                                      + '&requestExhbFocus=' + requestExhbFocus
+                                      + '&requestExhbPage=' + requestExhbPage;
+                                      
                     }
                     
                     // 결제
@@ -166,7 +177,6 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                     if(cartFocus > 1) {
                         // 수량변경 팝업 off -> on
                         $('#wrap_chVolume_easyCart').show();
-                        console.log("22222222222222222222222222222222222222222222222222222222")
                         $('#wrap_chVolume_easyCart').removeClass('bg_alpha');
 
                         // 현재 선택된 상품의 수량을 수량변경팝업에 적용
