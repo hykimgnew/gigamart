@@ -1539,8 +1539,19 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     }
                     //추천세트
                     else if(currentFocusDtl3 == 1){
+                        //목살스테이크카레일때
+                        var htmlNm = "";
+                        htmlNm = $('li[name="shopper_product"]').html();
+                        console.log("htmlNm : "+htmlNm);
+                        if(htmlNm == "닭볶음탕"){
+                            location.href = "shopper_bag.html?setName=닭볶음탕&SHOPPER_STATUS=" + SHOPPER_STATUS;
+                        }
+                        else if(htmlNm == "목살스테이크카레"){
+                            location.href = "shopper_bag.html?setName=목살스테이크카레&SHOPPER_STATUS=" + SHOPPER_STATUS;
+                        }
+                        //닭볶음탕일때
                         /** 쇼퍼's Bag 이동 */
-                        location.href = "shopper_bag.html?setName=닭볶음탕&SHOPPER_STATUS=" + SHOPPER_STATUS;
+                        //location.href = "shopper_bag.html?setName=닭볶음탕&SHOPPER_STATUS=" + SHOPPER_STATUS;
                     }
 
                 }
@@ -2524,7 +2535,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         if(currentOrderedProductPage2 == 0) {shopperImg = '<img class="shopperP_img" src="' + cmsServerIp + '/images/shopper/set/쇼퍼_김미나.png" />'; shopperName="김미나 쇼퍼";}
         else  {shopperImg ='<img class="shopperP_img" src="' + cmsServerIp + '/images/shopper/set/쇼퍼_이순자.png" />'; shopperName="이순자 쇼퍼";}
         if(currentOrderedProductPage2 == 0) {shopperSet = '<img class="shopperS_img" src="' + cmsServerIp + '/images/shopper/set/쇼퍼세트_닭볶음탕.jpg" />';shopperProduct = "닭볶음탕";} 
-        else  {shopperSet ='<img class="shopperS_img" src="' + cmsServerIp + '/images/shopper/set/쇼퍼세트_소고기샤브샤브2.jpg" />'; shopperProduct = "소고기샤브샤브"; }
+        else  {shopperSet ='<img class="shopperS_img" src="http://175.209.53.205/gigamart_img/images/product/1000.jpg" />'; shopperProduct = "목살스테이크카레"; }
 
         console.log("######## shopperImg->"+shopperImg);
 
@@ -2674,7 +2685,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         if(currentOrderedProductPage2 == 0) {shopperImg = '<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_김미나.png" />'; shopperName="김미나 쇼퍼";}
         else  {shopperImg ='<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_이순자.png" />'; shopperName="이순자 쇼퍼";}
         if(currentOrderedProductPage2 == 0) {shopperSet = '<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼세트_닭볶음탕.jpg" />';shopperProduct = "닭볶음탕";} 
-        else  {shopperSet ='<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼세트_소고기샤브샤브2.jpg" />'; shopperProduct = "소고기샤브샤브"; }
+        else  {shopperSet ='<img src="http://175.209.53.205/gigamart_img/images/product/1000.jpg" />'; shopperProduct = "목살스테이크카레"; }
 
         $('li[name="li_discount3"]').eq(0).append(appendHtml);  //쇼퍼 
         $('li[name="li_discount3"]').eq(1).append(appendHtml2);    
@@ -3097,8 +3108,8 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
         var setImgUrl = $('li[name="shooperImg2"]').children().attr("src");
         console.log("setImgUrl="+setImgUrl);
-        if(setImgUrl == "http://14.52.244.91:8080/images/shopper/set/쇼퍼세트_소고기샤브샤브2.jpg"){
-            $('li[name="shopper_product"]').empty().html("소고기 샤브샤브");
+        if(setImgUrl == "http://175.209.53.205/gigamart_img/images/product/1000.jpg"){
+            $('li[name="shopper_product"]').empty().html("목살스테이크카레");
         }else{
             $('li[name="shopper_product"]').empty().html("닭볶음탕");
         }
