@@ -401,3 +401,19 @@ padding: 0 0 30px 30px;
 width: 190px;
 float: left;
 }
+.mypage .mypage_btnArea_right.focus{
+clear: both;
+margin: 20px 0;
+position: relative;
+right: -920px;
+width: 276px;
+height: 44px;
+border: 2px solid #2b9330;
+text-align: center;
+border-radius: 10px;
+background: #2b9330;
+font-size: 16px;
+font-weight: bold;
+color: #fff;
+line-height: 44px;
+}

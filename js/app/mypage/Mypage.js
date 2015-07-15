@@ -321,7 +321,7 @@ var arrOrderDtTotalList     = new Array();
 
 /** 
  *  현재 주문내역상세1 리스트 Focus 위치
- *  0 : 
+ *  0 : 평점주기 / 전체영상주기
  *  1 : 주문내역 list
  *  2 : 
  *  3 : 
@@ -333,6 +333,14 @@ var orderDtFocusList = 1;
  *  1 : 
  **/    
 var orderDtFocusMenu = 0;
+
+
+/** 
+ *  주문내역상세1 list Focus 위치
+ *  0 : 평점주기
+ *  1 : 전체영상보기
+ **/    
+var orderDtFocusMenu2 = 0;
 
 
 /**
