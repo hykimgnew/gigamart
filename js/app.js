@@ -111,11 +111,15 @@ var fltEasyCart = function()
 			var ec_total = 0;	// 총 금액
 			var ec_cnt = 0; 	// 장바구니 담긴 수
 
-			$.each(result['cart'], function(index, entry) {
-				ec_cnt++;
-				ec_cost    += Number(entry["cost"]) * Number(entry["cnt"]);
-				ec_comm    += Math.floor((Number(entry['cost'] * Number(entry["cnt"])) * 5 / 100) / 10) * 10;
-			});
+			if(typeof result['cart'] === 'undefined') {
+
+			} else {
+				$.each(result['cart'], function(index, entry) {
+					ec_cnt++;
+					ec_cost    += Number(entry["cost"]) * Number(entry["cnt"]);
+					ec_comm    += Math.floor((Number(entry['cost'] * Number(entry["cnt"])) * 5 / 100) / 10) * 10;
+				});
+			}
 
 			console.log("#장바구니 총 갯수 : " + ec_cnt);
 			ec_total = ec_cost + ec_comm;
@@ -158,25 +162,36 @@ var retrieveEasyCart = function()
 			var ec_comm = 0;	// 쇼퍼 수수료
 			var ec_total = 0;	// 총 금액
 
-			$.each(result['cart'], function(index, entry) {
-				appendHtml += '<li id="ec_li_list' + index + '" name="ec_li_list" class="scl_row">';
+			if(typeof result['cart'] === 'undefined') {
+				appendHtml += '<li id="ec_li_empty" name="ec_li_empty" class="scl_row">';
 				appendHtml += '	<table width="100%" cellpadding="0" cellspacing="0" border="0">';
 				appendHtml += '		<tr>';
-				appendHtml += ' 		<td class="sr_img"><img src="' + entry["img"] + '" width="78px" height="78px" />';
-				appendHtml += '<input type="hidden" name="ec_cost" value="' + entry["cost"] + '"/>';
-				appendHtml += '<input type="hidden" name="ec_cnt" value="' + entry["cnt"] + '"/>';
-				appendHtml += '<input type="hidden" name="ec_id" value="' + entry["product_id"] + '"/>';
-				appendHtml += '			</td>';
-				appendHtml += '			<td class="sr_txt" name="sr_txt">' + entry["name"] + '</td>';
-				appendHtml += ' 		<td class="sr_qty" name="sr_cnt">' + entry["cnt"] + '</td>';
-				appendHtml += '			<td class="sr_price" name="sr_cost">' + cn_toPrice(entry["cost"]) + '원</td>';
+				appendHtml += ' 		<td width="36%"></td>';
+				appendHtml += '         <td>장바구니에 상품이 없습니다.</td>';
 				appendHtml += '		</tr>';
 				appendHtml += ' </table>';
 				appendHtml += '</li>';
+			} else {
+				$.each(result['cart'], function(index, entry) {
+					appendHtml += '<li id="ec_li_list' + index + '" name="ec_li_list" class="scl_row">';
+					appendHtml += '	<table width="100%" cellpadding="0" cellspacing="0" border="0">';
+					appendHtml += '		<tr>';
+					appendHtml += ' 		<td class="sr_img"><img src="' + entry["img"] + '" width="78px" height="78px" />';
+					appendHtml += '<input type="hidden" name="ec_cost" value="' + entry["cost"] + '"/>';
+					appendHtml += '<input type="hidden" name="ec_cnt" value="' + entry["cnt"] + '"/>';
+					appendHtml += '<input type="hidden" name="ec_id" value="' + entry["product_id"] + '"/>';
+					appendHtml += '			</td>';
+					appendHtml += '			<td class="sr_txt" name="sr_txt">' + entry["name"] + '</td>';
+					appendHtml += ' 		<td class="sr_qty" name="sr_cnt">' + entry["cnt"] + '</td>';
+					appendHtml += '			<td class="sr_price" name="sr_cost">' + cn_toPrice(entry["cost"]) + '원</td>';
+					appendHtml += '		</tr>';
+					appendHtml += ' </table>';
+					appendHtml += '</li>';
 
-				ec_cost    += Number(entry["cost"]) * Number(entry["cnt"]);
-				ec_comm    += Math.floor((Number(entry['cost'] * Number(entry["cnt"])) * 5 / 100) / 10) * 10;
-			});
+					ec_cost    += Number(entry["cost"]) * Number(entry["cnt"]);
+					ec_comm    += Math.floor((Number(entry['cost'] * Number(entry["cnt"])) * 5 / 100) / 10) * 10;
+				});
+			}
 
 			ec_total = ec_cost + ec_comm;
 
