@@ -1337,7 +1337,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                         $('#total_order_cost').empty().html(cn_toPrice(entry['total_cost']) + "원");
                         $('#shopper_id').empty().html("ID : " + entry['shopper_id']);
 
-                        var rating = Number(entry['shopper_rating']);
+                        var rating = Number(entry['rating']);
                         if(rating >= 20)    shopperStar += '<img src="../images/icon_star.png" />';
                         else                shopperStar += '<img src="../images/icon_star_blank.png" />';
                         if(rating >= 40)    shopperStar += '<img src="../images/icon_star.png" />';
