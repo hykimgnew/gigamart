@@ -55,6 +55,7 @@
 												<span name="epilogue"></span>
 												<!-- <span>(후기 13)</span> -->
 												<span class="pd_b5" name="shopper_rating"></span>
+												<input type="hidden" name="shopper_id" class="shopper_id"/>
 												<!-- <img src="../images/icon_star.png" />
 													<img src="../images/icon_star.png" />
 													<img src="../images/icon_star.png" />
@@ -79,6 +80,7 @@
 												<span name="epilogue"></span>
 												<!-- <span>(후기 13)</span> -->
 												<span class="pd_b5" name="shopper_rating"></span>
+												<input type="hidden" name="shopper_id" class="shopper_id"/>
 											</div>
 											<div class="sblcs_txtArea">
 												<p name="description"></p>
@@ -214,29 +216,31 @@
 	<!-- 쇼퍼 상세 -->
 	<div id="wrap2" class="bg_alpha" name="shopper_detail" style="display : none;">
 	<div class="shopper_detail" >
-							<p class="photoArea"></p>
+							<p class="photoArea" name="sd_sp_photo"></p>
 							<div class="sp_profile">
 								<ul>
-									<li class="sp_id"><!-- ID : 살림짱 (후기 13) --></li>
-									<li class="sp_star">
+									<li class="sp_id">
+										<span name="sd_sp_id"></span>
+										<span name="sd_sp_reply"></span><!-- ID : 살림짱 (후기 13) --></li>
+									<li class="sp_star" name="sd_sp_rating">
 										<!-- <img src="../images/icon_star.png" />
 										<img src="../images/icon_star.png" />
 										<img src="../images/icon_star.png" />
 										<img src="../images/icon_star.png" />
 										<img src="../images/icon_star_blank.png" /> -->
 									</li>
-									<li class="sp_con">
+									<li class="sp_con" name="sd_sp_con">
 										<!-- 안녕하세요. <br>쇼퍼 살림짱입니다. 저는 15년 경력의 장보기 달인 입니다.  많이 애용해 주세요. 감사합니다.  -->
 									</li>
-									<li class="sp_spe"><!-- 쇼핑 주종목: 과일 / 쌀 --></li>
+									<li class="sp_spe" name="sd_sp_spe"><!-- 쇼핑 주종목: 과일 / 쌀 --></li>
 								</ul>
 							</div>
-							<p class="sd_keyword">쇼퍼후기 총 13건 </p>
+							<p class="sd_keyword">쇼퍼후기 총 <span name="sd_count"></span>건 </p>
 							<div class="sd_content">
-								<ul>
-									<li>
-										<span class="sdc_id">ID : zdm********</span>
-										<span class="sdc_txt">쇼퍼님 완전 짱입니다. 제가 직접 장 본 것보다 확실히 전문가의 손길이 느껴집니다. </span>
+								<ul id="sd_wrap">
+									<!-- <li name="sd_menu">
+										<span class="sdc_id" name="sd_name">ID : zdm********</span>
+										<span class="sdc_txt" name="sd_txt">쇼퍼님 완전 짱입니다. 제가 직접 장 본 것보다 확실히 전문가의 손길이 느껴집니다. </span>
 									</li>
 									<li>
 										<span class="sdc_id">ID : zdm***</span>
@@ -261,12 +265,20 @@
 									<li>
 										<span class="sdc_id">ID : zdm***</span>
 										<span class="sdc_txt">쇼퍼님 완전 짱입니다. 제가 직접 장 본 것보다 확실히 전문가의 손길이 느껴집니다. </span>
-									</li>
+									</li> -->
 								</ul>
 							</div>
 							<div class="btn_close focus">닫기</div>
 	</div>
 	</div>
+
+<!-- 쇼퍼 추천세트 list - 준비중입니다. 토스트메세지 -->
+<div id="pop_recsp_ok" class="pop2" style="width:375px; display:none; top:40%; left:30%; position:absolute;">
+	<ul>
+		<li>서비스 준비중입니다.</li>
+	</ul>
+</div>
+
 
 
 	<!-- Common Function -->

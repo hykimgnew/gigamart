@@ -122,6 +122,13 @@ var fltEasyCart = function()
 
 			$('#flt_cnt').html(ec_cnt);
 			$('#flt_cost').html(cn_toPrice(ec_total) + "원");
+
+			//찜한상품//최근본상품 하단 장바구니 update
+			var a = $('#flt_cnt').eq(0).html();
+			console.log("a-->"+a);
+			$('span[name="flt_cnt"]').empty().html(a);
+			$('li[name="flt_cost"]').html(cn_toPrice(ec_total) + "원");
+
         }
     });
 
