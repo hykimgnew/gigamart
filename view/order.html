@@ -190,9 +190,8 @@
 			<!-- 우측 영역 -->
 			<div class="sbl_right">
 				<div class="sbr_con">
-					<div class="sbr_address">
-						기본 배송지 : 서울시 서초구 태봉로 151 KT연구소
-						<span id="order_cart_address">다른 주소 선택</span>
+					<div id="sbr_address" class="sbr_address">
+						
 					</div>
 					<div class="price_list">
 						<ul>
@@ -308,7 +307,7 @@
 	</script>
 
 	<!-- 기본 토스트 팝업 -->
-	<div id="wrap_common" class="pop2" style="width:500px; top:80%; left:32%; position:absolute; display:none;">
+	<div id="wrap_common" class="pop3" style="width:500px; top:80%; left:32%; position:absolute; display:none;">
 		<ul><li id="common_msg"></li></ul>
 	</div>
 
@@ -321,14 +320,13 @@
 
 	<!-- 배송지 선택하기 -->
 	<div id="wrap_addr" class="bg_alpha" style="top:0%; left:0%; position:absolute; display: none;">
-		<div class="pop type_b">
+		<div class="pop type_e">
 			<ul>
 				<li class="tit">배송지 선택하기</li>
 				<li class="pd_t10">배송지 수정,삭제 및 추가는 모바일앱에서 가능합니다.</li>
 				<li>
-					<select name="select" class="amt_select mg_t30 mg_b30">
-							
-					</select>
+					<ul id="addr_list" name="select" class="amt_select mg_t30 mg_b30">
+					</ul>
 				</li>
 				<li class="pop_btn">
 					<span id="btn_addr_submit" class="green">완료</span>

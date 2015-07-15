@@ -62,6 +62,21 @@ var orderScreen = 0;
 //*************************************************
 
 //*************************************************
+// 배송지 목록
+// arrAddrList : 배송지 목록 배열
+// addrPopFocus : 배송지 팝업 포커스
+//          0 : 셀렉트박스    1 : 확인    2 : 취소 
+// addrListFocus : 배송지 팝업 리스트 포커스
+//          0 : 첫번째 주소  ~ n : n번째 주소
+// addrPopToggle : 배송지 목록 토글
+//          true : 펼쳐짐,   false : 안펼쳐짐
+//*************************************************
+var arrAddrList = new Array();
+var addrPopFocus = 0;
+var addrListFocus = 0;
+var addrPopToggle = false;
+
+//*************************************************
 //*  장바구니 화면 Focus  orderScreen = 0 
 //*                     
 //*  orderCartFocus - 장바구니 포커스 위치
@@ -69,6 +84,7 @@ var orderScreen = 0;
 //*         5 : 배송지 선택
 //*         6 : 결제 버튼
 //*         7 : 선택 삭제 확인 팝업
+//*         8 : 배송지 선택 팝업
 //*
 //*  orderCartPage - 장바구니 상품 페이지 위치
 //*         0 : 1페이지, 1 : 2페이지 ...
@@ -88,6 +104,10 @@ var orderScreen = 0;
 //*  orderCartDeleteFocus - 장바구니 선택 삭제 확인 팝업 포커스
 //*         0 : 확인,  1 : 취소
 //*
+//*  orderCartResultSet - 장바구니 조회 resultSet
+//*  orderCartResultScreenSet - 장바구니 조회 현재 페이지 resultSet
+//*  orderCartResultCheckStatus - 장바구니 전체 체크박스 상태, true : 체크
+//*  orderCartResultLen - 현재 페이지의 상품 갯수
 //*************************************************
 var orderCartFocus          = 1;
 var orderCartPage           = 0;
@@ -98,6 +118,12 @@ var orderCartCheckYN        = false;
 var orderCartPrevPageYN     = false;
 var orderCartNextPageYN     = false;
 var orderCartDeleteFocus    = 0;
+
+var orderCartResultSet;                          
+var orderCartResultScreenSet    = new Array();   // 장바구니 조회 현재 페이지 resultSet
+var orderCartResultCheckStatus  = new Array();   // 장바구니 조회 전체 페이지 checkbox 저장값, false, true로 구분, true : 체크
+var orderCartAllCheck           = false;         // 장바구니 전체 체크박스 상태, true : 체크
+var orderCartResultLen          = 0;             // 현재 페이지의 상품 갯수
 
 
 

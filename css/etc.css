@@ -365,6 +365,25 @@ top : 84%!important;
 text-align : center;
 z-index : 999999;
 }
+
+.pop3 {
+width :720px!important;
+left: 19%!important;
+position: relative;
+margin: 0 auto;
+margin-top : 5px;
+margin-bottom: 5px;
+font-size : 20px;
+border-radius: 10px;
+padding: 12px;
+background: #363636;
+color : #e6e6e6;
+box-shadow: 0px 0px 40px #505050;
+top : 84%!important;
+text-align : center;
+z-index : 999999;
+}
+
 .mypage .mypage_btnArea {
 margin-top: 10px!important;
 }
