@@ -321,6 +321,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     //appConfiguration.localSystem.mute = true; // 음소거 설정
                     // * 로그인 ID
                     userID  = result['id'];
+                    buyerID = result['id'];
                     setTimeout(INTRO_SCREEN = false, 1000);
                     
                     $('div[name="screen_intro"]').hide();
@@ -651,7 +652,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                         appConfiguration.localSystem.mute = true; // 음소거 설정
 
-                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&userID'+ userID +'&requestOrderScreen=exhb.html';
+                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&userID='+ userID +'&requestOrderScreen=exhb.html';
                     }
                     
                     // 결제
@@ -1432,7 +1433,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                 appConfiguration.localSystem.mute = true; // 음소거 설정
 
-                location.href = EXHB_PATH + "category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID'+ userID;
+                location.href = EXHB_PATH + "category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;
             }
 
             // **************************************************
@@ -1519,7 +1520,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                     appConfiguration.localSystem.mute = true; // 음소거 설정
 
-                    location.href = EXHB_PATH + "product1.html?id="+productList[idx]["product_id"]+"&categoryDtlCode="+productList[idx]["subcategory"]+"&SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID'+ userID;
+                    location.href = EXHB_PATH + "product1.html?id="+productList[idx]["product_id"]+"&categoryDtlCode="+productList[idx]["subcategory"]+"&SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;
 
                 }
                 //할인율 최고
@@ -1537,7 +1538,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                     appConfiguration.localSystem.mute = true; // 음소거 설정
 
-                    location.href = EXHB_PATH + "product1.html?id="+productList2[idx]["product_id"]+"&categoryDtlCode="+productList2[idx]["subcategory"]+"&SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID'+ userID;
+                    location.href = EXHB_PATH + "product1.html?id="+productList2[idx]["product_id"]+"&categoryDtlCode="+productList2[idx]["subcategory"]+"&SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;
                 }
                 //단골쇼퍼
                 if(currentFocusList == 5) {
@@ -1549,7 +1550,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                         appConfiguration.localSystem.mute = true; // 음소거 설정
 
-                        location.href = EXHB_PATH + "shopper_bag.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID'+ userID;        
+                        location.href = EXHB_PATH + "shopper_bag.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;        
                     }
                     //추천세트
                     else if(currentFocusDtl3 == 1){
@@ -1558,10 +1559,10 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         htmlNm = $('li[name="shopper_product"]').html();
                         console.log("htmlNm : "+htmlNm);
                         if(htmlNm == "닭볶음탕"){
-                            location.href = "shopper_bag.html?setName=닭볶음탕&SHOPPER_STATUS=" + SHOPPER_STATUS;
+                            location.href = "shopper_bag.html?setName=닭볶음탕&SHOPPER_STATUS=" + SHOPPER_STATUS + '&userID=' + userID;
                         }
                         else if(htmlNm == "목살스테이크카레"){
-                            location.href = "shopper_bag.html?setName=목살스테이크카레&SHOPPER_STATUS=" + SHOPPER_STATUS;
+                            location.href = "shopper_bag.html?setName=목살스테이크카레&SHOPPER_STATUS=" + SHOPPER_STATUS + '&userID=' + userID;
                         }
                         //닭볶음탕일때
                         /** 쇼퍼's Bag 이동 */
@@ -2047,7 +2048,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                             appConfiguration.localSystem.mute = true; // 음소거 설정
 
 
-                            location.href = EXHB_PATH + "category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID'+ userID;      
+                            location.href = EXHB_PATH + "category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;      
                             //$('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
                             //currentFocusList = 0;
                             //$('#pj_left').addClass('focus');

@@ -609,7 +609,7 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
             // * ◀ KEY (플로팅 Go home)
             // **************************************************
             if(keyCode === global.VK_RED) {
-                location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID'+ userID; // 기획전 이동
+                location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID; // 기획전 이동
             }
 
             // **************************************************
@@ -617,7 +617,7 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
             // **************************************************
             if(keyCode === global.VK_PLAY) {
                 /** 전체 카테고리로 이동 */
-                location.href = "category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID'+ userID;
+                location.href = "category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;
             }
 
             // ************************************************************************
@@ -1183,7 +1183,7 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                         //##########################
                         // <주문내역조회>
                         else if(orderCartFocus == 61) {
-                            location.href = "mypage.html?SHOPPER_STATUS" + SHOPPER_STATUS+ '&userID'+ userID;
+                            location.href = "mypage.html?SHOPPER_STATUS" + SHOPPER_STATUS+ '&userID='+ userID;
                         }
                         // <메뉴 돌아가기>
                         else if(orderCartFocus == 62) {
@@ -1202,20 +1202,26 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                                               + '&id=' + requestCategoryDtlId
                                               + '&requestExhbFocus=' + requestExhbFocus
                                               + '&requestExhbPage=' + requestExhbPage
-                                              + '&SHOPPER_STATUS=' + SHOPPER_STATUS;
+                                              + '&SHOPPER_STATUS=' + SHOPPER_STATUS
+                                              + '&userID=' + userID;
                             }
                             // 상세 카테고리
                             else if(REQUEST_SCREEN == 'category_dtl.html') {
                                 location.href = REQUEST_SCREEN + '?categoryCode=' + requestCategoryCode
                                               + '&categoryDtlCode=' + requestCategoryDtlCode
                                               + '&categoryDtlPage=' + requestCategoryDtlPage
-                                              + '&SHOPPER_STATUS=' + SHOPPER_STATUS;
+                                              + '&SHOPPER_STATUS=' + SHOPPER_STATUS
+                                              + '&userID=' + userID;
                             }
                             // 값이 없으면 기획전으로..
                             else if(REQUEST_SCREEN == '') {
-                                location.href = 'exhb.html';
+                                location.href = 'exhb.html'
+                                              + '&SHOPPER_STATUS=' + SHOPPER_STATUS
+                                              + '&userID=' + userID;
                             } else {
-                                location.href = REQUEST_SCREEN;
+                                location.href = REQUEST_SCREEN
+                                              + '&SHOPPER_STATUS=' + SHOPPER_STATUS
+                                              + '&userID=' + userID;
                             }
 
                         }
@@ -2291,9 +2297,13 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                     }
                     // 값이 없으면 기획전으로..
                     else if(REQUEST_SCREEN == '') {
-                        location.href = 'exhb.html';
+                        location.href = 'exhb.html'
+                                      + '&SHOPPER_STATUS=' + SHOPPER_STATUS
+                                      + '&userID=' + userID;
                     } else {
-                        location.href = REQUEST_SCREEN;
+                        location.href = REQUEST_SCREEN
+                                      + '&SHOPPER_STATUS=' + SHOPPER_STATUS
+                                      + '&userID=' + userID;
                     }
 
 

@@ -35,10 +35,8 @@ var request = new Request();
 
 // * 구매자 ID
 var buyerID	= request.getParameter("buyerID");
-
 // * 로그인 ID
-//var userID	= "";
-userID	= request.getParameter("userID");
+var userID	= request.getParameter("userID");
 
 // * 쇼퍼 구매 상태
 var requestShopperStatus = request.getParameter("SHOPPER_STATUS");

@@ -544,7 +544,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         $('#p_videoDiv video').remove();
                         $('#span_videoDiv video').remove();
                         appConfiguration.localSystem.mute = true; // 음소거 설정
-                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS+ '&userID'+ userID;
+                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS+ '&userID='+ userID;
                     }
                     
                     // 결제
@@ -958,7 +958,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             // **************************************************
             if(keyCode === global.VK_RED) {
                 /** 기획전으로 이동 */
-                location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID'+ userID;
+                location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;
             }
 
             // **************************************************
@@ -966,7 +966,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             // **************************************************
             if(keyCode === global.VK_PLAY) {
                 /** 전체 카테고리로 이동 */
-                location.href = "category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID'+ userID;
+                location.href = "category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;
             }
 
             // **************************************************
@@ -979,7 +979,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     if(currentFocusList == 0){
                         //장바구니
                         if(currentFocusMenu == 0){
-                            location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS+ '&userID'+ userID;
+                            location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS+ '&userID='+ userID;
                         }
                         //찜한상품
                         else if(currentFocusMenu == 1){
@@ -1267,7 +1267,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         console.log("cate_id : "+cate_id);
                         MY_STATUS = 3;
                         console.log("newFocusMenu : "+newFocusMenu+", ")
-                        location.href = EXHB_PATH + "product1.html?id="+pd_id+"&categoryDtlCode="+cate_id+"&SHOPPER_STATUS=" + SHOPPER_STATUS+"&requestMyStatus=" + MY_STATUS+"&requestMyPage=" + currentNewListPage+"&requestMyMenu=" + newFocusMenu+"&requestMyCnt=" + currentNewPageCnt+ '&userID'+ userID;
+                        location.href = EXHB_PATH + "product1.html?id="+pd_id+"&categoryDtlCode="+cate_id+"&SHOPPER_STATUS=" + SHOPPER_STATUS+"&requestMyStatus=" + MY_STATUS+"&requestMyPage=" + currentNewListPage+"&requestMyMenu=" + newFocusMenu+"&requestMyCnt=" + currentNewPageCnt+ '&userID='+ userID;
                      
                     }
                     //팝업일때
@@ -3581,7 +3581,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             } else if (keyCode === global.VK_BACK) {
                 //마이페이지 메인
                 if(myView == 0){
-                    location.href="category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID'+ userID;
+                    location.href="category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;
                 }
                 //장바구니화면
                 else if(myView == 1){
@@ -6064,7 +6064,7 @@ updateSubCategoryNewList : function () {
                 console.log("subCate->"+subCate);
                 MY_STATUS = 2;
                 console.log("MY_STATUS" + MY_STATUS);
-                location.href = EXHB_PATH + "product1.html?id="+favDtId+"&categoryDtlCode="+subCate+"&SHOPPER_STATUS=" + SHOPPER_STATUS+"&requestMyStatus=" + MY_STATUS+"&requestMyPage=" + currentFavListPage+"&requestMyMenu=" + favFocusMenu+"&requestMyCnt=" + currentPageCnt+ '&userID'+ userID;
+                location.href = EXHB_PATH + "product1.html?id="+favDtId+"&categoryDtlCode="+subCate+"&SHOPPER_STATUS=" + SHOPPER_STATUS+"&requestMyStatus=" + MY_STATUS+"&requestMyPage=" + currentFavListPage+"&requestMyMenu=" + favFocusMenu+"&requestMyCnt=" + currentPageCnt+ '&userID='+ userID;
 
             },
             error : function(){
