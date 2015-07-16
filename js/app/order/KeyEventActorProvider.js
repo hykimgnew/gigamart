@@ -80,28 +80,30 @@ function selectCartList()
             // 기본 초기화
             $('#delete_cart_msg').empty().html("선택 상품을 삭제하시겠습니까?");
 
-            // 값 초기화
-            orderCartFocus     = 1;
-            orderCartPage      = 0;
-            orderCartListFocus = 0;
-            orderCartCheckYN   = false;
+            if(START_SCREEN != 2) {
+                // 값 초기화
+                orderCartFocus     = 1;
+                orderCartPage      = 0;
+                orderCartListFocus = 0;
+                orderCartCheckYN   = false;
 
-            // ARROW_TOP, BOTTOM SET
-            martPageArrowUtil();
+                // ARROW_TOP, BOTTOM SET
+                martPageArrowUtil();
 
-            // 조회된 장바구니가 없으면
-            if(typeof orderCartResultSet === 'undefined') {
-                // 포커스 안줌..
-                // 이동도 불가 선택도 불가, 이전버튼만 가능
-            }
-            // 장바구니에 상품이 있으면
-            else {
-                // 첫 포커스는 장바구니 목록 최상단 상품
-                $('li[name="li_cart_list"]').eq(0).addClass("focus");
-                $('.ctc_chebox').eq(0).css("background", "#F4F4F4");
+                // 조회된 장바구니가 없으면
+                if(typeof orderCartResultSet === 'undefined') {
+                    // 포커스 안줌..
+                    // 이동도 불가 선택도 불가, 이전버튼만 가능
+                }
+                // 장바구니에 상품이 있으면
+                else {
+                    // 첫 포커스는 장바구니 목록 최상단 상품
+                    $('li[name="li_cart_list"]').eq(0).addClass("focus");
+                    $('.ctc_chebox').eq(0).css("background", "#F4F4F4");
 
-                // 기타 포커스 제거
-                $('#order_cart_delete').removeClass("focus");
+                    // 기타 포커스 제거
+                    $('#order_cart_delete').removeClass("focus");
+                }
             }
         }
     });
@@ -287,6 +289,7 @@ function deleteCart()
             console.log("#############상품 삭제 ID : " + arrChkProductId[i]);
             console.log("param : " + JSON.stringify(param));
 
+            console.log("i : " + i + "  arrChkProductId-1 : " + (arrChkProductId.length-1));
             $.ajax({
                 url         : cmsServerIp + "/BuyerCartTask/Delete",
                 type        : "post",
@@ -304,17 +307,17 @@ function deleteCart()
                     }
                 },
                 complete     : function(result) {
+                    selectCartList();
+                    // 삭제 확인 팝업 숨김
+                    $('#wrap_delete_product').hide();
+                    // 포커스 초기화
+                    $('#order_cart_delete').removeClass("focus");
                     
                 }
             });
         }
-
-        // 장바구니 재조회
-        selectCartList();
-        // 삭제 확인 팝업 숨김
-        $('#wrap_delete_product').hide();
-        // 포커스 초기화
-        $('#order_cart_delete').removeClass("focus");
+        
+        
     }
 }
 
@@ -503,12 +506,15 @@ function makeShopperEmptyList()
 // 주문하기
 function orderPayment() {
 
+    console.log("total_cost에 들어갈 값 : " + $("#order_cost").html().replace(/^[-]|[^0-9-]/gi,""));
+    console.log("ordered_cost에 들어갈 값 : " + $("#order_total_cost").html().replace(/^[-]|[^0-9-]/gi,""));
+
     var param = {
                     "shopper_id" : resultShopperId,
-                    "total_cost" : Number($('#order_cost').html()),
+                    "total_cost" : Number($('#order_cost').html().replace(/^[-]|[^0-9-]/gi,"")),
                     "delivery_cost" : 0,
                     "shopper_cost" : 2000,
-                    "ordered_cost" : Number($('#order_total_cost').html()),
+                    "ordered_cost" : Number($('#order_total_cost').html().replace(/^[-]|[^0-9-]/gi,"")),
                     "shopper_msg" : "",
                     "receiver_name" : "",
                     "receiver_tel" : "",
@@ -594,9 +600,46 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
         // 1. 배송지 조회
         selectAddrList();
 
-        // 2. 장바구니 조회
-        selectCartList();
+        // 시작 화면에 따라 변동
+        if(START_SCREEN == 2) {
+            // 장바구니 조회
+            selectCartList();
 
+            console.log("## 쇼퍼 선택 시작 ");
+            // 쇼퍼 목록 조회
+            selectShopperList();
+
+            // 쇼퍼 리스트로 이동 
+            orderScreen = 1;
+            orderCartFocus = 10; // 쇼퍼 리스트로..
+            shopperListFocus = 0;
+            orderCartProductYN = true;
+
+            // 주문하기 버튼 Focus 제거 (갱신되므로 할 필요 없음)
+            // $('#order_cart_submit').removeClass("focus");
+
+            // 주문하기 버튼 -> 결제하기, 장바구니 돌아가기 버튼으로 변경
+            var appendHtml = '<li id="order_cart_submit" class="btn_red">결제하기</li>'
+                           + '<li id="order_cart_back" class="btn_green">장바구니 돌아가기</li>';
+
+            $('#sbr_btn').empty().append(appendHtml);
+
+            $('#orderScreen0').hide();
+            $('#orderScreen1').show();
+            $('#wrap_delivery_time').hide();
+
+            $('li[name="li_shopper_list"]').eq(shopperListFocus).addClass("focus");
+
+            // 단계 변경
+            $('#cart_part1').removeClass("sel");
+            $('#cart_part2').addClass("sel");
+            $('#cart_part1 > span').removeClass("pr_txt_sel").addClass("pr_txt");
+            $('#cart_part2 > span').removeClass("pr_txt").addClass("pr_txt_sel");
+        } else {
+            console.log("## 장바구니 시작 ");
+            // 장바구니 조회
+            selectCartList();
+        }
         console.log("##### 넘어온 화면 : " + REQUEST_SCREEN);
 
     },
@@ -610,6 +653,8 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
     	var me = this;
         
         console.log("keyCode : " + keyCode);
+
+        console.log("orderCartFocus : " + orderCartFocus);
 
         // ************************************************************************
         // ** 팝업 없을 때
@@ -832,8 +877,8 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                             $('#wrap_delivery_time').show();
 
                             // 1시간 이내에 기본 sel, 완료버튼에 focus
-                            $('#dt_1hour').addClass("sel");
-                            $('#btn_dt_ok').addClass("focus");
+                            //$('#dt_1hour').addClass("sel");
+                            //$('#btn_dt_ok').addClass("focus");
 
                             deliveryTimeFocus = 3;
                             deliverySelectFocus = 0;
@@ -939,7 +984,7 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
 
                             // 배송시간 지정
                             else if(deliveryTimeFocus == 2) {
-                                // 포커스 상태 일때 
+                                // 포커스 상태가 아닐때
                                 if(!$('#dt_hour').hasClass("sel")) {
                                     // 숫자 유효성 체크
                                     var current_num = Number($('#dt_hour').html());
@@ -970,7 +1015,8 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                                 // 시간 입력된 상태 일때
                                 else if($('#dt_hour').hasClass("sel")) {
                                     $('#dt_hour').empty().removeClass("sel").addClass("focus");
-                                    deliveryTime = 0; // deliveryTime 초기화                                    
+                                    deliveryTime = 0; // deliveryTime 초기화 
+                                    deliverySelectFocus = 1;                                   
                                 }
                             }
 
@@ -1138,6 +1184,10 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                             setTimeout("$('#wrap_common').hide()", 1500);
                             setTimeout("$('#common_msg').empty()", 1500);
                         }
+                        // <은행 선택>
+                        else if(orderCartFocus == 30) {
+
+                        }
                         // <배송지 선택>
                         else if(orderCartFocus == 40) {
                             // 배송지 목록에 포커스 주기
@@ -1186,12 +1236,15 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                             // 쇼퍼 리스트로 이동 
                             orderScreen = 0;
                             orderCartFocus = 1; // 쇼퍼 리스트로..
+                            $('#orderScreen2').hide();
                             $('#orderScreen1').hide();
                             $('#orderScreen0').show();
 
                             // 단계 변경
+                            $('#cart_part3').removeClass("sel");
                             $('#cart_part2').removeClass("sel");
                             $('#cart_part1').addClass("sel");
+                            $('#cart_part3 > span').removeClass("pr_txt_sel").addClass("pr_txt");
                             $('#cart_part2 > span').removeClass("pr_txt_sel").addClass("pr_txt");
                             $('#cart_part1 > span').removeClass("pr_txt").addClass("pr_txt_sel");
                         }
@@ -1234,11 +1287,11 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                             // 값이 없으면 기획전으로..
                             else if(REQUEST_SCREEN == '') {
                                 location.href = 'exhb.html'
-                                              + '&SHOPPER_STATUS=' + SHOPPER_STATUS
+                                              + '?SHOPPER_STATUS=' + SHOPPER_STATUS
                                               + '&userID=' + userID;
                             } else {
                                 location.href = REQUEST_SCREEN
-                                              + '&SHOPPER_STATUS=' + SHOPPER_STATUS
+                                              + '?SHOPPER_STATUS=' + SHOPPER_STATUS
                                               + '&userID=' + userID;
                             }
 
@@ -1494,6 +1547,10 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                                     $('li[name="payment_left_menu"]').eq(2).addClass("focus");
                                 }
                             }
+                            // <은행 선택>
+                            else if(orderCartFocus == 30) {
+                                
+                            }                            
                             // <배송지 선택>
                             else if(orderCartFocus == 40) {
                                 // X
@@ -1768,6 +1825,10 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                                     // X
                                 }
                             }
+                            // <은행 선택>
+                            else if(orderCartFocus == 30) {
+                                
+                            }
                             // <배송지 선택>
                             else if(orderCartFocus == 40) {
                                 $('#order_cart_address').removeClass("focus");
@@ -2018,6 +2079,10 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                             else if(orderCartFocus == 22 || orderCartFocus == 23 || orderCartFocus == 24) {
                                 // X
                             }
+                            // <은행 선택>
+                            else if(orderCartFocus == 30) {
+                                
+                            }
                             // <배송지 선택>
                             else if(orderCartFocus == 40) {
                                 $('#order_cart_address').removeClass("focus");
@@ -2210,6 +2275,9 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                             //##########################
                             // <쇼퍼 리스트>
                             else if(orderCartFocus == 10) {
+
+                                console.log("????");
+
                                 if(shopperListFocus == 0) {
                                     $('li[name="li_shopper_list"]').eq(shopperListFocus).removeClass("focus");
                                     shopperListFocus = 1;
@@ -2304,23 +2372,25 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                                       + '&id=' + requestCategoryDtlId
                                       + '&requestExhbFocus=' + requestExhbFocus
                                       + '&requestExhbPage=' + requestExhbPage
-                                      + '&SHOPPER_STATUS=' + SHOPPER_STATUS;
+                                      + '&SHOPPER_STATUS=' + SHOPPER_STATUS
+                                      + '&userID=' + userID;
                     }
                     // 상세 카테고리
                     else if(REQUEST_SCREEN == 'category_dtl.html') {
                         location.href = REQUEST_SCREEN + '?categoryCode=' + requestCategoryCode
                                       + '&categoryDtlCode=' + requestCategoryDtlCode
                                       + '&categoryDtlPage=' + requestCategoryDtlPage
-                                      + '&SHOPPER_STATUS=' + SHOPPER_STATUS;
+                                      + '&SHOPPER_STATUS=' + SHOPPER_STATUS
+                                      + '&userID=' + userID;
                     }
                     // 값이 없으면 기획전으로..
                     else if(REQUEST_SCREEN == '') {
                         location.href = 'exhb.html'
-                                      + '&SHOPPER_STATUS=' + SHOPPER_STATUS
+                                      + '?SHOPPER_STATUS=' + SHOPPER_STATUS
                                       + '&userID=' + userID;
                     } else {
                         location.href = REQUEST_SCREEN
-                                      + '&SHOPPER_STATUS=' + SHOPPER_STATUS
+                                      + '?SHOPPER_STATUS=' + SHOPPER_STATUS
                                       + '&userID=' + userID;
                     }
 

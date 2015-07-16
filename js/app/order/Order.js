@@ -15,6 +15,7 @@ var EXHB_IMAGE_PATH = "../images/";
 //* Request getParameter
 //* REQUEST_SCREEN - 이전 버튼을 누르면 돌아갈 페이지
 //*     ex) exhb.html
+//* START_SCREEN - 시작화면, 없으면 장바구니부터, 2:쇼퍼선택, 3:주문/결제, 4:주문완료
 //*
 //* 상세 카테고리
 //* requestCategoryDtlCode - category_dtl.html서 가져온 상세카테고리 코드
@@ -23,6 +24,7 @@ var EXHB_IMAGE_PATH = "../images/";
 //* 너무 많아 생략.. 그냥 가져다 씀
 //*************************************************
 var REQUEST_SCREEN = request.getParameter("requestOrderScreen");
+var START_SCREEN = request.getParameter("startScreen");
 //-------------------------------------------------
 // 상세카테고리에서 넘어온 코드
 var requestCategoryCode     = request.getParameter("categoryCode");
@@ -114,6 +116,7 @@ var deliveryTime = 0;
 //*        22 : 주문/결제 - 신용카드
 //*        23 : 주문/결제 - KT폰 통합결제
 //*        24 : 주문/결제 - 실시간 계좌이체
+//*        30 : 주문/결제 - 은행선택
 //*        40 : 주문/결제 - 배송지 선택
 //*        41 : 주문/결제 - 결제하기
 //*        42 : 주문/결제 - 장바구니로 돌아가기

@@ -981,7 +981,7 @@ position:relative;width:162px; float:left; margin-bottom:4px; color:#ffffff;back
 .deliveryTime .dt_con .dtc_right .dtcr_third .time {display:inline-block; width:96px; height:56px; line-height:64px; background:#FFFFFF; border:2px solid #404040; font-size:36px; font-weight:bold; color:#2b9330;}
 .deliveryTime .dt_con .dtc_right .dtcr_third .time.focus {display:inline-block; width:96px; height:56px; line-height:64px; background:#2b9330; border:2px solid #2b9330; font-size:36px; font-weight:bold; color:#FFFFFF;}
 .deliveryTime .dt_con .dtc_right .dtcr_third .time.sel {display:inline-block; width:96px; height:56px; line-height:64px; background:#FFFFFF; border:2px solid #2b9330; font-size:36px; font-weight:bold; color:#2b9330;}
-.deliveryTime .dt_con .dtc_right .dtcr_third .time_txt {display:inline-block; position:relative; top:-5px; }
+.deliveryTime .dt_con .dtc_right .dtcr_third .time_txt {display:inline-block; position:absolute; top:35px; }
 
 .deliveryTime .dt_btn {clear:both; text-align:center;}
 .deliveryTime .dt_btn p { font-size:22px; color:#404040; padding:70px 0 69px;}

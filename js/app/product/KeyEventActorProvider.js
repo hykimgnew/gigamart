@@ -191,7 +191,26 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                     
                     // 결제
                     if(cartFocus == 1) {
-                        
+                        console.log("장바구니 담긴 개수 : " + $('#ec_list > li[name="ec_li_list"]').size());
+
+                        if($('#ec_list > li[name="ec_li_list"]').size() > 0) {
+                            $('#p_videoDiv video').remove();
+                            $('#span_videoDiv video').remove();
+                            appConfiguration.localSystem.mute = true; // 음소거 설정
+                            location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&requestOrderScreen=product1.html'
+                                      + '&productView=' + requestProductView 
+                                      + '&currentFocusList=' + requestCurrentFocusList
+                                      + '&currentFocusMenu=' + requestCurrentFocusMenu
+                                      + '&currentFocusMenul=' + requestCurrentFocusMenul
+                                      + '&categoryCode=' + requestCategoryCode
+                                      + '&categoryDtlCode=' + requestCategoryDtlCode
+                                      + '&categoryDtlPage=' + requestCategoryDtlPage
+                                      + '&id=' + requestCategoryDtlId
+                                      + '&requestExhbFocus=' + requestExhbFocus
+                                      + '&requestExhbPage=' + requestExhbPage + '&userID='+ userID + '&startScreen=2';   
+                        } else {
+                            console.log("#상품이 존재하지 않아 결제 화면으로 이동하지 않음");
+                        }
                     }
 
                     // 장바구니 리스트
