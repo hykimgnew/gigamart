@@ -267,6 +267,9 @@ function deleteCart()
             arrChkProductId.push(orderCartResultSet[i]["product_id"]);
         }
     }
+    console.log("전체 체크 상태 : " + orderCartResultCheckStatus);
+    console.log("체크 상태 : " + arrChkProductId);
+    console.log("체크 상태 갯수 : " + arrChkProductId.length);
 
     // 선택한 상품이 없을 때
     if(arrChkProductId.length == 0) {
@@ -281,6 +284,9 @@ function deleteCart()
         for(var i=0 ; i < arrChkProductId.length ; i++) {
             var param = { "product_id" : arrChkProductId[i] };
 
+            console.log("#############상품 삭제 ID : " + arrChkProductId[i]);
+            console.log("param : " + JSON.stringify(param));
+
             $.ajax({
                 url         : cmsServerIp + "/BuyerCartTask/Delete",
                 type        : "post",
@@ -292,9 +298,9 @@ function deleteCart()
                 },
                 success     : function(result) {
                     if(result["resultCode"] == '1') {
-                        console.log(arrChkProductId[i] + " 삭제 성공");
+                        console.log(JSON.stringify(param) + " 삭제 성공");
                     } else {
-                        console.log(arrChkProductId[i] + " 삭제 실패, 로그인 세션 없음");
+                        console.log(JSON.stringify(param) + " 삭제 실패, 로그인 세션 없음");
                     }
                 },
                 complete     : function(result) {
@@ -502,7 +508,7 @@ function orderPayment() {
                     "total_cost" : Number($('#order_cost').html()),
                     "delivery_cost" : 0,
                     "shopper_cost" : 2000,
-                    "orderd_cost" : Number($('#order_total_cost').html()),
+                    "ordered_cost" : Number($('#order_total_cost').html()),
                     "shopper_msg" : "",
                     "receiver_name" : "",
                     "receiver_tel" : "",
@@ -524,6 +530,10 @@ function orderPayment() {
                         withCredentials: true
         },
         success     : function(result) {
+
+            console.log("param : " + JSON.stringify(param));
+            console.log("result: " + JSON.stringify(result));
+
             if(result["resultCode"] == 1) $('#common_msg').empty().html("주문이 완료되었습니다.");
             if(result["resultCode"] == -1) $('#common_msg').empty().html("로그인 정보가 올바르지 않아 주문에 실패했습니다.");
             if(result["resultCode"] == 2) $('#common_msg').empty().html("요청 파라미터가 부족합니다.");
@@ -929,31 +939,39 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
 
                             // 배송시간 지정
                             else if(deliveryTimeFocus == 2) {
-                                // 숫자 유효성 체크
-                                var current_num = Number($('#dt_hour').html());
+                                // 포커스 상태 일때 
+                                if(!$('#dt_hour').hasClass("sel")) {
+                                    // 숫자 유효성 체크
+                                    var current_num = Number($('#dt_hour').html());
 
-                                if(current_num > 21 || current_num < 10) {
-                                    $('#common_msg').empty().html("입력한 시간이 올바르지 않습니다. (10 ~ 21 사이로 입력)");
-                                    $('#wrap_common').show();
+                                    if(current_num > 21 || current_num < 10) {
+                                        $('#common_msg').empty().html("입력한 시간이 올바르지 않습니다. (10 ~ 21 사이로 입력)");
+                                        $('#wrap_common').show();
 
-                                    setTimeout("$('#wrap_common').hide()", 1500);
-                                    setTimeout("$('#common_msg').empty()", 1500);   
+                                        setTimeout("$('#wrap_common').hide()", 1500);
+                                        setTimeout("$('#common_msg').empty()", 1500);   
 
-                                    $('#dt_hour').empty();
+                                        $('#dt_hour').empty();
 
-                                    return;
+                                        return;
+                                    }
+
+                                    // 선택 
+                                    $('#dt_1hour').removeClass("focus");
+                                    $('#dt_2hour').removeClass("focus");
+                                    $('#dt_1hour').removeClass("sel");
+                                    $('#dt_2hour').removeClass("sel");
+                                    $('#dt_hour').removeClass("sel");
+
+                                    $('#dt_hour').addClass("sel");
+                                    deliveryTime = current_num; // 입력한 시간을 deliveryTime에 set (나중에 주문완료할때 쓰임)
+                                    deliverySelectFocus = 2;
                                 }
-
-                                // 선택 
-                                $('#dt_1hour').removeClass("focus");
-                                $('#dt_2hour').removeClass("focus");
-                                $('#dt_1hour').removeClass("sel");
-                                $('#dt_2hour').removeClass("sel");
-                                $('#dt_hour').removeClass("sel");
-
-                                $('#dt_hour').addClass("sel");
-                                deliveryTime = current_num; // 입력한 시간을 deliveryTime에 set (나중에 주문완료할때 쓰임)
-                                deliverySelectFocus = 2;
+                                // 시간 입력된 상태 일때
+                                else if($('#dt_hour').hasClass("sel")) {
+                                    $('#dt_hour').empty().removeClass("sel").addClass("focus");
+                                    deliveryTime = 0; // deliveryTime 초기화                                    
+                                }
                             }
 
                             // 완료 버튼
@@ -2320,8 +2338,11 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                             var num = keyCode - 48; // 입력받은 숫자 0~9
                             var current_num = $('#dt_hour').html(); // 현재 지정된 배송시간
 
+                            console.log($('#dt_hour').hasClass("sel"));
                             // 1자리보다 같거나 작을때만 입력 받음
                             if(current_num.length <= 1) $('#dt_hour').html(current_num + "" + num);
+
+                            if(current_num.length > 1 && !$('#dt_hour').hasClass("sel")) $('#dt_hour').empty().html(num);
                         }
                     }
                 }
