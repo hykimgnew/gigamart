@@ -537,7 +537,8 @@ function orderPayment() {
             // 주문 완료 화면 set
             $('#order_cost2').html($('#order_cost').html());
             $('#order_shopper_cost2').html($('#order_shopper_cost').html());
-            $('#order_total_cost2,#order_total_cost3').html($('#order_total_cost').html());
+            $('#order_total_cost2').html($('#order_total_cost').html());
+            $('#order_total_cost3').html("결제금액 : " + $('#order_total_cost').html());
 
             // 주문정보 get
             var first_name = "";

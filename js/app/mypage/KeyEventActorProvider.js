@@ -515,7 +515,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         $('#p_videoDiv video').remove();
                         $('#span_videoDiv video').remove();
                         appConfiguration.localSystem.mute = true; // 음소거 설정
-                        location.href = EXHB_PATH + 'order.html';
+                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS;
                     }
                     
                     // 결제
@@ -929,7 +929,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             // **************************************************
             if(keyCode === global.VK_RED) {
                 /** 기획전으로 이동 */
-                location.href ="exhb.html" ; // 기획전 이동
+                location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS;
             }
 
             // **************************************************
@@ -937,7 +937,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             // **************************************************
             if(keyCode === global.VK_PLAY) {
                 /** 전체 카테고리로 이동 */
-                location.href = "category.html";
+                location.href = "category.html?SHOPPER_STATUS=" + SHOPPER_STATUS;
             }
 
             // **************************************************
@@ -950,7 +950,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     if(currentFocusList == 0){
                         //장바구니
                         if(currentFocusMenu == 0){
-                            location.href = EXHB_PATH + 'order.html';
+                            location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS;
                         }
                         //찜한상품
                         else if(currentFocusMenu == 1){
@@ -3478,7 +3478,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             } else if (keyCode === global.VK_BACK) {
                 //마이페이지 메인
                 if(myView == 0){
-                    location.href="category.html";
+                    location.href="category.html?SHOPPER_STATUS=" + SHOPPER_STATUS;
                 }
                 //장바구니화면
                 else if(myView == 1){
