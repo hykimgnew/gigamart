@@ -477,6 +477,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
         }else{
 
         }
+        $('span[name="userId"]').html(userID);
 
         //마이페이지 메인에 상단메뉴의 찜한상품 totalcount를 위해
         this.totFav();

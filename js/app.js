@@ -47,7 +47,7 @@ var SHOPPER_STATUS = 0;
  ***************************/
 var common_init = function() {
 	//if(typeof userID != 'undefined' || userID != ''){
-		//console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<userID=->>>>>>>>>>>>>>>>>>>>>>>>"+userID);
+		console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<userID=->>>>>>>>>>>>>>>>>>>>>>>>"+userID);
 		//userID = userID ; 
 	//}
 	// 상태 메시지 관련
