@@ -14,6 +14,8 @@ var requestCategoryCode     = request.getParameter("categoryCode");
 var requestCategoryDtlCode  = request.getParameter("categoryDtlCode");
 var requestCategoryDtlPage  = request.getParameter("categoryDtlPage");
 
+//로그인아이디
+var userID  = request.getParameter("userID");
 //*************************************************
 // * Popup
 // * isCart       : 간편 장바구니

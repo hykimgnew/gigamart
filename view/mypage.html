@@ -24,7 +24,7 @@
 								<h1><img src="../images/logo_gigamart.png" /></h1>
 							</span>
 							<span style="position :absolute; top : 38px; left : 254px;display:inline-block; float:left;">
-								<h2>마이 페이지 <span>‘adds’님 즐거운 쇼핑 하세요~!</span></h2>
+								<h2>마이 페이지 <span>‘<span name="userId"></span>’님 즐거운 쇼핑 하세요~!</span></h2>
 							</span>
 							<h3>
 								<span><img src="../images/s_bg_left.png" /></span>
@@ -68,34 +68,36 @@
 									<p>주문내역 <span class="tb_btn" name="ord_etc">주문내역 더보기</span></p>
 									<div>
 										<table width="100%" cellpadding="0" cellspacing="0" border="0" class="mpol_table">
-											<tr>
+											<tr id="ord_wrap">
 												<th class="bdr_right">구매일자</th>
 												<th class="bdr_right">주문번호</th>
 												<th class="bdr_right">상품정보</th>
 												<th class="bdr_right">상태</th>
 												<th>쇼퍼</th>
 											</tr>
-											<tr name="ord_menu"><!-- <tr class="focus"> -->
-												<td class="bdr_right" name="ord_date"><!-- 2015.05.06 14:06 --></td>
-												<td class="bdr_right" name="ord_num"><!-- asdkgjlskd0020394 --></td>
-												<td class="bdr_right" name="ord_info"><!-- [아침마루] 싱싱한 토마토 5입 1봉 외              … 3건 --></td>
-												<td class="bdr_right" name="ord_state"><!-- 배송중 --></td>
-												<td name="ord_name"><!-- 김이슬 --></td>
+											<!-- <tr style="height : 153px;"><td colspan="5">주문내역이 없습니다.</td></tr> -->
+											 
+											<!--<tr name="ord_menu">
+												<td class="bdr_right" name="ord_date">2015.05.06 14:06</td>
+												<td class="bdr_right" name="ord_num">asdkgjlskd0020394</td>
+												<td class="bdr_right" name="ord_info">[아침마루] 싱싱한 토마토 5입 1봉 외              … 3건</td>
+												<td class="bdr_right" name="ord_state">배송중</td>
+												<td name="ord_name">김이슬</td>
 											</tr>
-											<tr name="ord_menu"><!-- <tr class="focus"> -->
-												<td class="bdr_right" name="ord_date"><!-- 2015.05.06 14:06 --></td>
-												<td class="bdr_right" name="ord_num"><!-- asdkgjlskd0020394 --></td>
-												<td class="bdr_right" name="ord_info"><!-- [아침마루] 싱싱한 토마토 5입 1봉 외              … 3건 --></td>
-												<td class="bdr_right" name="ord_state"><!-- 배송중 --></td>
-												<td name="ord_name"><!-- 김이슬 --></td>
+											 <tr name="ord_menu">
+												<td class="bdr_right" name="ord_date">2015.05.06 14:06</td>
+												<td class="bdr_right" name="ord_num">asdkgjlskd0020394</td>
+												<td class="bdr_right" name="ord_info">[아침마루] 싱싱한 토마토 5입 1봉 외              … 3건</td>
+												<td class="bdr_right" name="ord_state">배송중</td>
+												<td name="ord_name">김이슬</td>
 											</tr>
-											<tr name="ord_menu"><!-- <tr class="focus"> -->
-												<td class="bdr_right" name="ord_date"><!-- 2015.05.06 14:06 --></td>
-												<td class="bdr_right" name="ord_num"><!-- asdkgjlskd0020394 --></td>
-												<td class="bdr_right" name="ord_info"><!-- [아침마루] 싱싱한 토마토 5입 1봉 외              … 3건 --></td>
-												<td class="bdr_right" name="ord_state"><!-- 배송중 --></td>
-												<td name="ord_name"><!-- 김이슬 --></td>
-											</tr>
+											<tr name="ord_menu"><tr class="focus">
+												<td class="bdr_right" name="ord_date">2015.05.06 14:06</td>
+												<td class="bdr_right" name="ord_num">asdkgjlskd0020394</td>
+												<td class="bdr_right" name="ord_info">[아침마루] 싱싱한 토마토 5입 1봉 외              … 3건</td>
+												<td class="bdr_right" name="ord_state">배송중</td>
+												<td name="ord_name">김이슬</td>
+											</tr> -->
 										</table>
 									</div>
 								</div>
@@ -941,6 +943,29 @@
 	</ul>
 </div>
 <!-- 주문내역 none 토스트메세지 END-->
+
+
+
+<!-- 주문취소 확인 팝업 START-->
+<div id="pop_order_ref" class="bg_alpha" style=" position:absolute; display : none;">
+	<div class="pop type_b">
+		<ul>
+			<li class="mg_t40 txt_cnt" style="font-size : 22px;">현재 상품을 주문취소 하시겠습니까?</li>
+			<li class="pop_btn">
+				<span class="green" name="ord_ref_ok">확인</span>
+				<span class="gray" name="ord_ref_cancel">취소</span>
+			</li>
+		</ul>
+	</div>
+</div>
+<!-- 주문취소 확인 팝업 토스트메세지 END-->
+
+
+
+
+
+
+
 
 <!-- 주문내역 상세1 START-->
 	<div id="wrap" class="bg_gray" style="display : none;" name="view_order_dt1">

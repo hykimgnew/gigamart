@@ -12,6 +12,11 @@ var EXHB_IMAGE_PATH = "images/";
 var INTRO_SCREEN = true;
 var GO_EXHB       = request.getParameter("GO_EXHB");
 
+
+//로그인아이디
+var userID  = request.getParameter("userID");
+
+
 //*************************************************
 // * Popup
 // * isFullVideo           : 전체 영상보기

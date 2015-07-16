@@ -395,7 +395,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                         location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&requestOrderScreen=category_dtl.html'
                                       + '&categoryDtlCode=' + requestCategoryDtlCode
                                       + '&categoryDtlPage=' + requestCategoryDtlPage
-                                      + '&categoryCode=' + requestCategoryCode;
+                                      + '&categoryCode=' + requestCategoryCode+ '&userID'+ userID;
                     }
                     
                     // 결제
@@ -780,13 +780,13 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
             // * ◀ KEY (플로팅 Go home)
             // **************************************************
             if(keyCode == VK_RED) {
-                location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS; // 기획전 이동
+                location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID'+ userID; // 기획전 이동
             }
             // **************************************************
             // * ◀|| KEY (카테고리 Go home)
             // **************************************************
             if(keyCode == VK_PLAY) {
-                location.href ="category.html?SHOPPER_STATUS=" + SHOPPER_STATUS; // 전체카테고리 이동
+                location.href ="category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID'+ userID; // 전체카테고리 이동
             }
             // **************************************************
             // * 확인 KEY
@@ -1265,7 +1265,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 location.href = "category.html?categoryCode=" + requestCategoryCode 
                               + "&categoryDtlCode=" + requestCategoryDtlCode 
                               + "&categoryDtlPage=" + requestCategoryDtlPage
-                              + "&SHOPPER_STATUS=" + SHOPPER_STATUS;
+                              + "&SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID'+ userID;
             }
         });
 

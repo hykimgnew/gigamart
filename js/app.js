@@ -36,6 +36,10 @@ var request = new Request();
 // * 구매자 ID
 var buyerID	= request.getParameter("buyerID");
 
+// * 로그인 ID
+//var userID	= "";
+userID	= request.getParameter("userID");
+
 // * 쇼퍼 구매 상태
 var requestShopperStatus = request.getParameter("SHOPPER_STATUS");
 var SHOPPER_STATUS = 0;
@@ -44,12 +48,14 @@ var SHOPPER_STATUS = 0;
  *	모든 화면에서 공통적으로 호출되는 기능
  ***************************/
 var common_init = function() {
+	//if(typeof userID != 'undefined' || userID != ''){
+		//console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<userID=->>>>>>>>>>>>>>>>>>>>>>>>"+userID);
+		//userID = userID ; 
+	//}
 	// 상태 메시지 관련
-	
 	if(typeof requestShopperStatus === 'undefined' || requestShopperStatus == '') {
 		requestShopperStatus = 3;
 	}
-
 	SHOPPER_STATUS = requestShopperStatus;
 
 	console.log("## 시작 시 상태 : " + requestShopperStatus);

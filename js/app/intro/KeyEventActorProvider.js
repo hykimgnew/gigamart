@@ -113,7 +113,7 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
                     //setCookie('buyerID', result['id'], 1); // 로그인 할때 ID 쿠키 저장
                     console.log("############ 로그인 되었습니다. " + buyerID);
                     appConfiguration.localSystem.mute = true; // 음소거 설정
-                    location.href = "view/exhb.html?buyerID=" + result['id'];  // 메인 화면으로 이동
+                    location.href = "view/exhb.html?buyerID=" + result['id']+ '&userID'+ userID;  // 메인 화면으로 이동
                 }
 
                 else if(result['resultCode'] == '0') {

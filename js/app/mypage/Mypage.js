@@ -20,6 +20,8 @@ var requestMyPage  = request.getParameter("requestMyPage");
 var requestMyMenu  = request.getParameter("requestMyMenu");
 var requestMyCnt  = request.getParameter("requestMyCnt");
 
+//로그인아이디
+var userID  = request.getParameter("userID");
 //*************************************************
 // * Popup
 // * isCart       : 간편 장바구니
@@ -404,10 +406,18 @@ var orderDtTotalPageYN = false;
  *  현재 주문내역 리스트 Focus 위치
  *  0 : 주문내역 list
  *  1 : 버튼
- *  2 : 
+ *  2 : 팝업
  *  3 : 
  **/
 var orderDt2FocusList = 0;
+
+/** 
+ *  주문내역상세2에서 주문취소했을때의 팝업 focus
+ *  0 : 확인
+ *  1 : 취소
+ **/    
+var orderDt2RefBtn = 0;
+
 /** 
  *  주문내역상세2list Focus 위치
  *  0 : 

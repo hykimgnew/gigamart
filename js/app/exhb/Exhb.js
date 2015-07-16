@@ -19,6 +19,8 @@ var GO_EXHB       = request.getParameter("GO_EXHB");
 var requestExhbFocus  = request.getParameter("requestExhbFocus");
 var requestExhbPage   = request.getParameter("requestExhbPage");
 
+//로그인아이디
+var userID  = request.getParameter("userID");
 //*************************************************
 // * Popup
 // * isFullVideo           : 전체 영상보기
