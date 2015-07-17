@@ -1379,6 +1379,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         //주문내역상세2->마이페이지최신3개
                         if(myViewOrderPrev == 0){
                             $('tr[name="order_dt_menu"]').remove();
+                            $('tr[name="order_dt_menu2"]').remove();
                             orderDt2FocusMenu = 0;
                             orderDtFocusMenu = 0;
                             myView = 0;
@@ -1391,6 +1392,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                                 $('span[name="order_dt2_back"]').removeClass('focus');
                                 orderDt2BtnFocus = 0;
                                 $('tr[name="order_dt_menu"]').remove();
+                                $('tr[name="order_dt_menu2"]').remove();
                                 $('div[name="view_order_dt1"]').hide();
                                 $('div[name="view_order_dt2"]').hide();
                                 orderDt2FocusMenu = 0;
@@ -4620,7 +4622,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 }else{
                     console.log("undefined아닙니다요 : ");
                     console.log("obj3333333333 : "+obj.name);
-                    var obj2 = arrOrderList[Number((page*2)+i)].ordered_product;
+                    var obj2 = arrOrderList[Number((page*2)+i)].ordered_product;// 갯수세는용
                     var obj_length = Object.keys(obj2).length;
                     $('td[name="order_date"]').eq(i).empty().append(arrOrderList[Number((page*2)+i)].order_date);
                     $('td[name="order_num"]').eq(i).empty().append(arrOrderList[Number((page*2)+i)].order_id);
@@ -4652,7 +4654,8 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         $('td[name="order_name"]').eq(i).empty().append(arrOrderList[Number((page*2)+i)].shopper_id);
                         $('td[name="order_info"]').eq(i).empty().append("없음");
                     }else{
-                        var obj_length3 = Object.keys(obj3).length;
+                        var obj4 = arrOrderList[Number((page*2)+i)].ordered_product; // 갯수세는용
+                        var obj_length3 = Object.keys(obj4).length;
                         console.log("i는 : "+i+" , obj3의 길이 : "+JSON.stringify(obj_length3));
                         console.log("undefined아닙니다요 : ");
                         $('td[name="order_date"]').eq(i).empty().append(arrOrderList[Number((page*2)+i)].order_date);
@@ -5269,7 +5272,8 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
 
         //페이징
         cnt                 = Math.floor(obj_length / maxRefListPage);
-        totalRefListPage = Number(cnt)-1;
+        totalRefListPage = Number(cnt);
+        //totalRefListPage = Number(cnt)-1;
 
         //console.log("길이 : " + JSON.stringify(obj_length));
         //결과값 없을때 0
@@ -5516,9 +5520,9 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             console.log("11111$$$$$$$$$$$$$$$$$$$$$$$$iiiiiiiiii$$$$$$$$$$$$$$$$$$$$$$$$$ : "+i);
             var obj2 = obj[i];
             if(obj2.order_id == id){
-                console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                console.log("obj2[0].order_id : "+obj2.order_id);
-                console.log("obj2[0].order_date : "+obj2.order_date);
+                console.log("$$$$$$$$$$$$$$아이디같을때$$$$$$$$$$$$$$$$$$$$$i : "+i);
+                console.log("obj2.order_id : "+obj2.order_id);
+                console.log("id : "+id);
                 console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
                 $('td[name="ref_dt_date"]').empty().append(obj2.order_date);
                 $('td[name="ref_dt_num"]').empty().append(obj2.order_id);
@@ -5605,18 +5609,6 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                             $('td[name="dtr_store"]').eq(0).empty().append("양재점"); 
                             $('td[name="dtr_order"]').eq(0).empty().append(cn_toPrice(Number(obj3[0].cost)*Number(obj3[0].cnt))+"원"); 
                         }
-                        // for(var i=0; i<obj_length3; i++){
-                        //     makeRefDtProduct();
-                        //     $('td[name="dtr_img"]').eq(i).empty().append('<img src="' + obj3[i].image + '" height="100" width="100" />'); 
-                        //     $('td[name="dtr_name"]').eq(i).empty().append(obj3[i].name);    
-                        //     $('td[name="dtr_cost"]').eq(i).empty().append(cn_toPrice(obj3[i].cost)+"원"); 
-                        //     $('td[name="dtr_discount"]').eq(i).empty().append(""); 
-                        //     $('td[name="dtr_cnt"]').eq(i).empty().append(obj3[i].cnt); 
-                        //     $('td[name="dtr_delivery"]').eq(i).empty().append(cn_toPrice(obj3[i].delivery_cost)+"원");    //배송비
-                        //     $('td[name="dtr_store"]').eq(i).empty().append("양재점"); 
-                        //     $('td[name="dtr_order"]').eq(i).empty().append(cn_toPrice(Number(obj3[i].cost)*Number(obj3[i].cnt))+"원"); 
-                        // }
-
                     }
                     else if(obj_length3 == 0){
                         console.log("4444$$$$$$$$$$$$$$$$$$$$$$$$iiiiiiiiii$$$$$$$$$$$$$$$$$$$$$$$$$ : "+i);
@@ -5626,9 +5618,9 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
 
             arrRefDtTotalList[0] = appendHtml2;
             console.log("##### 환불취소내역 arrRefDtTotalList List json " + JSON.stringify(arrRefDtTotalList));
-
-
-
+            return;
+            }else{
+                console.log("id다름 : i : "+i);
             }
         }
     },
