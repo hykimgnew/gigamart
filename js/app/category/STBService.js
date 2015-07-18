@@ -24,7 +24,7 @@ App.defineClass('Gigamart.app.category.STBService', {
 	_initializeKeySet: function () {
 		var me = this,
 			original = me.ownerApp.privateData.keyset,
-			keySet = (original.NAVIGATION + original.VCR + original.NUMERIC + original.OTHER);
+			keySet = (original.NAVIGATION + original.VCR + original.NUMERIC + original.OTHER + original.WINK);
 			
 	    original.setValue(original.maximumValue, [global.VK_CHANNEL_UP, global.VK_CHANNEL_DOWN, global.VK_CHANNEL_DOWN, global.VK_F3, global.VK_F12]);
 

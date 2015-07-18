@@ -72,6 +72,7 @@ var productList               = new Array();
  *  2 : 쇼퍼's bag
  *  3 : 쇼퍼 주문 이력
  *  4 : 쇼퍼 리얼 타임
+ *  5 : 음성 검색
  **/
 var currentFocusList = 0;
 
@@ -103,8 +104,26 @@ var currentFocusDtlPage = 0;
  * 이전/다음 페이지 true /false
  *  true일 경우 전/다음 페이지 있음
  **/
- var prevPageYN = false;
- var nextPageYN = false;
+var prevPageYN = false;
+var nextPageYN = false;
+
+/**
+ * 음성 검색
+ *
+ * voiceFocus - 음성 검색 포커스
+ * 0 : 검색 결과 리스트
+ * 1 : 할인율순
+ * 2 : 가격낮은 순
+ * 3 : 가격높은 순
+ * 4 : 인기순
+ * 5 : 기획전 상품만 보기 체크박스
+ *
+ * voiceListFocus - 음성 검색 리스트 포커스
+ * 0 1 2 3
+ * 4 5 6 7 
+ **/
+var voiceFocus = 0;
+var voiceListFocus = 0;
 
 // 쇼퍼 리얼 타임
 var rtspPlayer = window.oipfObjectFactory.createVideoMpegObject();    // 실시간 영상보기

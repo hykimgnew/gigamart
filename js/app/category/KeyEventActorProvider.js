@@ -2,6 +2,7 @@
 
 var videoPlayer;
 var appConfiguration = window.oipfObjectFactory.createConfigurationObject();
+var voiceDataManager = window.oipfObjectFactory.createVoiceDataManagerObject();
 
 // 숫자 -> 금액
 function cn_toPrice(n) {
@@ -28,27 +29,10 @@ function pageArrowUtil1() {
 var rtspPlayer;
 function rtspPlay() {
     var url = "rtsp://175.209.53.209:1554/11023.sdp";
-    //var url = "http://175.209.53.205/gigamart_video/video/tv/product_event/기획전2.mp4";
-    // rtspPlayer = document.querySelector('object');
-     //var url = cmsServerIp + "/video/tv/product_event/2-2기획전_문어.mp4";
-    /*console.log("url : " + url + " 재생함");
-    rtspPlayer.width = 970;
-    rtspPlayer.height = 545;
-    $('#rtsp_area').empty();
-    document.getElementById('rtsp_area').appendChild(rtspPlayer);
-    rtspPlayer.data = url;
-    setTimeout(rtspPlayer.play(1), 500);*/
-
-    // khy 2015-06-29
-    /*appConfiguration.localSystem.mute = false; // 음소거 해제
-
-    $('#rtsp_area video').remove();
-    $('#rtsp_area').html('<video id="sub_mpeg_player" width="970" height="545" autoplay loop src="' + url + '"></video>'); */
 
     // khy 2015-07-06
     appConfiguration.localSystem.mute = false; // 음소거 해제
     
-    //$('#rtsp_area').html('<object type="video/mpeg" id="rtsp_player" class="subvideo"><param name="zindex" value="1"/></object>');
     rtspPlayer = document.querySelector('object');
     $('#rtsp_area').empty();
     rtspPlayer.width = 970;
@@ -105,7 +89,6 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         // 영상 재생
         this.videoPlay("test", currentFocusMenu);
         
-        console.log("############# requestCategoryCode : " + requestCategoryCode);
         //쇼퍼 list
         this.selectShopperList();
         //마트는지금
@@ -114,11 +97,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         // 전체, 상세카테고리 포커스
         if(requestCategoryCode != null && requestCategoryCode != '' && requestCategoryCode != 'undefined') {
             if(requestCategoryDtlCode != null && requestCategoryDtlCode != '' && requestCategoryDtlCode != 'undefined') {
-                /*if(requestCategoryCode == 5 && requestCategoryDtlCode < 7)  nextPageYN = true; // 과일 페이지 처리 (하드코딩)
-                if(requestCategoryCode == 5 && requestCategoryDtlCode >= 7) prevPageYN = true; // 과일 페이지 처리 (하드코딩)*/
 
-                console.log("requestCategoryDtlCode : " + requestCategoryDtlCode);
-                console.log("requestCategoryDtlPage : " + requestCategoryDtlPage);
                 $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("focus");
                 currentFocusList    = 1;
                 currentFocusMenu    = Number(requestCategoryCode);
@@ -135,13 +114,6 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             // 메뉴 갱신
             this.menuRefresh("NORMAL");
         }
-        // 전체카테고리 포커스
-        /*if(requestCategoryCode != null && requestCategoryCode != '' && requestCategoryCode != 'undefined') {
-
-            $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("focus");
-            currentFocusMenu = requestCategoryCode;
-            $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");    
-        }*/
         
         // 당일 판매현장 시각
         // $('#cv_title').html("당일 판매현장 " + this.getCurrentDate());
@@ -245,19 +217,6 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
 
                     // 확인
                     else if(chgVolumeFocus == 3) {
-
-                        /*// 기존 장바구니 삭제
-                        var deleteResult = deleteEasyCart("PRODUCT", $('input[name="ec_id"]').eq(cartFocus-2).val());
-
-                        console.log("### 장바구니 삭제 이후 : " + deleteResult);
-                        // 삭제 성공
-                        if(deleteResult == 1) {*/
-
-                        // 상품 1개의 금액을 구한다.
-                        //var c_cost = Number($('input[name="ec_cost"]').eq(cartFocus-2).val()) / Number($('input[name="ec_cnt"]').eq(cartFocus-2).val());
-
-                        // 변경된 갯수에 따른 금액을 구한다.
-                        //var n_cost = c_cost * Number($('span[name="ppr_num_numP"]').html());
             
                         // 표시된 금액은 무조건 1개 금액임 (2015-07-06)
                         var n_cost = Number($('input[name="ec_cost"]').eq(cartFocus-2).val());
@@ -557,18 +516,17 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         // *****************************************************************************
         else if(isCart == false) {
             // **************************************************
+            // * 음성검색 KEY (음성검색)
+            // **************************************************
+            if(keyCode === global.VK_WINK) {
+                console.log("음성검색 키 입력");
+            }
+
+            // **************************************************
             // * 三 KEY (간편 장바구니)
             // **************************************************
             if(keyCode === global.VK_GREEN) {
 
-                /*if(currentFocusMenu >= 4) {
-                    //videoPlayer.stop(); // 영상 재생 중지
-                    $('#sub_mpeg_player').remove();
-                }*/
-                /*if(videoPlayer.playState != 'undefined') {
-                    if(videoPlayer.playState != 0 ) this.videoStop(); // 영상 재생 중지
-                }
-                */
                 isCart      = true;
                 cartFocus   = 1;    // 결제 버튼 Focus
 
@@ -605,6 +563,15 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                         location.href ="mypage.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID; // 마이페이지 이동
                     }
                     
+                    // 음성 검색
+                    if(currentFocusMenu == 1) {
+                        $('#common_msg').empty().html("서비스 준비 중 입니다.");
+                        $('#wrap_common').show();
+
+                        setTimeout("$('#wrap_common').hide()", 1500);
+                        setTimeout("$('#common_msg').empty()", 1500);
+                    }
+
                     // 쇼퍼 주문 이력
                     else if(currentFocusMenu == 2) {
 
@@ -1162,125 +1129,6 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             }
         });
 
-        /*if(currentFocusMenu == '4' && currentFocusDtlPage == '0') {
-            appendHtml += "<li name='appendMenu'>사과/배</li>";
-            appendHtml += "<li name='appendMenu'>참외/토마토</li>";
-            appendHtml += "<li name='appendMenu'>키위/딸기/멜론</li>";
-            appendHtml += "<li name='appendMenu'>귤/한라봉/천혜향</li>";
-            appendHtml += "<li name='appendMenu'>바나나/오렌지</li>";
-            appendHtml += "<li name='appendMenu'>복분자/블루베리</li>";
-            appendHtml += "<li name='appendMenu'>건과/견과</li>";
-            appendHtml += "<li name='appendMenu'>기타</li>";
-            $('#cc_list').empty().append(appendHtml);
-            prevPageYN = false; // 이전페이지 없음
-            nextPageYN = false; // 하위페이지 없음
-        } 
-
-        if(currentFocusMenu == '5' && currentFocusDtlPage == '0') {
-            appendHtml += "<li name='appendMenu'>고구마/감자/호박</li>";
-            appendHtml += "<li name='appendMenu'>파/양파/마늘/생강</li>";
-            appendHtml += "<li name='appendMenu'>당근/오이/가지</li>";
-            appendHtml += "<li name='appendMenu'>배추/양배추/무</li>";
-            appendHtml += "<li name='appendMenu'>쌈 채소/기타</li>";
-            appendHtml += "<li name='appendMenu'>파프리카/피망</li>";
-            appendHtml += "<li name='appendMenu'>표고/송이/버섯류</li>";
-            appendHtml += "<li name='appendMenu'>나물류/새순</li>";
-            $('#cc_list').empty().append(appendHtml);
-            prevPageYN = false; // 이전페이지 없음
-            nextPageYN = false; // 하위페이지 있음
-        }
-
-        if(currentFocusMenu == '5' && currentFocusDtlPage == '1') {
-            appendHtml += "<li>&nbsp;</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            $('#cc_list').empty().append(appendHtml);
-            prevPageYN = true; // 이전페이지 있음
-            nextPageYN = false; // 하위페이지 없음
-        }
-
-        if(currentFocusMenu == '6' && currentFocusDtlPage == '0') {
-            appendHtml += "<li name='appendMenu'>우유</li>";
-            appendHtml += "<li name='appendMenu'>두유</li>";
-            appendHtml += "<li name='appendMenu'>요구르트</li>";
-            appendHtml += "<li name='appendMenu'>버터/치즈/마가린</li>";
-            appendHtml += "<li name='appendMenu'>두부</li>";
-            appendHtml += "<li name='appendMenu'>계란/메추리알</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            $('#cc_list').empty().append(appendHtml);
-            prevPageYN = false; // 이전페이지 없음
-            nextPageYN = false; // 하위페이지 없음
-        }
-
-        if(currentFocusMenu == '7' && currentFocusDtlPage == '0') {
-            appendHtml += "<li name='appendMenu'>소고기</li>";
-            appendHtml += "<li name='appendMenu'>돼지고기</li>";
-            appendHtml += "<li name='appendMenu'>닭/오리</li>";
-            appendHtml += "<li name='appendMenu'>양념육/육포</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            $('#cc_list').empty().append(appendHtml);
-            prevPageYN = false; // 이전페이지 없음
-            nextPageYN = false; // 하위페이지 없음
-        }
-
-        if(currentFocusMenu == '8' && currentFocusDtlPage == '0') {
-            appendHtml += "<li name='appendMenu'>생선/해산물</li>";
-            appendHtml += "<li name='appendMenu'>멸치/건새우/건어</li>";
-            appendHtml += "<li name='appendMenu'>미역/김/해조류</li>";
-            appendHtml += "<li name='appendMenu'>어포/안주류</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            $('#cc_list').empty().append(appendHtml);
-            prevPageYN = false; // 이전페이지 없음
-            nextPageYN = false; // 하위페이지 없음
-        }
-
-        if(currentFocusMenu == '9' && currentFocusDtlPage == '0') {
-            appendHtml += "<li name='appendMenu'>쌀</li>";
-            appendHtml += "<li name='appendMenu'>찹쌀/현미</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            $('#cc_list').empty().append(appendHtml);
-            prevPageYN = false; // 이전페이지 없음
-            nextPageYN = false; // 하위페이지 없음
-        }
-
-        if(currentFocusMenu == '10' && currentFocusDtlPage == '0') {
-            appendHtml += "<li name='appendMenu'>홍삼/건강식품</li>";
-            appendHtml += "<li name='appendMenu'>친환경/유기농샵</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            appendHtml += "<li>&nbsp;</li>";
-            $('#cc_list').empty().append(appendHtml);
-            prevPageYN = false; // 이전페이지 없음
-            nextPageYN = false; // 하위페이지 없음
-        }
-
-        if(currentFocusMenu == '11' && currentFocusDtlPage == '0') {
-            appendHtml += "<li name='appendMenu'>즉석/간편식/햄</li>";
-            appendHtml += "<li name='appendMenu'>라면/국수/면류</li>";
-            appendHtml += "<li name='appendMenu'>생수/커피/차/음료</li>";
-            appendHtml += "<li name='appendMenu'>조미료/향신료/장류</li>";
-            appendHtml += "<li name='appendMenu'>과자</li>";
-            appendHtml += "<li name='appendMenu'>사탕/초콜릿/껌</li>";
-            appendHtml += "<li name='appendMenu'>빵/식빵/케익/잼</li>";
-            $('#cc_list').empty().append(appendHtml);
-            prevPageYN = false; // 이전페이지 없음
-            nextPageYN = false; // 하위페이지 없음
-        }*/
-
         pageArrowUtil1(); // 페이징 화살표 컨트롤
     },
 
@@ -1398,30 +1246,6 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         $('#ordered_product').empty().append(productList[page]);
     },
 
-    // 조회 : 쇼퍼's Bag
-    /*selectShoppersBag : function() {
-        $.ajax({
-                url         : cmsServerIp + "/BuyerOrderTask/",
-                type        : "post",
-                dataType    : "json",
-                data        : param,
-                async       : true,
-                xhrFields   : {
-                                withCredentials: true
-                },
-                success     : function(result) {
-                    console.log("######## 주문 이력 결과 : " + JSON.stringify(result));
-
-                    var generalYN   = false;
-                    var shopperStar = "";
-                    // totalOrderedPage, maxOrderedPageView, productList는 Category.js에 전역변수로 선언되어 있음.
-
-                    $.each(result['orders'], function(index, entry) {
-
-                    });
-                }
-        });
-    },*/
     // 조회 : 쇼퍼 List (인기순)
     selectShopperList: function() {
         var param = '';
@@ -1467,60 +1291,6 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                     //$('li[name="description"]').empty().append(entry['description']);
 
                 });
-                /* $('p[name="shopper_img"]').empty().append("<img src=" + cmsServerIp + result['shopper']['img'] + " width='160' height='120' />");
-                 $('span[name="shopper_name"]').empty().append("ID : " + result['shopper']['shopper_id']);
-                 $('span[name="epilogue"]')..empty().append("(후기 : " + result['shopper']['reply_cnt'] + ")");
-                 $('p[name="description"]').empty().append(result['shopper']['description']);
-                 $('span[name="popular_order"]').empty().append("인기 주문 :  " + result['shopper']['shopping_main'] + "");
-
-*/
-
-
-
-
-
-
-                /*$.each(result['shopper'], function(index, entry) { 
-                    console.log("========rating===========================================" + entry['rating']);
-                    console.log("========img===========================================" + entry['img']);
-                    console.log("========shopper_id===========================================" + entry['shopper_id']);
-                    console.log("========shopping_main===========================================" + entry['shopping_main']);
-                    // *** 쇼퍼 별점 ***
-                    var shopperRating   = Number(entry['rating']);       // 쇼퍼 평점
-                    var shopperStar     = "";                           // 쇼퍼 별점 HTML
-
-                    if(shopperRating >= 20) shopperStar += '<img src="../images/icon_star.png" />';
-                    else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
-                    if(shopperRating >= 40) shopperStar += '<img src="../images/icon_star.png" />';
-                    else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
-                    if(shopperRating >= 60) shopperStar += '<img src="../images/icon_star.png" />';
-                    else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
-                    if(shopperRating >= 80) shopperStar += '<img src="../images/icon_star.png" />';
-                    else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
-                    if(shopperRating >= 100)shopperStar += '<img src="../images/icon_star.png" />';
-                    else                    shopperStar += '<img src="../images/icon_star_blank.png" />';
-
-                    $('span[name="shopper_rating"]').empty().append(shopperStar);
-
-                    // 쇼퍼 이미지
-                    $('li[name="shopper_img"]').empty().append("<img src=" + cmsServerIp + entry['img'] + " width='160' height='120' />");
-
-                    // 쇼퍼 ID
-                    $('span[name="shopper_name"]').empty().append(entry['shopper_id']);
-
-                    // 쇼퍼 후기
-                    //$('span[name="epilogue"]').empty().append("(후기 : " + "API누락" + ")");
-
-                    // 쇼퍼 설명
-                    //$('p[name="description"]').empty().append(entry['description']);
-
-                    // 인기주문
-                    //$('span[name="popular_order"]').empty().append("인기 주문 :  " + "API 누락" + "");
-
-                    // 쇼핑 주종목
-                    $('span[name="shopper_cate"]').empty().append(entry['shopping_main']);
-                });*/
-
             }
         });
     },
@@ -1540,14 +1310,6 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             withCredentials: true
             },
             success     : function(result) {
-
-                //console.log("##### mart List json " + JSON.stringify(result));  
-
-                //console.log("################## " + result['tweet'].length);
-
-                /*for(var i=0 ; i < result['tweet'].length ; i++) {
-                    makeTweetList();
-                }*/
 
                 $.each(result['tweet'], function(index, entry) {
 
