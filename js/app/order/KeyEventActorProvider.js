@@ -53,15 +53,23 @@ function selectCartList()
             // 장바구니에 상품이 있으면
             else {
                 console.log("#장바구니 조회 : " + JSON.stringify(result));
-
+                var appendHtml2 = "";
+                var value = null
                 // 체크박스 기본 값 (false) SET
                 for(var i=0 ; i < orderCartResultSet.length ; i++) {
                     // 체크박스에 기본 값 SET
                     orderCartResultCheckStatus[i] = false;
+                    //appendHtml2 ={"product_id" : orderCartResultSet[i]["product_id"]};
 
-                    // 장바구니 상품 목록 저장 (주문하기)
                     resultProductArray.push(orderCartResultSet[i]["product_id"]);
+                    //resultProductArray = orderCartResultSet[i]["product_id"];
+                    // 장바구니 상품 목록 저장 (주문하기)
                 }
+                //var aS = JSON.stringify(resultProductArray);
+                //var aaString = $.parseJSON(aS);
+                console.log("resultProductArray :::::::::::::::"+JSON.stringify(resultProductArray))
+                console.log("type2222 : "+typeof resultProductArray);
+
 
                 // 장바구니 목록 생성
                 makeCartList(0);
@@ -508,7 +516,9 @@ function orderPayment() {
 
     console.log("total_cost에 들어갈 값 : " + $("#order_cost").html().replace(/^[-]|[^0-9-]/gi,""));
     console.log("ordered_cost에 들어갈 값 : " + $("#order_total_cost").html().replace(/^[-]|[^0-9-]/gi,""));
-
+    var arr = JSON.stringify(resultProductArray);
+    //var arr = Object.keys(resultProductArray).map(function(k) { return resultProductArray[k] });
+    //console.log("arr : "+JSON.stringify(arr))
     var param = {
                     "shopper_id" : resultShopperId,
                     "total_cost" : Number($('#order_cost').html().replace(/^[-]|[^0-9-]/gi,"")),
@@ -523,8 +533,10 @@ function orderPayment() {
                     "address2" : resultAddress2,
                     "type"  : "general",
                     "message" : "",
-                    "products" : resultProductArray
+                    "products" : arr
                 };
+    console.log("param : "+JSON.stringify(param));
+    console.log("type pdArray : "+typeof resultProductArray);
 
     $.ajax({
         url         : cmsServerIp + "/BuyerOrderTask/Insert",

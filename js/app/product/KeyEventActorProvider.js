@@ -43,10 +43,23 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
         //마이페이지에서->상품상세로 넘어갈때 현재포커스된 위치의 상품갯수
         var requestMyCnt  = request.getParameter("requestMyCnt");
 
+        //상세카테고리에서->상품상세로 넘어갈때 현재 페이지
+        var requestDtlPage  = request.getParameter("requestDtlPage");
+        //상세카테고리에서->상품상세로 넘어갈때 현재포커스된 위치
+        var requestDtlMenu  = request.getParameter("requestDtlMenu");
+        //상세카테고리에서->상품상세로 넘어갈때 현재포커스된 위치의 상품갯수
+        var requestDtlCnt  = request.getParameter("requestDtlCnt");
+
+
+
         console.log("requestMyStatus : " + requestMyStatus);
         console.log("requestMyPage : " + requestMyPage);
         console.log("requestMyMenu : " + requestMyMenu);
         console.log("requestMyCnt : " + requestMyCnt);
+
+        console.log("requestDtlPage : " + requestDtlPage);
+        console.log("requestDtlMenu : " + requestDtlMenu);
+        console.log("requestDtlCnt : " + requestDtlCnt);
 
         console.log("requestMyStatus : " + requestMyStatus);
         console.log("지금 이상품 이가격 포커스 : " + requestExhbFocus);
@@ -1510,7 +1523,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                     console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%전체 카테고리로 이동");
                     // 전체 카테고리로 이동
                     //this.transCategoryCode(); // 한글코드를 숫자코드로 변환 후 페이지 이동
-                    location.href = "category_dtl.html?categoryCode=" + requestCategoryCode + "&categoryDtlCode=" + requestCategoryDtlCode + "&categoryDtlPage=" + requestCategoryDtlPage + "&SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;
+                    location.href = "category_dtl.html?categoryCode=" + requestCategoryCode + "&categoryDtlCode=" + requestCategoryDtlCode + "&categoryDtlPage=" + requestCategoryDtlPage + "&SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID+"&requestDtlPage=" + requestDtlPage+"&requestDtlMenu=" + requestDtlMenu+"&requestDtlCnt=" + requestDtlCnt;
                 }
                 else if(requestExhbFocus != null && requestExhbFocus != '' && requestExhbFocus != 'undefined') {
                     console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%기획전으로 이동 (지금 이상품 이가격 포커싱)");

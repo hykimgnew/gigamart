@@ -14,6 +14,18 @@ var requestCategoryCode     = request.getParameter("categoryCode");
 var requestCategoryDtlCode  = request.getParameter("categoryDtlCode");
 var requestCategoryDtlPage  = request.getParameter("categoryDtlPage");
 
+
+//*************************************************
+// * requestDtlPage =  상세카테고리 -> 상품상세정보 -> 상세카테고리의 현재 페이지가 무엇인지 확인위해
+// * requestDtlMenu =  상세카테고리 -> 상품상세정보 -> 상세카테고리의 현재 포커스된 위치가 무엇인지 확인위해
+// * requestDtlCnt  =  상세카테고리 -> 상품상세정보 -> 상세카테고리의 현재 포커스된 위치의 상품갯수가 무엇인지 확인위해
+//*************************************************
+var requestDtlPage  = request.getParameter("requestDtlPage");
+var requestDtlMenu  = request.getParameter("requestDtlMenu");
+var requestDtlCnt  = request.getParameter("requestDtlCnt");
+
+
+
 //로그인아이디
 var userID  = request.getParameter("userID");
 //*************************************************
@@ -71,6 +83,10 @@ var verticalFocus = 0;
 var currentFocusDtl = 0;
 var productList   = new Array();
 var currentPageCnt = 0;
+/**
+*key 이벤트로 페이징 했을때(상품정보->상세 갔을때 request가지고있어서 focus가 겹침)
+ **/
+var statusFocus     = false;
 
 /**
  * 현재 상세카테고리 화살표 button Focus 위치

@@ -36,6 +36,16 @@ var requestMyMenu  = request.getParameter("requestMyMenu");
 var requestMyCnt  = request.getParameter("requestMyCnt");
 
 
+//*************************************************
+// * requestDtlPage =  상세카테고리 -> 상품상세정보 -> 상세카테고리의 현재 페이지가 무엇인지 확인위해
+// * requestDtlMenu =  상세카테고리 -> 상품상세정보 -> 상세카테고리의 현재 포커스된 위치가 무엇인지 확인위해
+// * requestDtlCnt  =  상세카테고리 -> 상품상세정보 -> 상세카테고리의 현재 포커스된 위치의 상품갯수가 무엇인지 확인위해
+//*************************************************
+var requestDtlPage  = request.getParameter("requestDtlPage");
+var requestDtlMenu  = request.getParameter("requestDtlMenu");
+var requestDtlCnt  = request.getParameter("requestDtlCnt");
+
+
 
 //*************************************************
 // * 넘어온 전체카테고리, 상세카테고리 코드 (포커스 보전용)
