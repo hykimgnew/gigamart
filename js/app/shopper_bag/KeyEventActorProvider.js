@@ -1030,10 +1030,18 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     else if(currentFocusList == 2){
                         //마트는지금->쇼퍼 추천세트
                         $('li[name="rt_list"]').eq(currentFocusMenu3).removeClass('focus');
-                        currentFocusList = 1;
-                        $('li[name="pl_menu"]').eq(currentFocusMenu2).addClass('focus');
-                        $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').append(btnokfill);
-                        $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').addClass('focus');
+                        //쇼퍼추천세트 갯수가 0이면 쇼퍼list로 이동
+                        if($('li[name="pl_menu"]').length == 0){
+                        	currentFocusList = 0;
+                            currentFocusMenu2 = 0;
+                            $('li[name="sbl_list"]').eq(currentFocusMenu).addClass('focus');
+                        }
+                       	else{
+                       		currentFocusList = 1;
+	                        $('li[name="pl_menu"]').eq(currentFocusMenu2).addClass('focus');
+	                        $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').append(btnokfill);
+	                        $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').addClass('focus');	
+                       	}
                     }
 
                 }
@@ -1046,10 +1054,20 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     if(currentFocusList == 0){
                         //쇼퍼list->쇼퍼 추천세트
                         $('li[name="sbl_list"]').eq(currentFocusMenu).removeClass('focus');
-                        currentFocusList = 1;
-                        $('li[name="pl_menu"]').eq(currentFocusMenu2).addClass('focus');
-                            $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').append(btnokfill);
-                        $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').addClass('focus');
+                        //쇼퍼 추천세트 갯수가 0이면->마트는지금 이동
+                        if($('li[name="pl_menu"]').length == 0){
+                        	currentFocusList = 2;
+                            $('li[name="rt_list"]').eq(currentFocusMenu3).addClass('focus');
+                        }
+                        else{
+                        	currentFocusList = 1;
+	                        $('li[name="pl_menu"]').eq(currentFocusMenu2).addClass('focus');
+	                        $('li[name="pl_menu"]:eq('+ currentFocusMenu2 + ') > .dm_bdr').append(btnokfill);
+	                        $('li[name="pl_menu"]').eq(currentFocusMenu2).children().children('.dlm_tit').addClass('focus');
+                        }
+
+
+                        
                         
                     }
                    //쇼퍼 추천세트 list
@@ -1299,33 +1317,36 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 console.log("길이~~~~ AA: " + result['set'].length);
 
                 var resultLen  = result['set'].length;
-                for(var i=0; i<6; i++){
-                  makeShopperProduct();  
+                if(resultLen != 0){
+                	for(var i=0; i<6; i++){
+	                  makeShopperProduct();  
+	                }
+	                //for(var i=0 ; i < result['set'].length ; i++) {
+	                $.each(result['set'], function(index, entry) { 
+	                    $('li[name="dl_img"]').eq(index).empty().append('<img src="' + entry["img"] + '" height="92" width="162" />');
+	                    $('li[name="dl_setName"]').eq(index).empty().append(entry['set_name']);
+	                    $('li[name="dl_cost"]').eq(index).empty().append(cn_toPrice(entry['cost']) +"원");
+	                    
+	                    appendHtml = {
+	                                        "img" : entry['img'],
+	                                        "set_name" : entry['set_name'],
+	                                        "cost" : entry['cost']
+	                                     };
+	                    cnt                 = Math.floor(index / maxShopperRcListPage);
+	                    var str             = appendHtml;
+	                    arrShopperRcList[index]    = str;
+	                    console.log("index : " + index + " maxShopperListPage : " + maxShopperRcListPage + " cnt : " + cnt);
+	                    
+	                    totalShopperRcListPage = cnt;
+
+
+	                });
+	                //쇼퍼 추천세트 margin
+	                $('li[name="pl_menu"]').eq(0).addClass('mg_r10');
+	                $('li[name="pl_menu"]').eq(2).addClass('mg_r10');
+	                $('li[name="pl_menu"]').eq(4).addClass('mg_r10');
                 }
-                //for(var i=0 ; i < result['set'].length ; i++) {
-                $.each(result['set'], function(index, entry) { 
-                    $('li[name="dl_img"]').eq(index).empty().append('<img src="' + entry["img"] + '" height="92" width="162" />');
-                    $('li[name="dl_setName"]').eq(index).empty().append(entry['set_name']);
-                    $('li[name="dl_cost"]').eq(index).empty().append(cn_toPrice(entry['cost']) +"원");
-                    
-                    appendHtml = {
-                                        "img" : entry['img'],
-                                        "set_name" : entry['set_name'],
-                                        "cost" : entry['cost']
-                                     };
-                    cnt                 = Math.floor(index / maxShopperRcListPage);
-                    var str             = appendHtml;
-                    arrShopperRcList[index]    = str;
-                    console.log("index : " + index + " maxShopperListPage : " + maxShopperRcListPage + " cnt : " + cnt);
-                    
-                    totalShopperRcListPage = cnt;
-
-
-                });
-                //쇼퍼 추천세트 margin
-                $('li[name="pl_menu"]').eq(0).addClass('mg_r10');
-                $('li[name="pl_menu"]').eq(2).addClass('mg_r10');
-                $('li[name="pl_menu"]').eq(4).addClass('mg_r10');
+                
 
             }, 
             complete    : function(result) {
@@ -1461,14 +1482,19 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             $('span[name="popular_order"]').eq(i).empty().append("인기 주문 :  " + arrShopperList[Number((page*2)+i)].shopping_main + "");
             $('input[name="shopper_id"]').eq(i).val(arrShopperList[Number((page*2)+i)].shopper_id);
         }
-        //쇼퍼추천세트list
-        for(var i=0 ; i < 6 ; i++) {
-            //makeShopperProduct();
-            $('li[name="dl_img"]').eq(i).empty().append('<img src="' + arrShopperRcList[Number((page*6)+i)].img + '" height="92" width="162" />');
-            $('li[name="dl_setName"]').eq(i).empty().append(arrShopperRcList[Number((page*6)+i)].set_name);
-            $('li[name="dl_cost"]').eq(i).empty().append(cn_toPrice(arrShopperRcList[Number((page*6)+i)].cost) +"원");
-                    
+        console.log("12312312312312"+arrShopperRcList[Number((page*6)+i)]);
+        var obj = arrShopperRcList[Number((page*6)+i)];
+        if(obj != undefined){
+        	//쇼퍼추천세트list
+	        for(var i=0 ; i < 6 ; i++) {
+	            //makeShopperProduct();
+	            $('li[name="dl_img"]').eq(i).empty().append('<img src="' + arrShopperRcList[Number((page*6)+i)].img + '" height="92" width="162" />');
+	            $('li[name="dl_setName"]').eq(i).empty().append(arrShopperRcList[Number((page*6)+i)].set_name);
+	            $('li[name="dl_cost"]').eq(i).empty().append(cn_toPrice(arrShopperRcList[Number((page*6)+i)].cost) +"원");
+	                    
+	        }
         }
+        
         //쇼퍼 추천세트 margin
         $('li[name="pl_menu"]').eq(0).addClass('mg_r10');
         $('li[name="pl_menu"]').eq(2).addClass('mg_r10');

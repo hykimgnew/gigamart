@@ -1123,7 +1123,9 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 // 이전 화면에서 받아온 FOCUS가 존재할 때
                 if(type == "FOCUS") {
                     currentFocusDtl     = Number(requestCategoryDtlCode);
-                    console.log("###### currentFocusDtl : " + currentFocusDtl);
+                    console.log("###### 이전 화면에서 받아온 FOCUS가 존재할 때 currentFocusDtl : " + currentFocusDtl);
+                    console.log("###### 이전 화면에서 받아온 FOCUS가 존재할 때 requestCategoryDtlCode : " + requestCategoryDtlCode);
+                    console.log("###### 이전 화면에서 받아온 FOCUS가 존재할 때 requestCategoryDtlPage : " + requestCategoryDtlPage);
                     $('li[name="appendMenu"]').eq(currentFocusDtl).addClass("focus");
                 }
             }

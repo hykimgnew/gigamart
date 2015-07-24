@@ -1218,9 +1218,12 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 $.each(result["subcategory"], function(index, entry) {
                     if(requestCategoryDtlCode == result["subcategory"][index]) requestCategoryDtlCode = index;
                 });
+            },
+            complete    : function(result) {
+                Gigamart.app.category_dtl.KeyEventActorProvider.transCategoryCode2();
             }
         });
-
+/*
         // 카테고리 코드
         $.ajax({
             url         : cmsServerIp + "/TVProductCategory",
@@ -1243,7 +1246,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                               + "&SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;
             }
         });
-
+*/
 
         /*// 카테고리 코드
         if(requestCategoryCode == '과일')                 requestCategoryCode = 4;
@@ -1312,6 +1315,34 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
         if(requestCategoryCode == 11 && requestCategoryDtlCode == '조미료/향신료/장류')     requestCategoryDtlCode = 3;
         if(requestCategoryCode == 11 && requestCategoryDtlCode == '과자')                   requestCategoryDtlCode = 4;
         if(requestCategoryCode == 11 && requestCategoryDtlCode == '빵/식빵/케익/잼')        requestCategoryDtlCode = 5;*/
+    },
+    transCategoryCode2: function() {
+
+        // 서브카테고리 코드
+        console.log("서브카테고리 코드");
+        $.ajax({
+            url         : cmsServerIp + "/TVProductCategory",
+            type        : "post",
+            dataType    : "json",
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                console.log("#####%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 카테고리 목록 " + JSON.stringify(result));
+                $.each(result["category"], function(index, entry) {
+                    if(requestCategoryCode == result["category"][index]) requestCategoryCode = index+4;
+                });
+            },
+            complete    : function(result) {
+            	console.log("이전카테고리 이동");
+                location.href = "category.html?categoryCode=" + requestCategoryCode 
+                              + "&categoryDtlCode=" + requestCategoryDtlCode 
+                              + "&categoryDtlPage=" + requestCategoryDtlPage
+                              + "&SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;
+            }
+        });
+
     },
 
     // 조회 : 상세카테고리별 상품정보

@@ -296,11 +296,12 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         console.log("############# 셋탑 STB ID : " + said);
 
         var param = { 
-                        "stb_id" : said,
-                        "phone" : "010-3333-3333"
+                        "stb_id" : said
+                        //,"phone" : "010-3333-3333"
                     };
         $.ajax({
-            url         : cmsServerIp + "/TVLoginTask/phone",
+            //url         : cmsServerIp + "/TVLoginTask/phone",
+            url         : cmsServerIp + "/TVLoginTask/login",
             type        : "post",
             dataType    : "json",
             data        : param,
@@ -448,7 +449,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         requestCategoryDtlCode = "소고기";
                         //this.selectProductSubCategory();
                     }else if(bb == "기획전8"){
-                        requestCategoryDtlId="43003";
+                        requestCategoryDtlId="43000";
                         requestCategoryDtlCode = "닭/오리";
                         //this.selectProductSubCategory();
                     }
@@ -1506,7 +1507,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         }else if(bb == "기획전8"){
                             //requestCategoryDtlId="87005";
                             requestCategoryDtlCode = "닭/오리";
-                            this.selectProductSubCategory(requestCategoryDtlCode,43003);
+                            this.selectProductSubCategory(requestCategoryDtlCode,43000);
                         }
                         console.log("전체 영상보기 영상 재생 url : "+url);
                         console.log("전체 영상보기 영상 재생 fvId : "+fvId);
@@ -3037,17 +3038,30 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         console.log("currentFocusMenu = " + currentFocusMenu);
         console.log("url111 video : " + productList3[currentFocusMenu]["tv_video"]);
         console.log("url111 video : " + productList3[currentFocusMenu].tv_video);
-        var url = productList3[currentFocusMenu]["tv_video"];
-        var id = productList3[currentFocusMenu]["product_id"];
+        
+
+        //두번째페이지
+        if(currentOrderedProductPage1 == 1){
+        	
+        	var url = productList3[Number(currentFocusMenu+4)]["tv_video"];
+        }
+        //첫번째페이지
+        else{
+        	var url = productList3[currentFocusMenu]["tv_video"];
+        }
+        
+        //var id = productList3[currentFocusMenu]["product_id"];
 
         console.log("url==>"+url);
         fvUrl = url;
         fvId = $('input[name="sl_id"]').eq(currentFocusMenu).val();
-        
+        var id = $('input[name="sl_id"]').eq(currentFocusMenu).val();
         console.log("url222==>"+url);
         console.log("fvId222==>"+fvId);
         console.log("id222==>"+id);
 
+
+        
         var requestCategoryDtlCode = "";
         var a = fvUrl.split("/");
         var aa = a[7];
@@ -3110,7 +3124,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         }else if(bb == "기획전8"){
             //requestCategoryDtlId="87005";
             requestCategoryDtlCode = "닭/오리";
-            this.selectProductSubCategory2(requestCategoryDtlCode,43003);
+            this.selectProductSubCategory2(requestCategoryDtlCode,43000);
             // 남은 시간
             //SetTime = $('input[name="SetTime"]').eq(3).val();
             SetTime = productList3[0].duration_sec;
