@@ -165,7 +165,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                         $('#p_videoDiv video').remove();
                         $('#span_videoDiv video').remove();
                         appConfiguration.localSystem.mute = true; // 음소거 설정
-                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&requestOrderScreen=shopper_bag.html'+ '&userID='+ userID;
+                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&requestOrderScreen=shopper_bag.html'+ '&userID='+ userID + '&userName=' + userName;
                     }
                     
                     // 결제
@@ -176,7 +176,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                             $('#p_videoDiv video').remove();
                             $('#span_videoDiv video').remove();
                             appConfiguration.localSystem.mute = true; // 음소거 설정
-                            location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&requestOrderScreen=shopper_bag.html'+ '&userID='+ userID + '&startScreen=2';   
+                            location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&requestOrderScreen=shopper_bag.html'+ '&userID='+ userID + '&userName=' + userName + '&startScreen=2';   
                         } else {
                             console.log("#상품이 존재하지 않아 결제 화면으로 이동하지 않음");
                         }
@@ -551,7 +551,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             // **************************************************
             if(keyCode === global.VK_RED) {
                 /** 기획전으로 이동 */
-                location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID; // 기획전 이동
+                location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName; // 기획전 이동
             }
 
             // **************************************************
@@ -559,7 +559,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             // **************************************************
             if(keyCode === global.VK_PLAY) {
                 /** 전체 카테고리로 이동 */
-                location.href = "category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;
+                location.href = "category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName;
             }
 
             // **************************************************
@@ -1145,7 +1145,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 }
                 
             } else if (keyCode === global.VK_BACK) {
-                location.href="category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;
+                location.href="category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName;
                 //window.oipfObjectFactory.createApplicationManagerObject().getOwnerApplication(window.document).destroyApplication();
             } else if (keyCode === global.VK_ESCAPE) {
                 /*if(isPopup){

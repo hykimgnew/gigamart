@@ -16,11 +16,25 @@ var GO_EXHB       = request.getParameter("GO_EXHB");
 //로그인아이디
 var userID  = request.getParameter("userID");
 
+//*************************************************
+// * 인트로 화면
+// * currentIntroFocus     : 전체 영상보기
+//    - 0 : 핸드폰번호, PIN번호
+//    - 1 : 로그인 버튼
+// * currentIntroNoFocus   : 간편 장바구니
+//    - PHONE : 핸드폰번호
+//    - PIN   : 핀번호
+//*************************************************
+var currentIntroFocus   = 0;
+var currentIntroNoFocus = "PHONE";
+
 
 //*************************************************
 // * Popup
 // * isFullVideo           : 전체 영상보기
 // * isCart                : 간편 장바구니
+// * isLogout              : 로그아웃
+// *    0 : 팝업 없음, 1 : 확인포커스 2 : 취소포커스
 // * isRealTime            : 쇼퍼 리얼 타임
 // * isRealTimeStart       : 쇼퍼 리얼 타임 시작
 // * isRealTimeEnd         : 쇼퍼 리얼 타임 종료
@@ -28,10 +42,12 @@ var userID  = request.getParameter("userID");
 //*************************************************
  var isFullVideo           = false;
  var isCart                = false;
+ var isLogout              = 0;
  var isRealTime            = false;
  var isRealTimeStart       = false;
  var isRealTimeEnd         = false;
  var isRealTimeEndComplete = false;
+ 
 
 //*************************************************
 // *  전체 영상보기 팝업
@@ -261,11 +277,7 @@ App.defineClass('Gigamart.app.intro.Intro', {
         } else {
             go_login(); 
         }*/
-
-        $('li[name="sl_menu"]').eq(currentFocusMenu).addClass('focus');
-        $('li[name="sl_menu"]').eq(currentFocusMenu).children('.sl_play').addClass('focus');
-        $('li[name="sl_menu"]').eq(currentFocusMenu).children().children('.slm_txt').addClass('focus');
-        
+  
         global.stbService = Gigamart.app.intro.STBService.create(EventBus);
 
         // 음소거 on (영상 재생시 off)
@@ -275,6 +287,10 @@ App.defineClass('Gigamart.app.intro.Intro', {
         // 팝업 Load
         $('#popup_fv').load("view/full_video.html");      
         $('#popup_cart').load("view/easy_cart.html");  
+
+        // 첫 폰커스 - 핸드폰번호
+        $('#login_phone_no').addClass("focus");
+        $('#login_phone_no').val("010-");
     }
 });
 

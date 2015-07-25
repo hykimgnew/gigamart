@@ -19,12 +19,12 @@ var GO_EXHB       = request.getParameter("GO_EXHB");
 var requestExhbFocus  = request.getParameter("requestExhbFocus");
 var requestExhbPage   = request.getParameter("requestExhbPage");
 
-//로그인아이디
-var userID  = request.getParameter("userID");
 //*************************************************
 // * Popup
 // * isFullVideo           : 전체 영상보기
 // * isCart                : 간편 장바구니
+// * isLogout              : 로그아웃
+// *    0 : 팝업 없음, 1 : 확인포커스 2 : 취소포커스
 // * isRealTime            : 쇼퍼 리얼 타임
 // * isRealTimeStart       : 쇼퍼 리얼 타임 시작
 // * isRealTimeEnd         : 쇼퍼 리얼 타임 종료
@@ -32,10 +32,12 @@ var userID  = request.getParameter("userID");
 //*************************************************
  var isFullVideo           = false;
  var isCart                = false;
+ var isLogout              = 0;
  var isRealTime            = false;
  var isRealTimeStart       = false;
  var isRealTimeEnd         = false;
  var isRealTimeEndComplete = false;
+
 
 //*************************************************
 // *  전체 영상보기 팝업

@@ -37,6 +37,8 @@ var request = new Request();
 var buyerID	= request.getParameter("buyerID");
 // * 로그인 ID
 var userID	= request.getParameter("userID");
+// * 로그인 이름
+var userName = request.getParameter("userName");
 
 // * 쇼퍼 구매 상태
 var requestShopperStatus = request.getParameter("SHOPPER_STATUS");
@@ -65,7 +67,7 @@ var common_init = function() {
 		$('#shlr_on').addClass("shlr_on");
 		$('#shlr_b').html("ON");
 	} else if(requestShopperStatus == 3) {
-		$('#common_shopper_status').html("당일배송");
+		$('#common_shopper_status').html(userName + "님 로그인");
 		$('#common_shopper_img').attr("src", EXHB_IMAGE_PATH + "s_icon_car.png").css("margin-top", "-3px");
 		$('#shlr_on').removeClass("shlr_on");
 		$('#shlr_on').addClass("shlr_off");
@@ -73,6 +75,26 @@ var common_init = function() {
 	}
 	
 }
+
+
+
+
+/**
+ *	로그아웃 팝업 띄우기 / 확인 / 취소
+ **/
+var fn_logout_on = function() {
+	$('#pop_logout').show();
+	$('#btn_logout_submit').focus();
+	isLogout = 1;
+}
+var fn_logout_submit = function() {
+	location.href = EXHB_PATH + "index.html";
+}
+var fn_logout_cancel = function() {
+	$('#pop_logout').hide();
+	isLogout = 0;
+}
+
 
 
 /**

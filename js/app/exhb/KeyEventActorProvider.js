@@ -234,56 +234,46 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
         var me = this;
         me.actors = [];
-
-        // 공통 실행
-        common_init();
-
-        //$('#intro_skip').show(); // 인트로 버튼 on
-        //$('#intro_skip').addClass("focus");
-
-        // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
-        $('#span_videoDiv').empty().append('<img src="' + EXHB_IMAGE_PATH + 'sample_02.jpg"  style="width : 614px; height : 351px; margin-left : -2px;"/>');
-
-    	
-        //저렴한상품추천
-        this.selectSalesWon();
-        //할인율최고
-        this.selectSalesPercentage();
-        //쇼퍼추천세트
-        this.selectShopper();
-
-        // 리스트갱신
-        //this.menuRefresh();
-
-        // 지금 이상품 이가격 하단
-        this.selectProductEvent();
-
-        //지금 이 상품 이 가격 하단에 focus되므로 video재생
-        appConfiguration.localSystem.mute = false; // 음소거 off
-
-        var url = $('li[name="sl_menu"]').eq(currentFocusMenu).children('.tv_video').val();
-        console.log("###################################################################################### url : " + url);
-        console.log("###################################################################################### video url : " + video[1]);
-        //this.videoPlay("/video/tv/product_event/2-1기획전_매실.mp4", Number(currentFocusMenu+2), 1);
         
-        // 당일 판매현장 시각
-        // $('#cv_title').html("오늘 " + this.getCurrentDate() +" 현장 영상");
+        if(INTRO_SCREEN == false) {
+            // <로그인 이후 과정>
+            // 공통 실행
+            common_init();
 
-        // 로그인 확인
-        console.log("############ 로그인 되었습니다. : 구매자 ID : " + buyerID);
+            // 플로팅 메뉴 장바구니 SET
+            fltEasyCart();
 
-        //매실 지금이상품 이가격 adName에 이름주기
-        var requestCategoryDtlCode = "";
-        requestCategoryDtlCode = "생선/해산물";
-        this.selectProductSubCategory2(requestCategoryDtlCode,51018);
+            // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
+            $('#span_videoDiv').empty().append('<img src="' + EXHB_IMAGE_PATH + 'sample_02.jpg"  style="width : 614px; height : 351px; margin-left : -2px;"/>');
 
-        // 플로팅 메뉴 장바구니 SET
-        fltEasyCart();
-        //지금 이상품 이가격 adName에 이름
-        //this.adName();
+            //저렴한상품추천
+            Gigamart.app.exhb.KeyEventActorProvider.selectSalesWon();
+            //할인율최고
+            Gigamart.app.exhb.KeyEventActorProvider.selectSalesPercentage();
+            //쇼퍼추천세트
+            Gigamart.app.exhb.KeyEventActorProvider.selectShopper();
+            // 지금 이상품 이가격 하단
+            Gigamart.app.exhb.KeyEventActorProvider.selectProductEvent();
 
-        // 남은 시간 타이머
-        
+            var url = $('li[name="sl_menu"]').eq(currentFocusMenu).children('.tv_video').val();
+
+            // 첫번째 동영상 포커스
+            $('li[name="sl_menu"]').eq(currentFocusMenu).addClass('focus');
+            $('li[name="sl_menu"]').eq(currentFocusMenu).children('.sl_play').addClass('focus');
+            $('li[name="sl_menu"]').eq(currentFocusMenu).children().children('.slm_txt').addClass('focus');
+
+            // 당일 판매현장 시각
+            // $('#cv_title').html("오늘 " + this.getCurrentDate() +" 현장 영상");
+
+            //매실 지금이상품 이가격 adName에 이름주기
+            var requestCategoryDtlCode = "";
+            requestCategoryDtlCode = "생선/해산물";
+            Gigamart.app.exhb.KeyEventActorProvider.selectProductSubCategory2(requestCategoryDtlCode,51018);
+
+            // 플로팅 메뉴 장바구니 SET
+            fltEasyCart();
+            // <로그인 이후 과정 끝>
+        }
 
     },
 
@@ -295,13 +285,17 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
         console.log("############# 셋탑 STB ID : " + said);
 
+        var login_phone_no = $('#login_phone_no').val().substr(4, $('#login_phone_no').val().length);
+        console.log("~~~ : " + login_phone_no);
+
         var param = { 
-                        "stb_id" : said
-                        //,"phone" : "010-3333-3333"
+                        // "stb_id" : $('')
+                        "phone" : login_phone_no,
+                        "pin" : $('#login_pin_no').val()
                     };
         $.ajax({
-            //url         : cmsServerIp + "/TVLoginTask/phone",
-            url         : cmsServerIp + "/TVLoginTask/login",
+            url         : cmsServerIp + "/TVLoginTask/phone",
+            //url         : cmsServerIp + "/TVLoginTask/login",
             type        : "post",
             dataType    : "json",
             data        : param,
@@ -322,7 +316,49 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     //appConfiguration.localSystem.mute = true; // 음소거 설정
                     // * 로그인 ID
                     userID  = result['id'];
+                    userName = result['name'];
                     buyerID = result['id'];
+
+                    $('#common_shopper_status').html(userName + "님 로그인");
+
+                    // <로그인 이후 과정>
+                    // 공통 실행
+                    common_init();
+
+                    // 플로팅 메뉴 장바구니 SET
+                    fltEasyCart();
+
+                    // 테스트용 이미지 덧붙이기 (현재 로딩중에 이미지 덧붙이기 안됨)
+                    $('#span_videoDiv').empty().append('<img src="' + EXHB_IMAGE_PATH + 'sample_02.jpg"  style="width : 614px; height : 351px; margin-left : -2px;"/>');
+
+                    //저렴한상품추천
+                    Gigamart.app.exhb.KeyEventActorProvider.selectSalesWon();
+                    //할인율최고
+                    Gigamart.app.exhb.KeyEventActorProvider.selectSalesPercentage();
+                    //쇼퍼추천세트
+                    Gigamart.app.exhb.KeyEventActorProvider.selectShopper();
+                    // 지금 이상품 이가격 하단
+                    Gigamart.app.exhb.KeyEventActorProvider.selectProductEvent();
+
+                    var url = $('li[name="sl_menu"]').eq(currentFocusMenu).children('.tv_video').val();
+
+                    // 첫번째 동영상 포커스
+                    $('li[name="sl_menu"]').eq(currentFocusMenu).addClass('focus');
+                    $('li[name="sl_menu"]').eq(currentFocusMenu).children('.sl_play').addClass('focus');
+                    $('li[name="sl_menu"]').eq(currentFocusMenu).children().children('.slm_txt').addClass('focus');
+
+                    // 당일 판매현장 시각
+                    // $('#cv_title').html("오늘 " + this.getCurrentDate() +" 현장 영상");
+
+                    //매실 지금이상품 이가격 adName에 이름주기
+                    var requestCategoryDtlCode = "";
+                    requestCategoryDtlCode = "생선/해산물";
+                    Gigamart.app.exhb.KeyEventActorProvider.selectProductSubCategory2(requestCategoryDtlCode,51018);
+
+                    // 플로팅 메뉴 장바구니 SET
+                    fltEasyCart();
+                    // <로그인 이후 과정 끝>
+
                     setTimeout(INTRO_SCREEN = false, 1000);
                     
                     $('div[name="screen_intro"]').hide();
@@ -338,10 +374,22 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     
                     //alert("로그인에 실패하였습니다.");
                     // return;
+
+                    $('#common_msg').empty().html("로그인에 실패하였습니다. 아이디와 패스워드를 확인해주세요.");
+                    $('#wrap_common').show();
+                    setTimeout("$('#wrap_common').hide()", 1500);
+                    setTimeout("$('#common_msg').empty()", 1500);
+                    $('#login_phone_no').val("핸드폰번호");
+                    $('#login_pin_no').val("PIN번호");
                 }
                 
                 else {
-                    console.log("############ 셋탑박스를 확인해주시거나 고객센터로 문의해주세요.");
+                    $('#common_msg').empty().html("로그인에 실패하였습니다. 고객센터로 문의해주세요.");
+                    $('#wrap_common').show();
+                    setTimeout("$('#wrap_common').hide()", 1500);
+                    setTimeout("$('#common_msg').empty()", 1500);
+                    $('#login_phone_no').val("핸드폰번호");
+                    $('#login_pin_no').val("PIN번호");
                     //appConfiguration.localSystem.mute = true; // 음소거 설정
                     // location.href = "view/exhb.html";  // 메인 화면으로 이동
 
@@ -349,11 +397,8 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     // return;
                 }
             }, complete     : function(result) {
-                // 공통 실행
-                common_init();
+                
 
-                // 플로팅 메뉴 장바구니 SET
-                fltEasyCart();
             }
         });
     },
@@ -465,7 +510,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     location.href = EXHB_PATH + "product1.html?id="+requestCategoryDtlId+"&categoryDtlCode="+requestCategoryDtlCode
                                               + "&requestExhbFocus="+ currentFocusMenu + "&requestExhbPage=" + currentOrderedProductPage1
                                               + "&SHOPPER_STATUS=" + SHOPPER_STATUS;
-                                              + "&userID=" + userID;
+                                              + "&userID=" + userID + "&userName=" + userName;
 
                     /*location.href = EXHB_PATH + "product1.html"
                                               + "?requestExhbFocus="+ currentFocusMenu + "&requestExhbPage=" + currentOrderedProductPage1
@@ -653,7 +698,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                         appConfiguration.localSystem.mute = true; // 음소거 설정
 
-                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&userID='+ userID +'&requestOrderScreen=exhb.html';
+                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&userID='+ userID + '&userName=' + userName + '&requestOrderScreen=exhb.html';
                     }
                     
                     // 결제
@@ -664,7 +709,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                             $('#p_videoDiv video').remove();
                             $('#span_videoDiv video').remove();
                             appConfiguration.localSystem.mute = true; // 음소거 설정
-                            location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&userID='+ userID +'&requestOrderScreen=exhb.html' + '&startScreen=2';   
+                            location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&userID='+ userID + '&userName=' + userName +'&requestOrderScreen=exhb.html' + '&startScreen=2';   
                         } else {
                             console.log("#상품이 존재하지 않아 결제 화면으로 이동하지 않음");
                         }
@@ -1363,20 +1408,17 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             // * 三 KEY (플로팅 장바구니)
             // **************************************************
             if(keyCode === global.VK_GREEN) {
-                isCart      = true;
-                cartFocus   = 1;    // 결제 버튼 Focus
-                // cartHtml    = $('#wrap').html(); // 간편 장바구니에 들어갈 부분의 html 백업 (간편 장바구니 해제 후에 다시 돌려두어야함)
 
-                retrieveEasyCart(); // 간편 장바구니 조회
+                if(INTRO_SCREEN == false) {
+                    isCart      = true;
+                    cartFocus   = 1;    // 결제 버튼 Focus
+                    // cartHtml    = $('#wrap').html(); // 간편 장바구니에 들어갈 부분의 html 백업 (간편 장바구니 해제 후에 다시 돌려두어야함)
 
-                $('#popup_cart').show();
-                $('#ecc_payments').addClass('focus'); // 첫 포커스는 ecc_payments
+                    retrieveEasyCart(); // 간편 장바구니 조회
 
-                /*if(currentFocusList == 0) $('#pj_left').removeClass('focus');
-                if(currentFocusList == 2) $('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
-                if(currentFocusList == 3) $('li[name="li_discount1"]').eq(currentFocusDtl1).removeClass('focus');
-                if(currentFocusList == 4) $('li[name="li_discount2"]').eq(currentFocusDtl2).removeClass('focus');
-                if(currentFocusList == 5) $('li[name="li_discount3"]').eq(currentFocusDtl3).removeClass('focus');*/
+                    $('#popup_cart').show();
+                    $('#ecc_payments').addClass('focus'); // 첫 포커스는 ecc_payments
+                }
             }
 
             // **************************************************
@@ -1437,13 +1479,48 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             // * PLAY KEY (메뉴/카테고리)
             // **************************************************
             if(keyCode === global.VK_PLAY) {
-                /** 전체 카테고리로 이동 */
-                $('#p_videoDiv video').remove();
-                $('#span_videoDiv video').remove();
+                if(INTRO_SCREEN == false) {
+                    /** 전체 카테고리로 이동 */
+                    $('#p_videoDiv video').remove();
+                    $('#span_videoDiv video').remove();
 
-                appConfiguration.localSystem.mute = true; // 음소거 설정
+                    appConfiguration.localSystem.mute = true; // 음소거 설정
 
-                location.href = EXHB_PATH + "category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;
+                    location.href = EXHB_PATH + "category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName;
+                }
+            }
+
+            // **************************************************
+            // * 숫자 KEY (인트로 화면에서 번호 입력 받을 시에만 쓰임)
+            // **************************************************
+            if(keyCode >= global.VK_0 && keyCode <= global.VK_9) {
+                if(INTRO_SCREEN == true) {
+                    // 핸드폰 번호 입력
+                    if(currentIntroFocus == 0 && currentIntroNoFocus == "PHONE") {
+                        if($('#login_phone_no').val().length < 13) {
+                            // 입력 받은 숫자 추가
+                            var phone_no = $('#login_phone_no').val();
+                            var key_no   = Number(keyCode) - 48;
+                            
+                            $('#login_phone_no').val(phone_no + "" + key_no);
+                            phone_no = $('#login_phone_no').val();
+
+                            // 자리수에 따라 "-" 추가
+                            if($('#login_phone_no').val().length == 8) $('#login_phone_no').val(phone_no + "-");
+                        }
+                    }
+
+                    // 핀 번호
+                    else if(currentIntroFocus == 0 && currentIntroNoFocus == "PIN") {
+                        if($('#login_pin_no').val().length < 20) {
+                            // 입력 받은 숫자 추가
+                            var pin_no = $('#login_pin_no').val();
+                            var key_no   = Number(keyCode) - 48;
+                            
+                            $('#login_pin_no').val(pin_no + "" + key_no);
+                        }
+                    }
+                }
             }
 
             // **************************************************
@@ -1455,7 +1532,15 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     location.href = "category.html";
                 }*/
 
-                if(currentFocusList == 2) {
+                // 인트로 화면
+                if(INTRO_SCREEN == true) {
+                    // 로그인 버튼
+                    if(currentIntroFocus == 1) {
+                        go_login();
+                    }
+                }
+
+                else if(currentFocusList == 2) {
                     if(INTRO_SCREEN == false) {
                         /** 전체 영상보기 팝업 */
                         // TODO : 타임세일 코드값 넘겨야함
@@ -1530,7 +1615,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                     appConfiguration.localSystem.mute = true; // 음소거 설정
 
-                    location.href = EXHB_PATH + "product1.html?id="+productList[idx]["product_id"]+"&categoryDtlCode="+productList[idx]["subcategory"]+"&SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;
+                    location.href = EXHB_PATH + "product1.html?id="+productList[idx]["product_id"]+"&categoryDtlCode="+productList[idx]["subcategory"]+"&SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName;
 
                 }
                 //할인율 최고
@@ -1548,10 +1633,10 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                     appConfiguration.localSystem.mute = true; // 음소거 설정
 
-                    location.href = EXHB_PATH + "product1.html?id="+productList2[idx]["product_id"]+"&categoryDtlCode="+productList2[idx]["subcategory"]+"&SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;
+                    location.href = EXHB_PATH + "product1.html?id="+productList2[idx]["product_id"]+"&categoryDtlCode="+productList2[idx]["subcategory"]+"&SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName;
                 }
                 //단골쇼퍼
-                if(currentFocusList == 5) {
+                else if(currentFocusList == 5) {
                     //쇼퍼
                     if(currentFocusDtl3 == 0) {
                         // 쇼퍼's Bag으로 이동
@@ -1560,7 +1645,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                         appConfiguration.localSystem.mute = true; // 음소거 설정
 
-                        location.href = EXHB_PATH + "shopper_bag.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;        
+                        location.href = EXHB_PATH + "shopper_bag.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName;
                     }
                     //추천세트
                     else if(currentFocusDtl3 == 1){
@@ -1569,10 +1654,10 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         htmlNm = $('li[name="shopper_product"]').html();
                         console.log("htmlNm : "+htmlNm);
                         if(htmlNm == "닭볶음탕"){
-                            location.href = "shopper_bag.html?setName=닭볶음탕&SHOPPER_STATUS=" + SHOPPER_STATUS + '&userID=' + userID;
+                            location.href = "shopper_bag.html?setName=닭볶음탕&SHOPPER_STATUS=" + SHOPPER_STATUS + '&userID=' + userID + '&userName=' + userName;
                         }
                         else if(htmlNm == "목살스테이크카레"){
-                            location.href = "shopper_bag.html?setName=목살스테이크카레&SHOPPER_STATUS=" + SHOPPER_STATUS + '&userID=' + userID;
+                            location.href = "shopper_bag.html?setName=목살스테이크카레&SHOPPER_STATUS=" + SHOPPER_STATUS + '&userID=' + userID + '&userName=' + userName;
                         }
                         //닭볶음탕일때
                         /** 쇼퍼's Bag 이동 */
@@ -1597,8 +1682,42 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         $('#s_scale').addClass('focus');
                     }*/
 
+                    // 인트로 화면
+                    if(INTRO_SCREEN == true) {
+                        // 핸드폰 번호
+                        if(currentIntroFocus == 0 && currentIntroNoFocus == "PHONE") {
+                            // X
+                        }
+
+                        // 핀 번호
+                        else if(currentIntroFocus == 0 && currentIntroNoFocus == "PIN") {
+                            // X
+                        }
+
+                        // 로그인 버튼
+                        else if(currentIntroFocus == 1) {
+                            $('#btn_login').removeClass("focus");
+                            currentIntroFocus = 0;
+
+                            if(currentIntroNoFocus == "PHONE") {
+                                $('#login_phone_no').addClass("focus");
+                                // 번호 처리
+                                if($('#login_phone_no').val() == "핸드폰번호") {
+                                    $('#login_phone_no').val("010-");
+                                }
+                            }
+                            if(currentIntroNoFocus == "PIN") {
+                                $('#login_pin_no').addClass("focus");
+                                // 번호 처리
+                                if($('#login_pin_no').val() == "PIN번호") {
+                                    $('#login_pin_no').val("");
+                                }
+                            }
+                        }
+                    }
+
                     // 지금 이상품 이가격(하단)
-                    if(currentFocusList == 2) {
+                    else if(currentFocusList == 2) {
                         console.log("##### 지금 이상품 이가격(하단)지금 이상품 이가격(하단)지금 이상품 이가격(하단)지금 이상품 이가격(하단)..");
                         if(prevPageYN1 == true) {
                             // 전 페이지 조회
@@ -1819,8 +1938,34 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         $('li[name="sl_menu"]').eq(currentFocusMenu).addClass('focus');
                    }*/
 
+                    // 인트로 화면
+                    if(INTRO_SCREEN == true) {
+                        // 핸드폰 번호, 핀 번호
+                        if(currentIntroFocus == 0) {
+                            $('#login_phone_no').removeClass("focus");
+                            $('#login_pin_no').removeClass("focus");
+                            currentIntroFocus = 1;
+                            $('#btn_login').addClass("focus");
+
+                            // 번호 처리
+                            if($('#login_phone_no').val() == "010-") {
+                                $('#login_phone_no').val("핸드폰번호");
+                            }
+
+                            // 번호 처리
+                            if($('#login_pin_no').val() == "") {
+                                $('#login_pin_no').val("PIN번호");
+                            }
+                        }
+
+                        // 로그인 버튼
+                        else if(currentIntroFocus == 1) {
+                            // X
+                        }
+                    }
+
                    // 지금 이상품 이가격(하단)
-                   if(currentFocusList == 2) {
+                   else if(currentFocusList == 2) {
                         if(nextPageYN1 == true) {
                             // 다음 페이지 조회
                             console.log("지금 이상품 이가격 : 다음 페이지 조회");
@@ -2043,8 +2188,37 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         $('#pj_left').addClass('focus');
                     }*/
 
+                    // 인트로 화면
+                    if(INTRO_SCREEN == true) {
+                        // 핸드폰 번호
+                        if(currentIntroFocus == 0 && currentIntroNoFocus == "PHONE") {
+                            // X
+                        }
+
+                        // 핀 번호
+                        else if(currentIntroFocus == 0 && currentIntroNoFocus == "PIN") {
+                            $('#login_pin_no').removeClass("focus");
+                            currentIntroNoFocus = "PHONE";
+                            $('#login_phone_no').addClass("focus");
+
+                            // 번호 처리
+                            if($('#login_phone_no').val() == "핸드폰번호") {
+                                $('#login_phone_no').val("010-");
+                            }
+                            // 번호 처리
+                            if($('#login_pin_no').val() == "") {
+                                $('#login_pin_no').val("PIN번호");
+                            }
+                        }
+
+                        // 로그인 버튼
+                        else if(currentIntroFocus == 1) {
+                            // X       
+                        }
+                    }
+
                     // 지금 이상품 이가격 (하단) -> 지금 이상품 이가격 (하단) or 전체 카테고리
-                    if(currentFocusList == 2) {
+                    else if(currentFocusList == 2) {
                         // 지금 이상품 이가격(하단 왼쪽) -> 전체 카테고리
                         if(currentFocusMenu == 0) {
 
@@ -2058,7 +2232,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                             appConfiguration.localSystem.mute = true; // 음소거 설정
 
 
-                            location.href = EXHB_PATH + "category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;      
+                            location.href = EXHB_PATH + "category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID  + '&userName=' + userName;
                             //$('li[name="sl_menu"]').eq(currentFocusMenu).removeClass('focus');
                             //currentFocusList = 0;
                             //$('#pj_left').addClass('focus');
@@ -2182,8 +2356,37 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 // **************************************************
                 if(keyCode === global.VK_RIGHT) {
 
+                    // 인트로 화면
+                    if(INTRO_SCREEN == true) {
+                        // 핸드폰 번호
+                        if(currentIntroFocus == 0 && currentIntroNoFocus == "PHONE") {
+                            $('#login_phone_no').removeClass("focus");
+                            currentIntroNoFocus = "PIN";
+                            $('#login_pin_no').addClass("focus");
+
+                            // 번호 처리
+                            if($('#login_phone_no').val() == "010-") {
+                                $('#login_phone_no').val("핸드폰번호");
+                            }
+                            if($('#login_pin_no').val() == "PIN번호") {
+                                $('#login_pin_no').val("");
+                            }
+
+                        }
+
+                        // 핀 번호
+                        else if(currentIntroFocus == 0 && currentIntroNoFocus == "PIN") {
+                            // X
+                        }
+
+                        // 로그인 버튼
+                        else if(currentIntroFocus == 1) {
+                            // X
+                        }
+                    }
+
                     // 전체 카테고리 -> 지금 이상품 이가격 (하단)
-                    if(currentFocusList == 0) {
+                    else if(currentFocusList == 0) {
                         // this.videoStop();
 
                         /*$('#pj_left').removeClass('focus');
@@ -3036,18 +3239,17 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         //var id = $('li[name="sl_menu"]').eq(currentFocusMenu).children('.sl_id').val();
         console.log("url111111 ==> " + JSON.stringify(productList3));
         console.log("currentFocusMenu = " + currentFocusMenu);
-        console.log("url111 video : " + productList3[currentFocusMenu]["tv_video"]);
-        console.log("url111 video : " + productList3[currentFocusMenu].tv_video);
         
+        var url = "";
 
         //두번째페이지
         if(currentOrderedProductPage1 == 1){
         	
-        	var url = productList3[Number(currentFocusMenu+4)]["tv_video"];
+        	url = productList3[Number(currentFocusMenu+4)]["tv_video"];
         }
         //첫번째페이지
         else{
-        	var url = productList3[currentFocusMenu]["tv_video"];
+        	url = productList3[currentFocusMenu]["tv_video"];
         }
         
         //var id = productList3[currentFocusMenu]["product_id"];

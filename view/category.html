@@ -16,7 +16,7 @@
 			<h3>
 				<span><img src="../images/s_bg_left.png" /></span>
 				<span class="sbg">
-					<span id="common_shopper_status" style="margin-top : -1px;">당일배송</span> &nbsp;
+					<span id="common_shopper_status" style="margin-top : -1px;"></span> &nbsp;
 					<img id="common_shopper_img" src="../images/s_icon_car.png" style="margin-top : -3px;"/></span>
 				<span>
 				<img src="../images/s_bg_right.png" /></span>
@@ -28,7 +28,7 @@
 				<div class="top_icon">
 					<ul>
 						<li name="category_menu"><a href="#"><img src="../images/m_mymart.png" /></a></li>
-						<li name="category_menu"><a href="#"><img src="../images/m_voice.png" /></a></li>
+						<li name="category_menu"><a href="#"><img src="../images/m_search.png" /></a></li>
 						<li name="category_menu"><a href="#"><img src="../images/m_orderhistory.png" /></a></li>
 					</ul>
 				</div>
@@ -283,7 +283,7 @@
 							$('#shlr_on').removeClass("shlr_on");
 							$('#shlr_on').addClass("shlr_off");
 							$('#shlr_b').html("OFF");
-							$('#common_shopper_status').html("당일배송");
+							$('#common_shopper_status').html(userName + "님 로그인");
 							$('#common_shopper_img').attr("src", "../images/s_icon_car.png").css("margin-top", "-3px");
 
 							currentFocusList = 3; // 쇼퍼 주문이력
@@ -306,30 +306,38 @@
 
 	<!-- 팝업 영역 -->	
 
-	<!-- 간편 장바구니 -->
-	<div id="popup_cart" class="popup_cart" style="display: none;"></div>
-	<!-- 간편 장바구니 끝 -->
-
 	<!-- 공통 메시지 팝업 -->
 	<div id="wrap_common" class="pop3" style="width:500px; top:80%; left:32%; position:absolute; display:none;">
 		<ul><li id="common_msg"></li></ul>
 	</div>
 
-	<!-- 간편 장바구니 토스트 팝업-->
+	<!-- 간편 장바구니 -->
+	<div id="popup_cart" class="popup_cart" style="display: none;"></div>
+	
+	<!-- 간편 장바구니 메시지 팝업 -->
 	<div id="wrap_cart" class="pop2" style="width:500px; top:80%; left:32%; position:absolute; display:none;">
 		<ul>
 			<li id="cart_message"></li>
 		</ul>
 	</div>
-	<!-- 간편 장바구니 토스트 팝업 끝 -->
-
 
 	<!-- 쇼퍼 상태 토스트 팝업 -->
 	<div id="wrap_shopper_status" class="pop2" style="width:500px; top:80%; left:32%; position:absolute; display:none;">
 		<ul><li id="common_shopper_message"></li></ul>
 	</div>
-	<!-- 쇼퍼 상태 토스트 팝업 끝 -->
 
+	<!-- 로그아웃 확인 팝업 -->
+	<div id="pop_logout" class="bg_alpha" style=" position:absolute; display : none;">
+		<div class="pop type_b">
+			<ul>
+				<li class="mg_t30 txt_cnt">로그아웃 하시겠습니까?</li>
+				<li class="pop_btn">
+					<span class="green" id="btn_logout_submit">확인</span>
+					<span class="gray" id="btn_logout_cancel">취소</span>
+				</li>
+			</ul>
+		</div>
+	</div>
 
 	<!-- 쇼퍼 리얼타임 -->
 	<div id="shopper_real_time" class="shopper_real_time" style="display:none;">
@@ -366,7 +374,6 @@
 		</div>
 	</div>
 	<!-- 쇼퍼 리얼 타임 끝 -->
-
 
 	<!-- 음성 검색 팝업 -->
 	<div id="wrap_voice" class="bg_alpha" style="display : none;">

@@ -7,19 +7,16 @@
 </head>
 
 <body>
-	<!-- 간편 장바구니 팝업 -->
-	<!-- <div id="wrap_cart" class="bg_alpha" style="display : none;"> -->
-		<div id="wrap_cart" class="pop2" style="width:500px; top:80%; left:32%; position:absolute; display:none;">
-			<ul>
-				<li id="cart_message"></li>
-			</ul>
-		</div>
-	<!-- </div> -->
-
 	<!-- ########## 인트로 영역 ########## -->
 	<div id="wrap" class="bg_intro" name="screen_intro" style="display:block;">
 		<div class="intro_shop">배송점포 : 양재 하나로마트</div>
-		<div id="intro_skip" class="intro_skip" style="display:none;">SKIP</div>
+		<!-- <div id="intro_skip" class="intro_skip" style="display:none;">SKIP</div> -->
+		<div class="intro_input">
+			<input id="login_phone_no" type="text"  class="amt_input mg_t10 mg_b10 pd_l10" value="핸드폰번호"> 
+          	<input id="login_pin_no" type="text" maxlength="4" class="amt_input mg_t10 mg_b10 pd_l10" value="PIN번호">
+        </div> 
+        
+        <div id="btn_login" class="intro_skip">로그인</div>
 	</div>
 
 	<!-- ########## 기획전 영역 ########## -->
@@ -30,7 +27,7 @@
 				<h3>
 					<span><img src="images/s_bg_left.png" /></span>
 					<span class="sbg">
-					<span id="common_shopper_status"  style="margin-top : -1px;">당일배송</span>
+					<span id="common_shopper_status" style="margin-top : -1px;"></span>
 					&nbsp;
 					<img id="common_shopper_img" src="images/s_icon_car.png" style="margin-top : -3px;"/></span>
 					<span><img src="images/s_bg_right.png" /></span>
@@ -407,7 +404,7 @@
 					if(status == 3) {
 						// 쇼퍼 구매 완료
 						$('#common_shopper_message').html("현재 리얼타임 방송이 없습니다.");
-						$('#common_shopper_status').html("당일배송");
+						$('#common_shopper_status').html(userName + "님 로그인");
 						$('#common_shopper_img').attr("src", "images/s_icon_car.png").css("margin-top", "-3px");
 						viewShopperMsg();
 					}
@@ -424,7 +421,7 @@
 			} else {
 				go_login();	
 			}*/	
-			go_login();
+			//go_login();
 		});
 
 		// 쇼퍼 메시지 출력 후 5초 후 사라짐
@@ -433,13 +430,40 @@
 			setTimeout("$('#wrap_shopper_status').hide()", 5000);
 		}
 
+		// 로그인 실행, 2015-07-25 현재는 휴대폰번호와 PIN번호를 입력해야 실행됨
 		function go_login() {
-			setTimeout(Gigamart.app.exhb.KeyEventActorProvider.login, 2000);
+			setTimeout(Gigamart.app.exhb.KeyEventActorProvider.login, 100);
 		}
 	</script>
 
+	<!-- 간편 장바구니 메시지 팝업 -->
+	<div id="wrap_cart" class="pop2" style="width:500px; top:80%; left:32%; position:absolute; display:none;">
+		<ul>
+			<li id="cart_message"></li>
+		</ul>
+	</div>
+
+	<!-- 쇼퍼 상태 알림 팝업 -->
 	<div id="wrap_shopper_status" class="pop2" style="width:500px; top:80%; left:32%; position:absolute; display:none;">
 		<ul><li id="common_shopper_message"></li></ul>
+	</div>
+
+	<!-- 로그아웃 확인 팝업 -->
+	<div id="pop_logout" class="bg_alpha" style=" position:absolute; display : none;">
+		<div class="pop type_b">
+			<ul>
+				<li class="mg_t30 txt_cnt">로그아웃 하시겠습니까?</li>
+				<li class="pop_btn">
+					<span class="green" id="btn_logout_submit">확인</span>
+					<span class="gray" id="btn_logout_cancel">취소</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- 공통 메시지 팝업 -->
+	<div id="wrap_common" class="pop3" style="width:500px; top:80%; left:32%; position:absolute; display:none;">
+		<ul><li id="common_msg"></li></ul>
 	</div>
 </body>
 </html>

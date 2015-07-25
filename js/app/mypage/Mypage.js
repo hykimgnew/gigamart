@@ -20,13 +20,14 @@ var requestMyPage  = request.getParameter("requestMyPage");
 var requestMyMenu  = request.getParameter("requestMyMenu");
 var requestMyCnt  = request.getParameter("requestMyCnt");
 
-//로그인아이디
-var userID  = request.getParameter("userID");
 //*************************************************
 // * Popup
 // * isCart       : 간편 장바구니
+// * isLogout     : 로그아웃
+// *    0 : 팝업 없음, 1 : 확인포커스 2 : 취소포커스
 //*************************************************
- var isCart = false;
+ var isCart   = false;
+ var isLogout = 0;
 
 //*************************************************
 // *  간편 장바구니 팝업

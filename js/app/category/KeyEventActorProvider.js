@@ -50,7 +50,8 @@ function rtspStop() {
     appConfiguration.localSystem.mute = true; // 음소거 설정
     //$('#rtsp_area video').remove();
     //$('#rtsp_area object').remove();
-    rtspPlayer.stop();
+    rtspPlayer = document.querySelector('object');
+    //rtspPlayer.stop();
 }
 
 /**
@@ -63,7 +64,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
     	me.actors = [];
 
         //현재포커스된 위치의 상품갯수
-        var userID  = request.getParameter("userID");
+        //var userID  = request.getParameter("userID");
         console.log("userID : " + userID);
 
         // 플로팅 메뉴 장바구니 SET
@@ -167,7 +168,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                         $('#p_videoDiv video').remove();
                         $('#span_videoDiv video').remove();
                         appConfiguration.localSystem.mute = true; // 음소거 설정
-                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&requestOrderScreen=category.html'+ '&userID='+ userID;
+                        location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&requestOrderScreen=category.html'+ '&userID='+ userID + '&userName=' + userName;
                     }
                     
                     // 결제
@@ -178,7 +179,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             $('#p_videoDiv video').remove();
                             $('#span_videoDiv video').remove();
                             appConfiguration.localSystem.mute = true; // 음소거 설정
-                            location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&requestOrderScreen=category.html'+ '&userID='+ userID + '&startScreen=2';   
+                            location.href = EXHB_PATH + 'order.html?SHOPPER_STATUS=' + SHOPPER_STATUS + '&requestOrderScreen=category.html'+ '&userID='+ userID + '&userName=' + userName + '&startScreen=2';   
                         } else {
                             console.log("#상품이 존재하지 않아 결제 화면으로 이동하지 않음");
                         }
@@ -504,9 +505,11 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 cartFocus       = 0;
                 location.href   = "#" + $('li[name="ec_li_list"]').eq(0).attr('id');
                 $('#popup_cart').hide();
-            } else if (keyCode === global.VK_ESCAPE) {
+            } 
+            //else if (keyCode === global.VK_ESCAPE) {
                 
-            } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
+            //} 
+            else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
             
             }
         }
@@ -549,7 +552,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             // **************************************************
             if(keyCode === global.VK_RED) {
                 $('#videoDiv video').remove();
-                location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID; // 기획전 이동
+                location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName; // 기획전 이동
             }
 
             // **************************************************
@@ -560,7 +563,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 if(currentFocusList == 0) {
                     // My Page
                     if(currentFocusMenu == 0){
-                        location.href ="mypage.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID; // 마이페이지 이동
+                        location.href ="mypage.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName; // 마이페이지 이동
                     }
                     
                     // 음성 검색
@@ -622,14 +625,14 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                     $('#videoDiv video').remove();
                     location.href ="category_dtl.html?categoryCode="  + $('span[name="span_category_menu"]').eq(currentFocusMenu-3).html()
                                                  + "&categoryDtlCode=" + $('li[name="appendMenu"]').eq(currentFocusDtl).html()
-                                                 + "&categoryDtlPage=" + currentFocusDtlPage + "&SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;
+                                                 + "&categoryDtlPage=" + currentFocusDtlPage + "&SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName;
                 }
 
                 // 쇼퍼's Bag 일때
                 else if(currentFocusList == 2) {
                     // 쇼퍼's Bag으로 이동
                     $('#videoDiv video').remove();
-                    location.href = "shopper_bag.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID;
+                    location.href = "shopper_bag.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName;
                 }
 
                 // 쇼퍼 주문이력 일때
@@ -978,11 +981,13 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 
             } else if (keyCode === global.VK_BACK) {
                 $('#videoDiv video').remove();
-                location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID; // 기획전 이동
+                location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName; // 기획전 이동
                 
-            } else if (keyCode === global.VK_ESCAPE) {
+            } 
+            //else if (keyCode === global.VK_ESCAPE) {
                 
-            } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
+            //} 
+            else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
                 
             }
         }
