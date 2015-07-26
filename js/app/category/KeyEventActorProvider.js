@@ -147,6 +147,11 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             currentFocusList = 0;
             currentFocusMenu = 1;
             $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
+
+            // 동영상 제거
+            this.videoStop();
+            $('#sub_content').hide();
+
         }
     },
 
@@ -1427,6 +1432,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 if(keywordFocus != 0 || isKeyword != 0) {
                     $('#wrap_keyword_search').hide();
                     keywordFocus = 0;
+                    keywordListFocus = 0;
                     $('#wrap_keyword_result').hide();
                     isKeyword = 0;
 
