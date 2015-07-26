@@ -14,14 +14,29 @@ var requestCategoryCode     = request.getParameter("categoryCode");
 var requestCategoryDtlCode  = request.getParameter("categoryDtlCode");
 var requestCategoryDtlPage  = request.getParameter("categoryDtlPage");
 
+//**************************************************
+// * requestKeywordYN = 이 값에 Y가 들어있으면 키워드 검색결과에서 넘어옴
+// * requestKeyword = 키워드 검색결과에서 넘어온 키워드
+// * requestKeywordFocus = 키워드 포커스 위치
+// * requestKeywordPage = 키워드 검색 결과의 현재 페이지
+//***************************************************
+var requestKeywordYN = request.getParameter("requestKeywordYN");
+var requestKeyword = request.getParameter("requestKeyword");
+var requestKeywordFocus = request.getParameter("requestKeywordFocus");
+var requestKeywordPage = request.getParameter("requestKeywordPage");
+
 //*************************************************
 // * Popup
 // * isCart       : 간편 장바구니
 // * isLogout     : 로그아웃
 // *    0 : 팝업 없음, 1 : 확인포커스 2 : 취소포커스
+// * isKeyword    : 키워드 검색
+// *    0 : 팝업 없음, 1 : 입력창, 2 : 검색, 3 : 닫기
 //*************************************************
- var isCart   = false;
- var isLogout = 0;
+ var isCart     = false;
+ var isLogout   = 0;
+ var isKeyword  = 0;
+ 
 
 //*************************************************
 // *  간편 장바구니 팝업
@@ -111,22 +126,38 @@ var prevPageYN = false;
 var nextPageYN = false;
 
 /**
- * 음성 검색
+ * 검색결과
  *
- * voiceFocus - 음성 검색 포커스
- * 0 : 검색 결과 리스트
+ * keywordFocus - 검색결과 포커스
+ * 0 : 검색결과 팝업 없음
  * 1 : 할인율순
  * 2 : 가격낮은 순
  * 3 : 가격높은 순
  * 4 : 인기순
  * 5 : 기획전 상품만 보기 체크박스
- *
- * voiceListFocus - 음성 검색 리스트 포커스
+ * 9 : 상품 목록
+ 
+ * keywordListFocus - 검색 리스트 포커스
  * 0 1 2 3
  * 4 5 6 7 
+
+ * keywordListArray   : 검색 결과의 리스트 배열
+ * keywordListScreenArray : 검색 결과의 현재 리스트 배열
+ * keywordListPage    : 검색 결과 현재 페이지
+ * keywordListLen     : 현재 페이지의 상품 개수
+ * keywordPrevPageYN  : 검색결과 이전페이지 유무
+ * keywordNextPageYN  : 검색결과 다음페이지 유무
  **/
-var voiceFocus = 0;
-var voiceListFocus = 0;
+var keywordFocus      = 0;
+var keywordListFocus  = 0;
+var keywordListArray  = new Array();
+var keywordListScreenArray = new Array();
+var keywordListPage   = 0;
+var keywordListLen    = 0;
+var keywordPrevPageYN = false;
+var keywordNextPageYN = false;
+var btnokfill = '<img src="../images/btn_ok_fill3.png"/>';
+
 
 // 쇼퍼 리얼 타임
 var rtspPlayer = window.oipfObjectFactory.createVideoMpegObject();    // 실시간 영상보기

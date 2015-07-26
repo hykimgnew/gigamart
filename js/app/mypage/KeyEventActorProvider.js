@@ -5120,6 +5120,7 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 // }
                 //결과값 있을때
                 //else{
+                if(result['resultCode'] == 1) {
                     var obj2 = result['arr_order'];
                     var resultLen = result['arr_order'].length;
                     console.log("취소내역 resultLen : ---->"+resultLen);
@@ -5127,42 +5128,43 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                     totalCount = resultLen;
                     //환불
                     var param2 = {
-                        "interval" : inter_num
-                    };
-                        $.ajax({
-                            url         : cmsServerIp + "/BuyerOrderTask/RefundList/interval",
-                            type        : "post",
-                            dataType    : "json",
-                            data        : param2,
-                            async       : true,
-                            xhrFields   : {
-                                            withCredentials: true
-                            },
-                            success     : function(result) {
-                                var obj = result;
-                                var obj_length = Object.keys(obj).length;
-                                console.log("환불내역 obj_length---->"+obj_length);
-                                //결과값 없을때 0
-                                if(obj_length == 1){
-                                    console.log("123");
-                                    $('span[name="ref_tot"]').empty().html(totalCount);
-                                    return;
-                                }
-                                //결과값 있을때
-                                else{
-                                    var resultLen = result['arr_order'].length;
-                                    var obj3 = result['arr_order'];
-                                    console.log("환불내역 resultLen : ---->"+resultLen);
-                                    console.log("환불내역 obj3 : ---->"+JSON.stringify(obj3));
-                                    totalCount2 = resultLen+totalCount;
-                                    console.log("totalCount2 : ---->"+totalCount2);
-                                    if(totalCount2 < 10 && totalCount2>0){
-                                        totalCount2 = "0"+totalCount2; 
-                                    }
-                                    $('span[name="ref_tot"]').empty().html(totalCount2);
-                                }
+                                    "interval" : inter_num
+                                 };
+                    $.ajax({
+                        url         : cmsServerIp + "/BuyerOrderTask/RefundList/interval",
+                        type        : "post",
+                        dataType    : "json",
+                        data        : param2,
+                        async       : true,
+                        xhrFields   : {
+                                        withCredentials: true
+                        },
+                        success     : function(result) {
+                            var obj = result;
+                            var obj_length = Object.keys(obj).length;
+                            console.log("환불내역 obj_length---->"+obj_length);
+                            //결과값 없을때 0
+                            if(obj_length == 1){
+                                console.log("123");
+                                $('span[name="ref_tot"]').empty().html(totalCount);
+                                return;
                             }
-                        }); 
+                            //결과값 있을때
+                            else{
+                                var resultLen = result['arr_order'].length;
+                                var obj3 = result['arr_order'];
+                                console.log("환불내역 resultLen : ---->"+resultLen);
+                                console.log("환불내역 obj3 : ---->"+JSON.stringify(obj3));
+                                totalCount2 = resultLen+totalCount;
+                                console.log("totalCount2 : ---->"+totalCount2);
+                                if(totalCount2 < 10 && totalCount2>0){
+                                    totalCount2 = "0"+totalCount2; 
+                                }
+                                $('span[name="ref_tot"]').empty().html(totalCount2);
+                            }
+                        }
+                    });
+                }
                     // if(resultLen < 10){
                     //     resultLen = "0"+resultLen; 
                     // }

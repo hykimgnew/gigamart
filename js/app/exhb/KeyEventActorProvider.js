@@ -509,7 +509,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                     location.href = EXHB_PATH + "product1.html?id="+requestCategoryDtlId+"&categoryDtlCode="+requestCategoryDtlCode
                                               + "&requestExhbFocus="+ currentFocusMenu + "&requestExhbPage=" + currentOrderedProductPage1
-                                              + "&SHOPPER_STATUS=" + SHOPPER_STATUS;
+                                              + "&SHOPPER_STATUS=" + SHOPPER_STATUS
                                               + "&userID=" + userID + "&userName=" + userName;
 
                     /*location.href = EXHB_PATH + "product1.html"

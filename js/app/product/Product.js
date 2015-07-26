@@ -45,6 +45,19 @@ var requestDtlPage  = request.getParameter("requestDtlPage");
 var requestDtlMenu  = request.getParameter("requestDtlMenu");
 var requestDtlCnt  = request.getParameter("requestDtlCnt");
 
+//**************************************************
+// * requestKeywordYN = 이 값에 Y가 들어있으면 키워드 검색결과에서 넘어옴
+// * requestCategoryDtlId = 키워드 검색결과에서 넘어온 상품 아이디
+// * requestKeyword = 키워드 검색결과에서 넘어온 키워드
+// * requestKeywordFocus = 키워드 포커스 위치
+// * requestKeywordPage = 키워드 검색 결과의 현재 페이지
+//***************************************************
+var requestKeywordYN = request.getParameter("requestKeywordYN");
+//var requestCategoryDtlId  = request.getParameter("id");
+var requestKeyword = request.getParameter("requestKeyword");
+var requestKeywordFocus = request.getParameter("requestKeywordFocus");
+var requestKeywordPage = request.getParameter("requestKeywordPage");
+
 
 
 //*************************************************

@@ -53,8 +53,7 @@ function selectCartList()
             // 장바구니에 상품이 있으면
             else {
                 console.log("#장바구니 조회 : " + JSON.stringify(result));
-                var appendHtml2 = "";
-                var value = null
+
                 // 체크박스 기본 값 (false) SET
                 for(var i=0 ; i < orderCartResultSet.length ; i++) {
                     // 체크박스에 기본 값 SET
@@ -70,7 +69,6 @@ function selectCartList()
                 console.log("resultProductArray :::::::::::::::"+JSON.stringify(resultProductArray))
                 console.log("type2222 : "+typeof resultProductArray);
 
-
                 // 장바구니 목록 생성
                 makeCartList(0);
                 orderCartProductYN = true;
@@ -80,7 +78,7 @@ function selectCartList()
 
                 // 3건 넘어갈 경우 <다음 페이지 있음>
                 if(result['cart'].length > 3) orderCartNextPageYN = true;
-                else orderCartPrevPageYN = false;
+                else orderCartNextPageYN = false;
             }
 
         },

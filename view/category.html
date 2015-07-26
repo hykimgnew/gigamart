@@ -375,31 +375,48 @@
 	</div>
 	<!-- 쇼퍼 리얼 타임 끝 -->
 
-	<!-- 음성 검색 팝업 -->
-	<div id="wrap_voice" class="bg_alpha" style="display : none;">
+	<!-- 검색 팝업 -->
+	<div id="wrap_keyword_search" class="bg_alpha" style="display:none; position:absolute; top:0px; left:0px;">
+		<div class="pop type_b">
+			<ul>
+				<li class="search_txt">기가마트 상품 검색하기</li>
+				<li></li>
+				<li class="pr_num mg_t20">
+					<input id="input_keyword" type="text" class="search_input mg_t10 mg_b10 pd_l10" value="우유"> 
+					<span id="btn_keyword_search" class="search_btn">검색</span>
+				</li>
+	            <li class="pop_btn">
+				<span id="btn_keyword_close" class="gray">닫기</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- 검색 팝업 결과 -->
+	<div id="wrap_keyword_result" class="bg_alpha" style="display:none; position:absolute; top:0px; left:0px; width:1280px; height:720px; z-index:100000;">
 		<div class="voice_search_result">
 			<div class="vsr_tit">
-				<li class="vsrt_head">음성검색 > 검색결과</li>
-				<li class="vsrt_sub">음성검색 버튼을 누르시면 다시 검색하실 수 있습니다.</li></span>
+				<li class="vsrt_head">검색 > 검색결과</li>
+				<li class="vsrt_sub"></li></span>
 			</div>
-			<p class="vsr_keyword"><b>‘신라면’</b>으로 검색된 총 14건 입니다. </p>
+			<p id="title_keyword" class="vsr_keyword"></p>
 			<div class="vsr_content">
 				<ul>
 					<li class="vsrc_left">
 						<ol>	
-							<li class="sel">할인율순</li>
-							<li>가격낮은순</li>
-							<li>가격높은순</li>
-							<li>인기순</li>
+							<li id="btn_sort1">할인율순</li>
+							<li id="btn_sort2">가격낮은순</li>
+							<li id="btn_sort3">가격높은순</li>
+							<li id="btn_sort4">인기순</li>
 						</ol>
-						<p class="checkbox"><span><img src="../images/checkbox.png" /><!--img src="../images/checkbox_sel.png" /--></span> 기획전 상품만 보기</p>
+						<p class="checkbox"><span><img id="btn_keyword_checkbox" src="../images/checkbox.png" /><!--img src="../images/checkbox_sel.png" /--></span> 기획전 상품만 보기</p>
 					</li>
 					<li class="vsrc_right">
 						<div class="product_list">
-							<a href="#" class="arrow_top"></a>
+							<a id="keyword_prev_arrow" href="#" class="arrow_top" style="display:block;"></a>
 							<div>
-								<ul>	
-									<li class="pl_menu focus mg_r10">
+								<ul id="ul_keyword_list">	
+									<!-- <li class="pl_menu focus mg_r10">
 										<span class="dlm_bdr"></span>
 										<span class="polygon_bb">소량<br />구매</span>
 										<span class="dm_bdr"><img src="../images/btn_ok_fill.png"/></span>
@@ -416,52 +433,11 @@
 											<li class="dlm_price">24,900원</li>
 										</ul>
 									</li>
-									<li class="pl_menu mg_r10">
-										<ul>
-											<li class="dlm_img"><img src="../images/sample_01.jpg" /></li>
-											<li class="dlm_tit">달달한 사과</li>
-											<li class="dlm_price">24,900원</li>
-										</ul>
-									</li>
-									<li class="pl_menu">
-										<ul>
-											<li class="dlm_img"><img src="../images/sample_01.jpg" /></li>
-											<li class="dlm_tit">달달한 사과</li>
-											<li class="dlm_price">24,900원</li>
-										</ul>
-									</li>
-									<li class="pl_menu mg_r10">
-										<ul>
-											<li class="dlm_img"><img src="../images/sample_01.jpg" /></li>
-											<li class="dlm_tit">달달한 사과</li>
-											<li class="dlm_price">24,900원</li>
-										</ul>
-									</li>
-									<li class="pl_menu mg_r10">
-										<ul>
-											<li class="dlm_img"><img src="../images/sample_01.jpg" /></li>
-											<li class="dlm_tit">달달한 사과</li>
-											<li class="dlm_price">24,900원</li>
-										</ul>
-									</li>
-									<li class="pl_menu mg_r10">
-										<ul>
-											<li class="dlm_img"><img src="../images/sample_01.jpg" /></li>
-											<li class="dlm_tit">달달한 사과</li>
-											<li class="dlm_price">24,900원</li>
-										</ul>
-									</li>
-									<li class="pl_menu">
-										<ul>
-											<li class="dlm_img"><img src="../images/sample_01.jpg" /></li>
-											<li class="dlm_tit">달달한 사과</li>
-											<li class="dlm_price">24,900원</li>
-										</ul>
-									</li>
+									 -->
 								</ul>
 							</div>
-							<a href="#" class="arrow_bottom"></a>
-							<span class="page"><B>01</b> / 04</span>
+							<a id="keyword_next_arrow" href="#" class="arrow_bottom" style="display:block;"></a>
+							<span id="keyword_list_page" class="page"></span>
 						</div>
 					</li>
 				</ul>

@@ -1519,28 +1519,40 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
             } else if (keyCode === global.VK_BACK) {
                 console.log("지금 이상품 이가격 포커스 : " + requestExhbFocus);
                 console.log("지금 이상품 이가격 페이지 : " + requestExhbPage);
-                if(requestCategoryCode  != null && requestCategoryCode  != '' && requestCategoryCode != 'undefined') {
-                    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%전체 카테고리로 이동");
-                    // 전체 카테고리로 이동
-                    //this.transCategoryCode(); // 한글코드를 숫자코드로 변환 후 페이지 이동
-                    location.href = "category_dtl.html?categoryCode=" + requestCategoryCode + "&categoryDtlCode=" + requestCategoryDtlCode + "&categoryDtlPage=" + requestCategoryDtlPage + "&SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName + "&requestDtlPage=" + requestDtlPage+"&requestDtlMenu=" + requestDtlMenu+"&requestDtlCnt=" + requestDtlCnt;
-                }
-                else if(requestExhbFocus != null && requestExhbFocus != '' && requestExhbFocus != 'undefined') {
-                    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%기획전으로 이동 (지금 이상품 이가격 포커싱)");
-                    location.href = "exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS + "&requestExhbFocus=" + requestExhbFocus + "&requestExhbPage=" + requestExhbPage+ '&userID'+ userID; // 기획전 이동
-                }
-                else if(requestMyStatus != null && requestMyStatus != '' && requestMyStatus != 'undefined') {
-                    if(requestMyStatus == 2){
-                        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%찜한상품으로 이동");
-                        location.href ="mypage.html?SHOPPER_STATUS=" + SHOPPER_STATUS+"&requestMyStatus=2&requestMyPage=" + requestMyPage+"&requestMyMenu=" + requestMyMenu+"&requestMyCnt=" + requestMyCnt+ '&userID='+ userID + '&userName=' + userName; // 마이페이지 이동
-                    }else if(requestMyStatus == 3){
-                        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%자주본상품으로 이동");   
-                        location.href ="mypage.html?SHOPPER_STATUS=" + SHOPPER_STATUS+"&requestMyStatus=3&requestMyPage=" + requestMyPage+"&requestMyMenu=" + requestMyMenu+"&requestMyCnt=" + requestMyCnt+ '&userID='+ userID + '&userName=' + userName; // 마이페이지 이동 
-                    }                  
-                }
-                else{
-                    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%기획전으로 이동");
-                    location.href = "exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName; // 기획전 이동
+
+                // 검색 결과로 이동
+                if(requestKeywordYN == "Y") {
+                    console.log("%%%%%%%%%%%%%%% 전체 카테고리의 검색 결과로 이동");
+
+                    var param = "&requestKeywordYN=" + requestKeywordYN
+                              + "&requestKeyword=" + requestKeyword
+                              + "&requestKeywordPage=" + requestKeywordPage
+                              + "&requestKeywordFocus=" + requestKeywordFocus;
+
+                    location.href = "category.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName + param;
+                } else {
+                    if(requestCategoryCode  != null && requestCategoryCode  != '' && requestCategoryCode != 'undefined') {
+                        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%상세 카테고리로 이동");
+                        //this.transCategoryCode(); // 한글코드를 숫자코드로 변환 후 페이지 이동
+                        location.href = "category_dtl.html?categoryCode=" + requestCategoryCode + "&categoryDtlCode=" + requestCategoryDtlCode + "&categoryDtlPage=" + requestCategoryDtlPage + "&SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName + "&requestDtlPage=" + requestDtlPage+"&requestDtlMenu=" + requestDtlMenu+"&requestDtlCnt=" + requestDtlCnt;
+                    }
+                    else if(requestExhbFocus != null && requestExhbFocus != '' && requestExhbFocus != 'undefined') {
+                        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%기획전으로 이동 (지금 이상품 이가격 포커싱)");
+                        location.href = "exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS + "&requestExhbFocus=" + requestExhbFocus + "&requestExhbPage=" + requestExhbPage+ '&userID'+ userID; // 기획전 이동
+                    }
+                    else if(requestMyStatus != null && requestMyStatus != '' && requestMyStatus != 'undefined') {
+                        if(requestMyStatus == 2){
+                            console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%찜한상품으로 이동");
+                            location.href ="mypage.html?SHOPPER_STATUS=" + SHOPPER_STATUS+"&requestMyStatus=2&requestMyPage=" + requestMyPage+"&requestMyMenu=" + requestMyMenu+"&requestMyCnt=" + requestMyCnt+ '&userID='+ userID + '&userName=' + userName; // 마이페이지 이동
+                        }else if(requestMyStatus == 3){
+                            console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%자주본상품으로 이동");   
+                            location.href ="mypage.html?SHOPPER_STATUS=" + SHOPPER_STATUS+"&requestMyStatus=3&requestMyPage=" + requestMyPage+"&requestMyMenu=" + requestMyMenu+"&requestMyCnt=" + requestMyCnt+ '&userID='+ userID + '&userName=' + userName; // 마이페이지 이동 
+                        }                  
+                    }
+                    else{
+                        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%기획전으로 이동");
+                        location.href = "exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName; // 기획전 이동
+                    }
                 }
                 
                 
@@ -1746,6 +1758,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                         makeProduct();
                     }
                 }*/
+
                 // 결과값을 넣는다.
                 $.each(result, function(index, entry) {
                     // 처음에 뿌려주는 9개만 넣는다.

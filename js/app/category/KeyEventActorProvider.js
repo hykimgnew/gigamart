@@ -23,6 +23,14 @@ function pageArrowUtil1() {
     else                    $('#arrow_bottom').show();
 }
 
+// 검색결과 목록 페이징 화살표 컨트롤
+function keywordPageArrowUtil() {
+    if(keywordPrevPageYN == false) $('#keyword_prev_arrow').removeClass("focus");
+    else                             $('#keyword_prev_arrow').addClass("focus");
+
+    if(keywordNextPageYN == false) $('#keyword_next_arrow').removeClass("focus");
+    else                             $('#keyword_next_arrow').addClass("focus");
+}
 
 
 // 쇼퍼 실시간 영상재생
@@ -118,6 +126,28 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         
         // 당일 판매현장 시각
         // $('#cv_title').html("당일 판매현장 " + this.getCurrentDate());
+
+        // 키워드 검색 결과에 따라 처리 할 내용
+        console.log("~~~~~~~~~~~~~~~~ requestKeywordYN : " + requestKeywordYN);
+        console.log("~~~~~~~~~~~~~~~~ requestKeyword : " + requestKeyword);
+        console.log("~~~~~~~~~~~~~~~~ requestKeywordPage : " + requestKeywordPage);
+        console.log("~~~~~~~~~~~~~~~~ requestKeywordFocus : " + requestKeywordFocus);
+
+        if(requestKeywordYN == 'Y') {
+            // 검색결과 팝업 띄움
+
+            $('#input_keyword').val(requestKeyword);
+
+            Gigamart.app.category.KeyEventActorProvider.selectKeywordList("MODE2");
+
+            keywordFocus = 9;
+
+            // 백그라운드 Focus 처리
+            $('li[name="category_menu"]').eq(currentFocusMenu).removeClass('focus');
+            currentFocusList = 0;
+            currentFocusMenu = 1;
+            $('li[name="category_menu"]').eq(currentFocusMenu).addClass("focus");
+        }
     },
 
     // 화면 별 키 이벤트 관련 처리
@@ -530,13 +560,34 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             // **************************************************
             if(keyCode === global.VK_GREEN) {
 
-                isCart      = true;
-                cartFocus   = 1;    // 결제 버튼 Focus
+                if(isKeyword == 0 && keywordFocus == 0) {
+                    isCart      = true;
+                    cartFocus   = 1;    // 결제 버튼 Focus
 
-                retrieveEasyCart(); // 간편 장바구니 조회
+                    retrieveEasyCart(); // 간편 장바구니 조회
 
-                $('#popup_cart').show();
-                $('#ecc_payments').addClass('focus'); // 첫 포커스는 ecc_payments
+                    $('#popup_cart').show();
+                    $('#ecc_payments').addClass('focus'); // 첫 포커스는 ecc_payments
+                }
+            }
+
+            // **************************************************
+            // * ▶ KEY (장바구니 담기)
+            // **************************************************
+            if(keyCode === global.VK_BLUE) {
+                // 검색결과 상품목록 일때
+                if(keywordFocus == 9) {
+                    var idx = Number(keywordListFocus) + (8 * Number(keywordListPage));
+
+                    // 장바구니 담기
+                    appendEasyCart(1, keywordListArray[idx]['product_id']);
+                    $('#cart_message').html("장바구니에 " + keywordListArray[idx]['name'] + " 상품이 1개 담겼습니다.");
+                    $('#wrap_cart').show();
+                    // 플로팅 메뉴 장바구니 SET
+                    fltEasyCart();
+                    //$('#wrap_cart').show();
+                    setTimeout("fn_popEasyCart()", 1000);
+                }
             }
 
             // **************************************************
@@ -559,20 +610,109 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
             // * 확인 KEY
             // **************************************************
             if (keyCode === global.VK_ENTER) {
+                // 검색 팝업 일때
+                if(isKeyword != 0) {
+                    // 입력창 
+                    if(isKeyword == 1) {
+                        // 가상 키보드 떠야 함
+                    } 
+                    // 검색버튼
+                    else if(isKeyword == 2) {
+                        // 검색결과 팝업 띄움
+                        Gigamart.app.category.KeyEventActorProvider.selectKeywordList("MODE1");
+
+                        $('#btn_sort1').addClass("focus");
+                        keywordFocus = 1;
+                        $('#wrap_keyword_search').hide();
+                        isKeyword = 0;
+                    }
+                    // 닫기버튼
+                    else if(isKeyword == 3) {
+                        $('#wrap_keyword_search').hide();
+                        $('#btn_keyword_close').removeClass("focus");
+                        isKeyword = 0;
+                    }
+                }
+
+                // 검색 결과 팝업 일때
+                else if(keywordFocus != 0) {
+                    // 할인율순
+                    if(keywordFocus == 1) {
+                        $('#common_msg').empty().html("서비스 준비 중 입니다.");
+                        $('#wrap_common').show();
+
+                        setTimeout("$('#wrap_common').hide()", 1500);
+                        setTimeout("$('#common_msg').empty()", 1500);
+                    }
+                    // 가격낮은순
+                    else if(keywordFocus == 2) {
+                        $('#common_msg').empty().html("서비스 준비 중 입니다.");
+                        $('#wrap_common').show();
+
+                        setTimeout("$('#wrap_common').hide()", 1500);
+                        setTimeout("$('#common_msg').empty()", 1500);
+                    }
+                    // 가격높은순
+                    else if(keywordFocus == 3) {
+                        $('#common_msg').empty().html("서비스 준비 중 입니다.");
+                        $('#wrap_common').show();
+
+                        setTimeout("$('#wrap_common').hide()", 1500);
+                        setTimeout("$('#common_msg').empty()", 1500);
+                    }
+                    // 인기순
+                    else if(keywordFocus == 4) {
+                        $('#common_msg').empty().html("서비스 준비 중 입니다.");
+                        $('#wrap_common').show();
+
+                        setTimeout("$('#wrap_common').hide()", 1500);
+                        setTimeout("$('#common_msg').empty()", 1500);
+                    }
+                    // 기획전 상품만 보기
+                    else if(keywordFocus == 5) {
+                        $('#common_msg').empty().html("서비스 준비 중 입니다.");
+                        $('#wrap_common').show();
+
+                        setTimeout("$('#wrap_common').hide()", 1500);
+                        setTimeout("$('#common_msg').empty()", 1500);
+                    }
+                    // 상품 리스트
+                    else if(keywordFocus == 9) {
+                        var idx = Number(keywordListFocus) + (8 * Number(keywordListPage));
+
+                        var url = "?requestKeyword=" + $('#input_keyword').val()        // 검색 결과 키워드
+                                + "&requestKeywordFocus=" + keywordListFocus            // 검색 결과 포커스
+                                + "&requestKeywordPage=" + keywordListPage              // 검색 결과 페이지
+                                + "&categoryDtlCode=" + keywordListArray[idx]["subcategory"] // 상품 서브카테고리
+                                + "&id=" + keywordListArray[idx]["product_id"]          // 상품 아이디
+                                + "&requestKeywordYN=Y";
+
+                        location.href = 'product1.html' + url 
+                                      + '&SHOPPER_STATUS=' + SHOPPER_STATUS 
+                                      + '&userID=' + userID 
+                                      + '&userName=' + userName;
+                    }
+                }
+
                 // 전체 카테고리 일때
-                if(currentFocusList == 0) {
+                else if(currentFocusList == 0) {
                     // My Page
                     if(currentFocusMenu == 0){
                         location.href ="mypage.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName; // 마이페이지 이동
                     }
                     
                     // 음성 검색
-                    if(currentFocusMenu == 1) {
-                        $('#common_msg').empty().html("서비스 준비 중 입니다.");
+                    else if(currentFocusMenu == 1) {
+                        /*$('#common_msg').empty().html("서비스 준비 중 입니다.");
                         $('#wrap_common').show();
 
                         setTimeout("$('#wrap_common').hide()", 1500);
-                        setTimeout("$('#common_msg').empty()", 1500);
+                        setTimeout("$('#common_msg').empty()", 1500);*/
+
+                        // 검색 팝업 띄움
+                        $('#wrap_keyword_search').show();
+                        $('#input_keyword').addClass("focus");
+                        isKeyword = 1;
                     }
 
                     // 쇼퍼 주문 이력
@@ -656,7 +796,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                     }
 
                     // 닫기
-                    if(histFocus == 3) {
+                    else if(histFocus == 3) {
                         $('#shlr_on').addClass("focus");
                         $('#shlr_close').removeClass("focus");
                         currentFocusList = 0; // 전체카테고리
@@ -687,8 +827,88 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 // * 위 KEY
                 // **************************************************
                 if(keyCode === global.VK_UP) {
+                    // 검색 팝업 일때
+                    if(isKeyword != 0) {
+                        // 입력창 
+                        if(isKeyword == 1) {
+                            // X
+                        } 
+                        // 검색버튼
+                        else if(isKeyword == 2) {
+                            // X
+                        }
+                        // 닫기버튼
+                        else if(isKeyword == 3) {
+                            $('#btn_keyword_close').removeClass("focus");
+                            isKeyword = 2;
+                            $('#btn_keyword_search').addClass("focus");
+                        }
+                    }
+
+                    // 검색 결과 팝업 일때
+                    else if(keywordFocus != 0) {
+                        // 할인율순
+                        if(keywordFocus == 1) {
+                            // X
+                        }
+                        // 가격낮은순
+                        else if(keywordFocus == 2) {
+                            $('#btn_sort2').removeClass("focus");
+                            $('#btn_sort1').addClass("focus");
+                            keywordFocus = 1;
+                        }
+                        // 가격높은순
+                        else if(keywordFocus == 3) {
+                            $('#btn_sort3').removeClass("focus");
+                            $('#btn_sort2').addClass("focus");
+                            keywordFocus = 2;
+                        }
+                        // 인기순
+                        else if(keywordFocus == 4) {
+                            $('#btn_sort4').removeClass("focus");
+                            $('#btn_sort3').addClass("focus");
+                            keywordFocus = 3;
+                        }
+                        // 기획전 상품만 보기
+                        else if(keywordFocus == 5) {
+                            $('#btn_keyword_checkbox').removeClass("focus");
+                            $('#btn_sort4').addClass("focus");
+                            keywordFocus = 4;
+                        }
+                        // 상품 리스트
+                        else if(keywordFocus == 9) {
+                            // 윗줄
+                            if(keywordListFocus >= 0 && keywordListFocus <= 3) {
+                                // 이전 페이지가 있으면
+                                if(keywordPrevPageYN == true) {
+                                    this.makeKeywordList(Number(keywordListPage) - 1); // 페이지 이동
+                                    
+                                    keywordListFocus = Number(keywordListFocus) + 4;
+
+                                    $('li[name="keyword_product_list"]').eq(keywordListFocus).addClass("focus");
+                                    $('li[name="dlm_tit"]').eq(keywordListFocus).addClass("focus");
+                                    $('span[name="okfill"]').eq(keywordListFocus).empty().append(btnokfill);
+                                }
+                            }
+
+                            // 아랫줄
+                            else if(keywordListFocus >= 4 && keywordListFocus <= 7) {
+                                $('li[name="keyword_product_list"]').eq(keywordListFocus).removeClass("focus");
+                                $('li[name="dlm_tit"]').eq(keywordListFocus).removeClass("focus");
+                                $('span[name="okfill"]').eq(keywordListFocus).empty();
+
+                                keywordListFocus = Number(keywordListFocus) - 4;
+
+                                $('li[name="keyword_product_list"]').eq(keywordListFocus).addClass("focus");
+                                $('li[name="dlm_tit"]').eq(keywordListFocus).addClass("focus");
+                                $('span[name="okfill"]').eq(keywordListFocus).empty().append(btnokfill);
+                                
+                            }
+                        }
+                    }
+
                     // 전체 카테고리 일때
-                    if(currentFocusList == 0) {
+                    else if(currentFocusList == 0) {
                         // 쇼퍼주문이력이나 가공식품 사이일때
                         if(currentFocusMenu > 0 && currentFocusMenu <= 11) {
                             $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("focus");
@@ -766,8 +986,110 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 // * 아래 KEY
                 // **************************************************
                 if(keyCode === global.VK_DOWN) {
+                    // 검색 팝업 일때
+                    if(isKeyword != 0) {
+                        // 입력창 
+                        if(isKeyword == 1) {
+                            $('#input_keyword').removeClass("focus");
+                            isKeyword = 3;
+                            $('#btn_keyword_close').addClass("focus");
+                        } 
+                        // 검색버튼
+                        else if(isKeyword == 2) {
+                            $('#btn_keyword_search').removeClass("focus");
+                            isKeyword = 3;
+                            $('#btn_keyword_close').addClass("focus");
+
+                        }
+                        // 닫기버튼
+                        else if(isKeyword == 3) {
+                            // X
+                        }
+                    }
+
+                    // 검색 결과 팝업 일때
+                    else if(keywordFocus != 0) {
+                        // 할인율순
+                        if(keywordFocus == 1) {
+                            $('#btn_sort1').removeClass("focus");
+                            $('#btn_sort2').addClass("focus");
+                            keywordFocus = 2;
+                        }
+                        // 가격낮은순
+                        else if(keywordFocus == 2) {
+                            $('#btn_sort2').removeClass("focus");
+                            $('#btn_sort3').addClass("focus");
+                            keywordFocus = 3;
+                        }
+                        // 가격높은순
+                        else if(keywordFocus == 3) {
+                            $('#btn_sort3').removeClass("focus");
+                            $('#btn_sort4').addClass("focus");
+                            keywordFocus = 4;
+                        }
+                        // 인기순
+                        else if(keywordFocus == 4) {
+                            $('#btn_sort4').removeClass("focus");
+                            $('#btn_keyword_checkbox').addClass("focus");
+                            keywordFocus = 5;
+                        }
+                        // 기획전 상품만 보기
+                        else if(keywordFocus == 5) {
+                            // X
+                        }
+                        // 상품 리스트
+                        else if(keywordFocus == 9) {
+                            // 윗줄
+                            if(keywordListFocus >= 0 && keywordListFocus <= 3) {
+                                // 총 갯수에서 4룰 뺀 수가 포커스보다 작으면 아래로 이동 불가 
+                                if(keywordListLen - 4 <= keywordListFocus) {
+                                
+                                } 
+                                // 총 갯수에서 4를 빼도 현재 포커스보다 크면 이동 가능
+                                else {
+                                    $('li[name="keyword_product_list"]').eq(keywordListFocus).removeClass("focus");
+                                    $('li[name="dlm_tit"]').eq(keywordListFocus).removeClass("focus");
+                                    $('span[name="okfill"]').eq(keywordListFocus).empty();
+
+                                    keywordListFocus = Number(keywordListFocus) + 4;
+
+                                    $('li[name="keyword_product_list"]').eq(keywordListFocus).addClass("focus");
+                                    $('li[name="dlm_tit"]').eq(keywordListFocus).addClass("focus");
+                                    $('span[name="okfill"]').eq(keywordListFocus).empty().append(btnokfill);
+                                }
+                            }
+                            
+
+                            // 아랫줄
+                            else if(keywordListFocus >= 4 && keywordListFocus <= 7) {
+                                // 다음 페이지가 있으면
+                                if(keywordNextPageYN == true) {
+                                    this.makeKeywordList(Number(keywordListPage) + 1); // 페이지 이동
+
+                                    keywordListFocus = Number(keywordListFocus) - 4;
+
+                                    console.log("키워드 포커스 : " + keywordListFocus);
+                                    console.log("키워드 현재 페이지 갯수 : " + keywordListLen);
+
+                                    // 아래로 이동 했을 때 다음 페이지에 이동할 포커스가 없으면
+                                    if(keywordListLen < Number(keywordListFocus)+1) {
+                                        keywordListFocus = Number(keywordListLen)-1;
+                                    }
+
+                                    console.log("변경 후 키워드 포커스 : " + keywordListFocus);
+
+
+                                    $('li[name="keyword_product_list"]').eq(keywordListFocus).addClass("focus");
+                                    $('li[name="dlm_tit"]').eq(keywordListFocus).addClass("focus");
+                                    $('span[name="okfill"]').eq(keywordListFocus).empty().append(btnokfill);
+                                }
+                                
+                            }
+                        }
+                    }
+
                     // 전체 카테고리 일때
-                    if(currentFocusList == 0) {
+                    else if(currentFocusList == 0) {
 
                         // My Mart 일때
                         if(currentFocusMenu == 0) {
@@ -858,8 +1180,77 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 // * 좌 KEY
                 // **************************************************
                 if(keyCode === global.VK_LEFT) {
+                    // 검색 팝업 일때
+                    if(isKeyword != 0) {
+                        // 입력창 
+                        if(isKeyword == 1) {
+                            // X
+                        } 
+                        // 검색버튼
+                        else if(isKeyword == 2) {
+                            $('#btn_keyword_search').removeClass("focus");
+                            isKeyword = 1;
+                            $('#input_keyword').addClass("focus");
+                        }
+                        // 닫기버튼
+                        else if(isKeyword == 3) {
+                            // X
+                        }
+                    }
+
+                    // 검색 결과 팝업 일때
+                    else if(keywordFocus != 0) {
+                        // 할인율순
+                        if(keywordFocus == 1) {
+                            // X
+                        }
+                        // 가격낮은순
+                        else if(keywordFocus == 2) {
+                            // X
+                        }
+                        // 가격높은순
+                        else if(keywordFocus == 3) {
+                            // X
+                        }
+                        // 인기순
+                        else if(keywordFocus == 4) {
+                            // X
+                        }
+                        // 기획전 상품만 보기
+                        else if(keywordFocus == 5) {
+                            // X
+                        }
+                        // 상품 리스트
+                        else if(keywordFocus == 9) {
+                            // 맨 좌측 상품이 아닐 경우
+                            console.log("실행 : " + keywordListFocus);
+                            if((keywordListFocus >= 1 && keywordListFocus <= 3) || (keywordListFocus >= 5 && keywordListFocus <= 7)) {
+                                $('li[name="keyword_product_list"]').eq(keywordListFocus).removeClass("focus");
+                                $('li[name="dlm_tit"]').eq(keywordListFocus).removeClass("focus");
+                                $('span[name="okfill"]').eq(keywordListFocus).empty();
+
+                                keywordListFocus = Number(keywordListFocus) - 1;
+
+                                $('li[name="keyword_product_list"]').eq(keywordListFocus).addClass("focus");
+                                $('li[name="dlm_tit"]').eq(keywordListFocus).addClass("focus");
+                                $('span[name="okfill"]').eq(keywordListFocus).empty().append(btnokfill);
+                            }
+
+                            // 맨 좌측 상품일 경우
+                            else if(keywordListFocus == 0 || keywordListFocus == 4) {
+                                console.log("이번엔 이거");
+                                $('li[name="keyword_product_list"]').eq(keywordListFocus).removeClass("focus");
+                                $('li[name="dlm_tit"]').eq(keywordListFocus).removeClass("focus");
+                                $('span[name="okfill"]').eq(keywordListFocus).empty();
+
+                                keywordFocus = 1;
+                                $('#btn_sort1').addClass("focus"); // 할인율순 버튼으로 이동
+                            }
+                        }
+                    }
+
                     // 전체 카테고리 일때
-                    if(currentFocusList == 0) {
+                    else if(currentFocusList == 0) {
                         // MyMart나 쇼퍼 주문이력 사이일 때
                         if(currentFocusMenu > 0 && currentFocusMenu <= 2) {
                             if(currentFocusMenu == 2) {
@@ -914,8 +1305,66 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 // * 우 KEY
                 // **************************************************
                 if(keyCode === global.VK_RIGHT) {
+                    // 검색 팝업 일때
+                    if(isKeyword != 0) {
+                        // 입력창 
+                        if(isKeyword == 1) {
+                            $('#input_keyword').removeClass("focus");
+                            isKeyword = 2;
+                            $('#btn_keyword_search').addClass("focus");
+                        } 
+                        // 검색버튼
+                        else if(isKeyword == 2) {
+                            // X
+                        }
+                        // 닫기버튼
+                        else if(isKeyword == 3) {
+                            // X
+                        }
+                    }
+
+                    // 검색 결과 팝업 일때
+                    else if(keywordFocus != 0) {
+                        // 할인율순, 가격낮은순, 가격높은순, 인기순, 기획전 상품만 보기
+                        if(keywordFocus == 1 || keywordFocus == 2 || keywordFocus == 3 || keywordFocus == 4 || keywordFocus == 5) {
+                            $('#btn_sort1').removeClass("focus");
+                            $('#btn_sort2').removeClass("focus");
+                            $('#btn_sort3').removeClass("focus");
+                            $('#btn_sort4').removeClass("focus");
+                            $('#btn_keyword_checkbox').removeClass("focus");
+
+                            keywordFocus = 9;
+                            $('li[name="keyword_product_list"]').eq(keywordListFocus).addClass("focus");
+                            $('li[name="dlm_tit"]').eq(keywordListFocus).addClass("focus");
+                            $('span[name="okfill"]').eq(keywordListFocus).empty().append(btnokfill);
+
+                        }
+                        // 상품 리스트
+                        else if(keywordFocus == 9) {
+                            // 맨 오른쪽이 아닐 때
+                            if((keywordListFocus >= 0 && keywordListFocus <= 2) || (keywordListFocus >= 4 && keywordListFocus <= 6)) {
+
+                                // 우측에 상품이 있을때
+                                if(keywordListLen > Number(keywordListFocus)+1) {
+                                    $('li[name="keyword_product_list"]').eq(keywordListFocus).removeClass("focus");
+                                    $('li[name="dlm_tit"]').eq(keywordListFocus).removeClass("focus");
+                                    $('span[name="okfill"]').eq(keywordListFocus).empty();
+
+                                    keywordListFocus = Number(keywordListFocus) + 1;
+
+                                    $('li[name="keyword_product_list"]').eq(keywordListFocus).addClass("focus");
+                                    $('li[name="dlm_tit"]').eq(keywordListFocus).addClass("focus");
+                                    $('span[name="okfill"]').eq(keywordListFocus).empty().append(btnokfill);
+                                // 우측에 상품이 없을때
+                                } else if(keywordListLen <= Number(keywordListFocus)+1) {
+
+                                }
+                            }
+                        }
+                    }
+
                     // 전체 카테고리 일때
-                    if(currentFocusList == 0) {
+                    else if(currentFocusList == 0) {
                         // MyMart나 음성검색일 때
                         if(currentFocusMenu == 0 || currentFocusMenu == 1) {
                             $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("focus");
@@ -971,17 +1420,36 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                         }
                     }
                 }
-
-                console.log("* getKeyEventActor : " + keyCode );
-                console.log("리스트 종류 : " + currentFocusList);
-                console.log("전체카테고리 : " + currentFocusMenu);
-                console.log("상세카테고리 페이지 : " + currentFocusDtlPage);
-                console.log("상세카테고리 : " + currentFocusDtl);
                 
                 
             } else if (keyCode === global.VK_BACK) {
-                $('#videoDiv video').remove();
-                location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName; // 기획전 이동
+                // 검색 결과 팝업, 검색 팝업 일때
+                if(keywordFocus != 0 || isKeyword != 0) {
+                    $('#wrap_keyword_search').hide();
+                    keywordFocus = 0;
+                    $('#wrap_keyword_result').hide();
+                    isKeyword = 0;
+
+                    // 검색 팝업 포커스 제거
+                    $('#input_keyword').removeClass("focus");
+                    $('#btn_keyword_search').removeClass("focus");
+                    $('#btn_keyword_close').removeClass("focus");
+
+                    // 검색 결과 포커스 제거
+                    $('#btn_sort1').removeClass("focus");
+                    $('#btn_sort2').removeClass("focus");
+                    $('#btn_sort3').removeClass("focus");
+                    $('#btn_sort4').removeClass("focus");
+                    $('#btn_keyword_checkbox').removeClass("focus");
+                    $('li[name="keyword_product_list"]').removeClass("focus");
+                    $('span[name="okfill"]').empty();
+                }
+
+                // 그 이외의 화면 일때
+                else {
+                    $('#videoDiv video').remove();
+                    location.href ="exhb.html?SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName; // 기획전 이동
+                }
                 
             } 
             //else if (keyCode === global.VK_ESCAPE) {
@@ -1333,7 +1801,125 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 });
             }
         });
-    } 
+    },
 
+    // 조회 : 검색 결과
+    selectKeywordList: function(mode) {
+        var param = { "search" : $('#input_keyword').val() };
 
+        $.ajax({
+            url         : cmsServerIp + "/ProductCategoryTask/search",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                keywordListArray = result['products'];
+
+                console.log(JSON.stringify(keywordListArray));
+
+                // 첫 페이지로 세팅 되므로 <이전 페이지 없음>
+                keywordPrevPageYN = false;
+
+                // 8건 넘어갈 경우 <다음 페이지 있음>
+                if(result['products'].length > 8) keywordNextPageYN = true;
+                else keywordNextPageYN = false;
+
+                // 타이틀
+                $('#title_keyword').html("<b>‘" + $('#input_keyword').val() + "’</b>(으)로 검색된 총 " + keywordListArray.length + "건 입니다.");
+
+                    /*<li class="pl_menu focus mg_r10">
+                        <span class="dlm_bdr"></span>
+                        <span class="polygon_bb">소량<br />구매</span>
+                        <span class="dm_bdr"><img src="../images/btn_ok_fill.png"/></span>
+                        <ul>
+                            <li class="dlm_img"><img src="../images/sample_01.jpg" /></li>
+                            <li class="dlm_tit focus">달달한 사과</li>
+                            <li class="dlm_price">24,900원</li>
+                        </ul>
+                    </li>*/
+                
+
+                // $('#ul_keyword_list').empty().append(appendHtml);
+            },
+            complete    : function(result) {
+                if(mode == "MODE1") {
+                    $('#wrap_keyword_result').show();
+                    Gigamart.app.category.KeyEventActorProvider.makeKeywordList(0); // 검색 결과 리스트 생성
+                }
+
+                else if(mode == "MODE2") {
+                    $('#wrap_keyword_result').show();
+                    Gigamart.app.category.KeyEventActorProvider.makeKeywordList(requestKeywordPage); // 검색 결과 리스트 생성
+
+                    keywordListFocus = requestKeywordFocus;
+
+                    $('li[name="keyword_product_list"]').eq(keywordListFocus).addClass("focus");
+                    $('li[name="dlm_tit"]').eq(keywordListFocus).addClass("focus");
+                    $('span[name="okfill"]').eq(keywordListFocus).empty().append(btnokfill);
+                }
+
+            }
+        });
+    },
+
+    // 생성 : 검색 결과
+    makeKeywordList: function(page) {
+        //***************************************************************
+        // 목록
+        //***************************************************************
+        var appendHtml      = "";                       // 리스트 HTML
+        var start_idx       = Number(page) * 8;         // 페이지 시작 번호 
+        var end_idx         = (Number(page) * 8) + 8;   // 페이지 끝 번호
+        var empty_len       = 0;                        // 빈 목록의 갯수
+        var total_page      = Math.ceil(Number(keywordListArray.length) / 8); // 전체 페이지
+        
+        keywordListPage     = page;                     // 현재 페이지
+
+        keywordListLen      = 0;                        // 페이지에 보여지는 상품 갯수
+
+        for(var i=start_idx ; i < end_idx ; i++) {
+            if(keywordListArray.length > i) {
+                // 리스트 저장
+                keywordListScreenArray[keywordListLen] = keywordListArray[i];
+                keywordListLen = keywordListLen + 1;
+
+                appendHtml += '<li name="keyword_product_list" class="pl_menu mg_r10">';
+                //appendHtml += '     <span class="dlm_bdr"></span>';
+                appendHtml += '     <span name="okfill" class="dm_bdr"></span>';
+                appendHtml += '     <ul>';
+                appendHtml += '         <li class="dlm_img"><img src="' + keywordListArray[i]["img"] + '" /></li>';
+                appendHtml += '         <li name="dlm_tit" class="dlm_tit">' + keywordListArray[i]["name"] + '</li>';
+                appendHtml += '         <li class="dlm_price">' + cn_toPrice(keywordListArray[i]["cost"]) + '원</li>';
+                appendHtml += '     </ul>';
+                appendHtml += '</li>';
+            }
+        }
+
+        // end_idx가 keywordListArray보다 크면 나머지를 빈 목록으로 채움
+        if(keywordListArray.length < end_idx) {
+            empty_len = end_idx - keywordListArray.length;
+
+            for(var i=0 ; i < empty_len ; i++) {
+                appendHtml += '<li name="keyword_empty_list" class="pl_menu focus mg_r10">';
+                appendHtml += '</li>';
+            }
+        }
+
+        // 첫 페이지면 이전 페이지 없음
+        if(keywordListPage == 0) keywordPrevPageYN = false; 
+        else keywordPrevPageYN = true;
+
+        // 목록의 전체 크기가 페이지 끝번호보다 작거나 같은 경우 다음 페이지 없음
+        if(keywordListArray.length <= end_idx) keywordNextPageYN = false;
+        else keywordNextPageYN = true;
+
+        $('#ul_keyword_list').empty().append(appendHtml);
+        $('#keyword_list_page').html("<b>" + (Number(keywordListPage) + 1) + "</b> / " + total_page);
+        keywordPageArrowUtil(); // 화살표
+
+    }
 });
