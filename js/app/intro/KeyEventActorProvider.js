@@ -81,7 +81,7 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
     },
 
     // 로그인
-    login: function() {
+   /* login: function() {
 
         var config  = window.oipfObjectFactory.createConfigurationObject();
         var said    = config.configuration.getText("SAID");
@@ -135,5 +135,5 @@ App.defineClass('Gigamart.app.intro.KeyEventActorProvider', {
                 }
             }
         });
-    }
+    }*/
 });
