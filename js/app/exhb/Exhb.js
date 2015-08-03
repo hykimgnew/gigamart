@@ -230,7 +230,7 @@ var currentFocusDtlPage = 0;
  /**
   * 내가 늘 사는 상품 지금 얼마? : 확인/상세/담기 
   **/
-  var btnokfill = '<img src="' + EXHB_IMAGE_PATH + '"btn_ok_fill.png"/>';
+  var btnokfill = '<img src="' + EXHB_IMAGE_PATH + 'btn_ok_fill.png"/>';
 
 /**
   * 지금 이상품 이가격 하단 페이지 Λ V 커서 focus

@@ -1446,11 +1446,12 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     $('#wrap_cart').show();
                     // 플로팅 메뉴 장바구니 SET
                     fltEasyCart();
+                    $('#wrap_cart').show();
                     setTimeout("fn_popEasyCart()", 1500);                    
                 }
 
                 // 할인율 최고
-                if(currentFocusList == 4) {
+                else if(currentFocusList == 4) {
                     var idx = currentFocusDtl2 + (2 * currentFocusDtlPage);
                     
                     console.log("############ 장바구니에 담는 product_id : " + productList2[idx]["product_id"]);
@@ -1462,17 +1463,20 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     $('#wrap_cart').show();
                     // 플로팅 메뉴 장바구니 SET
                     fltEasyCart();
+                    $('#wrap_cart').show();
                     setTimeout("fn_popEasyCart()", 1500);
                 }
 
                 // 추천 세트
-                if(currentFocusList == 5) {
+                else if(currentFocusList == 5) {
                     console.log("추천세트 장바구니 담기 : " + currentFocusDtl3);
                     console.log("아직 지원 안함..실제 상품이 없음..");
                 }
-
-                $('#wrap_cart').show();
-                setTimeout("fn_popEasyCart()", 1000);
+                /*if(currentFocusList == 3||currentFocusList == 4) {
+                    $('#wrap_cart').show();
+                    setTimeout("fn_popEasyCart()", 1000);   
+                }*/
+                
             }
 
             // **************************************************
@@ -2434,6 +2438,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                         // 지금 이상품 이가격(하단 오른쪽) -> 저렴한 상품 추천
                         else if(currentFocusMenu == 3) {
+                            console.log("@#@#$@#$@#지금 이상품 이가격(하단 오른쪽) -> 저렴한 상품 추천")
                             $('#scn_bdr').removeClass("focus");
                             $('li[name="sl_menu"]').eq(currentFocusMenu).children().children('.slm_txt').css("color", "#08760D");
                             //지금이상품 이가격 하단에 초록색 화살표 남아있어야되므로 remove X

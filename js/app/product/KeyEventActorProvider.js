@@ -230,7 +230,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                     if(cartFocus > 1) {
                         // 수량변경 팝업 off -> on
                         $('#wrap_chVolume_easyCart').show();
-                        $('#wrap_chVolume_easyCart').removeClass('bg_alpha');
+                        //$('#wrap_chVolume_easyCart').removeClass('bg_alpha');
 
                         // 현재 선택된 상품의 수량을 수량변경팝업에 적용
                         $('span[name="ppr_num_numP"]').html($('input[name="ec_cnt"]').eq(cartFocus-2).val());
@@ -1774,6 +1774,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                             $('span[name="pop_pd_company"]').empty().append(entry['company']);
                             $('span[name="pop_pd_standard"]').empty().append(entry['standard']);
                             if(entry['sweet'] != null || entry['sweet'] != '') {
+                                $('li[name="pd_sweet"]').show();
                                 $('span[name="pop_pd_sweet"]').empty().append(entry['sweet']);  
                             } else {
                                 $('li[name="pop_pd_sweet"]').hide();
@@ -1781,6 +1782,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                         }
                         //팝업이 아닐때
                         else{
+                            console.log("당도::::::::::::"+entry['sweet']);
                             $('li[name="cl_photo"]').empty().append('<img src="' + entry['img'] + '"  style="height : 302px; display : block; margin : 0 auto; "/>'); //width :555px;
                             $('span[name="pd_name"]').empty().append(entry['name']);
                             $('span[name="pd_cost"]').empty().append(cn_toPrice(entry['cost']) + "원");
@@ -1788,6 +1790,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                             $('span[name="pd_company"]').empty().append(entry['company']);
                             $('span[name="pd_standard"]').empty().append(entry['standard']);
                             if(entry['sweet'] != null || entry['sweet'] != '') {
+                                $('li[name="pd_sweet"]').show();
                                 $('span[name="pd_sweet"]').empty().append(entry['sweet']);  
                             } else {
                                 $('li[name="pd_sweet"]').hide();
@@ -1804,6 +1807,168 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
             },
             error : function(){
                     console.log("에러");
+            },
+            complete    : function(result) {
+                // 이전 화면에서 받아온 FOCUS가 존재할 때
+                if(requestCategoryDtlId == "42003") {
+                    $('li[name="pl_img"]').empty();
+                    $('li[name="pl_tit"]').empty();
+                    $('li[name="pl_price"]').empty();
+                    $('li[name="pl_imgl"]').empty();
+                    $('li[name="pl_titl"]').empty();
+                    $('li[name="pl_pricel"]').empty();
+                    //같은종류 추천상품표시
+                    for(var pdCnt=0; pdCnt<3; pdCnt++){
+                        //같은종류 추천상품 첫번째에 위치할 상품
+                        if(pdCnt == 0 ){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory(42004,pdCnt);
+                        }
+                        //같은종류 추천상품 두번째에 위치할 상품
+                        else if(pdCnt == 1){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory(42008,pdCnt);
+                        }
+                        //같은종류 추천상품 세번째에 위치할 상품
+                        else if(pdCnt == 2){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory(42002,pdCnt);
+                        }
+                        //this.selectRecommendCategory(42004,a);
+                    }
+                    //다른사람이 구매한 연관상품표시
+                    for(var pdCnt2=0; pdCnt2<3; pdCnt2++){
+                        //같은종류 추천상품 첫번째에 위치할 상품
+                        if(pdCnt2 == 0 ){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory2(25000,pdCnt2);
+                        }
+                        //같은종류 추천상품 두번째에 위치할 상품
+                        else if(pdCnt2 == 1){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory2(84002,pdCnt2);
+                        }
+                        //같은종류 추천상품 세번째에 위치할 상품
+                        else if(pdCnt2 == 2){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory2(23014,pdCnt2);
+                        }
+                        //this.selectRecommendCategory(42004,a);
+                    }
+                }else if(requestCategoryDtlId == "12004"){
+                    $('li[name="pl_img"]').empty();
+                    $('li[name="pl_tit"]').empty();
+                    $('li[name="pl_price"]').empty();
+                    $('li[name="pl_imgl"]').empty();
+                    $('li[name="pl_titl"]').empty();
+                    $('li[name="pl_pricel"]').empty();
+                    for(var pdCnt=0; pdCnt<3; pdCnt++){
+                        //같은종류 추천상품 첫번째에 위치할 상품
+                        if(pdCnt == 0 ){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory(12008,pdCnt);
+                        }
+                        //같은종류 추천상품 두번째에 위치할 상품
+                        else if(pdCnt == 1){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory(12003,pdCnt);
+                        }
+                        //같은종류 추천상품 세번째에 위치할 상품
+                        else if(pdCnt == 2){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory(12002,pdCnt);
+                        }
+                        //this.selectRecommendCategory(42004,a);
+                    }
+                    //다른사람이 구매한 연관상품표시
+                    for(var pdCnt2=0; pdCnt2<3; pdCnt2++){
+                        //같은종류 추천상품 첫번째에 위치할 상품
+                        if(pdCnt2 == 0 ){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory2(25018,pdCnt2);
+                        }
+                        //같은종류 추천상품 두번째에 위치할 상품
+                        else if(pdCnt2 == 1){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory2(23004,pdCnt2);
+                        }
+                        //같은종류 추천상품 세번째에 위치할 상품
+                        else if(pdCnt2 == 2){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory2(17006,pdCnt2);
+                        }
+                        //this.selectRecommendCategory(42004,a);
+                    }
+
+
+
+                }else if(requestCategoryDtlId == "12003"){
+                    $('li[name="pl_img"]').empty();
+                    $('li[name="pl_tit"]').empty();
+                    $('li[name="pl_price"]').empty();
+                    $('li[name="pl_imgl"]').empty();
+                    $('li[name="pl_titl"]').empty();
+                    $('li[name="pl_pricel"]').empty();
+                    for(var pdCnt=0; pdCnt<3; pdCnt++){
+                        //같은종류 추천상품 첫번째에 위치할 상품
+                        if(pdCnt == 0 ){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory(12008,pdCnt);
+                        }
+                        //같은종류 추천상품 두번째에 위치할 상품
+                        else if(pdCnt == 1){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory(12004,pdCnt);
+                        }
+                        //같은종류 추천상품 세번째에 위치할 상품
+                        else if(pdCnt == 2){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory(12002,pdCnt);
+                        }
+                        //this.selectRecommendCategory(42004,a);
+                    }
+                    //다른사람이 구매한 연관상품표시
+                    for(var pdCnt2=0; pdCnt2<3; pdCnt2++){
+                        //같은종류 추천상품 첫번째에 위치할 상품
+                        if(pdCnt2 == 0 ){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory2(25018,pdCnt2);
+                        }
+                        //같은종류 추천상품 두번째에 위치할 상품
+                        else if(pdCnt2 == 1){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory2(23004,pdCnt2);
+                        }
+                        //같은종류 추천상품 세번째에 위치할 상품
+                        else if(pdCnt2 == 2){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory2(17006,pdCnt2);
+                        }
+                        //this.selectRecommendCategory(42004,a);
+                    }
+
+                }else if(requestCategoryDtlId == "12002"){
+                    $('li[name="pl_img"]').empty();
+                    $('li[name="pl_tit"]').empty();
+                    $('li[name="pl_price"]').empty();
+                    $('li[name="pl_imgl"]').empty();
+                    $('li[name="pl_titl"]').empty();
+                    $('li[name="pl_pricel"]').empty();
+                    for(var pdCnt=0; pdCnt<3; pdCnt++){
+                        //같은종류 추천상품 첫번째에 위치할 상품
+                        if(pdCnt == 0 ){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory(12008,pdCnt);
+                        }
+                        //같은종류 추천상품 두번째에 위치할 상품
+                        else if(pdCnt == 1){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory(12003,pdCnt);
+                        }
+                        //같은종류 추천상품 세번째에 위치할 상품
+                        else if(pdCnt == 2){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory(12004,pdCnt);
+                        }
+                        //this.selectRecommendCategory(42004,a);
+                    }
+                    //다른사람이 구매한 연관상품표시
+                    for(var pdCnt2=0; pdCnt2<3; pdCnt2++){
+                        //같은종류 추천상품 첫번째에 위치할 상품
+                        if(pdCnt2 == 0 ){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory2(25018,pdCnt2);
+                        }
+                        //같은종류 추천상품 두번째에 위치할 상품
+                        else if(pdCnt2 == 1){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory2(23004,pdCnt2);
+                        }
+                        //같은종류 추천상품 세번째에 위치할 상품
+                        else if(pdCnt2 == 2){
+                            Gigamart.app.product.KeyEventActorProvider.selectPdRecommendCategory2(17006,pdCnt2);
+                        }
+                        //this.selectRecommendCategory(42004,a);
+                    }
+
+                }
             }
         });
     },
@@ -1868,6 +2033,74 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
             }
         });
     },
+    //상품 정보의 같은종류 추천상품 표시
+    selectPdRecommendCategory: function(pdCode,menuLoc) {
+        var param = {
+                        "product_id" : pdCode
+                    };
+        $.ajax({
+            url         : cmsServerIp + "/ProductTask",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                /*console.log("######## 상세카테고리 파라미터 : " + requestCategoryDtlCode);*/
+                console.log("######################################################################");
+                console.log("######## result  : " + JSON.stringify(result));
+                console.log("######################################################################");
+                // 결과값을 넣는다.
+                $.each(result, function(index, entry) {
 
+                    $('li[name="pl_img"]').eq(menuLoc).empty().append('<img src="' + entry['img'] + '"  style="width : auto; height : 92px; display : block; margin : 0 auto; "/>'); //width :555px;
+                    $('li[name="pl_tit"]').eq(menuLoc).empty().append(entry['name']);
+                    $('li[name="pl_price"]').eq(menuLoc).empty().append(cn_toPrice(entry['cost']) + "원");
+                });
 
+                // 리스트에 뿌려주는건 9개씩 따로 해줌
+
+            },
+            error : function(){
+                    console.log("에러");
+            }
+        });
+    },
+    //상품 정보의 다른사람이 구매한 연관상품 표시
+    selectPdRecommendCategory2: function(pdCode,menuLoc) {
+        var param = {
+                        "product_id" : pdCode
+                    };
+        $.ajax({
+            url         : cmsServerIp + "/ProductTask",
+            type        : "post",
+            dataType    : "json",
+            data        : param,
+            async       : true,
+            xhrFields   : {
+                            withCredentials: true
+            },
+            success     : function(result) {
+                /*console.log("######## 상세카테고리 파라미터 : " + requestCategoryDtlCode);*/
+                console.log("######################################################################");
+                console.log("######## result  : " + JSON.stringify(result));
+                console.log("######################################################################");
+                // 결과값을 넣는다.
+                $.each(result, function(index, entry) {
+
+                    $('li[name="pl_imgl"]').eq(menuLoc).empty().append('<img src="' + entry['img'] + '"  style="width : auto; height : 92px; display : block; margin : 0 auto; "/>'); //width :555px;
+                    $('li[name="pl_titl"]').eq(menuLoc).empty().append(entry['name']);
+                    $('li[name="pl_pricel"]').eq(menuLoc).empty().append(cn_toPrice(entry['cost']) + "원");
+                });
+
+                // 리스트에 뿌려주는건 9개씩 따로 해줌
+
+            },
+            error : function(){
+                    console.log("에러");
+            }
+        });
+    }
 });
