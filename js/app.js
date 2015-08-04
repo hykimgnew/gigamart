@@ -2,8 +2,8 @@
 
 var App = App || {};
 
-var cmsServerIp = "http://14.52.244.91:8080";
-//var cmsServerIp = "http://175.209.53.205:8080";
+//var cmsServerIp = "http://14.52.244.91:8080";
+var cmsServerIp = "http://175.209.53.205:8080";
 var videoServerIp = "http://175.209.53.205";
 
 /**

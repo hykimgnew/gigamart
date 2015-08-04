@@ -436,3 +436,7 @@ font-weight: bold;
 color: #fff;
 line-height: 44px;
 }
+input[type="password"]
+{
+  -webkit-text-security: disc;
+}

@@ -1773,12 +1773,12 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                             $('span[name="pop_pd_origin"]').empty().append(entry['origin']);
                             $('span[name="pop_pd_company"]').empty().append(entry['company']);
                             $('span[name="pop_pd_standard"]').empty().append(entry['standard']);
-                            if(entry['sweet'] != null || entry['sweet'] != '') {
+                            /*if(entry['sweet'] != null || entry['sweet'] != '') {
                                 $('li[name="pd_sweet"]').show();
                                 $('span[name="pop_pd_sweet"]').empty().append(entry['sweet']);  
                             } else {
                                 $('li[name="pop_pd_sweet"]').hide();
-                            }
+                            }*/
                         }
                         //팝업이 아닐때
                         else{
@@ -1789,12 +1789,12 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                             $('span[name="pd_origin"]').empty().append(entry['origin']);
                             $('span[name="pd_company"]').empty().append(entry['company']);
                             $('span[name="pd_standard"]').empty().append(entry['standard']);
-                            if(entry['sweet'] != null || entry['sweet'] != '') {
+                            /*if(entry['sweet'] != null || entry['sweet'] != '') {
                                 $('li[name="pd_sweet"]').show();
                                 $('span[name="pd_sweet"]').empty().append(entry['sweet']);  
                             } else {
                                 $('li[name="pd_sweet"]').hide();
-                            }
+                            }*/
                         }
                         
 
@@ -2027,6 +2027,60 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 console.log("######## success");
                 console.log("######## result  : " + JSON.stringify(result));
                 console.log("######################################################################");
+
+
+                $.each(result, function(index, entry) {
+                // 처음에 뿌려주는 9개만 넣는다.
+                    if(entry['product_id'] == requestCategoryDtlId) {
+                        console.log("currentFocusList : "+currentFocusList);
+                        //당도 뿌려주기
+                        //상품정보 팝업화면일때
+                        if(currentFocusList == 5){
+                                if(entry['sweet'] != null || entry['sweet'] != ''|| entry['sweet'] != '""'|| entry['sweet'] != "" || entry['sweet'] != undefined) {
+                                    console.log("당도00000000000000000000 : "+entry['sweet']);
+                                    console.log("당도 : "+sweetTxt);
+                                    $('li[name="pop_pd_sweet"]').show();
+                                    $('span[name="pop_pd_sweet"]').empty().append(entry['sweet']);  
+                                    var sweetTxt = $('span[name="pd_sweet"]').html();
+                                    if(sweetTxt == "" || sweetTxt == ''){
+                                        $('li[name="pop_pd_sweet"]').hide();
+                                    }else{
+                                        $('li[name="pop_pd_sweet"]').show();
+                                        $('span[name="pop_pd_sweet"]').empty().append(entry['sweet']);  
+                                    }
+                                    
+                                } 
+                                else {
+                                    console.log("당도XXXXXXXXXXXXXXXXXXXX");
+                                    $('li[name="pop_pd_sweet"]').hide();
+                                }
+                        }
+                        //상품정보 팝업아닐때
+                        else{
+                                if(entry['sweet'] != null || entry['sweet'] != ''|| entry['sweet'] != '""'|| entry['sweet'] != "" || entry['sweet'] != undefined) {
+                                    console.log("당도00000000000000000000 : "+entry['sweet']);
+                                    console.log("당도 : "+sweetTxt);
+                                    $('li[name="pd_sweet"]').show();
+                                    $('span[name="pd_sweet"]').empty().append(entry['sweet']);  
+                                    var sweetTxt = $('span[name="pd_sweet"]').html();
+                                    if(sweetTxt == "" || sweetTxt == ''){
+                                        $('li[name="pd_sweet"]').hide();
+                                        $('li[name="pop_pd_sweet"]').hide();
+                                    }else{
+                                        $('li[name="pd_sweet"]').show();
+                                        $('span[name="pd_sweet"]').empty().append(entry['sweet']);  
+                                        $('li[name="pop_pd_sweet"]').show();
+                                        $('span[name="pop_pd_sweet"]').empty().append(entry['sweet']);  
+                                    }
+                                    
+                                } 
+                                else {
+                                    console.log("당도XXXXXXXXXXXXXXXXXXXX");
+                                    $('li[name="pd_sweet"]').hide();
+                                }
+                        }
+                    }
+                });
             },
             error : function(){
                     console.log("에러");

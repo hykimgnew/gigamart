@@ -477,7 +477,7 @@ var arrTotRefList         = new Array(); // 취소+환불담아
  *  현재 취소/환불내역 리스트 Focus 위치
  *  0 : 조회기간(1,2,3개월)
  *  1 : 취소/환불내역 list
- *  2 : 
+ *  2 : 취소/환불내역 없을때의 팝업
  *  3 : 
  **/
 var refFocusList = 1;
