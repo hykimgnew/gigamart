@@ -106,11 +106,13 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         // 전체, 상세카테고리 포커스
         if(requestCategoryCode != null && requestCategoryCode != '' && requestCategoryCode != 'undefined') {
             if(requestCategoryDtlCode != null && requestCategoryDtlCode != '' && requestCategoryDtlCode != 'undefined') {
-
                 $('li[name="category_menu"]').eq(currentFocusMenu).removeClass("focus");
+                console.log("currentFocusMenu2111111111111111111111111111111111111 : "+currentFocusMenu);
                 currentFocusList    = 1;
                 currentFocusMenu    = Number(requestCategoryCode);
-                $('li[name="category_menu"]').eq(currentFocusMenu).addClass("sel");
+                console.log("currentFocusMenu22222222222222222222222222222222222222 : "+currentFocusMenu);
+                $('li[name="category_menu"]').eq(currentFocusMenu).addClass("sel"); 
+                //$('li[name="category_menu"]').eq(currentFocusMenu).addClass("sel");
                 currentFocusDtlPage = Number(requestCategoryDtlPage);
 
                 // 메뉴 갱신
@@ -626,8 +628,14 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                         // 검색결과 팝업 띄움
                         Gigamart.app.category.KeyEventActorProvider.selectKeywordList("MODE1");
 
-                        $('#btn_sort1').addClass("focus");
-                        keywordFocus = 1;
+                        /*$('#btn_sort1').addClass("focus");
+                        keywordFocus = 1;*/
+                        console.log("검색결과111111111111111111111111111111111111111111111111111111111111111keywordListFocus : "+keywordListFocus)
+                        keywordFocus = 9;
+                        $('li[name="keyword_product_list"]').eq(keywordListFocus).addClass("focus");
+                        $('li[name="dlm_tit"]').eq(keywordListFocus).addClass("focus");
+                        $('span[name="okfill"]').eq(keywordListFocus).empty().append(btnokfill);
+
                         $('#wrap_keyword_search').hide();
                         isKeyword = 0;
                     }
@@ -1244,12 +1252,12 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             // 맨 좌측 상품일 경우
                             else if(keywordListFocus == 0 || keywordListFocus == 4) {
                                 console.log("이번엔 이거");
-                                $('li[name="keyword_product_list"]').eq(keywordListFocus).removeClass("focus");
-                                $('li[name="dlm_tit"]').eq(keywordListFocus).removeClass("focus");
-                                $('span[name="okfill"]').eq(keywordListFocus).empty();
+                                //$('li[name="keyword_product_list"]').eq(keywordListFocus).removeClass("focus");
+                                //$('li[name="dlm_tit"]').eq(keywordListFocus).removeClass("focus");
+                                //$('span[name="okfill"]').eq(keywordListFocus).empty();
 
-                                keywordFocus = 1;
-                                $('#btn_sort1').addClass("focus"); // 할인율순 버튼으로 이동
+                                //keywordFocus = 1;
+                                //$('#btn_sort1').addClass("focus"); // 할인율순 버튼으로 이동
                             }
                         }
                     }
@@ -1331,7 +1339,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                     // 검색 결과 팝업 일때
                     else if(keywordFocus != 0) {
                         // 할인율순, 가격낮은순, 가격높은순, 인기순, 기획전 상품만 보기
-                        if(keywordFocus == 1 || keywordFocus == 2 || keywordFocus == 3 || keywordFocus == 4 || keywordFocus == 5) {
+                        /*if(keywordFocus == 1 || keywordFocus == 2 || keywordFocus == 3 || keywordFocus == 4 || keywordFocus == 5) {
                             $('#btn_sort1').removeClass("focus");
                             $('#btn_sort2').removeClass("focus");
                             $('#btn_sort3').removeClass("focus");
@@ -1343,9 +1351,9 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                             $('li[name="dlm_tit"]').eq(keywordListFocus).addClass("focus");
                             $('span[name="okfill"]').eq(keywordListFocus).empty().append(btnokfill);
 
-                        }
+                        }*/
                         // 상품 리스트
-                        else if(keywordFocus == 9) {
+                        if(keywordFocus == 9) {
                             // 맨 오른쪽이 아닐 때
                             if((keywordListFocus >= 0 && keywordListFocus <= 2) || (keywordListFocus >= 4 && keywordListFocus <= 6)) {
 
@@ -1560,7 +1568,8 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
     menuRefresh: function(type) {
         var appendHtml = "";
         var param = { "category" : $("span[name='span_category_menu']").eq(currentFocusMenu-3).html() };
-        
+        console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^param : "+param);
+        console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^currentFocusMenu : "+currentFocusMenu);
         $.ajax({
             url         : cmsServerIp + "/TVProductCategory/sub",
             type        : "post",
@@ -1855,6 +1864,9 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 if(mode == "MODE1") {
                     $('#wrap_keyword_result').show();
                     Gigamart.app.category.KeyEventActorProvider.makeKeywordList(0); // 검색 결과 리스트 생성
+                    $('li[name="keyword_product_list"]').eq(keywordListFocus).addClass("focus");
+                    $('li[name="dlm_tit"]').eq(keywordListFocus).addClass("focus");
+                    $('span[name="okfill"]').eq(keywordListFocus).empty().append(btnokfill);
                 }
 
                 else if(mode == "MODE2") {
@@ -1914,7 +1926,6 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                 appendHtml += '</li>';
             }
         }
-
         // 첫 페이지면 이전 페이지 없음
         if(keywordListPage == 0) keywordPrevPageYN = false; 
         else keywordPrevPageYN = true;
@@ -1926,6 +1937,5 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         $('#ul_keyword_list').empty().append(appendHtml);
         $('#keyword_list_page').html("<b>" + (Number(keywordListPage) + 1) + "</b> / " + total_page);
         keywordPageArrowUtil(); // 화살표
-
     }
 });
