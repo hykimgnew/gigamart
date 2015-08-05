@@ -1129,6 +1129,8 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 }                
                 
             } else if (keyCode === global.VK_BACK) {
+
+                //console.log("이건디");
                 // 전체 카테고리로 이동
                 this.transCategoryCode(); // 한글코드를 숫자코드로 변환 후 페이지 이동
 
@@ -1200,7 +1202,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
     	});
     },
 
-    // 변환 : 카테고리 코드 한글 -> 숫자 (CMS에서 한글 파라미터는 최대한 배제하는 편이..)
+    // 변환 : 카테고리 코드 한글 -> 숫자
     transCategoryCode: function() {
 
         // 서브카테고리 코드
@@ -1331,11 +1333,22 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
             success     : function(result) {
                 console.log("#####%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 카테고리 목록 " + JSON.stringify(result));
                 $.each(result["category"], function(index, entry) {
-                    if(requestCategoryCode == result["category"][index]) requestCategoryCode = index+4;
+                    console.log('~~~~result["category"][index] : ' + result["category"][index]);
+
+                    if(requestCategoryCode == result["category"][index]) {
+                        console.log("requsetCategoryCode : " + requestCategoryCode);
+                        console.log('result["category"][index] : ' + result["category"][index]);
+                        console.log("index : " + index);
+                        requestCategoryCode = index+4;
+                    }
                 });
             },
             complete    : function(result) {
             	console.log("이전카테고리 이동");
+
+                console.log("requestCategoryCode : " + requestCategoryCode);
+                console.log("requestCategoryDtlCode : " + requestCategoryDtlCode);
+                console.log("requestCategoryPage : " + requestCategoryDtlPage);
                 location.href = "category.html?categoryCode=" + requestCategoryCode 
                               + "&categoryDtlCode=" + requestCategoryDtlCode 
                               + "&categoryDtlPage=" + requestCategoryDtlPage

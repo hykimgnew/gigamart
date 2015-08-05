@@ -56,8 +56,8 @@ function rtspStop() {
 
     // khy 2015-06-29
     appConfiguration.localSystem.mute = true; // 음소거 설정
-    //$('#rtsp_area video').remove();
-    //$('#rtsp_area object').remove();
+    $('#rtsp_area video').remove();
+    $('#rtsp_area object').remove();
     rtspPlayer = document.querySelector('object');
     //rtspPlayer.stop();
 }
@@ -779,6 +779,8 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                     location.href ="category_dtl.html?categoryCode="  + $('span[name="span_category_menu"]').eq(currentFocusMenu-3).html()
                                                  + "&categoryDtlCode=" + $('li[name="appendMenu"]').eq(currentFocusDtl).html()
                                                  + "&categoryDtlPage=" + currentFocusDtlPage + "&SHOPPER_STATUS=" + SHOPPER_STATUS+ '&userID='+ userID + '&userName=' + userName;
+                    
+
                 }
 
                 // 쇼퍼's Bag 일때
@@ -812,6 +814,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
                     else if(histFocus == 3) {
                         $('#shlr_on').addClass("focus");
                         $('#shlr_close').removeClass("focus");
+                        rtspStop();
                         currentFocusList = 0; // 전체카테고리
                         histFocus = 2;
                         $('#shopper_history').hide();
