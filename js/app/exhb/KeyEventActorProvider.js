@@ -380,7 +380,8 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     setTimeout("$('#wrap_common').hide()", 1500);
                     setTimeout("$('#common_msg').empty()", 1500);
                     $('#login_phone_no').val("핸드폰번호");
-                    $('#login_pin_no').val("PIN번호");
+                    //$('#login_pin_no').val("PIN번호");
+                    $('#login_pin_no').val("");
                 }
                 
                 else {
@@ -389,7 +390,8 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     setTimeout("$('#wrap_common').hide()", 1500);
                     setTimeout("$('#common_msg').empty()", 1500);
                     $('#login_phone_no').val("핸드폰번호");
-                    $('#login_pin_no').val("PIN번호");
+                    //$('#login_pin_no').val("PIN번호");
+                    $('#login_pin_no').val("");
                     //appConfiguration.localSystem.mute = true; // 음소거 설정
                     // location.href = "view/exhb.html";  // 메인 화면으로 이동
 
@@ -461,7 +463,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     var requestCategoryDtlCode = "";
                     //url 이름 찾기
                     var a = fvUrl.split("/");
-                    var aa = a[7];
+                    var aa = a[6];
                     var b = aa.split(".");
                     var bb = b[0]
                     console.log("bb="+bb);
@@ -1559,7 +1561,9 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                         var requestCategoryDtlCode = "";
                         var a = fvUrl.split("/");
-                        var aa = a[7];
+                        console.log("fvURL :"+fvUrl);
+                        console.log("a[6] :"+a[6]);
+                        var aa = a[6];
                         var b = aa.split(".");
                         var bb = b[0]
                         console.log("fvUrl111="+fvUrl);
@@ -1958,7 +1962,8 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                             // 번호 처리
                             if($('#login_pin_no').val() == "") {
-                                $('#login_pin_no').val("PIN번호");
+                                //$('#login_pin_no').val("PIN번호");
+                                $('#login_pin_no').val("");
                             }
                         }
 
@@ -2211,7 +2216,8 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                             }
                             // 번호 처리
                             if($('#login_pin_no').val() == "") {
-                                $('#login_pin_no').val("PIN번호");
+                                //$('#login_pin_no').val("PIN번호");
+                                $('#login_pin_no').val("");
                             }
                         }
 
@@ -2768,7 +2774,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         if(currentOrderedProductPage2 == 0) {shopperImg = '<img class="shopperP_img" src="' + cmsServerIp + '/images/shopper/set/쇼퍼_김미나.png" />'; shopperName="김미나 쇼퍼";}
         else  {shopperImg ='<img class="shopperP_img" src="' + cmsServerIp + '/images/shopper/set/쇼퍼_이순자.png" />'; shopperName="이순자 쇼퍼";}
         if(currentOrderedProductPage2 == 0) {shopperSet = '<img class="shopperS_img" src="' + cmsServerIp + '/images/shopper/set/쇼퍼세트_닭볶음탕.jpg" />';shopperProduct = "닭볶음탕";} 
-        else  {shopperSet ='<img class="shopperS_img" src="http://175.209.53.205/gigamart_img/images/product/1000.jpg" />'; shopperProduct = "목살스테이크카레"; }
+        else  {shopperSet ='<img class="shopperS_img" src="http://175.209.53.205:8080/images/product/1000.jpg" />'; shopperProduct = "목살스테이크카레"; }
 
         console.log("######## shopperImg->"+shopperImg);
 
@@ -2918,7 +2924,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         if(currentOrderedProductPage2 == 0) {shopperImg = '<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_김미나.png" />'; shopperName="김미나 쇼퍼";}
         else  {shopperImg ='<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼_이순자.png" />'; shopperName="이순자 쇼퍼";}
         if(currentOrderedProductPage2 == 0) {shopperSet = '<img src="' + cmsServerIp + '/images/shopper/set/쇼퍼세트_닭볶음탕.jpg" />';shopperProduct = "닭볶음탕";} 
-        else  {shopperSet ='<img src="http://175.209.53.205/gigamart_img/images/product/1000.jpg" />'; shopperProduct = "목살스테이크카레"; }
+        else  {shopperSet ='<img src="http://175.209.53.205:8080/images/product/1000.jpg" />'; shopperProduct = "목살스테이크카레"; }
 
         $('li[name="li_discount3"]').eq(0).append(appendHtml);  //쇼퍼 
         $('li[name="li_discount3"]').eq(1).append(appendHtml2);    
@@ -2941,31 +2947,86 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             console.log("######## productList[0] : " + productList[i]["name"]);
             console.log("######## productList stringify " + i + ": " + JSON.stringify(productList[i]));
         }
+        for(var i=0 ; i < productList2.length ; i++) {
+            console.log("######## productList2 " + i + ": " + productList2[i]);
+            console.log("######## productList2[0] : " + productList2[i].name2);
+            console.log("######## productList2[0] : " + productList2[i]["name2"]);
+            console.log("######## productList2 stringify " + i + ": " + JSON.stringify(productList2[i]));
+        }
 
         if(currentOrderedProductPage2 <= orderedPage1) {
-            //저렴한 상품추천 1행
-            $('span[name="pd_sales_won"]').eq(0).empty().append(productList[page*2].sales_won);
-            $('li[name="pd_img"]').eq(0).empty().append('<img src="' + productList[page*2].img + '"/>');
-            $('li[name="pd_name"]').eq(0).empty().append(productList[page*2].name);
-            $('li[name="pd_cost"]').eq(0).empty().append(productList[page*2].cost);
-            //저렴한 상품추천 2행
-            $('span[name="pd_sales_won"]').eq(1).empty().append(productList[(page*2)+1].sales_won);
-            $('li[name="pd_img"]').eq(1).empty().append('<img src="' + productList[(page*2)+1].img + '"/>');
-            $('li[name="pd_name"]').eq(1).empty().append(productList[(page*2)+1].name);
-            $('li[name="pd_cost"]').eq(1).empty().append(productList[(page*2)+1].cost);
+            var obj3 =productList[page*2]; 
+            var obj4 =productList[(page*2)+1]; 
+            console.log("저렴한 상품추천  : " + obj3);
+            console.log("저렴한 상품추천2 : " + obj4);
+            if(obj3 != undefined){
+                //저렴한 상품추천 1행
+                $('span[name="pd_sales_won"]').eq(0).empty().append(productList[page*2].sales_won);
+                $('li[name="pd_img"]').eq(0).empty().append('<img src="' + productList[page*2].img + '"/>');
+                $('li[name="pd_name"]').eq(0).empty().append(productList[page*2].name);
+                $('li[name="pd_cost"]').eq(0).empty().append(productList[page*2].cost);
+            }
+            else if(obj3 == undefined){
+                $('span[name="pd_sales_won"]').eq(0).empty();
+                $('li[name="pd_img"]').eq(0).empty();
+                $('li[name="pd_name"]').eq(0).empty();
+                $('li[name="pd_cost"]').eq(0).empty();
+            }
+            if(obj4 != undefined){
+                //저렴한 상품추천 2행
+                $('span[name="pd_sales_won"]').eq(1).empty().append(productList[(page*2)+1].sales_won);
+                $('li[name="pd_img"]').eq(1).empty().append('<img src="' + productList[(page*2)+1].img + '"/>');
+                $('li[name="pd_name"]').eq(1).empty().append(productList[(page*2)+1].name);
+                $('li[name="pd_cost"]').eq(1).empty().append(productList[(page*2)+1].cost);
+            }
+            else if(obj4 == undefined){
+                $('span[name="pd_sales_won"]').eq(1).empty().append(productList[0].sales_won);
+                $('li[name="pd_img"]').eq(1).empty().append('<img src="' + productList[0].img + '"/>');
+                $('li[name="pd_name"]').eq(1).empty().append(productList[0].name);
+                $('li[name="pd_cost"]').eq(1).empty().append(productList[0].cost);
+            }
+            
+            
         }
 
         if(currentOrderedProductPage2 <= orderedPage2) {
-            //할인율 최고 1행
-            $('span[name="sales_percentage"]').eq(0).empty().append(productList2[page*2].sales_percentage);
-            $('li[name="pd_img2"]').eq(0).empty().append('<img src="' + productList2[page*2].img2 + '"/>');
-            $('li[name="pd_name2"]').eq(0).empty().append(productList2[page*2].name2);
-            $('li[name="pd_cost2"]').eq(0).empty().append(productList2[page*2].cost2);
-            //할인율 최고 2행
-            $('span[name="sales_percentage"]').eq(1).empty().append(productList2[(page*2)+1].sales_percentage);
-            $('li[name="pd_img2"]').eq(1).empty().append('<img src="' + productList2[(page*2)+1].img2 + '"/>');
-            $('li[name="pd_name2"]').eq(1).empty().append(productList2[(page*2)+1].name2);
-            $('li[name="pd_cost2"]').eq(1).empty().append(productList2[(page*2)+1].cost2);
+            var obj =productList2[page*2]; 
+            var obj2 =productList2[(page*2)+1]; 
+            console.log("할인율 최고  : " + obj);
+            console.log("할인율 최고2 : " + obj2);
+            if(obj != undefined){
+               //할인율 최고 1행
+                $('span[name="sales_percentage"]').eq(0).empty().append(productList2[page*2].sales_percentage);
+                $('li[name="pd_img2"]').eq(0).empty().append('<img src="' + productList2[page*2].img2 + '"/>');
+                $('li[name="pd_name2"]').eq(0).empty().append(productList2[page*2].name2);
+                $('li[name="pd_cost2"]').eq(0).empty().append(productList2[page*2].cost2); 
+            }
+            else if(obj == undefined){
+                $('span[name="sales_percentage"]').eq(0).empty();
+                $('li[name="pd_img2"]').eq(0).empty();
+                $('li[name="pd_name2"]').eq(0).empty();
+                $('li[name="pd_cost2"]').eq(0).empty(); 
+            }
+            if(obj2 != undefined){
+               //할인율 최고 2행
+                $('span[name="sales_percentage"]').eq(1).empty().append(productList2[(page*2)+1].sales_percentage);
+                $('li[name="pd_img2"]').eq(1).empty().append('<img src="' + productList2[(page*2)+1].img2 + '"/>');
+                $('li[name="pd_name2"]').eq(1).empty().append(productList2[(page*2)+1].name2);
+                $('li[name="pd_cost2"]').eq(1).empty().append(productList2[(page*2)+1].cost2);  
+            }else if(obj2 == undefined){
+                /*$('span[name="sales_percentage"]').eq(1).empty();
+                $('li[name="pd_img2"]').eq(1).empty();
+                $('li[name="pd_name2"]').eq(1).empty();
+                $('li[name="pd_cost2"]').eq(1).empty(); */
+                //$('span[name="dl_per"]').eq(1).css("display","none");
+                $('span[name="sales_percentage"]').eq(1).empty().append(productList2[0].sales_percentage);
+                $('li[name="pd_img2"]').eq(1).empty().append('<img src="' + productList2[0].img2 + '"/>');
+                $('li[name="pd_name2"]').eq(1).empty().append(productList2[0].name2);
+                $('li[name="pd_cost2"]').eq(1).empty().append(productList2[0].cost2);  
+
+            }
+            
+            
         }
 
         pageArrowUtil2("PAGE");
@@ -3271,8 +3332,9 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
         
         var requestCategoryDtlCode = "";
         var a = fvUrl.split("/");
-        var aa = a[7];
+        var aa = a[6];
         console.log("aa="+aa);
+        console.log("fvUrl="+fvUrl);
         var b = aa.split(".");
         var bb = b[0]
         console.log("bb="+bb);
@@ -3353,7 +3415,7 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
         var setImgUrl = $('li[name="shooperImg2"]').children().attr("src");
         console.log("setImgUrl="+setImgUrl);
-        if(setImgUrl == "http://175.209.53.205/gigamart_img/images/product/1000.jpg"){
+        if(setImgUrl == "http://175.209.53.205:8080/images/product/1000.jpg"){
             $('li[name="shopper_product"]').empty().html("목살스테이크카레");
         }else{
             $('li[name="shopper_product"]').empty().html("닭볶음탕");
