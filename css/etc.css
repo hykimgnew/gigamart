@@ -442,3 +442,11 @@ input[type="password"]
 }
 /*검색결과 line 590*/
 .voice_search_result .vsr_content .vsrc_left li {height:44px; line-height:42px; border:2px solid #bbbbbd; background:#e7e7e7; border-radius:6px; margin-bottom:6px; text-align:center; font-weight:bold; color:#bbbbbd;}
+.ptl_img{
+	width : 154px;
+	height : 92px;
+	display : inline-block;
+	margin-top : 3px;
+	margin-left : 4px;
+	background : #fff;
+}

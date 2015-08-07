@@ -2109,7 +2109,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 // 결과값을 넣는다.
                 $.each(result, function(index, entry) {
 
-                    $('li[name="pl_img"]').eq(menuLoc).empty().append('<img src="' + entry['img'] + '"  style="width : auto; height : 92px; display : block; margin : 0 auto; "/>'); //width :555px;
+                    $('li[name="pl_img"]').eq(menuLoc).empty().append('<span class="ptl_img"><img src="' + entry['img'] + '"  style="width : auto; height : 92px; display : block; margin : 0 auto; "/></span>'); //width :555px;
                     $('li[name="pl_tit"]').eq(menuLoc).empty().append(entry['name']);
                     $('li[name="pl_price"]').eq(menuLoc).empty().append(cn_toPrice(entry['cost']) + "원");
                 });
@@ -2144,7 +2144,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 // 결과값을 넣는다.
                 $.each(result, function(index, entry) {
 
-                    $('li[name="pl_imgl"]').eq(menuLoc).empty().append('<img src="' + entry['img'] + '"  style="width : auto; height : 92px; display : block; margin : 0 auto; "/>'); //width :555px;
+                    $('li[name="pl_imgl"]').eq(menuLoc).empty().append('<span class="ptl_img"><img src="' + entry['img'] + '"  style="width : auto; height : 92px; display : block; margin : 0 auto; "/></span>'); //width :555px;
                     $('li[name="pl_titl"]').eq(menuLoc).empty().append(entry['name']);
                     $('li[name="pl_pricel"]').eq(menuLoc).empty().append(cn_toPrice(entry['cost']) + "원");
                 });
