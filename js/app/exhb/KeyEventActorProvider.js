@@ -1407,6 +1407,17 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
             console.log("# 팝업 없을때 keyCode : " + keyCode);
 
             // **************************************************
+            // * # KEY  (로그아웃)
+            // **************************************************
+            if(keyCode === global.VK_F12) {
+                if(INTRO_SCREEN == false) {
+                    isLogout = 2; 
+                    $('#pop_logout').show();
+                    $('#btn_logout_cancel').addClass('focus'); // 취소 버튼 Focus
+                }
+            }
+
+            // **************************************************
             // * 三 KEY (플로팅 장바구니)
             // **************************************************
             if(keyCode === global.VK_GREEN) {
@@ -1543,6 +1554,21 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                     // 로그인 버튼
                     if(currentIntroFocus == 1) {
                         go_login();
+                    }
+                }
+
+                // 로그아웃 팝업 일때
+                else if(isLogout != 0) {
+                    // 확인
+                    if(isLogout == 1) {
+                        //window.oipfObjectFactory.createApplicationManagerObject().getOwnerApplication(window.document).destroyApplication();
+                        location.href = INDEX_PATH + "index.html";
+                    }
+                    // 취소
+                    else if(isLogout == 2) {
+                        isLogout = 0;
+                        $('#pop_logout').hide();
+                        $('#btn_logout_cancel').removeClass("focus");
                     }
                 }
 
@@ -1721,6 +1747,18 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                                     $('#login_pin_no').val("");
                                 }
                             }
+                        }
+                    }
+
+                    // 로그아웃 팝업 일때
+                    else if(isLogout != 0) {
+                        // 확인
+                        if(isLogout == 1) {
+                            // X
+                        }
+                        // 취소
+                        else if(isLogout == 2) {
+                            // X
                         }
                     }
 
@@ -1969,6 +2007,18 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
 
                         // 로그인 버튼
                         else if(currentIntroFocus == 1) {
+                            // X
+                        }
+                    }
+
+                    // 로그아웃 팝업 일때
+                    else if(isLogout != 0) {
+                        // 확인
+                        if(isLogout == 1) {
+                            // X
+                        }
+                        // 취소
+                        else if(isLogout == 2) {
                             // X
                         }
                     }
@@ -2227,6 +2277,20 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         }
                     }
 
+                    // 로그아웃 팝업 일때
+                    else if(isLogout != 0) {
+                        // 확인
+                        if(isLogout == 1) {
+                            // X
+                        }
+                        // 취소
+                        else if(isLogout == 2) {
+                            $('#btn_logout_cancel').removeClass("focus");
+                            $('#btn_logout_submit').addClass("focus");
+                            isLogout = 1;
+                        }
+                    }
+
                     // 지금 이상품 이가격 (하단) -> 지금 이상품 이가격 (하단) or 전체 카테고리
                     else if(currentFocusList == 2) {
                         // 지금 이상품 이가격(하단 왼쪽) -> 전체 카테고리
@@ -2395,6 +2459,20 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                         }
                     }
 
+                    // 로그아웃 팝업 일때
+                    else if(isLogout != 0) {
+                        // 확인
+                        if(isLogout == 1) {
+                            $('#btn_logout_submit').removeClass("focus");
+                            $('#btn_logout_cancel').addClass("focus");
+                            isLogout = 2;
+                        }
+                        // 취소
+                        else if(isLogout == 2) {
+                            // X
+                        }
+                    }
+
                     // 전체 카테고리 -> 지금 이상품 이가격 (하단)
                     else if(currentFocusList == 0) {
                         // this.videoStop();
@@ -2511,9 +2589,11 @@ App.defineClass('Gigamart.app.exhb.KeyEventActorProvider', {
                 }
                 
             } else if (keyCode === global.VK_BACK) {
-                window.oipfObjectFactory.createApplicationManagerObject().getOwnerApplication(window.document).destroyApplication();
+                if(INTRO_SCREEN == true) {
+                    window.oipfObjectFactory.createApplicationManagerObject().getOwnerApplication(window.document).destroyApplication();
+                }
             } else if (keyCode === global.VK_ESCAPE) {
-                window.oipfObjectFactory.createApplicationManagerObject().getOwnerApplication(window.document).destroyApplication();
+                //window.oipfObjectFactory.createApplicationManagerObject().getOwnerApplication(window.document).destroyApplication();
             } else if (keyCode === global.VK_PLAY || keyCode === global.VK_STOP || keyCode === global.VK_REWIND || keyCode === global.VK_FAST_FWD) {
                 
             }

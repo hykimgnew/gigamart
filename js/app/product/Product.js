@@ -246,7 +246,7 @@ var popFocus = 0;
  /**
   * 상세카테고리 : 확인/상세/담기 
   **/
-  var btnokfill = '<img src="../images/btn_ok_fill.png"/>';
+  var btnokfill = '<img class="pm_bdr_imgFill" src="../images/btn_ok_fill4.gif"/>';
 
 global.onload = function() {
     global.Product = Gigamart.app.product.Product.create();

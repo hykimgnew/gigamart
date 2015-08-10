@@ -671,6 +671,16 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
         // ************************************************************************
 
             // **************************************************
+            // * # KEY  (로그아웃)
+            // **************************************************
+            if(keyCode === global.VK_F12) {
+                isLogout = 2; 
+                $('#pop_logout').show();
+                $('#btn_logout_cancel').addClass('focus'); // 취소 버튼 Focus
+            }
+
+
+            // **************************************************
             // * ◀ KEY (플로팅 Go home)
             // **************************************************
             if(keyCode === global.VK_RED) {
@@ -707,10 +717,25 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                 // * 확인 KEY
                 // **************************************************
                 if (keyCode === global.VK_ENTER) {
+                    // 로그아웃 팝업 일때
+                    if(isLogout != 0) {
+                        // 확인
+                        if(isLogout == 1) {
+                            //window.oipfObjectFactory.createApplicationManagerObject().getOwnerApplication(window.document).destroyApplication();
+                            location.href="../index.html";
+                        }
+                        // 취소
+                        else if(isLogout == 2) {
+                            isLogout = 0;
+                            $('#pop_logout').hide();
+                            $('#btn_logout_cancel').removeClass("focus");
+                        }
+                    }
+
                     //##########################
                     // 수량 조절 팝업 ON 일때
                     //##########################
-                    if(chgVolumeFocus > 0) {
+                    else if(chgVolumeFocus > 0) {
                         // - (수량 감소)
                         if(chgVolumeFocus == 1) {
                             var cnt = Number($('span[name="ppr_num_numP"]').html());
@@ -790,7 +815,7 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                     //##########################
 
                     // 장바구니에 상품이 존재할 때만 키 입력
-                    if(orderCartProductYN) {
+                    else if(orderCartProductYN) {
                         // <상품 리스트>
                         if(orderCartFocus == 1) {
 
@@ -1317,11 +1342,22 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                     // * 위 KEY
                     // **************************************************
                     if(keyCode === global.VK_UP) {
+                        // 로그아웃 팝업 일때
+                        if(isLogout != 0) {
+                            // 확인
+                            if(isLogout == 1) {
+                                // X
+                            }
+                            // 취소
+                            else if(isLogout == 2) {
+                                // X
+                            }
+                        }
 
                         //##########################
                         // 수량 조절 팝업 ON 일때
                         //##########################
-                        if(chgVolumeFocus > 0) {
+                        else if(chgVolumeFocus > 0) {
                             // - (수량 감소)
                             if(chgVolumeFocus == 1) {
                                 
@@ -1354,7 +1390,7 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                         // 장바구니 상품 목록
                         //##########################
                         // 장바구니에 상품이 존재할 때만 키 입력
-                        if(orderCartProductYN) {
+                        else if(orderCartProductYN) {
                             if(orderCartFocus == 1) {
                                 // 전체 체크박스 일 때
                                 if(orderCartListFocus == -1) {
@@ -1598,11 +1634,22 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                     // * 아래 KEY
                     // **************************************************
                     if(keyCode === global.VK_DOWN) {
+                        // 로그아웃 팝업 일때
+                        if(isLogout != 0) {
+                            // 확인
+                            if(isLogout == 1) {
+                                // X
+                            }
+                            // 취소
+                            else if(isLogout == 2) {
+                                // X
+                            }
+                        }
 
                         //##########################
                         // 수량 조절 팝업 ON 일때
                         //##########################
-                        if(chgVolumeFocus > 0) {
+                        else if(chgVolumeFocus > 0) {
                             // - (수량 감소)
                             if(chgVolumeFocus == 1) {
                                 $('span[name="ppr_num_minusP"]').removeClass('focus');
@@ -1635,7 +1682,7 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                         // 장바구니 상품 목록
                         //##########################
                         // 장바구니에 상품이 존재할 때만 키 입력
-                        if(orderCartProductYN) {
+                        else if(orderCartProductYN) {
                             if(orderCartFocus == 1) {
 
                                 // 선택상품 삭제, 선택상품 찜하기에서는 아래 키를 누르면 다음 페이지로 이동한다.
@@ -1877,10 +1924,24 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                     // * 좌 KEY
                     // **************************************************
                     if(keyCode === global.VK_LEFT) {
+                        // 로그아웃 팝업 일때
+                        if(isLogout != 0) {
+                            // 확인
+                            if(isLogout == 1) {
+                                // X
+                            }
+                            // 취소
+                            else if(isLogout == 2) {
+                                $('#btn_logout_cancel').removeClass("focus");
+                                $('#btn_logout_submit').addClass("focus");
+                                isLogout = 1;
+                            }
+                        }
+
                         //##########################
                         // 수량 조절 팝업 ON 일때
                         //##########################
-                        if(chgVolumeFocus > 0) {
+                        else if(chgVolumeFocus > 0) {
                             // - (수량 감소)
                             if(chgVolumeFocus == 1) {
                                 
@@ -1913,7 +1974,7 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                         // 장바구니 상품 목록
                         //##########################
                         // 장바구니에 상품이 존재할 때만 키 입력
-                        if(orderCartProductYN) {
+                        else if(orderCartProductYN) {
                             if(orderCartFocus == 1) {
 
                                 // 상품 리스트 일 때
@@ -2130,10 +2191,24 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                     // * 우 KEY
                     // **************************************************
                     if(keyCode === global.VK_RIGHT) {
+                        // 로그아웃 팝업 일때
+                        if(isLogout != 0) {
+                            // 확인
+                            if(isLogout == 1) {
+                                $('#btn_logout_submit').removeClass("focus");
+                                $('#btn_logout_cancel').addClass("focus");
+                                isLogout = 2;
+                            }
+                            // 취소
+                            else if(isLogout == 2) {
+                                // X
+                            }
+                        }
+
                         //##########################
                         // 수량 조절 팝업 ON 일때
                         //##########################
-                        if(chgVolumeFocus > 0) {
+                        else if(chgVolumeFocus > 0) {
                             // - (수량 감소)
                             if(chgVolumeFocus == 1) {
                                 $('span[name="ppr_num_minusP"]').removeClass('focus');
@@ -2166,7 +2241,7 @@ App.defineClass('Gigamart.app.order.KeyEventActorProvider', {
                         // 장바구니 상품 목록
                         //##########################
                         // 장바구니에 상품이 존재할 때만 키 입력
-                        if(orderCartProductYN) {
+                        else if(orderCartProductYN) {
                             if(orderCartFocus == 1) {
                                 
                                 // 전체 체크 박스, 상품 리스트, 선택상품 찜하기일 때

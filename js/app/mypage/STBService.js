@@ -24,9 +24,9 @@ App.defineClass('Gigamart.app.shopper_bag.STBService', {
 	_initializeKeySet: function () {
 		var me = this,
 			original = me.ownerApp.privateData.keyset,
-			keySet = (original.NAVIGATION + original.VCR);
+			keySet = (original.NAVIGATION + original.VCR + original.NUMERIC + original.OTHER);
 			
-	    original.setValue(original.maximumValue, [global.VK_CHANNEL_UP, global.VK_CHANNEL_DOWN]);
+	    original.setValue(original.maximumValue, [global.VK_CHANNEL_UP, global.VK_CHANNEL_DOWN, global.VK_CHANNEL_DOWN, global.VK_F3, global.VK_F12]);
 
 	    document.addEventListener('keydown', function(e) {
 	    	me._keyDown(e);

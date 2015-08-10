@@ -9,6 +9,7 @@ var global = window;
 // 일반 기획전 화면(view/exhb.html)일때는 스크립트상 경로에 ../ 이 존재하지 않음
 var EXHB_PATH = "";
 var EXHB_IMAGE_PATH = "../images/";
+var INDEX_PATH = "../";
 var INTRO_SCREEN = false;
 var GO_EXHB       = request.getParameter("GO_EXHB");
 

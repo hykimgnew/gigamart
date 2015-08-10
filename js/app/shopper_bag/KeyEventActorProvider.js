@@ -534,6 +534,15 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
         // *****************************************************************************
         else if(isCart == false) {
             // **************************************************
+            // * # KEY  (로그아웃)
+            // **************************************************
+            if(keyCode === global.VK_F12) {
+                isLogout = 2; 
+                $('#pop_logout').show();
+                $('#btn_logout_cancel').addClass('focus'); // 취소 버튼 Focus
+            }
+
+            // **************************************************
             // * 三 KEY (플로팅 장바구니)
             // **************************************************
             if(keyCode === global.VK_GREEN) {
@@ -578,8 +587,24 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
             // * 확인 KEY
             // **************************************************
             if (keyCode === global.VK_ENTER) {
+                // 로그아웃 팝업 일때
+                if(isLogout != 0) {
+                    // 확인
+                    if(isLogout == 1) {
+                        //window.oipfObjectFactory.createApplicationManagerObject().getOwnerApplication(window.document).destroyApplication();
+                        location.href="../index.html";
+                    }
+                    // 취소
+                    else if(isLogout == 2) {
+                        isLogout = 0;
+                        $('#pop_logout').hide();
+                        $('#btn_logout_cancel').removeClass("focus");
+                    }
+                }
+
+
                 //쇼퍼list일때 팝업 show
-                if(currentFocusList == 0){
+                else if(currentFocusList == 0){
                     $('li[name="sbl_list"]').eq(currentFocusMenu).removeClass('focus');
                     var shopperId = $('li[name="sbl_list"]').eq(currentFocusMenu).children().children('.shopper_id').val();
                     console.log("shopperId-->" + shopperId);
@@ -614,8 +639,20 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 // * 위 KEY
                 // **************************************************
                 if(keyCode === global.VK_UP) {
+                    // 로그아웃 팝업 일때
+                    if(isLogout != 0) {
+                        // 확인
+                        if(isLogout == 1) {
+                            // X
+                        }
+                        // 취소
+                        else if(isLogout == 2) {
+                            // X
+                        }
+                    }
+
                     //쇼퍼 list
-                    if(currentFocusList == 0){
+                    else if(currentFocusList == 0){
                         if(currentFocusMenu == 0){
                             //첫페이지일때
                             if(currentShopperListPage == 0){
@@ -786,8 +823,20 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 // * 아래 KEY
                 // **************************************************
                 if(keyCode === global.VK_DOWN) {
-                   //쇼퍼 list
-                    if(currentFocusList == 0){
+                    // 로그아웃 팝업 일때
+                    if(isLogout != 0) {
+                        // 확인
+                        if(isLogout == 1) {
+                            // X
+                        }
+                        // 취소
+                        else if(isLogout == 2) {
+                            // X
+                        }
+                    }
+
+                    //쇼퍼 list
+                    else if(currentFocusList == 0){
                         if(currentFocusMenu == 0){
                             //쇼퍼 list1행->2행
                             $('li[name="sbl_list"]').eq(currentFocusMenu).removeClass('focus');
@@ -959,11 +1008,24 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 // * 좌 KEY
                 // **************************************************
                 if(keyCode === global.VK_LEFT) {
+                    // 로그아웃 팝업 일때
+                    if(isLogout != 0) {
+                        // 확인
+                        if(isLogout == 1) {
+                            // X
+                        }
+                        // 취소
+                        else if(isLogout == 2) {
+                            $('#btn_logout_cancel').removeClass("focus");
+                            $('#btn_logout_submit').addClass("focus");
+                            isLogout = 1;
+                        }
+                    }
                     //쇼퍼 list
-                    if(currentFocusList == 0){
+                    else if(currentFocusList == 0){
                         
                     }
-                   //쇼퍼 추천세트 list
+                    //쇼퍼 추천세트 list
                     else if(currentFocusList == 1){
                         //쇼퍼 추천세트 1행1열->쇼퍼 list
                         if(currentFocusMenu2 == 0){
@@ -1050,8 +1112,21 @@ App.defineClass('Gigamart.app.shopper_bag.KeyEventActorProvider', {
                 // * 우 KEY
                 // **************************************************
                 if(keyCode === global.VK_RIGHT) {
+                    // 로그아웃 팝업 일때
+                    if(isLogout != 0) {
+                        // 확인
+                        if(isLogout == 1) {
+                            $('#btn_logout_submit').removeClass("focus");
+                            $('#btn_logout_cancel').addClass("focus");
+                            isLogout = 2;
+                        }
+                        // 취소
+                        else if(isLogout == 2) {
+                            // X
+                        }
+                    }
                     //쇼퍼 list
-                    if(currentFocusList == 0){
+                    else if(currentFocusList == 0){
                         //쇼퍼list->쇼퍼 추천세트
                         $('li[name="sbl_list"]').eq(currentFocusMenu).removeClass('focus');
                         //쇼퍼 추천세트 갯수가 0이면->마트는지금 이동

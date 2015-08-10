@@ -572,6 +572,15 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
         // *****************************************************************************
         else if(isCart == false) {
             // **************************************************
+            // * # KEY  (로그아웃)
+            // **************************************************
+            if(keyCode === global.VK_F12) {
+                isLogout = 2; 
+                $('#pop_logout').show();
+                $('#btn_logout_cancel').addClass('focus'); // 취소 버튼 Focus
+            }
+
+            // **************************************************
             // * 三 KEY (간편 장바구니)
             // **************************************************
             if(keyCode == VK_GREEN) {
@@ -601,8 +610,23 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
             // * 확인 KEY
             // **************************************************
             if (keyCode === global.VK_ENTER) {
+                // 로그아웃 팝업 일때
+                if(isLogout != 0) {
+                    // 확인
+                    if(isLogout == 1) {
+                        //window.oipfObjectFactory.createApplicationManagerObject().getOwnerApplication(window.document).destroyApplication();
+                        location.href="../index.html";
+                    }
+                    // 취소
+                    else if(isLogout == 2) {
+                        isLogout = 0;
+                        $('#pop_logout').hide();
+                        $('#btn_logout_cancel').removeClass("focus");
+                    }
+                }
+
                 //상품정보의 첫번째 화면일때
-                if(productView ==1){
+                else if(productView ==1){
                     //상세보기, 찜하기, 장바구니담기 버튼들..
                     if(currentFocusList == 0) {
                         if(btFocus == 0) { //+/-일때 popup
@@ -768,8 +792,20 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 // * 위 KEY
                 // **************************************************
                 if(keyCode === global.VK_UP) {
+                    // 로그아웃 팝업 일때
+                    if(isLogout != 0) {
+                        // 확인
+                        if(isLogout == 1) {
+                            // X
+                        }
+                        // 취소
+                        else if(isLogout == 2) {
+                            // X
+                        }
+                    }
+
                     //상품정보의 첫번째 화면일때
-                    if(productView ==1){
+                    else if(productView ==1){
                         console.log("currentFocusList==>"+currentFocusList);
                         // 장바구니 찜하기 상세보기 버튼들..
                         if(currentFocusList == 0) {
@@ -810,6 +846,7 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                                 $('li[name="pl_menul"]').eq(currentFocusMenul).removeClass('focus');   
                                 $('li[name="pl_menul"]:eq('+ currentFocusMenul + ') > .pm_bdr').empty();
                                 $('li[name="pl_menul"]').eq(currentFocusMenul).children().children('.plm_tit').removeClass('focus');
+
                                 $('ul[name="ci_btn"]').children().eq(btFocus).addClass('focus');
                                 currentFocusList = 0;
                                 //currentFocusMenul = currentFocusMenul-1;
@@ -929,8 +966,20 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 // * 아래 KEY
                 // **************************************************
                 if(keyCode === global.VK_DOWN) {
+                        // 로그아웃 팝업 일때
+                        if(isLogout != 0) {
+                            // 확인
+                            if(isLogout == 1) {
+                                // X
+                            }
+                            // 취소
+                            else if(isLogout == 2) {
+                                // X
+                            }
+                        }
+
                        //상품정보의 첫번째 화면일때
-                       if(productView ==1){
+                       else if(productView ==1){
                            // 장바구니 찜하기 상세보기 버튼들..
                             if(currentFocusList == 0) {
                                 if(btFocus  == 0){ //+/- focus -> 다른사람이 구매한 연관상품
@@ -1106,8 +1155,22 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 // * 좌 KEY
                 // **************************************************
                 if(keyCode === global.VK_LEFT) {
+                    // 로그아웃 팝업 일때
+                    if(isLogout != 0) {
+                        // 확인
+                        if(isLogout == 1) {
+                            // X
+                        }
+                        // 취소
+                        else if(isLogout == 2) {
+                            $('#btn_logout_cancel').removeClass("focus");
+                            $('#btn_logout_submit').addClass("focus");
+                            isLogout = 1;
+                        }
+                    }
+
                     //상품정보의 첫번째 화면일때
-                    if(productView ==1){
+                    else if(productView ==1){
                         // 장바구니 찜하기 상세보기 버튼들..
                         if(currentFocusList == 0) {
                             if(btFocus  == 0) { // +/- focus일때
@@ -1303,9 +1366,22 @@ App.defineClass('Gigamart.app.product.KeyEventActorProvider', {
                 // * 우 KEY
                 // **************************************************
                 if(keyCode === global.VK_RIGHT) {
+                    // 로그아웃 팝업 일때
+                    if(isLogout != 0) {
+                        // 확인
+                        if(isLogout == 1) {
+                            $('#btn_logout_submit').removeClass("focus");
+                            $('#btn_logout_cancel').addClass("focus");
+                            isLogout = 2;
+                        }
+                        // 취소
+                        else if(isLogout == 2) {
+                            // X
+                        }
+                    }
 
                     //상품정보의 첫번째 화면일때
-                    if(productView ==1){
+                    else if(productView ==1){
                         // 장바구니 찜하기 상세보기 버튼들..
                         if(currentFocusList == 0) {
                             if(btFocus  == 0) { // +/- focus일때

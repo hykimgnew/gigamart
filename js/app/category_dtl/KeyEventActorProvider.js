@@ -721,6 +721,15 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
         // *****************************************************************************
         else if(isCart == false) {
             // **************************************************
+            // * # KEY  (로그아웃)
+            // **************************************************
+            if(keyCode === global.VK_F12) {
+                isLogout = 2; 
+                $('#pop_logout').show();
+                $('#btn_logout_cancel').addClass('focus'); // 취소 버튼 Focus
+            }
+
+            // **************************************************
             // * 三 KEY (간편 장바구니)
             // **************************************************
             if(keyCode == VK_GREEN) {
@@ -765,6 +774,7 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
             // * 확인 KEY
             // **************************************************
             if (keyCode === global.VK_ENTER) {
+
                 console.log("############ VK_ENTER 1234");
                 console.log("currentFocusList"+currentFocusList);
                 console.log("currentFocusBtn"+currentFocusBtn);
@@ -772,9 +782,24 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 /**********test용****************/
                 //location.href ="product1.html";
                 /*******************************/
+
+                // 로그아웃 팝업 일때
+                if(isLogout != 0) {
+                    // 확인
+                    if(isLogout == 1) {
+                        //window.oipfObjectFactory.createApplicationManagerObject().getOwnerApplication(window.document).destroyApplication();
+                        location.href="../index.html";
+                    }
+                    // 취소
+                    else if(isLogout == 2) {
+                        isLogout = 0;
+                        $('#pop_logout').hide();
+                        $('#btn_logout_cancel').removeClass("focus");
+                    }
+                }
                 
                 // 상세 카테고리 일때
-                if(currentFocusList == 0) {
+                else if(currentFocusList == 0) {
 
                     var idx = Number(currentFocusDtl) + (9 * Number(currentFocusDtlPage));
 
@@ -806,8 +831,20 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 // **************************************************
                 if(keyCode === global.VK_UP) {
                     console.log("currentFocusList : "+currentFocusList+",verticalFocus : "+verticalFocus+",prevPageYN : "+prevPageYN)
+                    // 로그아웃 팝업 일때
+                    if(isLogout != 0) {
+                        // 확인
+                        if(isLogout == 1) {
+                            // X
+                        }
+                        // 취소
+                        else if(isLogout == 2) {
+                            // X
+                        }
+                    }
+
                     // 상품 목록
-                    if(currentFocusList == 0) {
+                    else if(currentFocusList == 0) {
                         // 첫번째 행 일때
                         if(verticalFocus == 0) { 
                             if(prevPageYN == true) {
@@ -897,9 +934,20 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 // * 아래 KEY
                 // **************************************************
                 if(keyCode === global.VK_DOWN) {
-                   
+                   // 로그아웃 팝업 일때
+                    if(isLogout != 0) {
+                        // 확인
+                        if(isLogout == 1) {
+                            // X
+                        }
+                        // 취소
+                        else if(isLogout == 2) {
+                            // X
+                        }
+                    }
+
                    // 상품 목록
-                   if(currentFocusList == 0) {
+                   else if(currentFocusList == 0) {
                         // 첫번째, 두번째 행 일때
                         if(verticalFocus >= 0 && verticalFocus < 2) {
                             // 총 갯수에서 3을 뺀 수가 포커스보다 작을 때 아래로 이동 불가 
@@ -1032,9 +1080,22 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 // * 좌 KEY
                 // **************************************************
                 if(keyCode === global.VK_LEFT) {
+                    // 로그아웃 팝업 일때
+                    if(isLogout != 0) {
+                        // 확인
+                        if(isLogout == 1) {
+                            // X
+                        }
+                        // 취소
+                        else if(isLogout == 2) {
+                            $('#btn_logout_cancel').removeClass("focus");
+                            $('#btn_logout_submit').addClass("focus");
+                            isLogout = 1;
+                        }
+                    }
 
                     // 상품 목록 일때
-                    if(currentFocusList == 0) {
+                    else if(currentFocusList == 0) {
                         // 상품 목록 두번째, 세번째 열일 때
                         if(horizonFocus >= 1 && horizonFocus < 3) {
                             $('li[name="li_discount"]').eq(currentFocusDtl).removeClass('focus');
@@ -1077,8 +1138,22 @@ App.defineClass('Gigamart.app.category_dtl.KeyEventActorProvider', {
                 // * 우 KEY
                 // **************************************************
                 if(keyCode === global.VK_RIGHT) {
+                    // 로그아웃 팝업 일때
+                    if(isLogout != 0) {
+                        // 확인
+                        if(isLogout == 1) {
+                            $('#btn_logout_submit').removeClass("focus");
+                            $('#btn_logout_cancel').addClass("focus");
+                            isLogout = 2;
+                        }
+                        // 취소
+                        else if(isLogout == 2) {
+                            // X
+                        }
+                    }
+
                     // 상품 목록 일때
-                    if(currentFocusList == 0) {
+                    else if(currentFocusList == 0) {
 
                         // 총 갯수에서 1을 뺀 수가 포커스보다 작을 때 오른쪽으로 이동 불가 
                         console.log("### 우측 이동 시 전체 갯수 : " + currentPageCnt + " 현재 포커스 위치 : " + currentFocusDtl);
