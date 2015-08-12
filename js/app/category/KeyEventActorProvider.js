@@ -1676,7 +1676,7 @@ App.defineClass('Gigamart.app.category.KeyEventActorProvider', {
         /*<video id="sub_mpeg_player" width="704" height="396" loop src="http://14.52.244.91:8080/video/tv/category/과일.mp4"></video>*/
         console.log("현재 재생영상 : " + url);
 
-        url = videoServerIp + "/gigamart_video/video/tv/category/" + categoryName + ".mp4";
+        url = videoServerIp + "/video/tv/category/" + categoryName + ".mp4";
 
         console.log("현재 재생영상 : " + url);
 
